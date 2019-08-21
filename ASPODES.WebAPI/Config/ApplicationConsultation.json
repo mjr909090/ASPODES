@@ -1,0 +1,8 @@
+﻿{
+    "ApplicationId": "申请书编号",
+    "DelegateType": "类别",
+    "Result": "会评结果",
+    "TotalBudget": "申请经费",
+    "CurrentBudget": "首年度预算",
+    "Period": "执行期限"
+}

@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngInfoMaintainApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body ng-controller="ngInfoMaintainCtrl">
+
+    <div class="container">
+        <br />
+
+        <!-- 面包屑导航 -->
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 单位管理</a>
+            </li>
+            <li class="active"> 单位信息维护</li>
+        </ol>
+
+        <br />
+        <div class="box box-primary">
+            <div class="box-header">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">基本信息</h3>
+                <div class="box-tools pull-right">
+                    <a class="load-icon" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <br />
+                <div class="row" ng-hide="!listAlready">
+                    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+
+                    <div class="col-lg-10 col-md-10 col-sm-10">
+                        <form class="form-horizontal" name="infoForm" role="form" novalidate>
+                            <div class="form-group">
+                                <label for="person" class="control-label col-sm-2">联系人</label><!--person.Email as-->
+                                <div class="col-sm-4">
+                                    <select class="form-control" ng-model="selectItem" ng-options="person.Name for person in userList">
+                                        <option value="" ng-hide="true">{{infoModalData.ContactName}}</option>
+                                    </select>
+                                </div>
+                                <label class="control-label col-sm-2">单位名称</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" ng-init="infoModalData.Name" value="{{infoModalData.Name}}" ng-model="infoModalData.Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">联系电话</label>
+                                <div class="col-sm-4">
+                                    <!--<input type="text" class="form-control" ng-init="infoModalData.ContactPhone" value="{{infoModalData.ContactPhone}}" ng-model="selectItem.Phone" readonly>-->
+                                    <input type="text" class="form-control" value="{{infoModalData.ContactPhone}}" ng-model="selectItem.Phone" readonly>
+                                    <!--<input type="text" class="form-control" ng-model="selectItem.Phone" readonly>-->
+                                </div>
+                                <label class="col-sm-2 control-label">单位地址</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" ng-model="infoModalData.Address">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">电子邮箱</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" ng-init="infoModalData.ContactId" value="{{infoModalData.ContactId}}" ng-model="selectItem.Email" readonly>
+                                </div>
+                                <label class="col-sm-2 control-label">邮编</label>
+                                <div class="col-sm-4">
+                                    <input name="zipInfo"
+                                           type="text"
+                                           class="form-control"
+                                           ng-model="infoModalData.Zip"
+                                           minlength="6"
+                                           maxlength="6" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="website" class="control-label col-sm-2">网址</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" ng-model="infoModalData.WebSite">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="introduce" class="control-label col-sm-2">单位介绍</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" name="introduceInfo" ng-model="infoModalData.Comment" rows="4" placeholder="Enter ..." style="resize:none;"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top: 16px;">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-11">
+                                    <button class="btn btn-primary btn-block" ng-click="editInstituteInfo()">编辑</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.box body -->
+            </div>
+
+            <div class="overlay" ng-hide="listAlready">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+        </div>
+
+        <!-- /.container-->
+    </div>
+
+</body>
+</html>

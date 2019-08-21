@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html ng-App="ngFinishedApplicationApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+        <!-- 自定义样式 -->
+        <link rel="stylesheet" href="css/Views/divisionAdmin/applicationManagement/division_application.css" />
+	</head>
+
+	<body ng-controller="ngFinishedApplicationCtrl">
+
+		<div class="container">
+			<!-- 面包屑导航 -->
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 单位管理</a>
+				</li>
+				<li>
+					<a> 申请书管理</a>
+				</li>
+				<li> <span>既往申请书</span></li>
+			</ol>
+
+			<!-- 以往申请书列表 -->
+			<div class="box box-solid">
+				<!-- box header -->
+				<div class="box-header bg-light-blue-gradient">
+					<div class="pull-right box-tools">
+						<button class="btn bg-light-blue-gradient btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="折叠"><i class="fa fa-minus"></i></button>
+					</div>
+					<i class="fa fa-sticky-note"></i>
+					<h3 class="box-title">既往申请书列表</h3>
+				</div>
+				<!-- box body -->
+				<div class="box-body">
+					<div id="example1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+						<br />
+
+                        <!-- toolbar-->
+                        <div class="row">
+                            <div class="form-group col-lg-6 col-md-6 col-sm-12" style="margin-left: 8px;">
+                                <!-- 搜索分类 -->
+                                <label for="select" class="control-label">分类</label>
+                                <select class="form-control"
+                                        id="select"
+                                        style="margin-left: 16px;"
+                                        ng-model="selectValue"
+                                        ng-options="projectType.ProjectTypeId as projectType.Name for projectType in projectTypeList"
+                                        ng-change="load_page(1)">
+                                    <option value="">全部</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="float:right;margin-right:3vw;">
+                                <button class="btn btn-primary" ng-click="exportDivisionfinishedList(selectValue)">导出列表</button>
+                            </div>
+                        </div>
+
+                        <br />
+                        <table id="finishedApplicationTable" class="table" ng-hide="divisionAppliesIsNull">
+                            <thead>
+                                <tr>
+                                    <th class="table-middle" style="min-width: 48px;">序号</th>
+                                    <th>名称</th>
+                                    <th class="table-middle" style="width:144px">委托</th>
+                                    <th style="min-width: 104px;">类别</th>
+                                    <th style="min-width: 64px;">负责人</th>
+                                    <th class="table-middle" style="min-width: 16px;">状态</th>
+                                    <th style="min-width: 48px;">全文</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="finishedApply in finishedApplies track by finishedApply.ApplicationId" ng-cloak>
+                                    <td class="table-middle">{{$index + 1}}</td>
+                                    <td>
+                                        <span class="text">{{finishedApply.ProjectName}}</span>
+                                    </td>
+                                    <td class="table-middle">
+                                        <span class="label label-default" ng-if="finishedApply.DeleageType == 0"> 非委托</span>
+                                        <span class="label label-primary" ng-if="finishedApply.DeleageType == 1"> 委托</span>
+                                    </td>
+                                    <td>{{finishedApply.ProjectTypeName}}</td>
+                                    <td>
+                                        <a ng-click="principalDetail(finishedApply)" data-target="#fzrInfo" data-toggle="modal">{{finishedApply.LeaderName}}</a>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <span class="label label-default" ng-if="finishedApply.Status < 5">新建</span>
+                                        <span class="label label-info" ng-if="finishedApply.Status == 5">待审核</span>
+                                        <span class="label label-danger" ng-if="finishedApply.Status == 6">已驳回</span>
+                                        <span class="label label-primary" ng-if="finishedApply.Status == 7">已撤回</span>
+                                        <span class="label label-info" ng-if="finishedApply.Status == 8">待受理</span>
+                                        <span class="label label-danger" ng-if="finishedApply.Status == 9">不受理</span>
+                                        <span class="label label-default" ng-if="finishedApply.Status >= 10 && finishedApply.Status <= 12 ">待指派</span>
+                                        <span class="label label-info" ng-if="finishedApply.Status == 13">评审中</span>
+                                        <span class="label label-success" ng-if="finishedApply.Status == 14">评审结束</span>
+                                        <span class="label label-danger" ng-if="finishedApply.Status == 15">不资助</span>
+                                        <span class="label label-success" ng-if="finishedApply.Status == 16">在库</span>
+                                        <span class="label label-warning" ng-if="finishedApply.Status == 17">已出库</span>
+                                        <span ng-if="finishedApply.Status == 18">过期失效</span>
+                                    </td>
+                                    <td>
+                                        <a class="pdfDownload" ng-click="downloadPDF(finishedApply.ApplicationId,finishedApply.ProjectName)">下载</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="callout callout-info" ng-hide="!divisionAppliesIsNull" ng-cloak>
+                            <h4>注意!</h4>
+
+                            <p>当前没有任何既往的申请书！</p>
+                        </div>
+
+					</div>
+				</div>
+				<!-- box footer -->
+                <div class="box-footer" ng-hide="divisionAppliesIsNull">
+                    <!-- paging -->
+                    <self-pagination></self-pagination>
+
+                    <!-- /.box-footer -->
+                </div>
+
+                <div class="overlay" ng-hide="listAlready">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+
+				<!-- /.box -->
+			</div>
+
+            <!-- 负责人fzrInfolModal-->
+            <principal-detail></principal-detail>
+
+			<!-- /.container -->
+		</div>
+
+	</body>
+
+</html>

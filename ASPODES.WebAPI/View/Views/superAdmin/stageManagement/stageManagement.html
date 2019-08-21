@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html ng-app="ngStageManagementApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap-table.css" />
+    <link rel="stylesheet" href="css/bootstrap-editable.css" />
+    <script type="text/javascript" src="js/bootstrap-table.js"></script>
+
+    <script type="text/javascript" src="js/angular.js"></script>
+    <!--<script src="/Scripts/ui-bootstrap-tpls-1.3.2.js"></script>
+    <script src="/Scripts/angular-locale_zh-cn.js"></script>-->
+
+</head>
+<body ng-controller="ngStageManagementCtrl">
+<div class="container">
+    <br />
+    <ol class="breadcrumb">
+        <li>
+            <a><i class="fa fa-dashboard"></i> 全院管理</a>
+        </li>
+        <li>
+            <a> 流程期限设置
+            </a>
+        </li>
+
+    </ol>
+    <div>
+        <input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a>开放</a>
+       <!-- <div class="switch switch-small">
+            <input type="checkbox" checked />
+        </div>-->
+    </div>
+
+    <br />
+    <form class="form-horizontal">
+        <fieldset style="margin-top: auto">
+           <div>
+               <legend ><span class="label label-success">自由申请阶段</span></legend>
+               <div class="row" >
+                   <div class="col-lg-1 col-md-1 col-xs-1">
+                       <h4><span class="label label-default">受理期限</span></h4>
+                   </div>
+                   <div class="col-lg-11 col-md-11 col-xs-11">
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 col-xs-6">
+                               <div class="form-group " >
+                                   <label  class="col-lg-3 control-label">开始时间</label>
+                                   <div class="input-group col-lg-7">
+                                       <div class="input-group-addon">
+                                           <i class="fa fa-calendar"></i>
+                                       </div>
+                                       <input id="reservation1" class="form-control pull-right" type="text">
+                                   </div>
+
+                               </div>
+                           </div>
+
+                           <div class="col-lg-6 col-md-6 col-xs-6">
+                               <div class="form-group">
+                                   <label  class="col-lg-3 control-label">结束时间</label>
+                                   <div class="input-group col-lg-7">
+                                       <div class="input-group-addon">
+                                           <i class="fa fa-calendar"></i>
+                                       </div>
+                                       <input id="reservation2" class="form-control pull-right" type="text">
+                                   </div>
+                               </div>
+                           </div>
+
+                       </div>
+                   </div>
+
+               </div>
+               <div class="row" >
+                   <div class="col-lg-1 col-md-1 col-xs-1">
+                       <h4><span class="label label-default">申请期限</span></h4>
+                   </div>
+                   <div class="col-lg-11 col-md-11 col-xs-11">
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 col-xs-6">
+                               <div class="form-group " >
+                                   <label  class="col-lg-3 control-label">开始时间</label>
+                                   <div class="input-group col-lg-7">
+                                       <div class="input-group-addon">
+                                           <i class="fa fa-calendar"></i>
+                                       </div>
+                                       <input id="reservation3" class="form-control pull-right" type="text">
+                                   </div>
+
+                               </div>
+                           </div>
+
+                           <div class="col-lg-6 col-md-6 col-xs-6">
+                               <div class="form-group">
+                                   <label  class="col-lg-3 control-label">结束时间</label>
+                                   <div class="input-group col-lg-7">
+                                       <div class="input-group-addon">
+                                           <i class="fa fa-calendar"></i>
+                                       </div>
+                                       <input id="reservation4" class="form-control pull-right" type="text">
+                                   </div>
+                               </div>
+                           </div>
+
+                       </div>
+                   </div>
+
+               </div>
+
+               <legend style="margin-top: 50px"><span class="label label-success">受理送审阶段</span></legend>
+               <div class="row" >
+                   <div class="col-lg-1 col-md-1 col-xs-1">
+                       <h4><span class="label label-default">确认指派期限</span></h4>
+                   </div>
+                   <div class="col-lg-11 col-md-11 col-xs-11">
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 col-xs-6">
+                               <div class="form-group " >
+                                   <label  class="col-lg-3 control-label">开始时间</label>
+                                   <div class="input-group col-lg-7">
+                                       <div class="input-group-addon">
+                                           <i class="fa fa-calendar"></i>
+                                       </div>
+                                       <input id="reservation5" class="form-control pull-right" type="text">
+                                   </div>
+
+                               </div>
+                           </div>
+
+                           <div class="col-lg-6 col-md-6 col-xs-6">
+                               <div class="form-group">
+                                   <label  class="col-lg-3 control-label">结束时间</label>
+                                   <div class="input-group col-lg-7">
+                                       <div class="input-group-addon">
+                                           <i class="fa fa-calendar"></i>
+                                       </div>
+                                       <input id="reservation6" class="form-control pull-right" type="text">
+                                   </div>
+                               </div>
+                           </div>
+
+                       </div>
+                   </div>
+
+               </div>
+               <div class="row" >
+                   <div class="col-lg-1 col-md-1 col-xs-1">
+                       <h4><span class="label label-default">评审期限</span></h4>
+                   </div>
+                   <div class="col-lg-11 col-md-11 col-xs-11">
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 col-xs-6">
+                               <div class="form-group " >
+                                   <label  class="col-lg-3 control-label">开始时间</label>
+                                   <div class="input-group col-lg-7">
+                                       <div class="input-group-addon">
+                                           <i class="fa fa-calendar"></i>
+                                       </div>
+                                       <input id="reservation7" class="form-control pull-right" type="text">
+                                   </div>
+
+                               </div>
+                           </div>
+
+                           <div class="col-lg-6 col-md-6 col-xs-6">
+                               <div class="form-group">
+                                   <label  class="col-lg-3 control-label">结束时间</label>
+                                   <div class="input-group col-lg-7">
+                                       <div class="input-group-addon">
+                                           <i class="fa fa-calendar"></i>
+                                       </div>
+                                       <input id="reservation8" class="form-control pull-right" type="text">
+                                   </div>
+                               </div>
+                           </div>
+
+                       </div>
+                   </div>
+
+               </div>
+
+               <legend style="margin-top: 50px"><span class="label label-success">咨询审议阶段</span></legend>
+               <div class="row" >
+                   <div class="col-lg-1 col-md-1 col-xs-1">
+                       <h4><span class="label label-default">入库期限</span></h4>
+                   </div>
+                   <div class="col-lg-11 col-md-11 col-xs-11">
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 col-xs-6">
+                               <div class="form-group " >
+                                   <label  class="col-lg-3 control-label">开始时间</label>
+                                   <div class="input-group col-lg-7">
+                                       <div class="input-group-addon">
+                                           <i class="fa fa-calendar"></i>
+                                       </div>
+                                       <input id="reservation9" class="form-control pull-right" type="text">
+                                   </div>
+
+                               </div>
+                           </div>
+
+                           <div class="col-lg-6 col-md-6 col-xs-6">
+                               <div class="form-group">
+                                   <label  class="col-lg-3 control-label">结束时间</label>
+                                   <div class="input-group col-lg-7">
+                                       <div class="input-group-addon">
+                                           <i class="fa fa-calendar"></i>
+                                       </div>
+                                       <input id="reservation10" class="form-control pull-right" type="text">
+                                   </div>
+                               </div>
+                           </div>
+
+                       </div>
+                   </div>
+
+               </div>
+               <legend style="margin-top: 50px"><span class="label label-success">出库项目阶段</span></legend>
+               <div class="row" >
+                   <div class="col-lg-1 col-md-1 col-xs-1">
+                       <h4><span class="label label-default">出库期限</span></h4>
+                   </div>
+                   <div class="col-lg-11 col-md-11 col-xs-11">
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 col-xs-6">
+                               <div class="form-group " >
+                                   <label  class="col-lg-3 control-label">开始时间</label>
+                                   <div class="input-group col-lg-7">
+                                       <div class="input-group-addon">
+                                           <i class="fa fa-calendar"></i>
+                                       </div>
+                                       <input id="reservation11" class="form-control pull-right" type="text">
+                                   </div>
+
+                               </div>
+                           </div>
+
+                           <div class="col-lg-6 col-md-6 col-xs-6">
+                               <div class="form-group">
+                                   <label  class="col-lg-3 control-label">结束时间</label>
+                                   <div class="input-group col-lg-7">
+                                       <div class="input-group-addon">
+                                           <i class="fa fa-calendar"></i>
+                                       </div>
+                                       <input id="reservation12" class="form-control pull-right" type="text">
+                                   </div>
+                               </div>
+                           </div>
+
+                       </div>
+                   </div>
+
+               </div>
+           </div>
+
+<!--
+            <legend style="margin-top: 50px"><span class="label label-success">出库项目阶段</span></legend>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-6">
+                    <div class="form-group" >
+                        <label  class="col-lg-2 control-label">开始时间</label>
+                        <div class="input-group col-lg-9">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input id="reservation7" class="form-control pull-right" type="text">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-xs-6">
+                    <div class="form-group">
+                        <label  class="col-lg-2 control-label">结束时间</label>
+                        <div class="input-group col-lg-9">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input id="reservation8" class="form-control pull-right" type="text">
+                        </div>
+                    </div>
+                </div>
+
+            </div>-->
+            <div class="row" >
+                <div class="col-lg-5 col-md-5 col-xs-5"></div>
+                <div class="col-lg-2 col-md-2 col-xs-2">
+                    <a  class="btn btn-success" data-toggle="modal" data-target="#save_StageManagement" >保存</a>
+                    <a  class="btn btn-success" >取消</a>
+                </div>
+                <div class="col-lg-5 col-md-5 col-xs-5"></div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<!--保存的模态框-->
+<div class="modal" id="save_StageManagement">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">成功</h3>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <p style="font-size: 20px;">保存成功！</p>
+                </div>
+
+                <!--<div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Create Event</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
+                            <button id="color-chooser-btn" class="btn btn-danger btn-block btn-sm dropdown-toggle"
+                                    type="button" data-toggle="dropdown" style="background-color: rgb(0, 166, 90); border-color: rgb(0, 166, 90);">
+                                Green
+                                <span class="caret"></span>
+                            </button>
+                            <ul id="color-chooser" class="dropdown-menu">
+                                <li>
+                                    <a class="text-green" href="#">
+                                        <i class="fa fa-square"></i>
+                                        Green
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-blue" href="#">
+                                        <i class="fa fa-square"></i>
+                                        Blue
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-navy" href="#">
+                                        <i class="fa fa-square"></i>
+                                        Navy
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-yellow" href="#">
+                                        <i class="fa fa-square"></i>
+                                        Yellow
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-orange" href="#">
+                                        <i class="fa fa-square"></i>
+                                        Orange
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-aqua" href="#">
+                                        <i class="fa fa-square"></i>
+                                        Aqua
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-red" href="#">
+                                        <i class="fa fa-square"></i>
+                                        Red
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-fuchsia" href="#">
+                                        <i class="fa fa-square"></i>
+                                        Fuchsia
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-purple" href="#">
+                                        <i class="fa fa-square"></i>
+                                        Purple
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="input-group">
+                            <input id="new-event" class="form-control" placeholder="Event Title" type="text">
+                            <div class="input-group-btn">
+                                <button id="add-new-event" class="btn btn-default btn-flat" type="button">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" >确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

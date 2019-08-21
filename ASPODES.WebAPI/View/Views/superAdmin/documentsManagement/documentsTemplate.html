@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html ng-app="ngDocumentsTemplateApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-controller="ngDocumentsTemplateCtrl">
+    <div class="container">
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 全院管理</a>
+            </li>
+            <li>
+                <a> 文档管理</a>
+            </li>
+            <li class="active">文档模板</li>
+        </ol>
+        <div class="box box-solid" style="margin-top: 40px" >
+            <div class="box-header" style="cursor: move; background-color:#a6e1ec;">
+                <div class="pull-right box-tools">
+                    <button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px; background-color:#a6e1ec;" data-original-title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+
+                <h3 class="box-title"> 文档列表 </h3>
+            </div>
+            <div class="box-body" style="display: block;">
+                <div>
+                    <div class="jvectormap-container" style="width: 100%; height: 100%; position: relative; overflow: hidden; background-color: transparent;">
+                        <div class="row">
+
+                            <div class="form-group col-lg-1 col-md-1 col-sm-1">
+                                <button class="btn" style="background-color:#a6e1ec;" data-toggle="modal" data-target="#addDocument">添加</button>
+                            </div>
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3"></div>
+                            <div class="form-group col-lg-5 col-md-5 col-sm-5"></div>
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3"></div>
+
+                        </div>
+                    </div>
+                    <table class="table table-striped table-hover" id="unhandledTable">
+                        <thead>
+                        <tr>
+                            <th>文件名</th>
+                            <th>大小</th>
+                            <th>上传时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr >
+                            <td>文件名01</td>
+                            <td>200k</td>
+                            <td>2017.5.26</td>
+
+                            <td>
+                                <a class="manage-icon" ng-click="showModifyDocumentModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑"><i class="fa fa-edit"></i></a>
+                                <a class="manage-icon" ng-click="showDeleteDocumentModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove"></i></a>
+
+                            </td>
+                        </tr>
+                        <tr >
+                            <td>文件名02</td>
+                            <td>200k</td>
+                            <td>2017.5.26</td>
+
+                            <td>
+                                <a class="manage-icon" ng-click="showModifyDocumentModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑"><i class="fa fa-edit"></i></a>
+                                <a class="manage-icon" ng-click="showDeleteDocumentModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove"></i></a>
+
+                            </td>
+                        </tr>
+                        <tr >
+                            <td>文件名03</td>
+                            <td>200k</td>
+                            <td>2017.5.26</td>
+
+                            <td>
+                                <a class="manage-icon" ng-click="showModifyDocumentModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑"><i class="fa fa-edit"></i></a>
+                                <a class="manage-icon" ng-click="showDeleteDocumentModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove"></i></a>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+
+                    <div class="dataTables_info col-lg-9">
+                        <h3>当前显示 1 到 6 条， 共 3 条</h3>
+                    </div>
+
+                    <div class="dataTables_paginate col-lg-3">
+                        <ul class="pagination">
+                            <li class="disabled">
+                                <a>&laquo;</a>
+                            </li>
+                            <li class="active">
+                                <a>1</a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" data-target="#pageNextWaring">2</a>
+                            </li>
+                            <li>
+                                <a>3</a>
+                            </li>
+                            <li>
+                                <a>4</a>
+                            </li>
+                            <li>
+                                <a>5</a>
+                            </li>
+                            <li>
+                                <a>&raquo;</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--添加的模态框-->
+    <div class="modal fade" id="addDocument" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">添加文档</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal row">
+                        <div class="col-lg-6 col-sm-6 col-xm-6">
+                            <div class="form-group">
+                                <label for="documentName" class="col-lg-4 col-sm-4 col-xm-4 control-label">文件名</label>
+                                <div class="col-lg-8 col-sm-8 col-xm-8">
+                                    <input type="text" id="documentName">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="documentType" class="col-lg-4 col-sm-4 col-xm-4  control-label">文件类型</label>
+                                <div class="col-lg-7 col-sm-7 col-xm-7">
+                                    <select class="form-control" id="documentType">
+                                        <option></option>
+                                        <option>word</option>
+                                        <option>PDF</option>
+                                    </select>
+                                </div>
+                                <!--<label for="documentType">文件类型</label>
+                                <input type="text" id="documentType">-->
+                            </div>
+                            <div class="form-group">
+                                <label for="documentSize" class="col-lg-4 col-sm-4 col-xm-4 control-label">文件大小</label>
+                                <div class="col-lg-8 col-sm-8 col-xm-8">
+                                    <input type="text" id="documentSize">
+                                </div>
+                               <!-- <label for="documentSize">文件大小</label>
+                                <input type="text" id="documentSize">-->
+                            </div>
+                            <div class="form-group">
+                                <label for="selectDocument" class="col-lg-4 col-sm-4 col-xm-4 control-label">选择文档</label>
+                                <div class="col-lg-8 col-sm-8 col-xm-8">
+                                    <input type="file" id="selectDocument">
+                                </div>
+                               <!-- <label for="selectDocument">选择文档</label>
+                                <input type="file" id="selectDocument">-->
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--编辑-->
+    <div class="modal" id="modifyDocumentModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">编辑</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="box-body">
+                            <form class="form-horizontal row">
+                                <div class="col-lg-6 col-sm-6 col-xm-6">
+                                    <div class="form-group">
+                                        <label for="documentName_Modify" class="col-lg-4 col-sm-4 col-xm-4 control-label">文件名</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <input type="text" class="form-control" id="documentName_Modify" value="文件名" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="documentType_Modify" class="col-lg-4 col-sm-4 col-xm-4  control-label">文件类型</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <select class="form-control" id="documentType_Modify">
+                                                <option>word</option>
+                                                <option>PDF</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="documentSize_Modify" class="col-lg-4 col-sm-4 col-xm-4  control-label">文件大小</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <input type="text" class="form-control" id="documentSize_Modify" value="32KB" >
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="selectDoc" class="col-lg-4 col-sm-4 col-xm-4  control-label">文件</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <input type="text" class="form-control" id="selectDoc" value="文件.word" data-toggle="modal" data-target="#PDFDownLoad">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="selectDoc_modify" class="col-lg-4 col-sm-4 col-xm-4  control-label">修改文件</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <div class="col-lg-12 col-sm-12 col-xm-12 btn btn-default btn-file">
+                                                <i class="fa fa-paperclip"></i>
+                                                Attachment
+                                                <input  name="attachment" id="selectDoc_modify" type="file">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-6 col-xm-6"> </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--删除-->
+    <div class="modal" id="deleteDocumentModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">删除</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <p style="font-size: 20px;">您确定要删除该文档模板吗？删除后不可恢复，请谨慎操作！</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

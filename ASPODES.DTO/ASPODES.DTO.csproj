@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{46816AE9-50C5-4CD1-AE1C-E9E71BFC9899}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASPODES.DTO</RootNamespace>
+    <AssemblyName>ASPODES.DTO</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnnualTask\AddAnnualTaskBudgetItemDTO.cs" />
+    <Compile Include="AnnualTask\AddAnnualTaskInstBudgetDTO.cs" />
+    <Compile Include="AnnualTask\GetAnnualTaskBudgetItemDTO.cs" />
+    <Compile Include="AnnualTask\GetAnnualTaskDocDTO.cs" />
+    <Compile Include="AnnualTask\GetAnnualTaskBasicInfoDTO.cs" />
+    <Compile Include="AnnualTask\GetAnnualTaskDTO.cs" />
+    <Compile Include="AnnualTask\GetAnnualTaskInstBudgetDTO.cs" />
+    <Compile Include="AnnualTask\GetProjectAnnualTaskDTO.cs" />
+    <Compile Include="AnnualTask\UpdateAnnualTaskBudgetItemDTO.cs" />
+    <Compile Include="AnnualTask\UpdateAnnualTaskInstBudgetDTO.cs" />
+    <Compile Include="Application\ApplicationDTO\ApplicationStepOneRightDTO.cs" />
+    <Compile Include="Application\ApplicationDTO\InstExportAppDTO.cs" />
+    <Compile Include="Application\ApplicationDTO\DeptExportAppDTO.cs" />
+    <Compile Include="Application\ApplicationInquiriesDTO\ApplicationInquiriesDTO.cs" />
+    <Compile Include="Application\ApplicationInquiriesDTO\GetApplicationInquiriesDTO.cs" />
+    <Compile Include="Category\SupportCategoryDTO\GetSupportCategoryDTO.cs" />
+    <Compile Include="Consultation\AddConsultationDTO.cs" />
+    <Compile Include="Consultation\GetConsultationDTO.cs" />
+    <Compile Include="Inst-Person-User\InsituteDTO\UploadInstDTO.cs" />
+    <Compile Include="Inst-Person-User\PersonDTO\QueryPersonDTO.cs" />
+    <Compile Include="Inst-Person-User\PersonDTO\SearchPersonDTO.cs" />
+    <Compile Include="Inst-Person-User\UserDTO\ForgetPasswordDTO.cs" />
+    <Compile Include="Inst-Person-User\UserDTO\ResetPasswordDTO.cs" />
+    <Compile Include="Project\GetComboProjectDTO.cs" />
+    <Compile Include="Project\GetProjectDocDTO.cs" />
+    <Compile Include="Project\GetProjectDTO.cs" />
+    <Compile Include="Project\GetProjectMemberDTO.cs" />
+    <Compile Include="Project\InstExportProjectDTO.cs" />
+    <Compile Include="Review\ReviewCommentDTO\GetApplicationReviewCommentDTO.cs" />
+    <Compile Include="Review\ReviewCommentDTO\GetExportApplicationReviewCommentDTO.cs" />
+    <Compile Include="Role\ApplicationAssignmentDTO\AddApplicationAssignmentDTO.cs" />
+    <Compile Include="Role\ApplicationAssignmentDTO\ApplicationAssignmentDTO.cs" />
+    <Compile Include="Role\ApplicationAssignmentDTO\GetApplicationAssignmentDTO.cs" />
+    <Compile Include="Application\AnnualBudgetDTO\AddAnnualBudgetDTO.cs" />
+    <Compile Include="Application\AnnualBudgetDTO\GetAnnualBudgetDTO.cs" />
+    <Compile Include="Application\AnnualBudgetItemDTO\AddAnnualBudgetItemDTO.cs" />
+    <Compile Include="Application\AnnualBudgetItemDTO\GetAnnualBudgetItemDTO.cs" />
+    <Compile Include="Application\ApplicationDocDTO\AddApplicationDocDTO.cs" />
+    <Compile Include="Application\ApplicationDocDTO\GetApplicationDocDTO.cs" />
+    <Compile Include="Application\ApplicationDTO\AddApplicationDTO.cs" />
+    <Compile Include="Application\ApplicationDTO\ApplicationStepOneLeftDTO.cs" />
+    <Compile Include="Application\ApplicationDTO\GetApplicationDTO.cs" />
+    <Compile Include="Application\ApplicationFieldDTO\AddApplicationFieldDTO.cs" />
+    <Compile Include="Application\ApplicationFieldDTO\GetApplicationFieldDTO.cs" />
+    <Compile Include="Application\ApplicationLogDTO\AddApplicationLogDTO.cs" />
+    <Compile Include="Application\ApplicationLogDTO\GetApplicationLogDTO.cs" />
+    <Compile Include="Application\InstAnnualBudgetDTO\AddInstAnnualBudgetDTO.cs" />
+    <Compile Include="Application\InstAnnualBudgetDTO\GetInstAnnualBudgetDTO.cs" />
+    <Compile Include="Application\InstBudgetDTO\AddInstBudgetDTO.cs" />
+    <Compile Include="Application\InstBudgetDTO\AddInstTotalWithAnnualBudget.cs" />
+    <Compile Include="Application\InstBudgetDTO\GetInstBudgetDTO.cs" />
+    <Compile Include="Application\MemberDTO\AddMemberDTO.cs" />
+    <Compile Include="Application\MemberDTO\GetMemberDTO.cs" />
+    <Compile Include="Category\AccountingSubjectDTO\AddAccountingSubjectDTO.cs" />
+    <Compile Include="Category\AccountingSubjectDTO\GetAccountingSubjectDTO.cs" />
+    <Compile Include="Category\FieldDTO\AddFieldDTO.cs" />
+    <Compile Include="Category\FieldDTO\GetFieldDTO.cs" />
+    <Compile Include="Category\ProjectTypeDTO\AddProjectTypeDTO.cs" />
+    <Compile Include="Category\ProjectTypeDTO\GetProjectTypeDTO.cs" />
+    <Compile Include="Category\SubField\AddSubFieldDTO.cs" />
+    <Compile Include="Category\SubField\GetSubFieldDTO.cs" />
+    <Compile Include="Category\SupportCategoryDTO\SysSupportCategoryAddDTO.cs" />
+    <Compile Include="Category\SupportCategoryDTO\SysSupportCategoryGetDTO.cs" />
+    <Compile Include="Inst-Person-User\ExpertFieldDTO\AddExpertFieldDTO.cs" />
+    <Compile Include="Inst-Person-User\ExpertFieldDTO\GetExpertFieldDTO.cs" />
+    <Compile Include="Inst-Person-User\ExpertFieldDTO\UpdateExpertFieldDTO.cs" />
+    <Compile Include="Inst-Person-User\ExpertInfoDTO\AddExpertInfoDTO.cs" />
+    <Compile Include="Inst-Person-User\ExpertInfoDTO\GetExpertInfoDTO.cs" />
+    <Compile Include="Inst-Person-User\ExpertInfoDTO\GetExpertListDTO.cs" />
+    <Compile Include="Inst-Person-User\InsituteDTO\AddInstituteDTO.cs" />
+    <Compile Include="Inst-Person-User\InsituteDTO\GetInstituteDTO.cs" />
+    <Compile Include="Inst-Person-User\InsituteDTO\GetComboInstDTO.cs" />
+    <Compile Include="Inst-Person-User\PersonDTO\AddPersonDTO.cs" />
+    <Compile Include="Inst-Person-User\PersonDTO\GetComboPersonDTO.cs" />
+    <Compile Include="Inst-Person-User\PersonDTO\GetPersonDTO.cs" />
+    <Compile Include="Inst-Person-User\PersonDTO\UpdatePersonDTO.cs" />
+    <Compile Include="Inst-Person-User\UserDTO\AddUserDTO.cs" />
+    <Compile Include="Inst-Person-User\UserDTO\GetUserListDTO.cs" />
+    <Compile Include="Inst-Person-User\UserDTO\GetOneUserDTO.cs" />
+    <Compile Include="Inst-Person-User\UserDTO\LoginDTO.cs" />
+    <Compile Include="PagingListDTO.cs" />
+    <Compile Include="Profile\PasswordDTO\ChangePasswordDTO.cs" />
+    <Compile Include="Profile\ProfileDTO\EditProfileDTO.cs" />
+    <Compile Include="Profile\ProfileDTO\GetProfileDTO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Review\ReviewAssignmentDTO\AddReviewAssignmentDTO.cs" />
+    <Compile Include="Review\ReviewAssignmentDTO\GetApplicationReviwAssignmentDTO.cs" />
+    <Compile Include="Review\ReviewAssignmentDTO\GetReviewAssignmentDTO.cs" />
+    <Compile Include="Review\RecommendationDTO\AddRecommendationDTO.cs" />
+    <Compile Include="Review\RecommendationDTO\GetRecommendationDTO.cs" />
+    <Compile Include="Review\ReviewCommentDTO\UpdateReviewCommentDTO.cs" />
+    <Compile Include="Review\ReviewCommentDTO\AddReviewCommentDTO.cs" />
+    <Compile Include="Review\ReviewCommentDTO\GetReviewCommentDTO.cs" />
+    <Compile Include="Statistic\FundStatisticDTO\FundStatisticByInstDTO.cs" />
+    <Compile Include="System\AnnouncementAttachmentDTO\AddAnnouncementAttachmentDTO.cs" />
+    <Compile Include="System\AnnouncementAttachmentDTO\GetAnnouncementAttachmentDTO.cs" />
+    <Compile Include="System\AnnouncementDTO\GetAnnouncementComboDTO.cs" />
+    <Compile Include="System\ApplicationSettingDTO\GetApplicationSettingDTO.cs" />
+    <Compile Include="System\EmailDTO\AddEmailDTO.cs" />
+    <Compile Include="System\EmailDTO\GetEmailDTO.cs" />
+    <Compile Include="System\LogDTO\AddLogDTO.cs" />
+    <Compile Include="System\LogDTO\GetLogDTO.cs" />
+    <Compile Include="System\AnnouncementDTO\AddAnnouncementDTO.cs" />
+    <Compile Include="System\AnnouncementDTO\GetAnnouncementDTO.cs" />
+    <Compile Include="System\NoticeDTO\AddNoticeDTO.cs" />
+    <Compile Include="System\NoticeDTO\GetNoticeDTO.cs" />
+    <Compile Include="System\NoticeDTO\NoticeDropdownListDTO.cs" />
+    <Compile Include="System\NoticeDTO\NoticeDTO.cs" />
+    <Compile Include="System\NumberDTO\NumberListDTO.cs" />
+    <Compile Include="System\SmsDTO\AddSmsDTO.cs" />
+    <Compile Include="System\SmsDTO\GetSmsDTO.cs" />
+    <Compile Include="System\SysSettingDTO\AddSysSettingDTO.cs" />
+    <Compile Include="System\SysSettingDTO\GetSysSettingDTO.cs" />
+    <Compile Include="System\TemplateDocDTO\AddTemplateDocDTO.cs" />
+    <Compile Include="System\TemplateDocDTO\GetTemplateDocDTO.cs" />
+    <Compile Include="System\TemplateReasonDTO\AddTemplateReasonDTO.cs" />
+    <Compile Include="System\TemplateReasonDTO\GetTemplateReasonDTO.cs" />
+    <Compile Include="System\TemplateReasonDTO\TemplateReasonDTO.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ASPODES.Common\ASPODES.Common.csproj">
+      <Project>{b01f9f02-0875-403c-9516-26e1f734b169}</Project>
+      <Name>ASPODES.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASPODES.Model\ASPODES.Model.csproj">
+      <Project>{43f5f2e2-3c24-42bd-aa17-43c889dd5c5e}</Project>
+      <Name>ASPODES.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

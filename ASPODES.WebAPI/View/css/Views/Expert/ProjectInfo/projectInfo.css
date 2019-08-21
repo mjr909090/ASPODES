@@ -1,0 +1,8 @@
+tbody a:hover{
+	cursor: pointer;
+}
+/*PDF下载*/
+.pdfDownload{
+	color: #F39C12;
+	font-weight: 600;
+}

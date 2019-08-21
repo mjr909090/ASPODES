@@ -1,0 +1,40 @@
+tbody a:hover{
+	cursor: pointer;
+}
+.box-header a:link {
+     color: #ffffff;
+}
+#toolbar{
+	margin-top: 16px;
+}
+
+.pdfDownload{
+	color: #F39C12;
+	font-weight: 600;
+}
+.noPDFDownload{
+	color: #808080;
+	font-weight: 600;
+}
+.load-icon {
+	font-size: large;
+	margin-left: 8px;
+	color: #0F0F0F;
+}
+.manage-icon{
+	font-size: large;
+	margin-left: 8px;
+	color: #00C0EF;
+}
+.reject-icon {
+	font-size: large;
+	margin-left: 8px;
+	color: #9E9E9E;
+}
+
+#divisionApplyTable{
+	margin-top: 16px;
+}
+
+
+

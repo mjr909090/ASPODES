@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="ngScoreDescriptionSettingApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <link href="css/Views/systemAdmin/applicationSetting/scoreDescriptionSetting.css" rel="stylesheet" />
+
+</head>
+<body ng-controller="ngScoreDescriptionSettingCtrl">
+
+    <div class="container">
+
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 系统管理</a>
+            </li>
+            <li>
+                <a><i class="fa fa-dashboard"></i> 评分说明设置</a>
+            </li>
+            <li class="active"> </li>
+        </ol>
+
+        <div class="descriptionFileContainer">
+            <ul class="products-list col-sm-8 col-sm-push-2">
+                <li class="item">
+                    <div class="product-info">
+                        <div class="product-title">
+                            评分说明总纲
+                            <a class="label label-primary pull-right" data-toggle="tooltip" data-placement="top" title="" data-original-title="上传" ng-click="fileType = 'Total'" ngf-select="uploadscoreDescriptionFiles($files, $invalidFiles)"><i class="fa fa-upload"></i></a>
+                        </div>
+                        <span class="product-description">
+                            {{scoreDescriptionfileList.Total}}
+                        </span>
+                    </div>
+                </li>
+
+                <li class="item col-sm-12">
+                    <div class="product-info">
+                        <div class="product-title">
+                            联盟重点工作
+                            <a class="label label-primary pull-right" data-toggle="tooltip" data-placement="top" title="" data-original-title="上传" ng-click="fileType = 'AllianceFocusWorkfileclass'" ngf-select="uploadscoreDescriptionFiles($files, $invalidFiles)"><i class="fa fa-upload"></i></a>
+                        </div>
+                        <span class="product-description">
+                            {{scoreDescriptionfileList.AllianceFocusWorkfileclass}}
+                        </span>
+                    </div>
+                </li>
+
+                <li class="item col-sm-12">
+                    <div class="product-info">
+                        <div class="product-title">
+                            应急性科研工作
+                            <a class="label label-primary pull-right" data-toggle="tooltip" data-placement="top" title="" data-original-title="上传" ng-click="fileType = 'EmergencyResearchWorkfileclass'" ngf-select="uploadscoreDescriptionFiles($files, $invalidFiles)"><i class="fa fa-upload"></i></a>
+                        </div>
+                        <span class="product-description">
+                            {{scoreDescriptionfileList.EmergencyResearchWorkfileclass}}
+                        </span>
+                    </div>
+                </li>
+
+                <li class="item col-sm-12">
+                    <div class="product-info">
+                        <div class="product-title">
+                            科技基础性工
+                            <a class="label label-primary pull-right" data-toggle="tooltip" data-placement="top" title="" data-original-title="上传" ng-click="fileType = 'BasicScienceAndTechnologyWorkfileclass'" ngf-select="uploadscoreDescriptionFiles($files, $invalidFiles)"><i class="fa fa-upload"></i></a>
+                        </div>
+                        <span class="product-description">
+                            {{scoreDescriptionfileList.BasicScienceAndTechnologyWorkfileclass}}
+                        </span>
+                    </div>
+                </li>
+
+                <li class="item col-sm-12">
+                    <div class="product-info">
+                        <div class="product-title">
+                            基础研究引导计划
+                            <a class="label label-primary pull-right" data-toggle="tooltip" data-placement="top" title="" data-original-title="上传" ng-click="fileType = 'BasicResearchGuidancePlanfileclass'" ngf-select="uploadscoreDescriptionFiles($files, $invalidFiles)"><i class="fa fa-upload"></i></a>
+                        </div>
+                        <span class="product-description">
+                            {{scoreDescriptionfileList.BasicResearchGuidancePlanfileclass}}
+                        </span>
+                    </div>
+                </li>
+
+                <li class="item col-sm-12">
+                    <div class="product-info">
+                        <div class="product-title">
+                            重大成果培育计划
+                            <a class="label label-primary pull-right" data-toggle="tooltip" data-placement="top" title="" data-original-title="上传" ng-click="fileType = 'MajorResultsDevelopmentProgramfileclass'" ngf-select="uploadscoreDescriptionFiles($files, $invalidFiles)"><i class="fa fa-upload"></i></a>
+                        </div>
+                        <span class="product-description">
+                            {{scoreDescriptionfileList.MajorResultsDevelopmentProgramfileclass}}
+                        </span>
+                    </div>
+                </li>
+
+                <li class="item col-sm-12">
+                    <div class="product-info">
+                        <div class="product-title">
+                            重大平台推进计划
+                            <a class="label label-primary pull-right" data-toggle="tooltip" data-placement="top" title="" data-original-title="上传" ng-click="fileType = 'MajorPlatformPromotionPlanfileclass'" ngf-select="uploadscoreDescriptionFiles($files, $invalidFiles)"><i class="fa fa-upload"></i></a>
+                        </div>
+                        <span class="product-description">
+                            {{scoreDescriptionfileList.MajorPlatformPromotionPlanfileclass}}
+                        </span>
+                    </div>
+                </li>
+
+                <li class="item col-sm-12">
+                    <div class="product-info">
+                        <div class="product-title">
+                            重大项目储备计划
+                            <a class="label label-primary pull-right" data-toggle="tooltip" data-placement="top" title="" data-original-title="上传" ng-click="fileType = 'MajorProjectReservePlanfileclass'" ngf-select="uploadscoreDescriptionFiles($files, $invalidFiles)"><i class="fa fa-upload"></i></a>
+                        </div>
+                        <span class="product-description">
+                            {{scoreDescriptionfileList.MajorProjectReservePlanfileclass}}
+                        </span>
+                    </div>
+                </li>
+
+                <li class="item col-sm-12">
+                    <div class="product-info">
+                        <div class="product-title">
+                            农业智库建设计划
+                            <a class="label label-primary pull-right" data-toggle="tooltip" data-placement="top" title="" data-original-title="上传" ng-click="fileType = 'AgriculturalThinkTankConstructionPlanfileclass'" ngf-select="uploadscoreDescriptionFiles($files, $invalidFiles)"><i class="fa fa-upload"></i></a>
+                        </div>
+                        <span class="product-description">
+                            {{scoreDescriptionfileList.AgriculturalThinkTankConstructionPlanfileclass}}
+                        </span>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <!--{{fileType}}
+    {{fileNameList}}-->
+
+</body>
+</html>

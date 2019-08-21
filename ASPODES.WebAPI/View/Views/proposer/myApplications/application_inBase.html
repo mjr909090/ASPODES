@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngApplicationInBaseApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<link rel="stylesheet" href="css/Views/proposer/application_inBase.css" />
+	</head>
+	<body ng-controller="ngApplicationInBaseCtrl">
+		
+		<div class="container">
+			
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 项目申请</a>
+				</li>
+				<li>
+					<a>我的申请书</a>
+				</li>
+				<li class="active">既往申请书</li>
+			</ol>
+			
+
+            <!------------------------------In Base Propose-------------------------------------->
+			<!--<div class="box box-solid">
+				<div class="box-header ui-sortable-handle bg-green">
+					<i class="ion ion-clipboard"></i>
+
+					<h3 class="box-title"> 在库申请书</h3>
+					
+					<div class="box-tools pull-right">
+			            <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		            </div>
+					
+				</div>
+				<div class="box-body">
+                    <ul class="todo-list ui-sortable" ng-show="!inBaseListIsNull">
+                        <li ng-repeat="proposeInBaseItem in proposeInBaseLists | orderBy:'CurrentYear'">
+                            <span class="text">{{proposeInBaseItem.ProjectName}}</span>
+                            <small class="label label-success"><i class="fa fa-clock-o"></i> {{proposeInBaseItem.CurrentYear}}</small>
+
+                            <div class="tools pull-right">
+                                <i class="fa fa-edit" ng-click="jumpEditProposePage(proposeInBaseItem.ApplicationId);" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑修改"></i>
+                                <i class="fa fa-search" ng-click="showDetailModal();" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改意见"></i>
+                                <a href="proposeInBaseItem.PDF" download><i class="fa fa-download" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF下载"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+					
+                    <div class="callout callout-warning" ng-show="inBaseListIsNull">
+                        <h4>注意!</h4>
+                        <p>当前还没有在库的申请书！</p>
+                    </div>
+
+
+				</div>
+
+                <div class="overlay" ng-hide="inBaseListReady">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+
+			</div>
+			
+			<br />-->
+			
+
+
+            <!--------------------------------Previous Propose-------------------------------------->
+			<div class="box box-solid">
+				<div class="box-header ui-sortable-handle bg-green">
+					<i class="ion ion-clipboard"></i>
+
+					<h3 class="box-title"> 既往申请书</h3>
+					
+					<div class="box-tools pull-right">
+			            <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		            </div>
+					
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					<div class="row" style="width: 100%;" ng-show="!previousListIsNull">
+						<div class="col-lg-6 col-md-6 col-sm-6"></div>
+						<div class="pull-right col-lg-6 col-md-6 col-sm-6">
+							<form class="form-horizontal">
+								<fieldset>
+									<div class="form-group">
+										<label for="search-key" class="col-lg-3 control-label">快速搜索</label>
+										<div class="col-lg-9">
+											<input type="text" class="form-control" id="search-key" ng-model="searchKey" placeholder="搜索关键字">
+										</div>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<table class="table table-hover saved-table">
+								<thead>
+									<tr>
+										<th class="table-left">名称</th>
+										<th class="table-left">类别</th>
+                                        <th class="table-left">承担单位</th>
+										<th class="table-middle" style="width: 108px;">编辑时间</th>
+										<th class="table-middle" style="width: 66px;">状态</th>
+										<th class="table-middle" style="width: 56px;">PDF</th>
+									</tr>
+								</thead>
+								<tbody>
+                                    <tr ng-repeat="previousPropose in previousProposes | filter:searchKey | orderBy:'CurrentYear'">
+                                        <td class="table-left">
+                                            {{previousPropose.ProjectName}}
+                                        </td>
+                                        <td class="table-left">{{previousPropose.ProjectTypeName}}</td>
+                                        <td class="table-left">{{previousPropose.InstituteName}}</td>
+                                        <th class="table-middle">{{previousPropose.CurrentYear}}</th>
+                                        <td class="table-middle">
+                                            <span class="label label-primary" ng-if="previousPropose.Status == 5;">待单位审核</span>
+                                            <span class="label label-primary" ng-if="previousPropose.Status == 8;">待院受理</span>
+                                            <span class="label label-danger" ng-if="previousPropose.Status == 9;">不受理</span>
+                                            <span class="label label-primary" ng-if="previousPropose.Status == 10;">待评审</span>
+                                            <span class="label label-warning" ng-if="previousPropose.Status == 11;">评审中</span>
+                                            <span class="label label-success" ng-if="previousPropose.Status == 12;">评审完毕</span>
+                                            <span class="label label-danger" ng-if="previousPropose.Status == 13; ">不资助</span>
+                                            <span class="label label-success" ng-if="previousPropose.Status == 14;">在库</span>
+                                            <span class="label label-success" ng-if="previousPropose.Status == 15;">已出库</span>
+                                        </td>
+                                        <!--<td><a class="pdfDownload"><i class="fa fa-download logo-lg"></i></a></td>-->
+                                        <td class="table-middle">
+                                            <a class="pdfDownload" ng-if="previousPropose.PDF != null" href="previousPropose.PDF" download>下载</a>
+                                            <p ng-if="previousPropose.PDF == null">无PDF</p>
+                                        </td>
+                                    </tr>
+								</tbody>
+							</table>
+						</div>
+						
+					</div>
+					
+                    <div class="callout callout-warning" ng-show="previousListIsNull">
+                        <h4>注意!</h4>
+                        <p>当前还没有在库的申请书！</p>
+                    </div>
+
+				</div>
+			
+                <div class="overlay" ng-hide="previousListReady">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+            
+            </div>
+			
+            
+			
+			
+		</div>
+		
+		
+		
+		
+		<!--showDetailModal-->
+		<div class="modal fade" id="showDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">修改意见</h3>
+					</div>
+					<div class="modal-body">
+						<p>{{proposeInBaseLists[showProposeDetailId]}}</p>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+		
+	</body>
+</html>

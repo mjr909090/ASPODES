@@ -1,0 +1,75 @@
+﻿<form class="form-horizontal" name="FieldInfo" novalidate>
+    <fieldset>
+
+        <legend>研究领域</legend>
+
+        <div class="form-group" ng-class="{true:'has-error'}[$ctrl.fieldResource.ParentFieldName == null && submitted]">
+            <label for="field" class="col-lg-3 control-label">研究领域<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <select name="FieldName"
+                        ng-model="$ctrl.fieldResource.FieldId"
+                        class="form-control"
+                        id="FieldName"
+                        ng-options="field.FieldName as field.FieldName for field in $ctrl.fieldList"
+                        ng-change="$ctrl.getSubField($ctrl.fieldResource.FieldId)">
+                    <option value="" disabled>-------请选择研究领域-------</option>
+                </select>
+                <div ng-show="$ctrl.fieldResource.ParentFieldName == null && submitted">
+                    <small class="error" ng-show="$ctrl.fieldResource.ParentFieldName == null">请选择一项研究领域</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{true:'has-error'}[$ctrl.fieldResource.SubFieldId == null && submitted]">
+            <label for="subField" class="col-lg-3 control-label">子领域<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <select name="selectSubField"
+                        ng-model="$ctrl.fieldResource.SubFieldId"
+                        class="form-control"
+                        id="subField"
+                        ng-options="subField.SubFieldId as subField.SubFieldId for subField in $ctrl.fieldResource.SubFields"
+                        required>
+                    <option value="" disabled>-------请选择研究领域子领域-------</option>
+                </select>
+                <div ng-show="$ctrl.fieldResource.SubFieldId == null && submitted">
+                    <small class="error" ng-show="$ctrl.fieldResource.SubFieldId == null">请选择一项研究领域子领域</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{true:'has-error'}[FieldInfo.KeyWordsCN.$error.pattern || (FieldInfo.KeyWordsCN.$error.required && FieldInfo.KeyWordsCN.$dirty)]">
+            <label for="projectName" class="col-lg-3 control-label">中文关键字<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <input name="KeyWordsCN"
+                       ng-model="$ctrl.fieldResource.KeyWordsCN"
+                       type="text"
+                       class="form-control"
+                       id="KeyWordsCN1"
+                       placeholder="中文关键字"
+                       ng-pattern="/[\u4e00-\u9fa5]/"
+                       required />
+                <div ng-messages="FieldInfo.KeyWordsCN.$error" ng-if="FieldInfo.KeyWordsCN.$dirty" style="width: 100%">
+                    <small class="error" ng-message="required">中文关键字不能为空</small>
+                    <small class="error" ng-message="pattern">请输入中文</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{true:'has-error'}[FieldInfo.KeyWordsEN.$error.pattern || (FieldInfo.KeyWordsEN.$error.required && FieldInfo.KeyWordsEN.$dirty)]">
+            <label for="projectName" class="col-lg-3 control-label">英文关键字<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <input name="KeyWordsEN"
+                       ng-model="$ctrl.fieldResource.KeyWordsEN"
+                       type="text"
+                       class="form-control"
+                       id="KeyWordsEN1"
+                       placeholder="英文关键字"
+                       ng-pattern="/[a-zA-Z]/"
+                       required />
+                <div ng-messages="FieldInfo.KeyWordsEN.$error" ng-if="FieldInfo.KeyWordsEN.$dirty" style="width: 100%">
+                    <small class="error" ng-message="required">英文关键字不能为空</small>
+                    <small class="error" ng-message="pattern">请输入英文</small>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+

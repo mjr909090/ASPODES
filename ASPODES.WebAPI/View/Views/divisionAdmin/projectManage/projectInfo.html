@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngProjectInfoApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <link rel="stylesheet" href="../../../css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../../css/ionicons.min.css" />
+    <link href="../../../bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../dist/css/AdminLTE.min.css" />
+    <link rel="stylesheet" href="../../../dist/css/skins/_all-skins.min.css" />
+    <link rel="stylesheet" href="../../../plugins/notifIt/css/notifIt.css" />
+
+    <script type="text/javascript" src="../../../js/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="../../../js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../../js/angular.min.js"></script>
+    <script type="text/javascript" src="../../../js/angular-cookies.js"></script>
+    <script type="text/javascript" src="../../../plugins/notifIt/js/notifIt.js"></script>
+    <script type="text/javascript" src="../../../dist/js/app.min.js"></script>
+
+    <script type="text/javascript" src="../../../js/Views/divisionAdmin/projectManage/projectInfo.js"></script>
+    <!-- component -->
+    <script type="text/javascript" src="../../../js/Views/divisionAdmin/projectManage/projectInfo/projectFile.js"></script>
+
+    <script src="../../../js/Service/interceptorFactory.js"></script>
+
+    <base href="/" />
+</head>
+<body ng-controller="ngProjectInfoCtrl">
+
+    <div class="container">
+        
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#basicInfo" data-toggle="tab">
+                    基本信息
+                </a>
+            </li>
+            <li><a href="#projectMember" data-toggle="tab">项目成员</a></li>
+            <li><a href="#projectFile" data-toggle="tab">项目文件</a></li>
+            <li><a href="#projectTask" data-toggle="tab">任务书</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="basicInfo">
+               
+                <br />
+                <form class="form-horizontal" role="form">
+                   
+                    <div class="col-md-8 col-sm-8">
+                        <div class="form-group">
+                            <h4>项目信息</h4>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="control-label col-sm-3">项目名称</label>
+                            <span class="form-control" style="border:0px;">中国农业科学院科技管理与服务平台建设研究</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">执行期限</label>
+                            <span class="form-control" style="border:0px;">3年</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">类型</label>
+                            <span class="form-control" style="border:0px;">应急性科研工作</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">起止日期</label>
+                            <span class="form-control" style="border:0px;">2015/08/17 - 2018/10/20</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">总预算</label>
+                            <span class="form-control" style="border:0px;">20万</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">是否定向</label>
+                            <span class="form-control" style="border:0px;">否</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">状态</label>
+                            <span class="form-control" style="border:0px;">在研</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <h4>项目负责人</h4>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">姓名</label>
+                            <span class="form-control" style="border:0px;">刘振虎</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">性别</label>
+                            <span class="form-control" style="border:0px;">男</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">职称</label>
+                            <span class="form-control" style="border:0px;">讲师</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">手机</label>
+                            <span class="form-control" style="border:0px;">17856236523</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">邮箱</label>
+                            <span class="form-control" style="border:0px;">liuzhenhu@777.com</span>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="tab-pane fade" id="projectMember">
+                <br />
+                <h4>主持单位人员</h4>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>单位</th>
+                                <th>身份证号</th>
+                                <th>性别</th>
+                                <th>专业</th>
+                                <th>职称/职务</th>
+                                <th>责任分工</th>
+                                <th>电话</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>姜丽萍</td>
+                                <td>兽医所</td>
+                                <td>370121198908257654</td>
+                                <td>女</td>
+                                <td>农业数学</td>
+                                <td>讲师</td>
+                                <td>测试</td>
+                                <td>1786523652</td>
+                            </tr>
+                            <tr>
+                                <td>宁华建</td>
+                                <td>兽医所</td>
+                                <td>377541198641523714</td>
+                                <td>男</td>
+                                <td>农业土壤学</td>
+                                <td>讲师</td>
+                                <td>分析数据</td>
+                                <td>13945625895</td>
+                            </tr>
+                            <tr>
+                                <td>肖常龙</td>
+                                <td>兽医所</td>
+                                <td>110226198501272116</td>
+                                <td>男</td>
+                                <td>农业园艺学</td>
+                                <td>讲师</td>
+                                <td>收集数据</td>
+                                <td>15987415487</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <br />
+                <h4>外协单位人员</h4>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>单位</th>
+                            <th>身份证号</th>
+                            <th>性别</th>
+                            <th>专业</th>
+                            <th>职称/职务</th>
+                            <th>责任分工</th>
+                            <th>电话</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>王琳</td>
+                            <td>油料所</td>
+                            <td>371121199810262163</td>
+                            <td>女</td>
+                            <td>农业数学</td>
+                            <td>讲师</td>
+                            <td>测试</td>
+                            <td>15632563245</td>
+                        </tr>
+                        <tr>
+                            <td>潘卓</td>
+                            <td>棉花所</td>
+                            <td>310102198105254814</td>
+                            <td>男</td>
+                            <td>农业其他学科</td>
+                            <td>讲师</td>
+                            <td>总结</td>
+                            <td>15439358886</td>
+                        </tr>
+                        <tr>
+                            <td>王浩瀚</td>
+                            <td>棉花所</td>
+                            <td>310102198105254611</td>
+                            <td>男</td>
+                            <td>农业物理学</td>
+                            <td>讲师</td>
+                            <td>研究</td>
+                            <td>13114459281</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            
+            <div class="tab-pane fade" id="projectFile">
+
+                <br />
+                <project-file></project-file>
+
+            </div>
+            <div class="tab-pane fade" id="projectTask">
+                <br />
+
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">本年度任务书</h4>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+
+                        <ul class="todo-list ui-sortable">
+                            <li>
+                                <span class="text">中国农业科学院科技管理与服务平台建设研究</span>
+                                <small class="label label-info"><i class="fa fa-clock-o"></i> 2017-10-22</small>
+                                <small class="label label-primary">待审核</small>
+                                <div class="pull-right">
+                                    <a>
+                                        <i class="fa fa-download" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+                <br />
+
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">既往任务书</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                        <!--<ul class="todo-list ui-sortable">
+                            <li ng-repeat="preTask in preTaskList track by preTask.TaskId">
+                                <a ng-click="openTask(preTask.TaskId)">{{preTask.TaskName}}</a>
+                                <small class="label label-info"><i class="fa fa-clock-o"></i> {{preTask.SubmitDate}}</small>
+                                <small class="label label-primary">{{preTask.Status}}</small>
+                                <div class="pull-right">
+                                    <a>
+                                        <i class="fa fa-download" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>-->
+
+                        <ul class="todo-list ui-sortable">
+                            <li>
+                                <span class="text">中国农业科学院科技管理与服务平台建设研究-2015</span>
+                                <div class="pull-right">
+                                    <a>
+                                        <i class="fa fa-download" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"></i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="text">中国农业科学院科技管理与服务平台建设研究-2016</span>
+                                <div class="pull-right">
+                                    <a>
+                                        <i class="fa fa-download" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+</body>
+</html>

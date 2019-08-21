@@ -1,0 +1,30 @@
+.toggleSelectBtn{
+	position: fixed;
+	margin-top: 160px;
+	right: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	z-index: 999;
+}
+
+.toggleSelectLeft{
+	margin-right: 0;
+}
+
+.toggleSelectRight{
+	margin-right: 350px;
+}
+
+.selectBody{
+	position: fixed;
+	right: 0;
+	height: 100%;
+	width: 350px;
+	background-color: #1B6D85;
+	z-index: 999;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 24px;
+	padding-bottom: 24px;
+	overflow: scroll;
+}

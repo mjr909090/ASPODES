@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngExpertsListApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<!-- 自定义样式 -->
+		<link rel="stylesheet" href="css/Views/Expert/ApplicationReview/preReview.css" />
+
+	</head>
+
+	<body ng-controller="ngExpertsListCtrl">
+
+        <div class="container">
+            <br />
+            <ol class="breadcrumb">
+                <li>
+                    <a><i class="fa fa-dashboard"></i> 单位管理</a>
+                </li>
+                <li>
+                    <a> 专家</a>
+                </li>
+                <li> <span>专家列表</span></li>
+            </ol>
+
+
+            <div class="box box-solid">
+                <div class="box-header bg-light-blue">
+                    <div class="pull-right box-tools">
+                        <button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px;" data-original-title="Collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+
+                    <i class="fa fa-sticky-note"></i>
+                    <h3 class="box-title"> 本单位专家列表 </h3>
+                </div>
+                <div class="box-body">
+                    <div id="example1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                        <br />
+
+                        <!-- toolbar-->
+                        <div class="row" ng-hide="expertListIsNull">
+                            <!-- 搜索分类 -->
+                            <label for="select" class="text-right control-label  col-lg-2 col-md-2">研究领域</label>
+                            <select class="form-control  col-lg-2 col-md-2" ng-model="fieldInfo.FieldId" ng-options="field.FieldId as field.FieldId for field in fields" ng-change="getSubField(fieldInfo.FieldId)">
+                                <option value="">全部</option>
+                            </select>
+                            <label for="select" class="text-right control-label col-lg-2 col-md-2">子领域</label>
+                            <select class="form-control col-lg-2 col-md-2" ng-model="fieldInfo.SubFieldId" ng-options="subField.SubFieldId as subField.SubFieldId for subField in subFields">
+                                <option value="">全部</option>
+                            </select>
+                            <button class="btn btn-link col-lg-1 col-md-1" ng-click="load_page(1)">筛选</button>
+                        </div>
+                          
+                        <br />
+                        <table class="table table-striped table-hover" id="thisTable" ng-hide="expertListIsNull">
+                            <thead>
+                                <tr>
+                                    <th style="min-width: 48px;">序号</th>
+                                    <th style="min-width: 48px;">姓名</th>
+                                    <th style="min-width: 72px;">电子邮箱</th>
+                                    <th style="min-width: 72px;">所属部门</th>
+                                    <th style="min-width: 72px;">研究子领域1</th>
+                                    <th style="min-width: 48px;">研究子领域2</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="divisionExpert in divisionExpertList track by divisionExpert.PersonId" ng-cloak>
+                                    <td>{{$index + 1}}</td>
+                                    <td>
+                                        <a ng-click="showExpertInfoModal(divisionExpert)">{{divisionExpert.Name}}</a>
+                                    </td>
+                                    <td>{{divisionExpert.UserId}}</td>
+                                    <td>{{divisionExpert.InstituteName}}</td>
+                                    <td>
+                                        {{divisionExpert.FirstSubFieldId}}
+                                    </td>
+                                    <td>
+                                        {{divisionExpert.SecondSubFieldId}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="callout callout-info" ng-hide="!expertListIsNull" ng-cloak>
+                            <h4>注意!</h4>
+
+                            <p>当前本单位还没有任何专家！</p>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.box,body End -->
+                <!-- box footer -->
+                <div class="box-footer" ng-hide="expertListIsNull">
+                    <!-- paging -->
+                    <self-pagination></self-pagination>
+
+                    <!-- /.box-footer -->
+                </div>
+
+                <div class="overlay" ng-hide="listAlready">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+
+            </div>
+            <!-- /.box End -->
+
+            <!-- 负责人fzrInfolModal-->
+            <div class="modal fade" id="fzrInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h3 class="modal-title">专家信息</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-10">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="form-group">
+                                            <label>姓名：</label>{{modalData.Name}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>电子邮箱：</label>{{modalData.Email}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>职务：</label>
+                                            <span ng-if="modalData.Duty==null">--</span>
+                                            <span ng-if="modalData.Duty!=null"> {{modalData.Duty}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>手机号码：</label>{{modalData.Phone}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>所在单位：</label>{{modalData.InstituteName}}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="form-group">
+                                            <label>性别：</label>{{modalData.Male}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>出生年月：</label>{{modalData.Birthday | date:"yyyy-MM-dd"}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>职称：</label>
+                                            <span ng-if="modalData.Title==null">--</span>
+                                            <span ng-if="modalData.Title!=null"> {{modalData.Title}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>办公电话：</label>
+                                            <span ng-if="modalData.OfficePhone==null">--</span>
+                                            <span ng-if="modalData.OfficePhone!=null"> {{modalData.OfficePhone}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>所在地址：</label>
+                                            <span ng-if="modalData.Address==null">--</span>
+                                            <span ng-if="modalData.Address!=null"> {{modalData.Address}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1"></div>
+                            </div>
+                            <!-- /.modal body -->
+                        </div>
+                        <!--<div class="modal-footer">
+                        </div>-->
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+			<!-- /.container -->
+		</div>
+
+	</body>
+
+</html>

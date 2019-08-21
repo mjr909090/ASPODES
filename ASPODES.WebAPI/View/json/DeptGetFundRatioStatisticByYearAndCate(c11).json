@@ -1,0 +1,29 @@
+{"status":0,
+	"response":
+	[
+		{
+			"Year":2017,
+			"AllianceFocusWork":0.38,
+			"EmergencyResearchWork":0.54,
+			"BasicScienceAndTechnologyWork":0.17,
+			"BasicResearchGuidancePlan":0.11,
+			"MajorResultsDevelopmentProgram":0.25,
+			"MajorPlatformPromotionPlan":0.31,
+			"MajorProjectReservePlan":0.22,
+			"AgriculturalThinkTankConstructionPlan":0.03,
+			"Total":2.01
+		},
+		{
+			"Year":2018,
+			"AllianceFocusWork":0.13,
+			"EmergencyResearchWork":0.09,
+			"BasicScienceAndTechnologyWork":0.38,
+			"BasicResearchGuidancePlan":0.17,
+			"MajorResultsDevelopmentProgram":0.29,
+			"MajorPlatformPromotionPlan":0.53,
+			"MajorProjectReservePlan":0.11,
+			"AgriculturalThinkTankConstructionPlan":0.26,
+			"Total":1.96
+		}
+	]
+}

@@ -1,0 +1,134 @@
+{
+    "AbstractContent": "摘要测试",
+    "ApplicationId": "08ed82ba-3e22-4441-8e53-331e6e57406c",
+    "CurrentYear": 2017,
+    "FirstYearBudget": 7,
+    "Period": 3,
+    "ProjectName": "研究领域抽取测试",
+    "ProjectType": {
+        "ProjectTypeId": 3,
+        "ProjectTypeName": "科技基础性工作",
+        "ProjectTypeList": [
+            {
+                "ProjectTypeId": 1,
+                "Name": "联盟重点工作",
+                "Limit": null,
+                "Enable": true
+            },
+            {
+                "ProjectTypeId": 2,
+                "Name": "应急性科研工作",
+                "Limit": null,
+                "Enable": true
+            },
+            {
+                "ProjectTypeId": 3,
+                "Name": "科技基础性工作",
+                "Limit": null,
+                "Enable": true
+            },
+            {
+                "ProjectTypeId": 4,
+                "Name": "基础研究引导计划",
+                "Limit": null,
+                "Enable": true
+            },
+            {
+                "ProjectTypeId": 5,
+                "Name": "重大成果培育计划",
+                "Limit": null,
+                "Enable": true
+            },
+            {
+                "ProjectTypeId": 6,
+                "Name": "重大平台推进计划",
+                "Limit": 5,
+                "Enable": true
+            },
+            {
+                "ProjectTypeId": 7,
+                "Name": "重大项目储备计划",
+                "Limit": 1,
+                "Enable": true
+            },
+            {
+                "ProjectTypeId": 8,
+                "Name": "农业智库建设计划",
+                "Limit": 1,
+                "Enable": true
+            }
+        ]
+    },
+    "SupportCategory": {
+        "SupportCategoryId": 24,
+        "SupportCategoryName": "科技基础性工作",
+        "SupportCategoryList": [
+            {
+                "SupportCategoryId": 24,
+                "Name": "科技基础性工作",
+                "ProjectTypeId": 3
+            }
+        ]
+    },
+    "ParentFieldList": [
+        {
+            "FieldId": "农学其他学科"
+        },
+        {
+            "FieldId": "农业工程"
+        },
+        {
+            "FieldId": "农业基础学科"
+        },
+        {
+            "FieldId": "农艺学"
+        },
+        {
+            "FieldId": "土壤学"
+        },
+        {
+            "FieldId": "园艺学"
+        },
+        {
+            "FieldId": "植物保护学"
+        }
+    ],
+    "Field": [
+        {
+            "ApplicationFieldId": 381,
+            "ParentFieldName": "农业基础学科",
+            "SubFieldId": "农业生物物理学",
+            "SubFieldList": [
+                {
+                    "SubFieldId": "农业气象学与农业气候学"
+                },
+                {
+                    "SubFieldId": "农业生物物理学"
+                },
+                {
+                    "SubFieldId": "农业数学"
+                }
+            ],
+            "KeyWordsCN": "中文",
+            "KeyWordsEN": "english"
+        },
+        {
+            "ApplicationFieldId": 382,
+            "ParentFieldName": "农业工程",
+            "SubFieldId": "农业机械学",
+            "SubFieldList": [
+                {
+                    "SubFieldId": "农业机械学"
+                },
+                {
+                    "SubFieldId": "农业机械学(包括农业机械制造等)"
+                }
+            ],
+            "KeyWordsCN": "中文关键字",
+            "KeyWordsEN": "ENkeyword"
+        }
+    ],
+    "Status": 0,
+    "TotalBudget": 12,
+    "YearCreated": 2017
+}

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html ng-app="ngFirstReview_PassedApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-controller="ngFirstReview_PassedCtrl">
+
+
+<div class="container">
+    <br />
+    <ol class="breadcrumb">
+        <li>
+            <a><i class="fa fa-dashboard"></i> 全院管理</a>
+        </li>
+        <li>
+            <a> 咨询审议管理</a>
+        </li>
+        <li class="active"> 既往初审</li>
+    </ol>
+    <div class="box box-primary" style="margin-top: 40px">
+        <div class="box-header">
+            <!--<i class="fa fa-map-marker"></i>-->
+            <h3 class="box-title bg">既往初审列表</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <br />
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+
+                    <th>项目名称</th>
+                    <th>项目类型</th>
+                    <th>评审意见</th>
+                    <th>承担单位</th>
+                    <th>执行期限</th>
+                    <th>牵头负责人</th>
+                    <th>资助金额</th>
+                    <th>PDF文件</th>
+                    <th>申请日期</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <a class='refuse' data-toggle="modal" data-target="#btn_viewImportApplication">项目名称01</a>
+                    </td>
+                    <td>重点实验室应用基础研究</td>
+                    <td>
+                        <a class='refuse' data-toggle="modal" data-target="#review">评审意见</a>
+                    </td>
+                    <td>沼气所</td>
+                    <td>一年</td>
+                    <td> <a class='refuse' data-toggle="modal" data-target="#responserLeaderFirstReview">负责人01</a></td>
+                    <td>20万</td>
+                    <td>
+                        <a class='refuse' data-toggle="modal" data-target="#PDFDownLoad">PDF下载</a>
+                    </td>
+                    <td>2017.03.14</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class='refuse' data-toggle="modal" data-target="#btn_viewImportApplication">项目名称02</a>
+                    </td>
+                    <td>重点实验室应用基础研究</td>
+                    <td>
+                        <a class='refuse' data-toggle="modal" data-target="#review">评审意见</a>
+                    </td>
+                    <td>植保所</td>
+                    <td>一年</td>
+                    <td> <a class='refuse' data-toggle="modal" data-target="#responserLeaderFirstReview">负责人02</a></td>
+                    <td>15万</td>
+                    <td>
+                        <a data-toggle="modal" data-target="#PDFDownLoad" class='refuse1'>PDF下载</a>
+                    </td>
+                    <td>2017.03.24</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class='refuse' data-toggle="modal" data-target="#btn_viewImportApplication">项目名称03</a>
+                    </td>
+                    <td>行业三性科研工作任务</td>
+                    <td>
+                        <a class='refuse' data-toggle="modal" data-target="#review">评审意见</a>
+                    </td>
+                    <td>牧医所</td>
+                    <td>一年</td>
+                    <td> <a class='refuse' data-toggle="modal" data-target="#responserLeaderFirstReview">负责人03</a></td>
+                    <td>8万</td>
+                    <td>
+                        <a data-toggle="modal" data-target="#PDFDownLoad" class='refuse2'>PDF下载</a>
+                    </td>
+                    <td>2017.03.24</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class='refuse' data-toggle="modal" data-target="#btn_viewImportApplication">项目名称04</a>
+                    </td>
+                    <td>重点实验室应用基础研究</td>
+                    <td>
+                        <a class='refuse' data-toggle="modal" data-target="#review">评审意见</a>
+                    </td>
+                    <td>生物所</td>
+                    <td>一年</td>
+                    <td> <a class='refuse' data-toggle="modal" data-target="#responserLeaderFirstReview">负责人04</a></td>
+                    <td>16万</td>
+                    <td>
+                        <a data-toggle="modal" data-target="#PDFDownLoad" class='refuse3'>PDF下载</a>
+                    </td>
+                    <td>2017.03.24</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class='refuse' data-toggle="modal" data-target="#btn_viewImportApplication">项目名称05</a>
+                    </td>
+                    <td>重点实验室应用基础研究</td>
+                    <td>
+                        <a class='refuse' data-toggle="modal" data-target="#review">评审意见</a>
+                    </td>
+                    <td>水稻所</td>
+                    <td>一年</td>
+                    <td> <a class='refuse' data-toggle="modal" data-target="#responserLeaderFirstReview">负责人05</a></td>
+                    <td>20万</td>
+                    <td>
+                        <a data-toggle="modal" data-target="#PDFDownLoad" class='refuse4'>PDF下载</a>
+                    </td>
+                    <td>2017.04.12</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class='refuse' data-toggle="modal" data-target="#btn_viewImportApplication">项目名称06</a>
+                    </td>
+                    <td>行业三性科研工作任务</td>
+                    <td>
+                        <a class='refuse' data-toggle="modal" data-target="#review">评审意见</a>
+                    </td>
+                    <td>沼气所</td>
+                    <td>一年</td>
+                    <td> <a class='refuse' data-toggle="modal" data-target="#responserLeaderFirstReview">负责人06</a></td>
+                    <td>20万</td>
+                    <td>
+                        <a data-toggle="modal" data-target="#PDFDownLoad" class='refuse5'>PDF下载</a>
+                    </td>
+                    <td>2017.04.12</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <br />
+
+            <div class="dataTables_info col-lg-9">
+                <h3>当前显示 1 到 6 条， 共 6条</h3>
+            </div>
+
+            <div class="dataTables_paginate col-lg-3">
+                <ul class="pagination">
+                    <li class="disabled">
+                        <a>&laquo;</a>
+                    </li>
+                    <li class="active">
+                        <a>1</a>
+                    </li>
+                    <li>
+                        <a>2</a>
+                    </li>
+                    <li>
+                        <a>3</a>
+                    </li>
+                    <li>
+                        <a>4</a>
+                    </li>
+                    <li>
+                        <a>5</a>
+                    </li>
+                    <li>
+                        <a>&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--牵头负责人信息的模态框-->
+<div class="modal fade" id="responserLeaderFirstReview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <!--<div class="modal">-->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><!--右上角的关闭按钮-->
+                <h3 class="modal-title">负责人信息</h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="progress xs col-lg-12">
+                        <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h4>单位名称：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;科技管理局</strong></h5>
+                    </div>
+                    <div class="col-lg-4">
+                        <h4>主持人：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名01</strong></h5>
+                        <h4>性别：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;男</strong></h5>
+                        <h4>职称：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;研究员</strong></h5>
+                        <h4>电子邮箱：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zhuchiren@163.cn</strong></h5>
+                        <h4>手机：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;123456789</strong></h5>
+                    </div>
+                    <div class="col-lg-4">
+                        <h4>联系人：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系人01</strong></h5>
+                        <h4>电话：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12345678985</strong></h5>
+                        <h4>电子邮箱：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lianxiren@163.cn</strong></h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="progress xs col-lg-12">
+                        <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看入库项目页面的模态框-->
+<div class="modal" id="btn_viewImportApplication">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">详细信息</h3>
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h4>工作任务名称</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;申请书01</strong></h5>
+                                    <h4>委托部门（甲方）</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中国农业科学院</strong></h5>
+                                    <h4>承担部门（乙方）</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主持单位：科技管理局</strong></h5>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目负责人：项目负责人01</strong></h5>
+
+                                    <h4>经费预算：</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20万</strong></h5>
+                                    <h4>2017年度经费：</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15万</strong></h5>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h4>单位名称：</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;科技管理局</strong></h5>
+                                    <h4>编号：</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;123456789</strong></h5>
+                                    <h4>实施起止年限：</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2017年1月&nbsp;&nbsp;至&nbsp;&nbsp;2017年12月</strong></h5>
+                                    <h4>类别：</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类别01</strong></h5>
+                                </div>
+                            </div>
+                            <!--  <form class="form-horizontal row">
+                                  <div class="col-lg-6">
+                                      <div class="form-group">
+                                          <label for="rankNum" class="col-sm-4 control-label">排序位次</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="rankNum" value="01" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="projectID" class="col-sm-4 control-label">项目ID</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="projectID" value="00000001" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="projectName" class="col-sm-4 control-label">项目名称</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="projectName" value="项目名称01" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="projectType" class="col-sm-4 control-label">项目类型</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="projectType" value="项目类型01" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="supportAmount" class="col-sm-4 control-label">资助金额</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="supportAmount" value="20万" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="aprojectDocument" class="col-sm-4 control-label">项目文档</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="aprojectDocument" value="项目文档.pdf" data-toggle="modal" data-target="#PDFDownLoad" disabled="">
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                      <div class="form-group">
+                                          <label for="applyDate" class="col-sm-4 control-label">申请日期</label>
+                                          <div class="col-sm-8">
+                                              <input type="email" class="form-control" id="applyDate" value="2017.03.14" disabled="">
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                          <label for="CommitmentUnit" class="col-sm-4 control-label">承担单位</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="CommitmentUnit" value="茶叶研究所" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="responserLeaderName" class="col-sm-4 control-label">牵头负责人</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="responserLeaderName" value="牵头负责人01" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="executPeriod" class="col-sm-4 control-label">执行期限</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="executPeriod" value="一年" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="consignationProject" class="col-sm-4 control-label">委托项目</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="consignationProject" value="委托项目01" disabled="">
+                                          </div>
+                                      </div>
+                                  </div>
+                              </form>
+                              <form class="form-horizontal row">
+                                  <div class="form-group">
+                                      <label for="index" class="col-lg-2 control-label">内容摘要</label>
+                                      <div class="col-lg-8">
+                                          <textarea class="form-control" rows="3" id="index" placeholder="内容摘要..." disabled=""></textarea>
+                                      </div>
+
+                                  </div>
+                              </form>-->
+                        </div>
+                    </div>
+                    <!--项目参与人员-->
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title">项目参与人员</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+
+                        </div>
+                        <div class="box-body">
+
+                            <form class="form-horizontal row">
+
+                                <table class="table table-striped table-hover" id="personTable">
+                                    <thead>
+                                    <tr>
+                                        <th>选择</th>
+                                        <th>姓名</th>
+                                        <th>邮箱</th>
+                                        <th>手机号</th>
+                                        <th>单位</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+                                        <td>姓名01</td>
+                                        <td>111111111@163.com</td>
+                                        <td>手机号01</td>
+                                        <td>单位01</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+                                        <td>姓名02</td>
+                                        <td>222222222@163.com</td>
+                                        <td>手机号02</td>
+                                        <td>单位02</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+                                        <td>姓名03</td>
+                                        <td>333333333@163.com</td>
+                                        <td>手机号03</td>
+                                        <td>单位03</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-warning" data-dismiss="modal">确定</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 评审意见的模态框 -->
+<div class="modal" id="review">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">评审意见</h3>
+            </div>
+            <div class="modal-body">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <!--  <h3 class="box-title">评审意见</h3>-->
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+
+                    </div>
+                    <div class="box-body">
+
+                        <form class="form-horizontal">
+                            <table class="table table-bordered table-striped table-hover" id="reviewTable">
+                                <tbody>
+                                <tr>
+                                    <td class="text-center">项目名称</td>
+                                    <td class="text-left"><label>项目名称01 </label></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">项目类型</td>
+                                    <td class="text-left"><label>项目类型01 </label></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">申请日期</td>
+                                    <td class="text-left"><label>2017.04.22 </label></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">牵头负责人</td>
+                                    <td class="text-left"><label>牵头负责人01 </label></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <a>
+                                <h4>各专家评分及意见</h4></a>
+                            <!--各专家具体评价意见-->
+
+                            <table class="table table-bordered table-striped table-hover" id="expertReview">
+                                <thead>
+                                <tr>
+                                    <th>序号</td>
+                                    <th>评审专家</th>
+                                    <th>评分</th>
+                                    <th>资助意见</th>
+                                    <th>建议资助金额</th>
+                                    <th>意见</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>1</td>
+                                    <td>评审专家01</td>
+                                    <td>A、优</td>
+                                    <td>A、优先资助</td>
+                                    <td>20万</td>
+                                    <td>评审专家的意见</td>
+                                </tr>
+                                <tr>
+
+                                    <td>2</td>
+                                    <td>评审专家02</td>
+                                    <td>B、中</td>
+                                    <td>B、可资助</td>
+                                    <td>10万</td>
+                                    <td>评审专家的意见</td>
+                                </tr>
+                                <tr>
+
+                                    <td>3</td>
+                                    <td>评审专家02</td>
+                                    <td>C、中</td>
+                                    <td>A、优先资助</td>
+                                    <td>20万</td>
+                                    <td>评审专家的意见</td>
+                                </tr>
+                                <tr>
+
+                                    <td>4</td>
+                                    <td>评审专家02</td>
+                                    <td>C、中</td>
+                                    <td>A、优先资助</td>
+                                    <td>20万</td>
+                                    <td>评审专家的意见</td>
+                                </tr>
+                                <tr>
+
+                                    <td>5</td>
+                                    <td>评审专家02</td>
+                                    <td>C、中</td>
+                                    <td>A、优先资助</td>
+                                    <td>20万</td>
+                                    <td>评审专家的意见</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">确定</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框 PDF下载-->
+<div class="modal" id="PDFDownLoad">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">注意：</h4>
+            </div>
+            <div class="modal-body">
+                <p>文件正在下载…</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html ng-app="ngProjectManagementApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<link rel="stylesheet" href="css/Views/divisionAdmin/applicationExport/application_exported.css" />
+		
+	</head>
+	<body ng-controller="ngProjectManagementCtrl">
+		
+		<div class="container">
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 单位管理</a>
+				</li>
+				<li class="active"> 项目管理</li>
+			</ol>
+			<div class="box box-primary" style="margin-top: 40px">
+				<div class="box-header">
+					<!--<i class="fa fa-map-marker"></i>-->
+					<h3 class="box-title">在研项目列表</h3>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" ng-click="importApplication()" data-toggle="tooltip" data-placement="top" title=""
+								data-original-title="导入"><i class="fa fa-sign-in"></i></button>
+
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+
+					</div>
+				</div>
+				<div class="box-body">
+					<!--<div class="btn-group">
+						<a class="btn btn-primary" data-toggle="modal" data-target="#importApplication"><i class="fa fa-sign-in"></i>导入</a>
+						&lt;!&ndash;<a class="btn btn-primary" data-toggle="modal" data-target="#exportApplication"><i class="fa fa-sign-out"></i>导出</a>&ndash;&gt;
+					</div>-->
+					<br />
+					
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>项目名称</th>
+								<th>项目类型</th>
+								<th>承担单位</th>
+								<th>牵头负责人</th>
+								<th>资助金额</th>
+								<th>分数</th>
+								<th>PDF文件</th>
+								<th>出库年度</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称01</a>
+								</td>
+								<td>重点实验室应用基础研究</td>
+								<td>作科所</td>
+								<td>姓名01</td>
+								<td>20万</td>
+								<td>100</td>
+								<td>
+									<a class='refuse' data-toggle="modal" data-target="#PDFDownLoad">PDF下载</a>
+								</td>
+								<td>2017.03.14</td>
+								<!--<td><a class="editBtn" data-toggle="modal" data-target="#modifyProject"><strong>修改</strong></a></td>-->
+							</tr>
+							<tr>
+								<td>
+									<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称02</a>
+								</td>
+								<td>重点实验室应用基础研究</td>
+								<td>植保所</td>
+								<td>姓名02</td>
+								<td>10万</td>
+								<td>99</td>
+								<td>
+									<a data-toggle="modal" data-target="#PDFDownLoad" class='refuse1'>PDF下载</a>
+								</td>
+								<td>2017.03.24</td>
+							</tr>
+							<tr>
+								<td>
+									<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称03</a>
+								</td>
+								<td>行业三性科研工作任务</td>
+								<td>牧医所</td>
+								<td>姓名03</td>
+								<td>12万</td>
+								<td>98</td>
+								<td>
+									<a data-toggle="modal" data-target="#PDFDownLoad" class='refuse2'>PDF下载</a>
+								</td>
+								<td>2017.03.24</td>
+							</tr>
+							<tr>
+								<td>
+									<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称04</a>
+								</td>
+								<td>重点实验室应用基础研究</td>
+								<td>生物所</td>
+								<td>姓名04</td>
+								<td>15万</td>
+								<td>97</td>
+								<td>
+									<a data-toggle="modal" data-target="#PDFDownLoad" class='refuse3'>PDF下载</a>
+								</td>
+								<td>2017.03.24</td>
+							</tr>
+							<tr>
+								<td>
+									<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称05</a>
+								</td>
+								<td>重点实验室应用基础研究</td>
+								<td>信息所</td>
+								<td>姓名05</td>
+								<td>40万</td>
+								<td>96</td>
+								<td>
+									<a data-toggle="modal" data-target="#PDFDownLoad" class='refuse4'>PDF下载</a>
+								</td>
+								<td>2017.04.12</td>
+							</tr>
+							<tr>
+								<td>
+									<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称06 </a>
+								</td>
+								<td>行业三性科研工作任务</td>
+								<td>沼气所</td>
+								<td>姓名06</td>
+								<td>18万</td>
+								<td>95</td>
+								<td>
+									<a data-toggle="modal" data-target="#PDFDownLoad" class='refuse5'>PDF下载</a>
+								</td>
+								<td>2017.04.12</td>
+							</tr>
+						</tbody>
+					</table>
+					<br />
+
+					<div class="dataTables_info col-lg-9">
+						<h3>当前显示 1 到 6 条， 共 6条</h3>
+					</div>
+
+					<div class="dataTables_paginate col-lg-3">
+						<ul class="pagination">
+							<li class="disabled">
+								<a>&laquo;</a>
+							</li>
+							<li class="active">
+								<a>1</a>
+							</li>
+							<li>
+								<a>2</a>
+							</li>
+							<li>
+								<a>3</a>
+							</li>
+							<li>
+								<a>4</a>
+							</li>
+							<li>
+								<a>5</a>
+							</li>
+							<li>
+								<a>&raquo;</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+			<!--审核结题申请-->
+			<div class="box box-primary" style="margin-top: 40px">
+				<div class="box-header">
+					<h3 class="box-title">申请结题列表</h3>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div>
+				</div>
+				<div class="box-body">
+					<br />
+					<table class="table table-striped table-hover">
+						<thead>
+						<tr>
+							<th>项目名称</th>
+							<th>项目类型</th>
+							<th>承担单位</th>
+							<th>牵头负责人</th>
+							<th>资助金额</th>
+							<th>分数</th>
+							<th>PDF文件</th>
+							<th>出库年度</th>
+							<th>操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称01</a>
+							</td>
+							<td>重点实验室应用基础研究</td>
+							<td>作科所</td>
+							<td>姓名01</td>
+							<td>20万</td>
+							<td>100</td>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#PDFDownLoad">PDF下载</a>
+							</td>
+							<td>2017.03.14</td>
+							<td>
+								<a class="manage-icon" ng-click="showRejectConclusionModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="驳回"><i class="fa fa-remove"></i></a>
+								<a class="manage-icon" ng-click="showCheckConclusionPassModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="审核通过"><i class="fa fa-check"></i></a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称02</a>
+							</td>
+							<td>重点实验室应用基础研究</td>
+							<td>植保所</td>
+							<td>姓名02</td>
+							<td>10万</td>
+							<td>99</td>
+							<td>
+								<a data-toggle="modal" data-target="#PDFDownLoad" class='refuse1'>PDF下载</a>
+							</td>
+							<td>2017.03.24</td>
+							<td>
+								<a class="manage-icon" ng-click="showRejectConclusionModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="驳回"><i class="fa fa-remove"></i></a>
+								<a class="manage-icon" ng-click="showCheckConclusionPassModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="审核通过"><i class="fa fa-check"></i></a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称03</a>
+							</td>
+							<td>行业三性科研工作任务</td>
+							<td>牧医所</td>
+							<td>姓名03</td>
+							<td>12万</td>
+							<td>98</td>
+							<td>
+								<a data-toggle="modal" data-target="#PDFDownLoad" class='refuse2'>PDF下载</a>
+							</td>
+							<td>2017.03.24</td>
+							<td>
+								<a class="manage-icon" ng-click="showRejectConclusionModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="驳回"><i class="fa fa-remove"></i></a>
+								<a class="manage-icon" ng-click="showCheckConclusionPassModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="审核通过"><i class="fa fa-check"></i></a>
+							</td>
+						</tr>
+
+						</tbody>
+					</table>
+					<br />
+
+					<div class="dataTables_info col-lg-9">
+						<h3>当前显示 1 到 6 条， 共 3条</h3>
+					</div>
+
+					<div class="dataTables_paginate col-lg-3">
+						<ul class="pagination">
+							<li class="disabled">
+								<a>&laquo;</a>
+							</li>
+							<li class="active">
+								<a>1</a>
+							</li>
+							<li>
+								<a>2</a>
+							</li>
+							<li>
+								<a>3</a>
+							</li>
+							<li>
+								<a>4</a>
+							</li>
+							<li>
+								<a>5</a>
+							</li>
+							<li>
+								<a>&raquo;</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+			<!--待审核文档-->
+			<div class="box box-primary" style="margin-top: 40px">
+				<div class="box-header">
+					<!--<i class="fa fa-map-marker"></i>-->
+					<h3 class="box-title">待审核文档列表</h3>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div>
+				</div>
+				<div class="box-body">
+
+					<br />
+
+					<table class="table table-striped table-hover">
+						<thead>
+						<tr>
+							<th>项目名称</th>
+							<th>项目类型</th>
+							<th>承担单位</th>
+							<th>牵头负责人</th>
+							<th>年度任务书</th>
+							<th>申请结题文件</th>
+							<th>操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称01</a>
+							</td>
+							<td>重点实验室应用基础研究</td>
+							<td>作科所</td>
+							<td>姓名01</td>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#">年度任务书</a>
+							</td>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#">申请结题文件</a>
+							</td>
+							<td>
+								<a class="manage-icon" ng-click="showCheckAuditedDocumentsModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="审核通过"><i class="fa fa-check"></i></a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称02</a>
+							</td>
+							<td>重点实验室应用基础研究</td>
+							<td>植保所</td>
+							<td>姓名02</td>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#">年度任务书</a>
+							</td>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#">申请结题文件</a>
+							</td>
+							<td>
+								<a class="manage-icon" ng-click="showCheckAuditedDocumentsModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="审核通过"><i class="fa fa-check"></i></a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称03</a>
+							</td>
+							<td>行业三性科研工作任务</td>
+							<td>牧医所</td>
+							<td>姓名03</td>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#">年度任务书</a>
+							</td>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#">申请结题文件</a>
+							</td>
+							<td>
+								<a class="manage-icon" ng-click="showCheckAuditedDocumentsModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="审核通过"><i class="fa fa-check"></i></a>
+							</td>
+						</tr>
+
+					</table>
+					<br />
+
+					<div class="dataTables_info col-lg-9">
+						<h3>当前显示 1 到 6 条， 共 3条</h3>
+					</div>
+
+					<div class="dataTables_paginate col-lg-3">
+						<ul class="pagination">
+							<li class="disabled">
+								<a>&laquo;</a>
+							</li>
+							<li class="active">
+								<a>1</a>
+							</li>
+							<li>
+								<a>2</a>
+							</li>
+							<li>
+								<a>3</a>
+							</li>
+							<li>
+								<a>4</a>
+							</li>
+							<li>
+								<a>5</a>
+							</li>
+							<li>
+								<a>&raquo;</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+		<!--待审核文档的通过的模态框-->
+		<div class="modal fade" id="checkAuditedDocumentsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+			<!--<div class="modal">-->
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">审核通过</h3>
+					</div>
+					<div class="modal-body">
+
+						<div class="container">
+							<p style="font-size: 20px;">您确定要审核通过该项目的文档吗？</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" >确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--审核结题申请的通过的模态框-->
+		<div class="modal fade" id="checkConclusionPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+			<!--<div class="modal">-->
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">审核通过</h3>
+					</div>
+					<div class="modal-body">
+
+						<div class="container">
+							<p style="font-size: 20px;">您确定要审核通过该项目的结题申请吗？？</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" >确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--审核结题申请的驳回的模态框-->
+		<div class="modal fade" id="rejectConclusionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+			<!--<div class="modal">-->
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">驳回</h3>
+					</div>
+					<div class="modal-body">
+						<div class="box box-primary">
+							<div class="box-header">
+								<h3 class="box-title">您确定要对该项目的结题申请进行驳回操作吗</h3>
+							</div>
+							<div class="box-body">
+								<form class="form-horizontal row">
+									<!--  <p style="font-size: 20px;">您确定要驳回该申请书吗？</p>-->
+									<form class="form-horizontal row">
+										<div class="form-group">
+											<label for="index" class="col-lg-3 control-label">请填写驳回的原因：</label>
+											<div class="col-lg-7">
+												<textarea class="form-control" rows="3" id="index" placeholder="不受理原因：..."></textarea>
+											</div>
+
+										</div>
+									</form>
+								</form>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" >确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--导入的模态框-->
+		<div class="modal" id="importApplication">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">导入</h3>
+					</div>
+					<div class="modal-body">
+						<div class="container">
+							<div class="form-group">
+			                  	<label for="offlineReviewReport">线下评审结果</label>
+			                  	<input type="file" id="offlineReviewReport">
+			                </div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--导出的模态框-->
+		<div class="modal" id="exportApplication">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">项目出库</h3>
+					</div>
+					<div class="modal-body">
+						<div class="container">
+							<p style="font-size: 20px;">是否要将您选中的项目进行出库？</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--修改的模态框-->
+		<div class="modal" id="modifyProject">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">修改</h3>
+					</div>
+					<div class="modal-body">
+						<div>
+							<div class="box box-warning">
+								<div class="box-header">
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+									</div>
+
+								</div>
+								<div class="box-body">
+									<form class="form-horizontal row">
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label for="rankNum" class="col-sm-4 control-label">排序位次</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="rankNum" value="01">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="projectID" class="col-sm-4 control-label">项目ID</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="projectID" value="00000001">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="projectName" class="col-sm-4 control-label">项目名称</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="projectName" value="项目名称011">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="projectType" class="col-sm-4 control-label">项目类型</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="projectType" value="项目类型01">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="supportAmount" class="col-sm-4 control-label">资助金额</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="supportAmount" value="20万">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="aprojectDocument" class="col-sm-4 control-label">项目文档</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="aprojectDocument" value="项目文档.pdf" data-toggle="modal" data-target="#PDFDownLoad">
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label for="applyDate" class="col-sm-4 control-label">申请日期</label>
+												<div class="col-sm-8">
+													<input type="email" class="form-control" id="applyDate" value="2017.03.14">
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label for="CommitmentUnit" class="col-sm-4 control-label">承担单位</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="CommitmentUnit" value="茶叶研究所">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="responserLeaderName" class="col-sm-4 control-label">牵头负责人</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="responserLeaderName" value="牵头负责人01">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="executPeriod" class="col-sm-4 control-label">执行期限</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="executPeriod" value="一年">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="consignationProject" class="col-sm-4 control-label">委托项目</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="consignationProject" value="委托项目01">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="documentmodify" class="col-sm-4 control-label">修改文档</label>
+												<div class="col-sm-8 btn btn-default btn-file">
+													<i class="fa fa-paperclip"></i> Attachment
+													<input name="attachment" id="documentmodify" type="file">
+												</div>
+											</div>
+										</div>
+									</form>
+									<form class="form-horizontal row">
+										<div class="form-group">
+											<label for="index" class="col-lg-2 control-label">内容摘要</label>
+											<div class="col-lg-8">
+												<textarea class="form-control" rows="3" id="index" placeholder="内容摘要..."></textarea>
+											</div>
+
+										</div>
+									</form>
+								</div>
+							</div>
+							<!--项目参与人员-->
+							<div class="box box-warning">
+								<div class="box-header">
+									<h3 class="box-title">项目参与人员</h3>
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+									</div>
+
+								</div>
+								<div class="box-body">
+									<form class="form-horizontal row">
+										<div class="btn-group" id="toolbar2">
+											<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#AddParticipate"><i class="fa fa-plus"></i> 添加</button>
+											<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#deleteParticipate"><i class="fa fa-remove"></i> 删除</button>
+										</div>
+										<table class="table table-striped table-hover" id="personTable">
+											<thead>
+												<tr>
+													<th>选择</th>
+													<th>姓名</th>
+													<th>邮箱</th>
+													<th>手机号</th>
+													<th>单位</th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+													<td>姓名01</td>
+													<td>111111111@163.com</td>
+													<td>手机号01</td>
+													<td>单位01</td>
+												</tr>
+												<tr>
+													<td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+													<td>姓名02</td>
+													<td>222222222@163.com</td>
+													<td>手机号02</td>
+													<td>单位02</td>
+												</tr>
+												<tr>
+													<td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+													<td>姓名03</td>
+													<td>333333333@163.com</td>
+													<td>手机号03</td>
+													<td>单位03</td>
+												</tr>
+
+											</tbody>
+										</table>
+
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-warning" data-dismiss="modal">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--添加参与人员的模态框-->
+		<div class="modal" id="AddParticipate">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">添加参与人员</h3>
+					</div>
+					<div class="modal-body">
+
+						<form class="form-horizontal">
+							<fieldset>
+								<!-- <legend>添加管理员</legend>-->
+								<div class="form-group">
+									<label class="col-lg-2 control-label"><font style="color: red;">*</font>姓名</label>
+									<div class="col-lg-3">
+										<input class="form-control" id="expertName" type="text">
+									</div>
+
+									<label class="col-lg-2 control-label">性别</label>
+									<div class="col-lg-5">
+										<div class="radio">
+											<label>
+                                            <input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio">
+                                            男
+                                        </label>
+											<label style="margin-left: 40px;">
+                                            <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio">
+                                            女
+                                        </label>
+										</div>
+									</div>
+
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label"><font style="color: red;">*</font>邮箱</label>
+									<div class="col-lg-3">
+										<input class="form-control" id="email" type="text">
+									</div>
+
+									<label class="col-lg-2 control-label"><font style="color: red;">*</font>身份证号</label>
+									<div class="col-lg-3">
+										<input class="form-control" id="workNum" type="text">
+									</div>
+
+								</div>
+								<div class="form-group">
+
+									<label for="adminTitle_Add" class="col-lg-2 control-label">职称</label>
+									<div class="col-lg-3">
+										<select class="form-control" id="adminTitle_Add">
+											<option> </option>
+											<option>教授</option>
+											<option>副教授</option>
+											<option>研究员</option>
+										</select>
+									</div>
+									<label class="col-lg-2 control-label">手机号</label>
+									<div class="col-lg-3">
+										<input class="form-control" id="iphoneNum" type="text">
+									</div>
+
+								</div>
+								<div class="form-group">
+
+									<label class="col-lg-2 control-label">英文名</label>
+									<div class="col-lg-3">
+										<input class="form-control" id="englishName_Add" type="text">
+									</div>
+									<label class="col-lg-2 control-label">工作证号</label>
+									<div class="col-lg-3">
+										<input class="form-control" id="workNumber_Add" type="text">
+									</div>
+
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">所在单位</label>
+									<div class="col-lg-3">
+										<input class="form-control" id="workUnit" type="text">
+									</div>
+
+									<label class="col-lg-2 control-label">担任职务</label>
+									<div class="col-lg-3">
+										<input class="form-control" id="jobType" type="text">
+									</div>
+
+								</div>
+							</fieldset>
+						</form>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-warning" data-dismiss="modal">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--删除参与人员的模态框-->
+		<div class="modal" id="deleteParticipate">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">删除</h3>
+					</div>
+					<div class="modal-body">
+						<div class="container">
+							<p style="font-size: 20px;">删除成功</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-warning" data-dismiss="modal">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--查看模态框-->
+		<div class="modal" id="projectDetailModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">入库项目详细信息</h3>
+					</div>
+					<div class="modal-body">
+
+						<div>
+							<div class="box box-primary">
+								<div class="box-header">
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+									</div>
+
+								</div>
+								<div class="box-body">
+									<form class="form-horizontal row">
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label for="rankNum" class="col-sm-4 control-label">排序位次</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="rankNum" value="01" disabled="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="projectID" class="col-sm-4 control-label">项目ID</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="projectID" value="00000001" disabled="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="projectName" class="col-sm-4 control-label">项目名称</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="projectName" value="项目名称01" disabled="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="projectType" class="col-sm-4 control-label">项目类型</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="projectType" value="项目类型01" disabled="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="supportAmount" class="col-sm-4 control-label">资助金额</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="supportAmount" value="20万" disabled="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="aprojectDocument" class="col-sm-4 control-label">项目文档</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="aprojectDocument" value="项目文档.pdf" data-toggle="modal" data-target="#PDFDownLoad" disabled="">
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label for="applyDate" class="col-sm-4 control-label">申请日期</label>
+												<div class="col-sm-8">
+													<input type="email" class="form-control" id="applyDate" value="2017.03.14" disabled="">
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label for="CommitmentUnit" class="col-sm-4 control-label">承担单位</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="CommitmentUnit" value="茶叶研究所" disabled="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="responserLeaderName" class="col-sm-4 control-label">牵头负责人</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="responserLeaderName" value="牵头负责人01" disabled="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="executPeriod" class="col-sm-4 control-label">执行期限</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="executPeriod" value="一年" disabled="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="consignationProject" class="col-sm-4 control-label">委托项目</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" id="consignationProject" value="委托项目01" disabled="">
+												</div>
+											</div>
+										</div>
+									</form>
+									<form class="form-horizontal row">
+										<div class="form-group">
+											<label for="index" class="col-lg-2 control-label">内容摘要</label>
+											<div class="col-lg-8">
+												<textarea class="form-control" rows="3" id="index" placeholder="内容摘要..." disabled=""></textarea>
+											</div>
+
+										</div>
+									</form>
+								</div>
+							</div>
+							<!--项目参与人员-->
+							<div class="box box-primary">
+								<div class="box-header">
+									<h3 class="box-title">项目参与人员</h3>
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+									</div>
+
+								</div>
+								<div class="box-body">
+
+									<form class="form-horizontal row">
+
+										<table class="table table-striped table-hover" id="personTable">
+											<thead>
+												<tr>
+													<th>选择</th>
+													<th>姓名</th>
+													<th>邮箱</th>
+													<th>手机号</th>
+													<th>单位</th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+													<td>姓名01</td>
+													<td>111111111@163.com</td>
+													<td>手机号01</td>
+													<td>单位01</td>
+												</tr>
+												<tr>
+													<td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+													<td>姓名02</td>
+													<td>222222222@163.com</td>
+													<td>手机号02</td>
+													<td>单位02</td>
+												</tr>
+												<tr>
+													<td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+													<td>姓名03</td>
+													<td>333333333@163.com</td>
+													<td>手机号03</td>
+													<td>单位03</td>
+												</tr>
+
+											</tbody>
+										</table>
+
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<!--<button type="button" class="btn btn-warning" data-dismiss="modal">确定</button>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>
+

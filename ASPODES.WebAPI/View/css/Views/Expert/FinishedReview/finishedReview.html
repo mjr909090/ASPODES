@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html ng-App="ngFinishedReviewApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css" />
+		<script type="text/javascript" src="plugins/daterangepicker/daterangepicker.js" ></script>
+		<script type="text/javascript" src="plugins/daterangepicker/moment.js"></script>
+		
+	</head>
+
+	<body ng-controller="ngFinishedReviewCtrl">
+
+		<div class="container">
+
+			<!-- 面包屑导航 -->
+
+			<hr />
+
+			<!-- 既往评议 -->
+			<div class="box box-solid">
+				<!-- 头部（box-header）-->
+				<div class="box-header bg-teal" style="cursor: move;">
+					<i class="fa fa-th"></i>
+					<h3 class="box-title">既往评议表</h3>
+					<div class="box-tools pull-right">
+						<button class="btn bg-teal btn-sm" data-widget="collapse">
+							<i class="fa fa-minus"></i>
+						</button>
+						<button id="finishedTime" class="btn btn-primary btn-sm bg-teal pull-right" data-toggle="tooltip" title="" data-original-title="Date range">
+							<i class="fa fa-calendar"></i>
+						</button>
+					</div>
+					<!-- /.box-header-->
+				</div>
+				<!-- 中部（box-body）-->
+				<div class="box-body no-padding">
+					<table class="table table-striped table-hover">
+						<tbody>
+							<tr>
+								<th style="width: 10px">#</th>
+								<th>项目名称</th>
+								<th>申请人</th>
+								<th>评议状态</th>
+								<th>评议表下载</th>
+								<th>PDF下载</th>
+								<th>详情查看</th>
+							</tr>
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>projectName01</td>
+								<td>申请人01</td>
+								<td>
+									<span class="label label-success">已评议</span>
+								</td>
+								<td>
+									<a href="#" data-toggle="modal" data-target="#PDFModal" class='refuse'>评议表下载</a>
+								</td>
+								<td>
+									<a href="#" class='refuse'>PDF下载</a>
+								</td>
+								<td>
+									<a href="#" class='refuse'>详情</a>
+								</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>projectName03</td>
+								<td>申请人03</td>
+								<td>
+									<span class="label label-success">已评议</span>
+								</td>
+								<td>
+									<a href="#" data-toggle="modal" data-target="#PDFModal" class='refuse'>评议表下载</a>
+								</td>
+								<td>
+									<a href="#" class='refuse'>PDF下载</a>
+								</td>
+								<td>
+									<a href="#" class='refuse'>详情</a>
+								</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>projectName02</td>
+								<td>申请人02</td>
+								<td>
+									<span class="label label-success">已评议</span>
+								</td>
+								<td>
+									<a href="#" data-toggle="modal" data-target="#PDFModal" class='refuse'>评议表下载</a>
+								</td>
+								<td>
+									<a href="#" class='refuse'>PDF下载</a>
+								</td>
+								<td>
+									<a href="#" class='refuse'>详情</a>
+								</td>
+							</tr>
+						</tbody>
+						<!-- /.table-->
+					</table>
+					<!-- /.box-body-->
+				</div>
+				<!-- 尾部（box-footer）-->
+				<div class="box-footer">
+					<div class="row">
+					</div>
+					<!-- /.box-footer-->
+				</div>
+			</div>
+			
+			<!-- calendar -->
+			<div class="daterangepicker dropdown-menu opensleft" style="display: block; top: 1972.87px; right: 25px; left: auto;">
+				<div class="ranges">
+					<ul>
+						<li class="">Today</li>
+						<li class="active">Yesterday</li>
+						<li>Last 7 Days</li>
+						<li class="">Last 30 Days</li>
+						<li>This Month</li>
+						<li class="">Last Month</li>
+						<li class="">Custom Range</li>
+					</ul>
+					<div class="range_inputs">
+						<div class="daterangepicker_start_input" style="float: left">
+							<label for="daterangepicker_start">From</label>
+							<input class="input-mini" name="daterangepicker_start" value="" disabled="disabled" type="text">
+						</div>
+						<div class="daterangepicker_end_input" style="float: left; padding-left: 11px">
+							<label for="daterangepicker_end">To</label>
+							<input class="input-mini" name="daterangepicker_end" value="" disabled="disabled" type="text">
+						</div>
+						<button class="btn-success applyBtn btn btn-small">Apply</button>
+						<button class="btn-default cancelBtn btn btn-small">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</body>
+
+</html>

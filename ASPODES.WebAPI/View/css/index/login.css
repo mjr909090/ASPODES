@@ -1,0 +1,57 @@
+body{
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	background-image: url(../../images/index/body_background.jpg);
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+}
+
+.loginBody{
+	margin: 0;
+	width: 100vw;
+	height: auto;
+	background-color: rgba(28,31,24,0.7);
+}
+
+
+
+.loginBodyHead>h1{
+	color: white;
+	margin-top: 60px;
+}
+
+.loginBodyHead>p{
+	color: white;
+	margin-bottom: 30px;
+}
+
+.form-group>label{
+	font-size: medium;
+}
+
+.loginBtn{
+	margin-bottom: 60px;
+}
+
+.login-label{
+    color: white;
+}
+
+.form-label {
+    color: rgba(0, 0, 0, .8);
+}
+
+.error {
+    color:red;
+}
+
+#forgetPasswordBtn{
+    color: white;
+}

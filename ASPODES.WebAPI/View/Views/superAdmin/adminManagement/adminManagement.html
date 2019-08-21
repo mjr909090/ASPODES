@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html ng-app="ngAdminManagementApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap-table.css" />
+    <link rel="stylesheet" href="css/bootstrap-editable.css" />
+    <script type="text/javascript" src="js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="js/Views/superAdmin/adminManagement/adminManagement.js"></script>
+
+</head>
+<body ng-controller="ngAdminManagementCtrl">
+
+<div class="container">
+    <br />
+    <ol class="breadcrumb">
+        <li>
+            <a><i class="fa fa-dashboard"></i> 全院管理</a>
+        </li>
+        <li class="active"> 角色权限管理</li>
+    </ol>
+    <div class="box box-solid" style="margin-top: 40px" >
+        <div class="box-header" style="cursor: move; background-color:cadetblue;">
+            <div class="pull-right box-tools">
+                <button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px; background-color:cadetblue " data-original-title="Collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!--<i class="fa fa-map-marker"></i>--><!--位置的图标-->
+            <h3 class="box-title"> 管理员列表 </h3>
+        </div>
+        <div class="box-body" style="display: block;">
+            <div>
+                <div class="jvectormap-container" style="width: 100%; height: 100%; position: relative; overflow: hidden; background-color: transparent;">
+                   <!-- <div id="toolbar" class="btn-group">
+
+                        <a id="btn_addAdmin" type="button" class="btn btn-primary" style="background-color:cadetblue;" data-toggle="modal" data-target="#addAdmin"> 添加</a>
+
+                    </div>-->
+                    <div id="toolbar" class="dataTables_length">
+
+                        <button class="btn btn-primary" style="background-color:cadetblue;" data-toggle="modal" data-target="#addAdmin">添加</button>
+                        <!--<label>|</label>
+                        <button class="btn btn-primary" style="background-color:cadetblue;" data-toggle="modal" data-target="#deleteAdmin">删除</button>-->
+                    </div>
+                    <table class="table table-striped table-hover" id="adminManagementTable">
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>邮箱</th>
+                                <th>手机号</th>
+                                <th>所在单位</th>
+                                <th>职称</th>
+                                <!--<th>查看</th>-->
+                             <!--   <th>删除</th>-->
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a class='refuse' data-toggle="modal" data-target="#viewAdminInfo">姓名01</a></td>
+                                <td>123456789@qq.com</td>
+                                <td>15169855420</td>
+                                <td>水稻所</td>
+                                <td>教授</td>
+                                <!--<td> <a class='refuse' href="Views/superAdmin/testAngularJs.html">查看</a> </td>-->
+                               <!-- <td> <a class='refuse' data-toggle="modal" data-target="#viewAdminInfo">查看</a> </td>-->
+                                <td>
+                                    <a class="manage-icon" ng-click="showModifyAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改"><i class="fa fa-edit"></i></a>
+                                    <a class="manage-icon" ng-click="showDeleteAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove" style="color: red"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a class='refuse' data-toggle="modal" data-target="#viewAdminInfo">姓名02</a></td>
+                                <td>123456789@qq.com</td>
+                                <td>13793847563</td>
+                                <td>蔬菜所</td>
+                                <td>教授</td>
+                                <td>
+                                    <a class="manage-icon" ng-click="showModifyAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改"><i class="fa fa-edit"></i></a>
+                                    <a class="manage-icon" ng-click="showDeleteAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove" style="color: red"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a class='refuse' data-toggle="modal" data-target="#viewAdminInfo">姓名03</a></td>
+                                <td>123456789@qq.com</td>
+                                <td>13793847563</td>
+                                <td>生物所</td>
+                                <td>教授</td>
+                                <td>
+                                    <a class="manage-icon" ng-click="showModifyAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改"><i class="fa fa-edit"></i></a>
+                                    <a class="manage-icon" ng-click="showDeleteAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove" style="color: red"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a class='refuse' data-toggle="modal" data-target="#viewAdminInfo">姓名04</a></td>
+                                <td>123456789@qq.com</td>
+                                <td>13793847563</td>
+                                <td>棉花所</td>
+                                <td>教授</td>
+                                <td>
+                                    <a class="manage-icon" ng-click="showModifyAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改"><i class="fa fa-edit"></i></a>
+                                    <a class="manage-icon" ng-click="showDeleteAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove" style="color: red"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a class='refuse' data-toggle="modal" data-target="#viewAdminInfo">姓名05</a></td>
+                                <td>123456789@qq.com</td>
+                                <td>13793847563</td>
+                                <td>沼气所</td>
+                                <td>教授</td>
+                                <td>
+                                    <a class="manage-icon" ng-click="showModifyAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改"><i class="fa fa-edit"></i></a>
+                                    <a class="manage-icon" ng-click="showDeleteAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove" style="color: red"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a class='refuse' data-toggle="modal" data-target="#viewAdminInfo">姓名06</a></td>
+                                <td>123456789@qq.com</td>
+                                <td>13793847563</td>
+                                <td>环发所</td>
+                                <td>教授</td>
+                                <td>
+                                    <a class="manage-icon" ng-click="showModifyAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改"><i class="fa fa-edit"></i></a>
+                                    <a class="manage-icon" ng-click="showDeleteAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove" style="color: red"></i></a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="dataTables_info col-lg-9">
+                        <h3>当前显示 1 到 6 条， 共 6 条</h3>
+                    </div>
+
+                    <div class="dataTables_paginate col-lg-3">
+                        <ul class="pagination">
+                            <li class="disabled">
+                                <a>&laquo;</a>
+                            </li>
+                            <li class="active">
+                                <a>1</a>
+                            </li>
+                            <li>
+                                <a>2</a>
+                            </li>
+                            <li>
+                                <a>3</a>
+                            </li>
+                            <li>
+                                <a>4</a>
+                            </li>
+                            <li>
+                                <a>5</a>
+                            </li>
+                            <li>
+                                <a>&raquo;</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--原来样式的代码-->
+<!--<div class="container">
+    <div id="myTabContent" class="tab-content" style="margin-top: 70px">
+        <h2 style="margin: auto; ">管理员列表</h2>
+        <div id="toolbar" class="btn-group">
+
+            <a id="btn_addAdmin" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAdmin"> 添加</a>
+            &lt;!&ndash;<a id="btn_deleteAdmin" type="button" class="btn btn-primary" style="margin-left: 7px" data-toggle="modal" data-target="#deleteAdmin">删除</a>&ndash;&gt;
+        </div>
+
+        <table class="table table-striped table-hover" id="thisTable">
+            <thead>
+            <tr>
+                <th>选择</th>
+                <th>姓名</th>
+                <th>英文名</th>
+                <th>工作证号</th>
+                <th>邮箱</th>
+                <th>手机号</th><td>
+                <th>所在单位</th>
+                <th>查看</th>
+                <th>删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>姓名01</td>
+                <td>ZhangSan</td>
+                <td>21150211056</td>
+                <td>123456789@qq.com</td>
+                <td>15169855420</td>
+                <td>水稻所</td>
+                <td> <a class='refuse' href="Views/superAdmin/testAngularJs.html">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteAdmin">删除</a> </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>姓名02</td>
+                <td>LisSi</td>
+                <td>21150211099</td>
+                <td>123456789@qq.com</td>
+                <td>13793847563</td>
+                <td>蔬菜所</td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#viewAdmin">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteAdmin">删除</a> </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>姓名03</td>
+                <td>SunQIan</td>
+                <td>21150211099</td>
+                <td>123456789@qq.com</td>
+                <td>13793847563</td>
+                <td>生物所</td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#viewAdmin">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteAdmin">删除</a> </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>姓名04</td>
+                <td>YouyouTu</td>
+                <td>21150211099</td>
+                <td>123456789@qq.com</td>
+                <td>13793847563</td>
+                <td>棉花所</td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#viewAdmin">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteAdmin">删除</a> </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>姓名05</td>
+                <td>ZhuWen</td>
+                <td>21150211099</td>
+                <td>123456789@qq.com</td>
+                <td>13793847563</td>
+                <td>加工所</td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#viewAdmin">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteAdmin">删除</a> </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>姓名06</td>
+                <td>Wangwu</td>
+                <td>21150211099</td>
+                <td>123456789@qq.com</td>
+                <td>13793847563</td>
+                <td>环发所</td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#viewAdmin">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteAdmin">删除</a> </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>姓名07</td>
+                <td>Zhaobin</td>
+                <td>21150211099</td>
+                <td>123456789@qq.com</td>
+                <td>13793847563</td>
+                <td>沼气所</td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#viewAdmin">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteAdmin">删除</a> </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>-->
+<!--添加管理员页面的模态框-->
+<div class="modal" id="addAdmin">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">添加管理员</h3>
+            </div>
+            <div class="modal-body">
+                <div class="box box-info" >
+                    <!--<div class="box-header with-border">
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>-->
+
+                    <div class="box-body">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <!-- <legend>添加管理员</legend>-->
+                                <div class="form-group" >
+                                    <label  class="col-lg-2 control-label"><font style="color: red;">*</font>姓名</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="expertName"  type="text">
+                                    </div>
+
+                                    <label class="col-lg-2 control-label">性别</label>
+                                    <div class="col-lg-5">
+                                        <div class="radio">
+                                            <label>
+                                                <input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio">
+                                                男
+                                            </label>
+                                            <label style="margin-left: 40px;">
+                                                <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio">
+                                                女
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-lg-2 control-label" ><font style="color: red;">*</font>邮箱</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="email"  type="text">
+                                    </div>
+
+
+                                    <label  class="col-lg-2 control-label"><font style="color: red;">*</font>身份证号</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="workNum" type="text">
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+
+                                    <label for="adminTitle_Add" class="col-lg-2 control-label">职称</label>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" id="adminTitle_Add">
+                                            <option> </option>
+                                            <option>教授</option>
+                                            <option>副教授</option>
+                                            <option>研究员</option>
+                                        </select>
+                                    </div>
+                                    <label  class="col-lg-2 control-label" >手机号</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="iphoneNum"  type="text">
+                                    </div>
+
+                                </div>
+                                <!--<div class="form-group">
+                                    <label  class="col-lg-2 control-label" >英文名</label>
+                                   <div class="col-lg-3">
+                                       <input class="form-control" id="englishName_Add" type="text">
+                                   </div>
+                                    <label  class="col-lg-2 control-label" >工作证号</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="workNumber_Add"  type="text">
+                                    </div>
+                                </div>-->
+                                <div class="form-group">
+                                    <label  class="col-lg-2 control-label" >所在单位</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="workUnit" type="text">
+                                    </div>
+
+                                    <label  class="col-lg-2 control-label">担任职务</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="jobType"  type="text">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info pull-right" style="background-color:cadetblue;" data-dismiss="modal" >保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改管理员页面的模态框-->
+<div class="modal" id="ModifyAdminModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">修改管理员</h3>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <form class="form-horizontal row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="userName" class="col-sm-4 control-label">姓名</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userName" value="姓名01">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="UserSex" class="col-sm-4 control-label">性别</label>
+                                        <div class="radio col-sm-4">
+                                            <label>
+                                                <input type="radio" name="sexSelect" id="UserSex" value="male" checked="">
+                                                男
+                                            </label>
+                                        </div>
+                                        <div class="radio col-sm-4">
+                                            <label>
+                                                <input type="radio" name="sexSelect" id="UserSex" value="famale">
+                                                女
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="userIdCard" class="col-sm-4 control-label">身份证号</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userIdCard" value="37092******1111" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userPhone" class="col-sm-4 control-label">手机</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" class="form-control" id="userPhone" value="12345678900">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="userEmail" class="col-sm-4 control-label">邮箱</label>
+                                        <div class="col-sm-8">
+                                            <input type="email" class="form-control" id="userEmail" value="123456789@163.com" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userTitle" class="col-sm-4 control-label">职称</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" id="userTitle">
+                                                <option>教授</option>
+                                                <option>副教授</option>
+                                                <option>研究员</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="userDivision" class="col-sm-4 control-label">所在单位</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userDivision" value="蔬菜研究所" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userMajor" class="col-sm-4 control-label">担任职务</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userMajor" value="研究管理员">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info pull-right" style="background-color:cadetblue;" data-dismiss="modal" >确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看管理员页面的模态框-->
+<div class="modal" id="viewAdminInfo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">管理员详细信息</h3>
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <div class="box box-primary">
+                      <!--  <div class="box-header">
+                            <div class="box-tools pull-right">&lt;!&ndash;折叠&ndash;&gt;
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>-->
+                        <div class="box-body">
+                            <form class="form-horizontal row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="userName" class="col-sm-4 control-label">姓名</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userName" value="姓名01" disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="UserSex" class="col-sm-4 control-label">性别</label>
+                                        <div class="radio col-sm-4">
+                                            <label>
+                                                <input type="radio" name="sexSelect" id="UserSex" value="male" checked="" disabled="">
+                                                男
+                                            </label>
+                                        </div>
+                                        <div class="radio col-sm-4">
+                                            <label>
+                                                <input type="radio" name="sexSelect" id="UserSex" value="famale" disabled="">
+                                                女
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userIdCard" class="col-sm-4 control-label">身份证号</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userIdCard" value="37092******1111" disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userPhone" class="col-sm-4 control-label">手机</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" class="form-control" id="userPhone" value="12345678900" disabled="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="userEmail" class="col-sm-4 control-label">邮箱</label>
+                                        <div class="col-sm-8">
+                                            <input type="email" class="form-control" id="userEmail" value="123456789@163.com" disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userTitle" class="col-sm-4 control-label">职称</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" id="userTitle" disabled="">
+                                                <option>教授</option>
+                                                <option>副教授</option>
+                                                <option>研究员</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userDivision" class="col-sm-4 control-label">所在单位</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userDivision" value="蔬菜研究所" disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userMajor" class="col-sm-4 control-label">担任职务</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userMajor" value="研究管理员" disabled="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div>
+                    <div class="box box-danger">
+                        <div class="box-header">
+                            <h3 class="box-title">Danger Box (Loading state)</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-danger btn-sm" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm" data-widget="remove">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            Box class:
+                            <code>.box.box-danger</code>
+                            <p> amber, microbrewery abbey hydrometer, brewpub ale lauter tun saccharification oxidized barrel. berliner weisse wort chiller adjunct hydrometer alcohol aau! sour/acidic sour/acidic chocolate malt ipa ipa hydrometer. </p>
+                        </div>
+                        <div class="overlay"></div>
+                        <div class="loading-img"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="box box-success">
+                        <div class="box-header">
+                            <h3 class="box-title">Success Box (toggle buttons)</h3>
+                            <div class="box-tools pull-right">
+                                <div class="btn-group" data-toggle="btn-toggle">
+                                    <button class="btn btn-success btn-xs" type="button" data-toggle="on">Left</button>
+                                    <button class="btn btn-success btn-xs active" type="button" data-toggle="off">Right</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            Box class:
+                            <code>.box.box-success</code>
+                            <p> amber, microbrewery abbey hydrometer, brewpub ale lauter tun saccharification oxidized barrel. berliner weisse wort chiller adjunct hydrometer alcohol aau! sour/acidic sour/acidic chocolate malt ipa ipa hydrometer. </p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="box box-warning">
+                        <div class="box-header">
+                            <h3 class="box-title">Warning Box</h3>
+                            <div class="box-tools pull-right">
+                                <ul class="pagination pagination-sm inline">
+                                    <li>
+                                        <a href="#">«</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">2</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">»</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            Box class:
+                            <code>.box.box-warning</code>
+                            <p> amber, microbrewery abbey hydrometer, brewpub ale lauter tun saccharification oxidized barrel. berliner weisse wort chiller adjunct hydrometer alcohol aau! sour/acidic sour/acidic chocolate malt ipa ipa hydrometer. </p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="box box-solid box-danger">
+                        <div class="box-header">
+                            <h3 class="box-title">Danger Solid Box</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-danger btn-sm" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm" data-widget="remove">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            Box class:
+                            <code>.box.box-solid.box-danger</code>
+                            <p> amber, microbrewery abbey hydrometer, brewpub ale lauter tun saccharification oxidized barrel. berliner weisse wort chiller adjunct hydrometer alcohol aau! sour/acidic sour/acidic chocolate malt ipa ipa hydrometer. </p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="box box-solid bg-yellow">
+                        <div class="box-header">
+                            <h3 class="box-title">Warning Tile</h3>
+                        </div>
+                        <div class="box-body">
+                            Box class:
+                            <code>.box.box-solid.bg-yellow</code>
+                            <p> amber, microbrewery abbey hydrometer, brewpub ale lauter tun saccharification oxidized barrel. berliner weisse wort chiller adjunct hydrometer alcohol aau! sour/acidic sour/acidic chocolate malt ipa ipa hydrometer. </p>
+                        </div>
+                    </div>
+                </div>-->
+
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--删除管理员页面的模态框-->
+<div class="modal" id="deleteAdminModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">删除管理员</h3>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <p style="font-size: 20px;">您确定要删除该管理员吗？<br/>一旦删除将无法恢复，请谨慎操作！</p>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" style="background-color:cadetblue;" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

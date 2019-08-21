@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngExpertAssignmentResultsApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="js/Views/superAdmin/expertAssignment/expertAssignmentResults.js"></script>
+    <link href="css/Views/superAdmin/expertAssignment/assignment_recommendation.css" rel="stylesheet" />
+
+</head>
+<body ng-controller="ngExpertAssignmentResultsCtrl">
+    <div class="container">
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 全院管理</a>
+            </li>
+            <li>
+                <a> 专家指派管理</a>
+            </li>
+            <li class="active"> 专家评审结果</li>
+        </ol>
+        <div class="box box-solid" style="margin-top: 40px">
+            <table class="table table-hover" ng-show="!needListIsNull">
+                <thead>
+                    <tr>
+                        <th>申请书</th>
+                        <th>类别</th>
+                        <th>承担单位</th>
+                        <th>负责人</th>
+                        <th colspan="5" class="table-middle" style="min-width:400px">专家</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="application in needConfirmApplications">
+                        <td>{{application.ProjectName}}</td>
+                        <td>{{application.ProjectTypeName}}</td>
+                        <td>{{application.InstituteName}}</td>
+                        <td>{{application.LeaderName}}</td>
+                        <td><span class="label label-success" ng-if="application.ReviewAssignments[0] != null" ng-click="showChangeExpertModal(application,0)">{{application.ReviewAssignments[0].ExpertName}}</span></td>
+                        <td><span class="label label-success" ng-if="application.ReviewAssignments[1] != null" ng-click="showChangeExpertModal(application,1)">{{application.ReviewAssignments[1].ExpertName}}</span></td>
+                        <td><span class="label label-success" ng-if="application.ReviewAssignments[2] != null" ng-click="showChangeExpertModal(application,2)">{{application.ReviewAssignments[2].ExpertName}}</span></td>
+                        <td><span class="label label-success" ng-if="application.ReviewAssignments[3] != null" ng-click="showChangeExpertModal(application,3)">{{application.ReviewAssignments[3].ExpertName}}</span></td>
+                        <td><span class="label label-success" ng-if="application.ReviewAssignments[4] != null" ng-click="showChangeExpertModal(application,4)">{{application.ReviewAssignments[4].ExpertName}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <ul class="pagination pull-right" ng-show="!needListIsNull">
+                <li ng-class="{true:'disabled'}[needConfirmNowPage == 1]"><a ng-click="needConfirmJumpToPage(needConfirmNowPage-1)">&laquo;</a></li>
+                <li ng-show="needConfirmNowPage > 3"><a ng-click="needConfirmneedConfirmJumpToPage(1)">1</a></li>
+                <li ng-show="needConfirmNowPage - 1 > 3"><a>...</a></li>
+                <li ng-repeat="page in needConfirmPageArry" ng-if="pageAbs(needConfirmNowPage,page)" ng-class="{true:'active'}[page == needConfirmNowPage]">
+                    <a ng-click="needConfirmJumpToPage(page)">{{page}}</a>
+                </li>
+                <li ng-show="needConfirmNowPage < needConfirmTotalPageNum - 3"><a>...</a></li>
+                <li ng-show="needConfirmNowPage < needConfirmTotalPageNum - 3"><a ng-click="needConfirmJumpToPage(needConfirmTotalPageNum)">{{needConfirmTotalPageNum}}</a></li>
+                <li><a ng-class="{true:'disabled'}[needConfirmNowPage == needConfirmTotalPageNum]" ng-click="needConfirmneedConfirmJumpToPage(needConfirmNowPage+1)">&raquo;</a></li>
+            </ul>
+
+            <div class="callout callout-info" ng-if="needListIsNull">
+                <h4>注意!</h4>
+                <p>当前没有需要确认的申请书！</p>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

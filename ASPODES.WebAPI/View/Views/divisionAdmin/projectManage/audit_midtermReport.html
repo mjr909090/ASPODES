@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngAuditMidtermReportApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/Views/Expert/ApplicationReview/preReview.css" />
+
+</head>
+<body ng-controller="ngAuditMidtermReportCtrl">
+
+    <div class="container">
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 单位管理</a>
+            </li>
+            <li>
+                <a> 项目管理</a>
+            </li>
+            <li> 中期报告</li>
+        </ol>
+
+
+        <!-- 审核中期报告 -->
+        <div class="box box-solid" style="margin-top: 40px">
+            <div class="box-header bg-light-blue-gradient">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">待审核中期报告列表</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn bg-light-blue-gradient btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                    <br />
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>报告名称</th>
+                                <th style="min-width:96px;">项目负责人</th>
+                                <th style="min-width:96px;">状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a class='pdfDownload' ng-click="showProjectInfo(1)">中国农业科学院科技管理与服务平台建设研究&nbsp;&nbsp;2017中期报告</a>
+                                </td>
+                                <td>
+                                    <a data-target="#fzrInfo" data-toggle="modal">刘振虎</a>
+                                </td>
+                                <td>
+                                    <label class="label-primary">待审核</label>
+                                </td>
+                                <td>
+                                    <a class="manage-icon" ng-click="showRejectConfirmModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="驳回"><i class="fa fa-remove"></i></a>
+                                    <a class="manage-icon" ng-click="showPassedConfirmModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="通过"><i class="fa fa-check"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a class='pdfDownload' ng-click="showProjectInfo(1)">蔬菜生产灾害性天气应对技术研究&nbsp;&nbsp;2017中期报告</a>
+                                </td>
+                                <td>
+                                    <a data-target="#fzrInfo" data-toggle="modal">王琳</a>
+                                </td>
+                                <td>
+                                    <label class="label-primary">待审核</label>
+                                </td>
+                                <td>
+                                    <a class="manage-icon" ng-click="showRejectConfirmModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="驳回"><i class="fa fa-remove"></i></a>
+                                    <a class="manage-icon" ng-click="showPassedConfirmModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="通过"><i class="fa fa-check"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a class='pdfDownload' ng-click="showProjectInfo(1)">主要农作物重要农艺性状的变异组学研究&nbsp;&nbsp;2017中期报告</a>
+                                </td>
+                                <td>
+                                    <a data-target="#fzrInfo" data-toggle="modal">刘清</a>
+                                </td>
+                                <td>
+                                    <label class="label-primary">待审核</label>
+                                </td>
+                                <td>
+                                    <a class="manage-icon" ng-click="showRejectConfirmModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="驳回"><i class="fa fa-remove"></i></a>
+                                    <a class="manage-icon" ng-click="showPassedConfirmModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="通过"><i class="fa fa-check"></i></a>
+                                </td>
+                            </tr>
+
+                    </table>
+                </div>
+                <!-- /.dataTables_wrapper -->
+            </div>
+            <!-- /.box body -->
+            <!-- start box footer -->
+            <div class="box-footer">
+                <!-- paging -->
+
+                <div class="dataTables_paginate pull-right">
+                    <ul class="pagination">
+                        <li class="disabled">
+                            <a>&laquo;</a>
+                        </li>
+                        <li class="active">
+                            <a>1</a>
+                        </li>
+                        <li>
+                            <a>2</a>
+                        </li>
+                        <li>
+                            <a>3</a>
+                        </li>
+                        <li>
+                            <a>&raquo;</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <!-- /.End box-footer -->
+            <!--<div class="overlay" ng-hide="listAlready">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>-->
+
+        </div>
+        <!-- /.box -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- 负责人具体信息 Modal -->
+    <div class="modal fade" id="fzrInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">负责人信息</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label>姓名：</label>刘振虎
+                                </div>
+                                <div class="form-group">
+                                    <label>电子邮箱：</label>zhenhuliu@777.com
+                                </div>
+                                <div class="form-group">
+                                    <label>职务：</label>
+                                    <span>处长</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>手机号码：</label>15898565478
+                                </div>
+                                <div class="form-group">
+                                    <label>所在单位：</label>中国农业科学院
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label>性别：</label>男
+                                </div>
+                                <div class="form-group">
+                                    <label>出生年月：</label>1965-06-17
+                                </div>
+                                <div class="form-group">
+                                    <label>职称：</label>
+                                    <span>教授</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>办公电话：</label>
+                                    <span>011-65478986</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>所在地址：</label>
+                                    <span>北京市海淀区</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <!-- /.modal body -->
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- 驳回 Modal -->
+    <div class="modal" id="rejectApplication">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-red">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>确认驳回吗？&nbsp;&nbsp;驳回请填写驳回理由</h4>
+                    <strong>一经提交不可撤回，请谨慎操作！</strong>
+                    <br />
+                    <hr />
+                    <form role="form" name="rejectForm" novalidate>
+                        <div class="form-group">
+                            <select class="form-control" id="selectReject" ng-model="selectRejectValue" ng-change="rejectValue()">
+                                <option value="">请选择</option>
+                                <option value="内容不合格">内容不合格</option>
+                                <option value="类别不符合">类别不符合</option>
+                                <option value="信息不完全">信息不完全</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>请填写驳回原因（<label style="color:red;">必填</label>）</label>
+                            <textarea class="form-control required" name="rejectReason" ng-model="rejectReason" rows="4" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="rejectForm.rejectReason.$error.required" ng-click="reject(modalData.ApplicationId)">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 提交submitApplicationModal-->
+    <div class="modal fade" id="submitApplication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">提交中期报告</h3>
+                </div>
+                <div class="modal-body">
+                    <h4>确认提交该项目的中期报告</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="submit(modalData.ApplicationId)">确定</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+</body>
+</html>
+

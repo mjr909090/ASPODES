@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngApplicationInquireApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合查询</title>
+
+    <link href="plugins/animate.min.css" rel="stylesheet" />
+    <link href="css/Views/applicationInquire.css" rel="stylesheet" />
+
+</head>
+<body ng-controller="ngApplicationInquireCtrl">
+    <div class="container">
+
+        <div class="banner"> 
+            <ol class="breadcrumb">
+                <li class="active">
+                    申请书查询
+                </li>
+            </ol>
+        </div>
+
+        <div class="content row">
+
+            <div class="queryConditions">
+
+                <fieldset>
+                    <legend>申请书查询条件</legend>
+
+                    <div class="col-md-6">
+                        <form class="form-horizontal" name="queryConditions">
+
+                            <div class="form-group">
+                                <label for="projectName" class="col-md-2 control-label">申请书名称</label>
+                                <div class="col-md-10">
+                                    <input name="projectName"
+                                           ng-model="queryConditions.ProjectName"
+                                           type="text"
+                                           class="form-control"
+                                           placeholder="申请书名称" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="projectType" class="col-md-2 control-label">项目类型</label>
+                                <div class="col-md-10">
+                                    <select name="projectType"
+                                            ng-model="queryConditions.ProjectType"
+                                            class="form-control"
+                                            id="projectType"
+                                            ng-options="projectType.ProjectTypeId as projectType.Name for projectType in projectTypes">
+                                        <option value="">-------请选择项目类型-------</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="projectName" class="col-md-2 control-label">牵头负责人</label>
+                                <div class="col-md-10">
+                                    <input name="projectLeader"
+                                           ng-model="queryConditions.LeaderName"
+                                           type="text"
+                                           class="form-control"
+                                           placeholder="牵头负责人" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="projectTotalBudget" class="col-md-2 control-label">经费预算区间</label>
+                                <div class="input-group">
+                                    <input name="projectTotalBudget"
+                                           ng-model="queryConditions.StartTotalBudget"
+                                           type="number"
+                                           class="form-control"
+                                           id="StartTotalBudget"
+                                           placeholder="最小经费数目" />
+                                    <span class="input-group-addon" style="background:#DDD;">—</span>
+                                    <input name="projectTotalBudget"
+                                           ng-model="queryConditions.EndTotalBudget"
+                                           type="number"
+                                           class="form-control"
+                                           id="EndTotalBudget"
+                                           placeholder="最大经费数目" />
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="col-md-6">
+                            <form class="form-horizontal" name="queryConditions">
+                                <div class="form-group">
+                                    <label for="projectPeriod" class="col-md-3 control-label" style="padding-right:0px;">周期</label>
+                                    <div class="col-md-offset-1 col-md-8" style="padding-left:5px;">
+                                        <input name="projectPeriod"
+                                               ng-model="queryConditions.projectPeriod"
+                                               type="number"
+                                               class="form-control"
+                                               placeholder="项目周期" />
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="col-md-6" style="padding-right:0px;">
+                            <form class="form-horizontal" name="queryConditions">
+
+                                <div class="form-group">
+                                    <label for="projectDeleageType" class="col-md-4 control-label">委托类型</label>
+                                    <div class="col-md-8">
+                                        <select name="projectDeleageType"
+                                                ng-model="queryConditions.DelegateType"
+                                                class="form-control"
+                                                id="DelegateType"
+                                                ng-options="DelegateType.DelegateTypeId as DelegateType.Name for DelegateType in [{'DelegateTypeId': 0, 'Name': '非定向委托'},{'DelegateTypeId': 1, 'Name': '定向委托'}]">
+                                            <option value="">-------请选择委托类型-------</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <form class="form-horizontal" name="queryConditions">
+
+                            <div class="form-group">
+                                <label for="institution" class="col-md-2 control-label">单位名称</label>
+                                <div class="col-md-10">
+                                    <select class="form-control"
+                                            ng-model="queryConditions.Institute"
+                                            id="Institute"
+                                            ng-options="institution.InstituteId as institution.Name for institution in institutions">
+                                        <option value="">-------请选择单位-------</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="projectCreatedYear" class="col-md-2 control-label">时间区间</label>
+                                <div class="input-group">
+                                    <input name="projectCreatedYear"
+                                           ng-model="queryConditions.StartYearCreated"
+                                           type="number"
+                                           class="form-control"
+                                           placeholder="项目开始年份" />
+                                    <span class="input-group-addon" style="background:#DDD;">—</span>
+                                    <input name="projectCreatedYear"
+                                           ng-model="queryConditions.EndYearCreated"
+                                           type="number"
+                                           class="form-control"
+                                           placeholder="项目结束年份" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="projectScore" class="col-md-2 control-label">评审分数区间</label>
+                                <div class="input-group">
+                                    <input name="projectScore"
+                                           ng-model="queryConditions.StartTotalScore"
+                                           type="number"
+                                           class="form-control"
+                                           placeholder="最低评审分数" />
+                                    <span class="input-group-addon" style="background:#DDD;">—</span>
+                                    <input name="projectScore"
+                                           ng-model="queryConditions.EndTotalScore"
+                                           type="number"
+                                           class="form-control"
+                                           placeholder="最高评审分数" />
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <a class="btn btn-primary pull-right" ng-click="load_page(1)" style="margin-right:15px;">查询</a>
+
+                </fieldset>
+            </div>
+
+            <!--<div id="queryNotice" ng-hide="!queryedApplicationsIsNull">
+                <div id="queryNoticeContent">
+
+                    <h1>申请书查询结果</h1>
+                    <span>请输入查询条件，点击查询！</span>
+                </div>
+            </div>-->
+
+            <div id="queryResultIsNull" class="callout callout-info" ng-hide="!queryedApplicationsIsNull">
+                <div id="queryResultContent">
+                    <h2>请输入查询条件</h2>
+                    <br />
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;当前查询结果为空，
+                        <br />
+                        <br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;默认条件查询为查询全部！
+                    </p>
+                </div>
+            </div>
+
+            <div class="queryedApplicationList" ng-hide="queryedApplicationsIsNull">
+                <fieldset>
+                    <legend>申请书查询结果</legend>
+                    <div>
+                        <table class="table table-striped table-hover" id="queryedApplicationsTable" ng-hide="">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-1">序号</th>
+                                    <th class="col-md-3">申请书名称</th>
+                                    <th class="col-md-2">类型</th>
+                                    <th class="col-md-2">单位</th>
+                                    <th class="col-md-1">委托类型</th>
+                                    <th class="col-md-1">牵头负责人</th>
+                                    <th class="col-md-1">全文</th>
+                                    <th class="col-md-1">状态</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="queryedApplication in queryedApplications track by $index">
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ queryedApplication.ProjectName }}</td>
+                                    <td>{{ queryedApplication.ProjectTypeName }}</td>
+
+                                    <td>{{ queryedApplication.InstituteName }}</td>
+                                    <td>
+                                        <span class="label label-default" ng-if="queryedApplication.DeleageType == 0"> 非委托</span>
+                                        <span class="label label-primary" ng-if="queryedApplication.DeleageType == 1"> &nbsp;委&nbsp;&nbsp;&nbsp;托&nbsp;</span>
+                                    </td>
+                                    <td>{{ queryedApplication.LeaderName }}</td>
+                                    <td>
+                                        <a class="pdfDownload" ng-click="downloadPDF(queryedApplication.ApplicationId,queryedApplication.ProjectName)">下载</a>
+                                    </td>
+                                    <td>
+                                        <span class="label label-danger" ng-if="queryedApplication.Status == 5">待审核</span>
+                                        <span class="label label-danger" ng-if="queryedApplication.Status == 6">被驳回</span>
+                                        <span class="label label-danger" ng-if="queryedApplication.Status == 7">被撤回</span>
+                                        <span class="label label-primary" ng-if="queryedApplication.Status == 8">待受理</span>
+                                        <span class="label label-danger" ng-if="queryedApplication.Status == 9">不受理</span>
+                                        <span class="label label-default" ng-if="queryedApplication.Status >= 10 && queryedApplication.Status <= 12 ">待指派</span>
+                                        <span class="label label-default" ng-if="queryedApplication.Status == 13">评审中</span>
+                                        <span class="label label-success" ng-if="queryedApplication.Status == 14">评审结束</span>
+                                        <span class="label label-primary" ng-if="queryedApplication.Status == 15">不资助</span>
+                                        <span class="label label-primary" ng-if="queryedApplication.Status == 16">&nbsp;在&nbsp;&nbsp;&nbsp;库&nbsp;</span>
+                                        <span class="label label-primary" ng-if="queryedApplication.Status == 17">已出库</span>
+                                        <span class="label label-default" ng-if="queryedApplication.Status == 18">过期失效</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 分页 -->
+                    <div ng-hide="queryedApplicationsIsNull">
+                        <self-pagination></self-pagination>
+                    </div>
+                    <!-- /.分页 -->
+                </fieldset>
+            </div>
+
+        </div>
+        
+    </div>
+</body>
+</html>

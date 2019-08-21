@@ -1,0 +1,9 @@
+﻿{
+
+    "ProjectId": "项目编号",
+    "DelegateType": "类别",
+    "Period":"执行期限",
+    "Result": "会评结果",
+    "TotalBudget": "总经费额度",
+    "CurrentBudget": "本年度预算"
+}

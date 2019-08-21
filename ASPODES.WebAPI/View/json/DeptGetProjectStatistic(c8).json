@@ -1,0 +1,33 @@
+{"status":0,
+	"response":
+	[
+		{
+			"Category":"联盟重点工作",
+			"Number":4
+		},
+		{
+			"Category":"应急性科研工作",
+			"Number":5
+		},
+		{
+			"Category":"科技基础性工作",
+			"Number":13
+		},
+		{
+			"Category":"基础研究引导计划",
+			"Number":6
+		},
+		{
+			"Category":"重大成果培育计划",
+			"Number":5
+		},
+		{
+			"Category":"重大项目储备计划",
+			"Number":11
+		},
+		{
+			"Category":"农业智库建设计划",
+			"Number":2
+		}
+	]
+}

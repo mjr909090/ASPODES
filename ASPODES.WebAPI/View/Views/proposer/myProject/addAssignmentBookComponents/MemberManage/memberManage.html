@@ -1,0 +1,23 @@
+﻿<form class="form-horizontal">
+    <fieldset>
+        <legend>参加人员名单</legend>
+    </fieldset>
+</form>
+
+<leaderinfo leader-info-data="$ctrl.leader"></leaderinfo>
+
+<br />
+<br />
+
+<leaderdivisionlist host-depart-member="$ctrl.memberInfo.HostDepartMember"></leaderdivisionlist>
+<br />
+<br />
+<assistdivisionlist other-depart-member="$ctrl.memberInfo.OtherDepartMember"></assistdivisionlist>
+
+<br />
+<br />
+
+<ul class="list-inline pull-right">
+    <li><button type="button" class="btn btn-default prev-step" ng-click="$root.toPre()">上一步</button></li>
+    <li><button type="button" class="btn btn-primary btn-info-full next-step" ng-click="$root.toNext()">下一步</button></li>
+</ul>

@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngApplicationSettingApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+
+        <link href="css/Views/proposer/addPropose.css" rel="stylesheet" />
+        <link href="plugins/datepicker/datepicker3.css" rel="stylesheet" />
+        <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+        <script src="plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+
+	</head>
+    <body ng-controller="ngApplicationSettingCtrl">
+
+        <div class="content container">
+
+            <br />
+            <ol class="breadcrumb">
+                <li>
+                    <a><i class="fa fa-dashboard"></i> 项目申请</a>
+                </li>
+                <li>
+                    <a>我的申请书</a>
+                </li>
+                <li class="active">申请书草稿</li>
+            </ol>
+
+            <div class="box box-solid">
+                <div class="box-header ui-sortable-handle bg-green">
+                    <i class="fa fa-sticky-note"></i>
+                    <h3 class="box-title">申报期限设置</h3>
+                    <!-- tools box -->
+                    <div class="pull-right box-tools">
+                        <!-- button with a dropdown -->
+                        <button type="button" class="btn btn-success btn-sm" data-widget="collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="最小化"><i class="fa fa-minus"></i></button>
+                    </div>
+                    <!-- /. tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body row" style="display: block;">
+
+                    <br />
+
+                    <div class="col-lg-11">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group" ng-class="{true:'has-error'}[SubmitBeginTimeIsEmpty]">
+                                    <label class="control-label col-lg-3" for="startDate">开始提交申请书日期</label>
+                                    <div class="col-lg-9">
+                                        <input type="text" class="form-control datepicker ApplicationSubmitBeginTime" id="ApplicationSubmitBeginTime" ng-model="ApplicationSubmitBeginTime" ng-change="ApplicationSubmitBeginTimeChange()" readonly />
+                                        <div ng-show="SubmitBeginTimeIsEmpty" style="width: 100%;">
+                                            <small class="error">※开始提交申请书日期不能为空</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-class="{true:'has-error'}[SubmitDeadlineIsEmpty || SubmitDeadlineIsBefore]">
+                                    <label class="control-label col-lg-3" for="startDate">申请书提交截止日期</label>
+                                    <div class="col-lg-9">
+                                        <input type="text" class="form-control datepicker ApplicationSubmitDeadline" id="ApplicationSubmitDeadline" ng-model="ApplicationSubmitDeadline" ng-change="ApplicationSubmitDeadlineChange()" readonly />
+                                        <div ng-show="SubmitDeadlineIsEmpty || SubmitDeadlineIsBefore" style="width: 100%;">
+                                            <small class="error" ng-show="SubmitDeadlineIsEmpty">※申请书提交截止日期不能为空</small>
+                                            <small class="error" ng-show="SubmitDeadlineIsBefore">※申请书提交截止日期不能早于开始提交申请书日期</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-class="{true:'has-error'}[VerifyDeadlineIsEmpty || VerifyDeadlineIsBefore]">
+                                    <label class="control-label col-lg-3" for="startDate">单位审核截止日期</label>
+                                    <div class="col-lg-9">
+                                        <input type="text" class="form-control datepicker ApplicationVerifyDeadline" id="ApplicationVerifyDeadline" ng-model="ApplicationVerifyDeadline" ng-change="ApplicationVerifyDeadlineChange()" readonly />
+                                        <div ng-show="VerifyDeadlineIsEmpty || VerifyDeadlineIsBefore" style="width: 100%;">
+                                            <small class="error" ng-show="VerifyDeadlineIsEmpty">※单位审核截止日期不能为空</small>
+                                            <small class="error" ng-show="VerifyDeadlineIsBefore">※单位审核截止日期不能早于申请书提交截止日期</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-class="{true:'has-error'}[ExpertDeadlineIsEmpty || ExpertDeadlineIsBefore]">
+                                    <label class="control-label col-lg-3" for="startDate">专家评分截止日期</label>
+                                    <div class="col-lg-9">
+                                        <input type="text" class="form-control datepicker ApplicationExpertDeadline" id="ApplicationExpertDeadline" ng-model="ApplicationExpertDeadline" ng-change="ApplicationExpertDeadlineChange()" readonly />
+                                        <div ng-show="ExpertDeadlineIsEmpty || ExpertDeadlineIsBefore" style="width: 100%;">
+                                            <small class="error" ng-show="ExpertDeadlineIsEmpty">※专家评分截止日期不能为空</small>
+                                            <small class="error" ng-show="ExpertDeadlineIsBefore">※专家评分截止日期不能早于单位审核截止日期</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-class="{true:'has-error'}[StartYearIsEmpty]">
+                                    <label class=" control-label col-lg-3" for="startDate">
+                                        项目开始年份
+                                    </label>
+                                    <div class="col-lg-9">
+                                        <input type="text" class="form-control datepicker ApplicationStartYear" id="ApplicationStartYear" ng-model="ApplicationStartYear" ng-change="showConfirmStartYearModal()" readonly />
+                                        <div ng-show="StartYearIsEmpty" style="width: 100%;">
+                                            <small class="error">※项目开始年份不能为空</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+
+                        <br />
+
+                        <a class="btn btn-primary pull-right" ng-click="putSaveDate()">保存</a>
+
+                    </div>
+                    <div class="col-lg-1"></div>
+
+                </div>
+
+                <br />
+
+                <!-- /.box-body -->
+            </div>
+
+        </div>
+
+        <!--确认项目开始年份 Modal-->
+        <div class="modal fade" id="confirmStartYear" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">确认项目开始年份</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h3>请慎重进行该操作，是否继续进行该操作？</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" ng-click="ApplicationStartYearChange()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    </body>
+</html>

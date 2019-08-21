@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html ng-app="ngProjectDismissedApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/Views/proposer/project_dismissed.css" />
+		
+	</head>
+
+	<body ng-controller="ngProjectDismissedCtrl">
+
+		<div class="container">
+
+			<br />
+
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 项目申请</a>
+				</li>
+				<li>
+					<a>我的项目</a>
+				</li>
+				<li class="active">被驳回的文档</li>
+			</ol>
+
+			<div class="box box-solid">
+				<div class="box-header ui-sortable-handle bg-green">
+					<i class="ion ion-clipboard"></i>
+					<h3 class="box-title">当前主持的项目</h3>
+
+					<div class="box-tools pull-right">
+			            <button type="button" class="btn bg-green btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		            </div>
+					
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					
+					<table class="table table-hover saved-table">
+						<tbody>
+							<tr>
+								<th class="table-left">文档名称</th>
+								<th class="table-left">所在项目</th>
+								<th class="table-middle" style="width: 80px;">类型</th>
+								<th class="table-middle" style="width: 108px;">创建日期</th>
+								<th class="table-middle" style="width: 60px;"></th>
+							</tr>
+							<tr>
+								<td class="table-left">
+									基于基因组学的农业生物重要性状的功能位点挖掘与鉴定.pdf
+								</td>
+								<td class="table-left">基于基因组学的农业生物重要性状的功能位点挖掘与鉴定</td>
+								<td class="table-middle">任务书</td>
+								<td class="table-middle">2017-03-14</td>
+								<td class="table-middle"><a class="pdfDownload">下载</a></td>
+							</tr>
+						</tbody>
+					</table>
+					
+				</div>
+				<!-- /.box-body -->
+			</div>
+
+
+			<br />
+			<br />
+			
+			<div class="box box-solid">
+				<div class="box-header ui-sortable-handle bg-primary">
+					<i class="ion ion-clipboard" style="color: white;"></i>
+					<h3 class="box-title" style="color: white;">既往主持的项目</h3>
+
+					<div class="box-tools pull-right">
+			            <button type="button" class="btn bg-primary btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		            </div>
+					
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					
+					<table class="table table-hover saved-table">
+						<tbody>
+							<tr>
+								<th class="table-left">文档名称</th>
+								<th class="table-left">所在项目</th>
+								<th class="table-middle" style="width: 80px;">类型</th>
+								<th class="table-middle" style="width: 108px;">创建日期</th>
+								<th class="table-middle" style="width: 60px;"></th>
+							</tr>
+							<tr>
+								<td class="table-left">
+									主要农作物重要农艺性状的变异组学研究.pdf
+								</td>
+								<td class="table-left">主要农作物重要农艺性状的变异组学研究</td>
+								<td class="table-middle">任务书</td>
+								<td class="table-middle">2017-02-28</td>
+								<td class="table-middle"><a class="pdfDownload">下载</a></td>
+							</tr>
+							<tr>
+								<td class="table-left">
+									蔬菜生产灾害性天气应对技术研究.pdf
+								</td>
+								<td class="table-left">蔬菜生产灾害性天气应对技术研究</td>
+								<td class="table-middle">年度报告</td>
+								<td class="table-middle">2017-01-04</td>
+								<td class="table-middle"><a class="pdfDownload">下载</a></td>
+							</tr>
+							<tr>
+								<td class="table-left">
+									生猪肉牛等畜禽基因组选择育种技术研发与集成.pdf
+								</td>
+								<td class="table-left">生猪肉牛等畜禽基因组选择育种技术研发与集成</td>
+								<td class="table-middle">结题报告</td>
+								<td class="table-middle">2017-03-07</td>
+								<td class="table-middle"><a class="pdfDownload">下载</a></td>
+							</tr>
+							<tr>
+								<td class="table-left">
+									家禽常见病防控技术的应急储备研究.pdf
+								</td>
+								<td class="table-left">家禽常见病防控技术的应急储备研究</td>
+								<td class="table-middle">任务书</td>
+								<td class="table-middle">2017-03-14</td>
+								<td class="table-middle"><a class="pdfDownload">下载</a></td>
+							</tr>
+							<tr>
+								<td class="table-left">
+									病原微生物及生物毒素识别评估技术研究.pdf
+								</td>
+								<td class="table-left">病原微生物及生物毒素识别评估技术研究</td>
+								<td class="table-middle">任务书</td>
+								<td class="table-middle">2017-03-07</td>
+								<td class="table-middle"><a class="pdfDownload">下载</a></td>
+							</tr>
+						</tbody>
+					</table>
+					
+				</div>
+				<!-- /.box-body -->
+			</div>
+			
+
+		</div>
+		
+		
+		<!--documentPreviewModal-->
+		<!--<div class="modal fade" id="documentPreviewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">基于基因组学的农业生物重要性状的功能位点挖掘与鉴定</h3>
+					</div>
+					<div class="modal-body">
+						<iframe src="file/TestPDF.pdf" style="width: 100%; height: 80vh;"></iframe>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+					</div>
+				</div>-->
+				<!-- /.modal-content -->
+			<!--</div>-->
+			<!-- /.modal-dialog -->
+		<!--</div>-->
+		<!-- /.modal -->
+
+	</body>
+
+</html>

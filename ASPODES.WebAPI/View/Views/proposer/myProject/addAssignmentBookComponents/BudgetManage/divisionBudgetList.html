@@ -1,0 +1,83 @@
+﻿<div id="gedanweiToolbar">
+    <h5>各单位经费预算</h5>
+</div>
+
+<table class="table table-striped table-hover  table-condensed">
+    <thead>
+        <tr>
+            <th width="40%">单位名称</th>
+            <th>本年度经费(万元)</th>
+            <!--<th width="30%"></th>-->
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="instBudget in instBudgets">
+            <td>
+                <span>
+                    {{instBudget.InstituteName}}
+                </span>
+            </td>
+            <td>
+                <input class="form-control" type="number" ng-model="instBudget.Amount" ng-change="checkTotalBudget()" />
+                <!--<span editable-number="instBudget.Amount" e-name="Amount" e-form="rowform">
+                    {{instBudget.Amount | number:2}}
+                </span>-->
+            </td>
+            <!--<td>
+                <form editable-form name="rowform" onaftersave="addDivisionBudgetItemClick(instBudget)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == instBudget">
+                    <button type="submit" class="btn btn-primary">
+                        确定
+                    </button>
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                        取消
+                    </button>
+                </form>
+                <div class="buttons" ng-show="!rowform.$visible">
+                    <a href="" ng-click="rowform.$show()"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>修改</a>
+                </div>
+            </td>-->
+        </tr>
+        <tr>
+            <td>总经费</td>
+            <td>
+                {{instTotalBudget | number:2}}  (总经费 <span style="color: blue">{{$root.yearBudget | number:2}}</span> 万元,当前已分配 <span style="color: blue">{{instTotalBudget | number:2}}</span> 万元，剩余 <span ng-class="{true:'success',false:'error'}[($root.yearBudget - instTotalBudget) >= 0]">{{$root.yearBudget - instTotalBudget | number:2}}</span> 万元)
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-primary" ng-click="putDivisionBudgetItemClick()">修改</a>
+            </td>
+        </tr>
+        <!--<tr ng-keyup="enterPress($event)">
+            <td>
+                <select ng-model="addInstBudgetItem.InstituteId" class="form-control" id="subjectCode" ng-options="wholeBudgetAssistInst.InstituteId as wholeBudgetAssistInst.Name for wholeBudgetAssistInst in wholeBudgetAssistInsts">
+                    <option value="" disabled>请选择参与单位</option>
+                </select>
+            </td>
+            <td>
+                <input id="amount" type="number" class="form-control" ng-model="addInstBudgetItem.Amount" placeholder="金额" />
+            </td>
+            <td>
+                <a ng-click="addDivisionBudgetItemClick()"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>添加</a>
+            </td>
+        </tr>-->
+    </tbody>
+</table>
+
+<!--deleteInstBudgetItem-->
+<div class="modal fade" id="deleteInstBudgetItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">删除单位预算条目</h4>
+            </div>
+            <div class="modal-body">
+                <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>确认要删除此单位预算条目？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="delInstBudgetItem()">确定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

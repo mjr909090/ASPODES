@@ -1,0 +1,109 @@
+﻿<h5>经费预算表</h5>
+<div class="changeYearBtnGroup">
+    <div class="btn-group btn-group-justified">
+        <a ng-click="setYear(1);getYearBudget();" class="btn btn-default" ng-class="{true:'btn-primary'}[yusuanYear == 1]">第一年</a>
+        <a ng-click="setYear(2);getYearBudget();" class="btn btn-default" ng-if="$root.Period >= 2" ng-class="{true:'btn-primary'}[yusuanYear == 2]">第二年</a>
+        <a ng-click="setYear(3);getYearBudget();" class="btn btn-default" ng-if="$root.Period >= 3" ng-class="{true:'btn-primary'}[yusuanYear == 3]">第三年</a>
+        <a ng-click="setYear(4);getYearBudget();" class="btn btn-default" ng-if="$root.Period >= 4" ng-class="{true:'btn-primary'}[yusuanYear == 4]">第四年</a>
+        <a ng-click="setYear(5);getYearBudget();" class="btn btn-default" ng-if="$root.Period >= 5" ng-class="{true:'btn-primary'}[yusuanYear == 5]">第五年</a>
+    </div>
+</div>
+
+<br />
+
+<div id="yusuanFirstyearToolbar" class="btn-group">
+    <button id="yusuanFirstyear_btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#addAnnualBudgetItemModal">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+    </button>
+</div>
+<table class="table table-striped table-hover" ng-init="FirstYearTotalAmount = 0">
+    <thead>
+        <tr>
+            <th>科目</th>
+            <th>经费预算（万元）</th>
+            <th>简述预算测试依据与说明</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="yearAnnualBudgetItem in yearAnnualBudgetItems">
+            <td>{{yearAnnualBudgetItem.SubjectName}}</td>
+            <td>{{yearAnnualBudgetItem.Amount | number:2}}</td>
+            <td>{{yearAnnualBudgetItem.Reason}}</td>
+            <td><a href="" ng-click="showDeleteAnnualBudgetItemModal(yearAnnualBudgetItem.AnnualBudgetItemId);"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除</a></td>
+        </tr>
+        <tr>
+            <td>总经费</td>
+            <td>{{yearTotalBudget | number:2}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<h5 ng-show="yusuanYear == 1">当前总经费<span style="color:blue"> {{$root.TotalBudget | number:2}} </span>万元，首年经费<span style="color:blue"> {{$root.FirstYearBudget | number:2}} </span>万元，首年度尚未分配经费<span ng-class="{true:'success',false:'error'}[($root.FirstYearBudget - yearTotalBudget) >= 0]"> {{$root.FirstYearBudget - yearTotalBudget | number:2}} </span>万元</h5>
+
+
+
+<!--addAnnualBudgetItemModal-->
+<div class="modal fade" id="addAnnualBudgetItemModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">添加经费预算条目</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="subjectCode" class="col-lg-2 control-label">会计科目</label>
+                            <div class="col-lg-10">
+                                <select ng-model="addAnnualBudgetItem.SubjectCode" class="form-control" id="subjectCode" ng-options="subject.SubjectCode as subject.SubjectName for subject in subjects">
+                                    <option value="" disabled>请选择会计科目</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount" class="col-lg-2 control-label">金额</label>
+                            <div class="col-lg-10">
+                                <input id="amount" type="number" class="form-control" ng-model="addAnnualBudgetItem.Amount" placeholder="金额" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="assistPersonTask" class="col-lg-2 control-label">预算测试依据与说明</label>
+                            <div class="col-lg-10">
+                                <textarea id="assistPersonTask" class="form-control" ng-model="addAnnualBudgetItem.Reason" placeholder="预算测试依据与说明"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addAnnualBudgetItemClick()">添加</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!--deleteAnnualBudgetItem-->
+<div class="modal fade" id="deleteAnnualBudgetItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">删除经费预算条目</h4>
+            </div>
+            <div class="modal-body">
+                <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>确认要删除此经费预算条目？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="delBudgetItem()">确定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

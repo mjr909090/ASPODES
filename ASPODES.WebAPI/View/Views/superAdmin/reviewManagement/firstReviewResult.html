@@ -1,0 +1,420 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngFirstReviewResultApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="css/Views/superAdmin/expertAssignment/assignment_recommendation.css" rel="stylesheet" />
+    <!-- dataTimePicker -->
+    <link rel="stylesheet" href="plugins/datepicker/datepicker3.css" />
+    <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+</head>
+<body ng-controller="ngFirstReviewResultCtrl">
+<div class="container">
+    <br />
+    <ol class="breadcrumb">
+        <li>
+            <a><i class="fa fa-dashboard"></i> 全院管理</a>
+        </li>
+        <li>
+            <a> 咨询审议管理</a>
+        </li>
+        <li class="active"> 初审结果</li>
+    </ol>
+    <div class="box box-primary" style="margin-top: 40px">
+        <div class="box-header">
+            <h3 class="box-title bg">初审结果列表</h3>
+            <div class="box-tools pull-right">
+                <!--<button type="button" class="btn btn-box-tool" ng-click="exportResult()" data-toggle="tooltip" data-placement="top" title=""
+                        data-original-title="导出">
+                    <i class="fa fa-sign-out"></i>
+                </button>-->
+                <button type="button" class="btn btn-box-tool" ng-click="calScore()" data-toggle="tooltip" data-placement="top" title=""
+                        data-original-title="计算总分">
+                    <i class="fa fa-gears"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <br />
+            <div class="row">
+                <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                    <label for="" class="col-lg-5 control-label">单位</label>
+                    <div class="col-lg-7">
+                        <select class="form-control" ng-model="selectedInst" ng-options="x.Name for x in instTypes" ng-change="getInstIdForPage(selectedInst.InstituteId)">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                </div>  
+                <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                    <label for="applyType_searchcobobox" class="col-lg-5 control-label">类型</label>
+                    <div class="col-lg-7">
+                        <select class="form-control" ng-model="selectedProject" ng-options="x.Name for x in projectTypes" ng-change="getProjectTypeIdForPage(selectedProject.ProjectTypeId)">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                    <button class="btn btn-primary" ng-click="exportData()">导出</button>
+                </div> 
+                <!--
+                 <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                    <label for="selectYear" class="col-lg-5 control-label">年份{{yearId}}</label>
+                    <div class="input-group date col-lg-7" style="margin-left: 16px;">
+                        <input type="text" class="form-control" id="selectYear" ng-model="yearId" ng-change="getYearForPage(yearId)">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>{{exportData}}
+            <table class="table table-striped table-hover" ng-show="!needListIsNull" ng-hide="divisionAppliesIsNull">
+                <thead>
+                    <tr>
+                        <th>申请书</th>
+                        <th>类别</th>
+                        <th>承担单位</th>
+                        <th>负责人</th>
+                        <th>总分</th>
+                        <th colspan="5" class="table-middle" style="min-width:400px">专家</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr ng-repeat="reviewComment in reviewCommentList">
+                        <td>{{reviewComment.ProjectName}}</td>
+                        <td>{{reviewComment.ProjectTypeName}}</td>
+                        <td>{{reviewComment.InstituteName}}</td>
+                        <td>{{reviewComment.LeaderName}}</td>
+                        <td>{{reviewComment.TotalScore}}</td>
+                        <td><span class="label label-success" ng-if="reviewComment.ReviewComments[0] != null" ng-click="showExpertReviewModal(reviewComment,0)">{{reviewComment.ReviewComments[0].ExpertName}}</span><span class="label label-danger" ng-if="reviewComment.ReviewComments[0] == null">没有评审意见</span></td>
+                        <td><span class="label label-success" ng-if="reviewComment.ReviewComments[1] != null" ng-click="showExpertReviewModal(reviewComment,1)">{{reviewComment.ReviewComments[1].ExpertName}}</span><span class="label label-danger" ng-if="reviewComment.ReviewComments[1] == null">没有评审意见</span></td>
+                        <td><span class="label label-success" ng-if="reviewComment.ReviewComments[2] != null" ng-click="showExpertReviewModal(reviewComment,2)">{{reviewComment.ReviewComments[2].ExpertName}}</span><span class="label label-danger" ng-if="reviewComment.ReviewComments[2] == null">没有评审意见</span></td>
+                        <td><span class="label label-success" ng-if="reviewComment.ReviewComments[3] != null" ng-click="showExpertReviewModal(reviewComment,3)">{{reviewComment.ReviewComments[3].ExpertName}}</span><span class="label label-danger" ng-if="reviewComment.ReviewComments[3] == null">没有评审意见</span></td>
+                        <td><span class="label label-success" ng-if="reviewComment.ReviewComments[4] != null" ng-click="showExpertReviewModal(reviewComment,4)">{{reviewComment.ReviewComments[4].ExpertName}}</span><span class="label label-danger" ng-if="reviewComment.ReviewComments[4] == null">没有评审意见</span></td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <div class="callout callout-info" ng-hide="!divisionAppliesIsNull">
+                <h4>注意!</h4>
+                <p>当前没有任何初审结果记录！</p>
+            </div>
+        </div>
+        <div class="box-footer" ng-hide="divisionAppliesIsNull">
+            <!-- paging -->
+            <div class="col-lg-8 col-md-7 col-sm-6 col-xs-12">
+                <span style="font-size: 24px;">共： {{pageItem}}页，{{count}} 条；当前第{{p_current}}页，显示&nbsp;{{p_count}}&nbsp;条</span>
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+                <ul class="pagination" style="margin: 0px;">
+                    <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == 1" ng-click="p_index()">首页</button></li>
+                    <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == 1" ng-click="p_prev()">&lt;&lt;Prev</button></li>
+
+                    <li ng-repeat="page in pages" ng-class="{active: p_current == page}" class="waves-effect">
+                        <button class="btn btn-default btn-sm" ng-disabled="pageItem == 0" ng-click="load_page(page)">{{page}}</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-default btn-sm" ng-disabled=" p_current == pageItem || pageItem == 0" ng-click="p_next()">Next&gt;&gt;</button>
+                    </li>
+                    <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == pageItem || pageItem == 0" ng-click="p_last()">尾页</button></li>
+                </ul>
+
+            </div>
+            <!-- /.box-footer -->
+        </div>
+
+        <div class="overlay" ng-hide="finishedListAlready">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+
+    </div>
+</div>
+
+    <!--评审意见模态框-->
+    <div class="modal fade" id="reviewCommentInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <!--<div class="modal">-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <!--右上角的关闭按钮-->
+                    <h3 class="modal-title">评审结果</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="progress xs col-lg-12">
+                            <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                        </div>
+                    </div>
+                   
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                           
+                            <div class="col-lg-8">
+                                <h5><strong>项目名称：</strong>&nbsp;&nbsp;&nbsp;{{reviewCommentInfo.ProjectName}}</h5><br />
+
+                                <h5><strong>项目类型：</strong>&nbsp;&nbsp;&nbsp;{{reviewCommentInfo.ProjectTypeName}}</h5>
+                                <br />
+                                <h5><strong>负责人：</strong>&nbsp;&nbsp;&nbsp;{{reviewCommentInfo.LeaderName}}</h5>
+                                <br />
+                                <h5><strong>专家姓名：</strong>&nbsp;&nbsp;&nbsp;{{reviewCommentInfo.ExpertName}}</h5>
+                                <br />
+                                <h5><strong>专家评分：</strong>&nbsp;&nbsp;&nbsp;{{reviewCommentInfo.Score}}</h5>
+                                <br />
+                                <h5><strong>具体评审意见：</strong>&nbsp;&nbsp;&nbsp;{{reviewCommentInfo.Comment}}</h5>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+               
+                        
+                    <br />
+                    <div class="row">
+                          <div class="progress xs col-lg-12">
+                              <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                          </div>
+                      </div>
+                    </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 评审意见的模态框 -->
+    <div class="modal" id="review">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">评审意见</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <!--  <h3 class="box-title">评审意见</h3>-->
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+
+                        </div>
+                        <div class="box-body">
+
+                            <form class="form-horizontal">
+                                <table class="table table-bordered table-striped table-hover" id="reviewTable">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">项目名称</td>
+                                            <td class="text-left"><label>项目名称01 </label></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">项目类型</td>
+                                            <td class="text-left"><label>项目类型01 </label></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">申请日期</td>
+                                            <td class="text-left"><label>2017.04.22 </label></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">牵头负责人</td>
+                                            <td class="text-left"><label>牵头负责人01 </label></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <a>
+                                    <h4>各专家评分及意见</h4>
+                                </a>
+                                <!--各专家具体评价意见-->
+
+                                <table class="table table-bordered table-striped table-hover" id="expertReview">
+                                    <thead>
+                                        <tr>
+                                            <th>序号</td>
+                                            <th>评审专家</th>
+                                            <th>评分</th>
+                                            <th>资助意见</th>
+                                            <th>建议资助金额</th>
+                                            <th>意见</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <td>1</td>
+                                            <td>评审专家01</td>
+                                            <td>A、优</td>
+                                            <td>A、优先资助</td>
+                                            <td>20万</td>
+                                            <td>评审专家的意见</td>
+                                        </tr>
+                                        <tr>
+
+                                            <td>2</td>
+                                            <td>评审专家02</td>
+                                            <td>B、中</td>
+                                            <td>B、可资助</td>
+                                            <td>10万</td>
+                                            <td>评审专家的意见</td>
+                                        </tr>
+                                        <tr>
+
+                                            <td>3</td>
+                                            <td>评审专家02</td>
+                                            <td>C、中</td>
+                                            <td>A、优先资助</td>
+                                            <td>20万</td>
+                                            <td>评审专家的意见</td>
+                                        </tr>
+                                        <tr>
+
+                                            <td>4</td>
+                                            <td>评审专家02</td>
+                                            <td>C、中</td>
+                                            <td>A、优先资助</td>
+                                            <td>20万</td>
+                                            <td>评审专家的意见</td>
+                                        </tr>
+                                        <tr>
+
+                                            <td>5</td>
+                                            <td>评审专家02</td>
+                                            <td>C、中</td>
+                                            <td>A、优先资助</td>
+                                            <td>20万</td>
+                                            <td>评审专家的意见</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">确定</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+<!--点击保存的模态框-->
+<div class="modal" id="saveApplication">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">保存</h3>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <p style="font-size: 20px;">保存成功！
+                        <br/> 需要将入库项目表导出吗?
+                        <br/> 如果是，请输入需要导出前
+                        <input id="inputDefault" type="text" style="width: 150px; height: 24px; margin-right: 5px;margin-left: 5px;" value="" />条项目，
+
+                        <br/> 如果否，请点取消。
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#expertApplication_yes">导出</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--导出的模态框-->
+    <div class="modal" id="exportDataModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">导出评审结果</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <p style="font-size: 20px;">即将根据您填写的筛选导出评审结果！</p>
+                        <p style="color: red;">【 若您未设置筛选规则，将导出所有评审结果 】</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="exportDataSure()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--分组排序的模态框-->
+<div class="modal" id="grounpBy">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">分组排序</h4>
+            </div>
+            <div class="modal-body">
+                <p>请选择按照以下指标排序</p>
+                <table class="table table-striped table-hover ">
+                    <thead>
+                    <tr class="success">
+                        <th>#</th>
+                        <th>指标</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>年度</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>资助金额</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>牵头负责人职称</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>项目ID</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>Column content</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 模态框 PDF下载-->
+<div class="modal" id="PDFDownLoad">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">注意：</h4>
+            </div>
+            <div class="modal-body">
+                <p>文件正在下载…</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\bin\Debug\ASPODES.WebAPI.Common.dll
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\bin\Debug\ASPODES.WebAPI.Common.pdb
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\bin\Debug\ASPODES.Model.dll
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\bin\Debug\Newtonsoft.Json.dll
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\bin\Debug\EntityFramework.dll
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\bin\Debug\ASPODES.Model.pdb
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\bin\Debug\ASPODES.Model.xml
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\bin\Debug\Newtonsoft.Json.xml
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\bin\Debug\EntityFramework.xml
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\obj\Debug\ASPODES.WebAPI.Common.csprojResolveAssemblyReference.cache
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\obj\Debug\ASPODES.WebAPI.Common.dll
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\obj\Debug\ASPODES.WebAPI.Common.pdb
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\bin\Debug\ASPODES.Model.dll.config
+F:\实验室项目\ASPODES\Aspodes\ASPODES.WebAPI.Common\obj\Debug\ASPODES.WebAPI.Common.csproj.CoreCompileInputs.cache

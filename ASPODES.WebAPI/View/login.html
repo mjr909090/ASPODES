@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngLoginApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+		<link rel="stylesheet" href="css/bootstrap.css" />
+        <link rel="stylesheet" href="plugins/notifIt/css/notifIt.css" />
+		<link rel="stylesheet" href="css/index/login.css" />
+		<script type="text/javascript" src="js/jquery-2.2.3.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js" ></script>
+		<script type="text/javascript" src="js/angular.js"></script>
+        <script type="text/javascript" src="js/angular-cookies.js"></script>
+        <script src="plugins/notifIt/js/notifIt.js"></script>
+		<script type="text/javascript" src="js/index/login.js"></script>
+
+        <script src="js/Service/interceptorFactory.js"></script>
+	</head>
+
+	<body ng-controller="ngLoginCtrl" ng-keyup="enterPress($event)">
+
+		<div class="loginBody">
+			<div class="container">
+				<div class="loginBodyHead">
+					<h1>ASPODES&nbsp;农科院项目申报系统</h1>
+					<p>Agricultural Sciences Project Declaration System</p>
+				</div>
+				<div class="loginBodyMain row">
+					<div class="col-lg-5 col-md-6 col-sm-12">
+						<form class="form-horizontal">
+							<fieldset>
+								<div class="form-group">
+									<label for="inputUsername" class="col-lg-2 control-label login-label">用户名</label>
+									<div class="col-lg-10">
+										<input ng-model="input.Username" type="text" class="form-control" id="inputUsername" placeholder="Username">
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+					<div class="col-lg-5 col-md-6 col-sm-12">
+						<form class="form-horizontal">
+							<fieldset>
+								<div class="form-group">
+                                    <label for="inputPassword" class="col-lg-2 control-label login-label">密码</label>
+									<div class="col-lg-10">
+										<input ng-model="input.Password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                        <a id="forgetPasswordBtn" class="pull-right" ng-click="showResetPasswordModal()">忘记密码？</a>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+					<div class="col-lg-2 col-md-12 col-sm-12 loginBtn">
+                        <button class="btn btn-block btn-primary" ng-click="login()" ng-disabled="(input.Username == null) || (input.Password == null)">登录</button>
+					</div>                  
+				</div>
+			</div>
+		</div>
+
+        <!----重置密码Modal-->
+        <div class="modal" id="ResetPasswordModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">重置密码</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2"></div>
+                            <div class="col-lg-8 col-md-8 col-sm-12">
+                                <form class="form-horizontal" name="resetPasswordForm" novalidate>
+                                    <div class="form-group" ng-class="{true:'has-error'}[resetPasswordForm.Name.$dirty && resetPasswordForm.Name.$invalid]">
+                                        <label for="Name" class="col-lg-4 control-label form-label">姓名</label>
+                                        <div class="col-lg-8">
+                                            <input type="text" class="form-control" name="Name" id="Name" placeholder="姓名" ng-model="resetPassword.Name" required>
+                                            <div ng-show="resetPasswordForm.Name.$dirty && resetPasswordForm.Name.$invalid" style="width: 100%">
+                                                <small class="error" ng-show="resetPasswordForm.Name.$error.required">姓名不能为空</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{true:'has-error'}[resetPasswordForm.IDCard.$dirty && resetPasswordForm.IDCard.$invalid]">
+                                        <label for="IDCard" class="col-lg-4 control-label form-label">身份证号</label>
+                                        <div class="col-lg-8">
+                                            <input type="text" class="form-control" name="IDCard" id="IDCard" placeholder="身份证号" ng-model="resetPassword.IDCard" required>
+                                            <div ng-show="resetPasswordForm.IDCard.$dirty && resetPasswordForm.IDCard.$invalid" style="width: 100%">
+                                                <small class="error" ng-show="resetPasswordForm.IDCard.$error.required">身份证号码不能为空</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{true:'has-error'}[resetPasswordForm.Password.$dirty && resetPasswordForm.Password.$invalid]">
+                                        <label for="Password" class="col-lg-4 control-label form-label">新密码</label>
+                                        <div class="col-lg-8">
+                                            <input type="password" class="form-control" name="Password" id="Password" placeholder="新密码" ng-model="resetPassword.Password" required>
+                                            <div ng-show="resetPasswordForm.Password.$dirty && resetPasswordForm.Password.$invalid" style="width: 100%">
+                                                <small class="error" ng-show="resetPasswordForm.Password.$error.required">新密码不能为空</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{true:'has-error'}[((resetPasswordForm.PasswordAgain.$dirty && resetPasswordForm.PasswordAgain.$invalid)||((resetPassword.Password != resetPassword.RepeatPassword)&&(changePassword.RepeatPassword != null)))]">
+                                        <label for="PasswordAgain" class="col-lg-4 control-label form-label">再次输入新密码</label>
+                                        <div class="col-lg-8">
+                                            <input type="password" class="form-control" name="PasswordAgain" id="PasswordAgain" placeholder="再次输入新密码" ng-model="resetPassword.RepeatPassword" required>
+                                            <div ng-show="((resetPasswordForm.PasswordAgain.$dirty && resetPasswordForm.PasswordAgain.$invalid)||(resetPasswordForm.Password.$dirty && resetPasswordForm.PasswordAgain.$dirty &&(changePassword.Password != changePassword.RepeatPassword)))" style="width: 100%">
+                                                <small class="error" ng-show="resetPasswordForm.PasswordAgain.$dirty && resetPasswordForm.PasswordAgain.$error.required">再次输入的密码不能为空</small>
+                                                <br />                                                
+                                            </div>
+                                            <small class="error" ng-show="(resetPassword.Password != resetPassword.RepeatPassword)&&(resetPassword.RepeatPassword != null)">两次输入的密码不一致</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{true:'has-error'}[resetPasswordForm.IdentifyCode.$dirty && resetPasswordForm.IdentifyCode.$invalid]">
+                                        <label for="IdentifyCode" class="col-lg-4 control-label form-label">验证码</label>
+                                        <div class="col-lg-8" style="padding-left:0px;">
+                                            <div class="col-lg-8">
+                                                <input type="text" class="form-control" name="IdentifyCode" id="IdentifyCode" placeholder="验证码" ng-model="resetPassword.IdentifyCode" required>
+                                                <div ng-show="resetPasswordForm.IdentifyCode.$dirty && resetPasswordForm.IdentifyCode.$invalid" style="width: 100%">
+                                                    <small class="error" ng-show="resetPasswordForm.IdentifyCode.$error.required">验证码不能为空</small>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-primary pull-right" ng-click="forgetPassword()">发送验证码</button>                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8" style="padding-left:0px;">
+                                        <button class="btn btn-primary pull-right " style="width:120px" ng-click="resetPasswordFun()" ng-disabled="(resetPasswordForm.$invalid || (resetPassword.Password != resetPassword.RepeatPassword))">确认</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+	</body>
+
+</html>

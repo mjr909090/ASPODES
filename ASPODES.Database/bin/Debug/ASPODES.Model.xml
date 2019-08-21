@@ -1,0 +1,2924 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ASPODES.Model</name>
+    </assembly>
+    <members>
+        <member name="T:ASPODES.Model.AnnualTaskInstBudget">
+            <summary>
+            年度任务书单位预算
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskInstBudget.AnnualTaskId">
+            <summary>
+            年度任务书ID，外键，参照AnnualTask表
+            组合主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskInstBudget.InstituteId">
+            <summary>
+            单位ID，外键，参照Institute表
+            组合主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskInstBudget.Amount">
+            <summary>
+            预算额度
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskInstBudget.AnnualTask">
+            <summary>
+            导航属性，年度任务书
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskInstBudget.Institute">
+            <summary>
+            导航属性，单位
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ApplicationDoc">
+            <summary>
+            申请书的文档
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationDoc.ApplicationDocId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationDoc.Name">
+            <summary>
+            文档名
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationDoc.DisplayName">
+            <summary>
+            文档显示名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationDoc.Type">
+            <summary>
+            文档类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationDoc.RelativeURL">
+            <summary>
+            文档路径
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationDoc.ApplicationId">
+            <summary>
+            所属申请书，外键,参考Application表
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationDoc.Application">
+            <summary>
+            导航属性，所属申请书
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ApplicationDocType">
+            <summary>
+            申请书关联文档的类型
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationDocType.BODY">
+            <summary>
+            申请书正文
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationDocType.ATTACHMENT">
+            <summary>
+            附件
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationDocType.PDF">
+            <summary>
+            PDF格式的申请书全文
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ApplicationField">
+            <summary>
+            申请书领域
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationField.ApplicationFieldId">
+            <summary>
+            主键，自增
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationField.ApplicationId">
+            <summary>
+            申请书ID，外键，组合主键，参照Application表
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationField.SubFieldId">
+            <summary>
+            研究领域ID，外键，组合主键，参照SubField表
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationField.KeyWordsCN">
+            <summary>
+            中文关键字
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationField.KeyWordsEN">
+            <summary>
+            英文关键字
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationField.Application">
+            <summary>
+            导航属性，申请书
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationField.SubField">
+            <summary>
+            导航属性，研究领域
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ApplicationLog">
+            <summary>
+            申请书操作记录
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationLog.ApplicationLogId">
+            <summary>
+            主键，自增
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationLog.ApplicationId">
+            <summary>
+            申请书ID，外键，参考Application
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationLog.UserId">
+            <summary>
+            操作用户的ID，外键，参考User表
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationLog.Operation">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationLog.Time">
+            <summary>
+            操作时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationLog.Comment">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationLog.Application">
+            <summary>
+            导航属性，申请书
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationLog.User">
+            <summary>
+            导航属性，用户
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.DelegateType">
+            <summary>
+            项目委托类型
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.DelegateType.NORMAL">
+            <summary>
+            非定向委托项目
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.DelegateType.DIRECTIONAL">
+            <summary>
+            定向委托项目
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ProjectType">
+            <summary>
+            项目类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectType.ProjectTypeId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectType.Name">
+            <summary>
+            项目类型名
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectType.Limit">
+            <summary>
+            限项数目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectType.Enable">
+            <summary>
+            项目类型是否启用
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.AccountingSubject">
+            <summary>
+            会计科目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AccountingSubject.SubjectCode">
+            <summary>
+            科目代码，无二级科目的用一级科目、有二级科目的用二级科目
+            会议差旅费的二级科目，其他的均为一级科目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AccountingSubject.SubjectName">
+            <summary>
+            科目名称，UNIQUE
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Direction">
+            <summary>
+            研究方向
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Direction.DirectId">
+            <summary>
+            研究方向名称，主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Direction.SubFieldId">
+            <summary>
+            研究子领域名称，外键，参照SubField表
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Direction.SubjectField">
+            <summary>
+            导航属性，子领域
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.SupportCategory">
+            <summary>
+            资助类别，8大项里的小项
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SupportCategory.SupportCategoryId">
+            <summary>
+            资助类别ID，主键，自增
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SupportCategory.Name">
+            <summary>
+            资助类别名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SupportCategory.ProjectTypeId">
+            <summary>
+            项目类型ID，外键， 参照ProjectType
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SupportCategory.ProjectType">
+            <summary>
+            导航属性，项目类型
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ApplicationConsultation">
+            <summary>
+            申请书咨询审议
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationConsultation.ApplicationId">
+            <summary>
+            申请书ID,外键，参照Application
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationConsultation.Application">
+            <summary>
+            导航属性，申请书
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationConsultation.Result">
+            <summary>
+            申请书咨询审议结果
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ApplicationConsultationResult">
+            <summary>
+            申请书咨询审议结果
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationConsultationResult.STORAGE">
+            <summary>
+            入库
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationConsultationResult.SUPPORT">
+            <summary>
+            资助
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationConsultationResult.UNSUPPORT">
+            <summary>
+            不资助
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ProjectConsultation">
+            <summary>
+            项目咨询审议
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectConsultation.ArrivalBudget">
+            <summary>
+            已到达预算
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectConsultation.Result">
+            <summary>
+            项目咨询审议结果
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectConsultation.ProjectId">
+            <summary>
+            项目ID
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectConsultation.Project">
+            <summary>
+            项目导航属性
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ProjectConsultationResult">
+            <summary>
+            项目咨询审议结果
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ProjectConsultationResult.CONTINUE">
+            <summary>
+            继续执行
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ProjectConsultationResult.SUSPEND">
+            <summary>
+            中止
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ExpertField">
+            <summary>
+            专家研究领域
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ExpertField.ExpertFieldId">
+            <summary>
+            主键，自增
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ExpertField.SubFieldId">
+            <summary>
+            研究领域名称,外键，参照SubField
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ExpertField.UserId">
+            <summary>
+            专家信息，外键，参照ExpertInfo
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ExpertField.KeyWordsCN">
+            <summary>
+            关键字，中文
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ExpertField.KeyWordsEN">
+            <summary>
+            关键字英文
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ExpertField.SubField">
+            <summary>
+            导航属性，研究子领域
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ExpertField.User">
+            <summary>
+            导航属性，专家信息
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Consultation">
+            <summary>
+            项目滚动库
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Consultation.ConsultationId">
+            <summary>
+            在库项目的ID，主键.
+            项目对应申请书的ID，外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Consultation.Period">
+            <summary>
+            执行期限
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Consultation.Budget">
+            <summary>
+            初审后确定的总预算额度，和申请书的可能不相等
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Consultation.CurrentYearBudget">
+            <summary>
+            初审后确定的首年度预算额度，和申请书的可能不相等
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Consultation.DelegateType">
+            <summary>
+            委托类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Consultation.ImportTime">
+            <summary>
+            导入时间
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ProjectLog">
+            <summary>
+            项目日志
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectLog.ProjectLogId">
+            <summary>
+            项目日志ID
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectLog.ProjectId">
+            <summary>
+            项目ID
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectLog.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectLog.AssociateId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ProjectMember">
+            <summary>
+            项目成员
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectMember.ProjectId">
+            <summary>
+            项目ID，外键，参照Project
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectMember.PersonId">
+            <summary>
+            人员ID，外键，参照Person
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectMember.Task">
+            <summary>
+            成员责任分工
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectMember.Project">
+            <summary>
+            导航属性，项目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectMember.Person">
+            <summary>
+            导航属性，人员
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ReviewAssignment">
+            <summary>
+            初审指派，为申请书指派初审专家
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewAssignment.ReviewAssignmentId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewAssignment.ApplicationId">
+            <summary>
+            待审申请书的ID，外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewAssignment.ExpertId">
+            <summary>
+            初审专家的ID,即初审专家的注册邮箱，外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewAssignment.Accept">
+            <summary>
+            初审专家是否接受指派
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewAssignment.Year">
+            <summary>
+            年份
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewAssignment.Status">
+            <summary>
+            初审指派的状态，新建、待确认、拒绝、接受
+            默认值，新建
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewAssignment.Overdue">
+            <summary>
+            是否过期失效.默认值FALSE
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewAssignment.Expert">
+            <summary>
+            导航属性，初审专家
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewAssignment.Application">
+            <summary>
+            导航属性，待评审申请书
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ReviewAssignmentStatus">
+            <summary>
+            初审指派状态
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReviewAssignmentStatus.NEW">
+            <summary>
+            新建
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReviewAssignmentStatus.REPLY">
+            <summary>
+            待确认
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReviewAssignmentStatus.ACCEPT">
+            <summary>
+            接受
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReviewAssignmentStatus.REFUSE">
+            <summary>
+            拒绝
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReviewAssignmentStatus.CHANGE">
+            <summary>
+            调整
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReviewAssignmentStatus.WAITE_REVIEW">
+            <summary>
+            待评审
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReviewAssignmentStatus.ALREADY_REVIEW">
+            <summary>
+            已评审
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ReviewComment">
+            <summary>
+            初审专家评审意见
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewComment.ReviewCommentId">
+            <summary>
+            自增，主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewComment.ApplicationId">
+            <summary>
+            待审申请书的ID，外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewComment.ExpertId">
+            <summary>
+            初审专家的ID,即初审专家的注册邮箱，外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewComment.Comment">
+            <summary>
+            专家初审意见
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewComment.Imburse">
+            <summary>
+            资助意见
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewComment.Level">
+            <summary>
+            专家评定等级
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewComment.Amount">
+            <summary>
+            拟资助金额
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewComment.Score">
+            <summary>
+            专家评分
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewComment.Status">
+            <summary>
+            评审意见的状态：未评议、保存、提交
+            默认值，未评议
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewComment.Year">
+            <summary>
+            评审的年度，和申请书的提交年度相同
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewComment.ReviewAssignment">
+            <summary>
+            导航属性，所属的初审指派
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewComment.Expert">
+            <summary>
+            导航属性，初审专家
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ReviewComment.Application">
+            <summary>
+            导航属性，待评审申请书
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ReviwerCommentStatus">
+            <summary>
+            评审意见状态
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReviwerCommentStatus.NULL">
+            <summary>
+            未评审
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReviwerCommentStatus.SAVE">
+            <summary>
+            保存
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReviwerCommentStatus.LOGIN">
+            <summary>
+            提交
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.AnnualBudget">
+            <summary>
+            年度预算
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualBudget.AnnualBudgetId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualBudget.ApplicationId">
+            <summary>
+            所属申请书的ID，外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualBudget.Amount">
+            <summary>
+            年度预算额度
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualBudget.Year">
+            <summary>
+            年份
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualBudget.Application">
+            <summary>
+            导航属性，所属申请书
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Application">
+            <summary>
+            申请书
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.ApplicationId">
+            <summary>
+            申请书编号,采用一定编码规则自动生成
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.ProjectName">
+            <summary>
+            工作任务名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.Period">
+            <summary>
+            执行期限
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.ProjectTypeId">
+            <summary>
+            样品类型ID，外键，参照ProjectType
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.SupportCategoryId">
+            <summary>
+            资助类别
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.InstituteId">
+            <summary>
+            承担单位
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.LeaderId">
+            <summary>
+            牵头负责人
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.LeaderPhone">
+            <summary>
+            牵头负责人手机
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.LeaderEmail">
+            <summary>
+            牵头负责人电子信箱
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.ContactId">
+            <summary>
+            联系人
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.ContactPhone">
+            <summary>
+            联系人手机
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.ContactEmail">
+            <summary>
+            联系人电子信箱
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.TotalBudget">
+            <summary>
+            总预算额
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.FirstYearBudget">
+            <summary>
+            当年预算额
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.YearCreated">
+            <summary>
+            首次申报年份
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.CurrentYear">
+            <summary>
+            本次申报年份
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.AppliyTimes">
+            <summary>
+            第几次申报
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.AbstractContent">
+            <summary>
+            摘要
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.EditTime">
+            <summary>
+            最后编辑时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.TotalScore">
+            <summary>
+            申请书初审评分
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.Status">
+            <summary>
+            申请书的状态
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.DeleageType">
+            <summary>
+            委托类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.ProjectType">
+            <summary>
+            导航属性，项目类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.SupportCategory">
+            <summary>
+            资助类别
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.Institute">
+            <summary>
+            导航属性，承担单位
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.Leader">
+            <summary>
+            导航属性，项目负责人
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.Contact">
+            <summary>
+            导航属性，联系人
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.AnnualBudgets">
+            <summary>
+            导航属性，年度预算
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.ReviewAssignments">
+            <summary>
+            申请书的指派信息
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Application.ReviewComments">
+            <summary>
+            申请书的评审信息
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ApplicationStatus">
+            <summary>
+            项目申请书状态
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.NEW_ONE">
+            <summary>
+            新建，填写第一部分
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.NEW_TWO">
+            <summary>
+            新建，填写第二部分
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.NEW_THREE">
+            <summary>
+            新建，填写第三部分
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.NEW_FOUR">
+            <summary>
+            新建，填写第四部分
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.NEW">
+            <summary>
+            新建
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.CHECK">
+            <summary>
+            等待单位审核
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.REJECT">
+            <summary>
+            被单位管理员驳回
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.CANCEL">
+            <summary>
+            被单位管理员撤回
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.ACCEPT">
+            <summary>
+            等待院管理员受理
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.REFUSE">
+            <summary>
+            院不受理
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.ASSIGNMENT">
+            <summary>
+            等待指派专家
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.MANUAL_ASSIGNMENT">
+            <summary>
+            等待手动指派
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.SEND_ASSIGNMENT">
+            <summary>
+            等待确认指派信息
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.REVIEW">
+            <summary>
+            评审中
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.FINISH_REVIEW">
+            <summary>
+            评审完毕
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.UNSUPPORT">
+            <summary>
+            不资助
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.STORAGE">
+            <summary>
+            在库
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.SUPPORT">
+            <summary>
+            已出库,资助
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ApplicationStatus.OVERDUE">
+            <summary>
+            过期失效
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.AnnualBudgetItem">
+            <summary>
+            预算科目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualBudgetItem.AnnualBudgetItemId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualBudgetItem.SubjectId">
+            <summary>
+            会计科目,外键，参照AccountingSubject
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualBudgetItem.Amount">
+            <summary>
+            额度
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualBudgetItem.Reason">
+            <summary>
+            经费支出依据
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualBudgetItem.AnnualBudgetId">
+            <summary>
+            所属年度经费预算ID，外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualBudgetItem.AnnualBudget">
+            <summary>
+            导航属性，所属年度经费预算
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualBudgetItem.Subject">
+            <summary>
+            导航属性，会计科目
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.InstAnnualBudget">
+            <summary>
+            单位年度预算
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.InstAnnualBudget.InstAnnualBudgetId">
+            <summary>
+            主键，自增
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.InstAnnualBudget.InstBudgetId">
+            <summary>
+            所属单位预算ID，外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.InstAnnualBudget.Year">
+            <summary>
+            年份
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.InstAnnualBudget.Amount">
+            <summary>
+            机构年度预算额
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.InstAnnualBudget.InstBudget">
+            <summary>
+            导航属性，所属单位预算
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.InstBudget">
+            <summary>
+            单位经费预算
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.InstBudget.InstBudgetId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.InstBudget.ApplicationId">
+            <summary>
+            所属申请书的ID，外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.InstBudget.InstituteId">
+            <summary>
+            单位ID，外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.InstBudget.Amount">
+            <summary>
+            额度
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.InstBudget.Application">
+            <summary>
+            导航属性，所属申请书
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.InstBudget.Institute">
+            <summary>
+            导航属性，单位
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.InstBudget.InstAnnualBudgets">
+            <summary>
+            导航属性，单位年度预算
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.SubField">
+            <summary>
+            研究领域，子领域
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SubField.SubFieldName">
+            <summary>
+            领域名称，主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SubField.ParentName">
+            <summary>
+            上级领域名称，外键，参照Field
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SubField.ParentField">
+            <summary>
+            导航属性，上级领域
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Institute">
+            <summary>
+            单位
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Institute.InstituteId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Institute.Code">
+            <summary>
+            机构编码
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Institute.Name">
+            <summary>
+            名字
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Institute.ShortName">
+            <summary>
+            简称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Institute.ParentId">
+            <summary>
+            上级单位
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Institute.Type">
+            <summary>
+            机构类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Institute.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Institute.Zip">
+            <summary>
+            邮编
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Institute.WebSite">
+            <summary>
+            网址
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Institute.Comment">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Institute.Status">
+            <summary>
+             C 正常、L-锁定、D-删除， 默认值C
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Institute.Contact">
+            <summary>
+            单位联系人
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.InstituteType">
+            <summary>
+            单位类型
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.InstituteType.PARTNER">
+            <summary>
+            外单位
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.InstituteType.INSTITUTE">
+            <summary>
+            研究所
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.InstituteType.HEADQUATER">
+            <summary>
+            院机关
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Member">
+            <summary>
+            项目成员
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Member.ApplicationId">
+            <summary>
+            所属申请书，组合主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Member.PersonId">
+            <summary>
+            人员，组合主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Member.Task">
+            <summary>
+            成员责任分工
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Member.Application">
+            <summary>
+            导航属性，申请书
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Member.Person">
+            <summary>
+            导航属性，人员
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Recommendation">
+            <summary>
+            初审专家推荐
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Recommendation.RecommendationId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Recommendation.CandidateId">
+            <summary>
+            单位管理员推荐的专家候选人
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Recommendation.RecommenderId">
+            <summary>
+            推荐人
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Recommendation.Agree">
+            <summary>
+            被推荐人是否同意成为初审专家
+            NULL：未处理
+            TRUE:同意
+            FALSE：拒绝
+            被推荐人在同意前需要完善自己的专家信息
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Recommendation.Adopt">
+            <summary>
+            院管理员是否采纳建议
+            NULL：院管理员未处理
+            TRUE：院管理员采纳建议，被推荐人成为初审专家
+            FALSE：院管理员拒绝采纳
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Recommendation.Time">
+            <summary>
+            推荐时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Recommendation.Candidate">
+            <summary>
+            导航属性，候选人
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Recommendation.Recommender">
+            <summary>
+            导航属性，推荐人
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Person">
+            <summary>
+            人员信息
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.PersonId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.IDCard">
+            <summary>
+            身份证号
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.FirstName">
+            <summary>
+            姓拼音
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.LastName">
+            <summary>
+            名拼音
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.EnglishName">
+            <summary>
+            其他英文名
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.Birthday">
+            <summary>
+            出生日期
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.Male">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.Phone">
+            <summary>
+            电话号码
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.InstituteId">
+            <summary>
+            所属单位ID
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.Duty">
+            <summary>
+            职务
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.Title">
+            <summary>
+            职称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.Address">
+            <summary>
+            通信地址
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.Zip">
+            <summary>
+            邮政编码
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.OfficePhone">
+            <summary>
+            办公室电话
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.Major">
+            <summary>
+            专业
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.EducationHistor">
+            <summary>
+            教育经历
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.WorkingHistory">
+            <summary>
+            工作经历
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.Achievements">
+            <summary>
+            成果
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.Status">
+            <summary>
+             C 正常、L-锁定、D-删除,默认值C
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Person.Institute">
+            <summary>
+            导航属性，单位
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.AnnualTask">
+            <summary>
+            年度任务书
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.AnnualTaskId">
+            <summary>
+            年度任务书编号，主键，自增
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.Name">
+            <summary>
+            年度任务书名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.ProjectId">
+            <summary>
+            项目ID，外键，参考Project
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.LeaderId">
+            <summary>
+            牵头负责人
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.InstituteId">
+            <summary>
+            承担单位ID
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.CurrentBudget">
+            <summary>
+            当年预算额
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.Year">
+            <summary>
+            年份,和申请年度相同，即System.ApplyYear
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.EditTime">
+            <summary>
+            填报时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.Comment">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.Status">
+            <summary>
+            任务书状态
+            </summary>
+        </member>
+        <!-- 对于成员“P:ASPODES.Model.AnnualTask.Project”忽略有格式错误的 XML 注释 -->
+        <member name="P:ASPODES.Model.AnnualTask.Leader">
+            <summary>
+            导航属性，项目负责人
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.Institute">
+            <summary>
+            导航属性，承担单位
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.AnnualTaskDocs">
+            <summary>
+            文档
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.AnnualTaskBudgetItems">
+            <summary>
+            科目预算
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTask.AnnualTaskInstBudgets">
+            <summary>
+            单位预算
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.AnnualTaskStatus">
+            <summary>
+            年度任务书状态
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskStatus.SAVE">
+            <summary>
+            保存
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskStatus.INST_CHECK">
+            <summary>
+            单位审核任务书
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskStatus.INST_REJECT">
+            <summary>
+            单位驳回任务书
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskStatus.DEPART_CHECK">
+            <summary>
+            院审核任务书
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskStatus.DEPART_REJECT">
+            <summary>
+            院驳回任务书
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskStatus.UPLOAD_ANNUAL_REPORT">
+            <summary>
+            上传总结报告
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskStatus.INST_REVIEW_ANNUAL_REPORT">
+            <summary>
+            单位审核总结报告
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskStatus.INST_REJECT_ANNUAL_REPORT">
+            <summary>
+            单位驳回总结报告
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskStatus.DEPART_REVIEW_ANNUAL_REPORT">
+            <summary>
+            院审核总结报告
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskStatus.DEPART_REJECT_ANNUAL_REPORT">
+            <summary>
+            院驳回总结报告
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskStatus.FINISH">
+            <summary>
+            通过
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.AnnualTaskDoc">
+            <summary>
+            申请书的文档
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskDoc.AnnualTaskDocId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskDoc.Name">
+            <summary>
+            文档名
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskDoc.DisplayName">
+            <summary>
+            文档显示名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskDoc.Type">
+            <summary>
+            文档类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskDoc.RelativeURL">
+            <summary>
+            文档路径
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskDoc.AnnualTaskId">
+            <summary>
+            所属任务书，外键,参考AnnualTask表
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskDoc.AnnualTask">
+            <summary>
+            导航属性，所属任务书
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.AnnualTaskDocType">
+            <summary>
+            年度任务书关联文档的类型
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskDocType.ANNUAL_REPORT">
+            <summary>
+            年度任务的年度报告
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskDocType.BODY">
+            <summary>
+            年度任务书正文
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskDocType.ATTACHMENT">
+            <summary>
+            附件
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.AnnualTaskDocType.PDF">
+            <summary>
+            PDF格式的年度任务书
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.AnnualTaskBudgetItem">
+            <summary>
+            出库项目年度预算
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskBudgetItem.AnnualTaskBudgetItemId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskBudgetItem.AnnualTaskId">
+            <summary>
+            所属出库项目的ID，外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskBudgetItem.SubjectId">
+            <summary>
+            支出科目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskBudgetItem.Amount">
+            <summary>
+            年度预算额度
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskBudgetItem.Reason">
+            <summary>
+            经费支出依据
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskBudgetItem.AnnualTask">
+            <summary>
+            导航属性，所属出库项目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnualTaskBudgetItem.Subject">
+            <summary>
+            导航属性，会计科目
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Project">
+            <summary>
+            已资助项目，出库项目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.ProjectId">
+            <summary>
+            资助编号（根据一定规则自动生成，也即项目编号），主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.ApplicationId">
+            <summary>
+            申请书ID，外键，参照Application
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.ProjectCode">
+            <summary>
+            申请书编码
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.Name">
+            <summary>
+            项目名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.LeaderId">
+            <summary>
+            负责人ID，参考Person的外键，可能和在库时不同
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.InstituteId">
+            <summary>
+            承担单位ID，参考Institute的外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.Period">
+            <summary>
+            执行期限
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.StartDate">
+            <summary>
+            项目开始执行的时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.EndDate">
+            <summary>
+            项目执行结束的时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.TotalBudget">
+            <summary>
+            资助额度，咨询评议时确定的资助金额，可能和在库时不同
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.ProjectTypeId">
+            <summary>
+            项目类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.DelegateType">
+            <summary>
+            委托类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.Comment">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.Status">
+            <summary>
+            出库项目状态,默认是新建
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.Application">
+            <summary>
+            导航属性，申请书
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.Leader">
+            <summary>
+            导航属性，项目负责人
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.Institude">
+            <summary>
+            导航属性，承担单位
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.ProjectType">
+            <summary>
+            导航属性，项目类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.Docs">
+            <summary>
+            导航属性，项目文档
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.Members">
+            <summary>
+            导航属性，项目成员
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Project.AnnualTasks">
+            <summary>
+            导航属性，项目类型
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ProjectStatus">
+            <summary>
+            出库项目状态
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ProjectStatus.ACTIVE">
+            <summary>
+            正在执行
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ProjectStatus.INST_REVIEW">
+            <summary>
+            申请结题成功，等待单位管理员审核
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ProjectStatus.INST_REJECT">
+            <summary>
+            单位管理员驳回结题申请
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ProjectStatus.DEPART_REVIEW">
+            <summary>
+            院管理员审核结题申请
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ProjectStatus.DEPART_REJECT">
+            <summary>
+            院管理员驳回结题申请
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ProjectStatus.FINISH">
+            <summary>
+            项目结题
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ProjectDoc">
+            <summary>
+            出库项目文档
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectDoc.ProjectDocId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectDoc.ProjectId">
+            <summary>
+            所属项目的ID，外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectDoc.Type">
+            <summary>
+            文档类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectDoc.Name">
+            <summary>
+            文档名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectDoc.DisplayName">
+            <summary>
+            文档显示名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectDoc.RelativeURL">
+            <summary>
+            文档保存路径
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectDoc.Project">
+            <summary>
+            导航属性，出库项目
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ProjectDocType">
+            <summary>
+            出库项目文档类型
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ProjectDocType.FINISH_REPORT">
+            <summary>
+            结题报告
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ProjectDocType.OTHER">
+            <summary>
+            附件（其他）
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Field">
+            <summary>
+            研究领域
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Field.FieldName">
+            <summary>
+            领域名称,主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationAssignment.RoleId">
+            <summary>
+            角色ID，参照Role的外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationAssignment.UserId">
+            <summary>
+            用户ID，参照User的外键
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ApplicationStatistic">
+            <summary>
+            用来接收根据大类和状态统计的申请书
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationStatistic.Category">
+            <summary>
+            项目类别
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationStatistic.Checking">
+            <summary>
+            等待审核的项目数量
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationStatistic.Reject">
+            <summary>
+            审核不通过的申请书数量
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationStatistic.Accept">
+            <summary>
+            审核通过的申请书数量
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ApplicationStatistic.Total">
+            <summary>
+            三种状态的申请书总数
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.FundAndAcceptByCate">
+            <summary>
+            根据大类统计资助项目数量和项目总数
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.FundAndAcceptByCate.Category">
+            <summary>
+            大类名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.FundAndAcceptByCate.FundNumber">
+            <summary>
+            资助数量
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.FundAndAcceptByCate.AcceptNumber">
+            <summary>
+            总数
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.StatisticKeyValue`1">
+            <summary>
+            最普通的键值对单元，用于饼图，单线图，单柱状图的基本单元
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:ASPODES.Model.StatisticKeyValue`1.Key">
+            <summary>
+            键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.StatisticKeyValue`1.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.StatisticByYearAndCate`1">
+            <summary>
+            通过年份和大类分组统计模型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.StatisticByYearAndCate`1.Year">
+            <summary>
+            年份
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.StatisticByYearAndCate`1.AllianceFocusWork">
+            <summary>
+            1.联盟重点工作项目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.StatisticByYearAndCate`1.EmergencyResearchWork">
+            <summary>
+            2.应急性科研工作项目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.StatisticByYearAndCate`1.BasicScienceAndTechnologyWork">
+            <summary>
+            3.科技基础性工作项目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.StatisticByYearAndCate`1.BasicResearchGuidancePlan">
+            <summary>
+            4.基础研究引导计划项目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.StatisticByYearAndCate`1.MajorResultsDevelopmentProgram">
+            <summary>
+            5.重大成果培育计划项目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.StatisticByYearAndCate`1.MajorPlatformPromotionPlan">
+            <summary>
+            6.重大平台推进计划项目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.StatisticByYearAndCate`1.MajorProjectReservePlan">
+            <summary>
+            7.重大项目储备计划项目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.StatisticByYearAndCate`1.AgriculturalThinkTankConstructionPlan">
+            <summary>
+            8.农业智库建设计划项目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.StatisticByYearAndCate`1.Total">
+            <summary>
+            合计数量
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.FundStatisticByCate">
+            <summary>
+            根据大类统计项目经费
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.FundStatisticByCate.Category">
+            <summary>
+            类别名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.FundStatisticByCate.Amount">
+            <summary>
+            经费总量
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Top10FundProject">
+            <summary>
+            统计资助金额前十的项目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Top10FundProject.ProjectName">
+            <summary>
+            项目名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Top10FundProject.Amount">
+            <summary>
+            项目总金额
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Top10FundProject.EndDate">
+            <summary>
+            项目结题日期
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Top10FundProject.Category">
+            <summary>
+            大类名
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Top10FundProject.InstName">
+            <summary>
+            公司名
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ProjectStatistic">
+            <summary>
+            用来接收根据大类统计的项目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectStatistic.Category">
+            <summary>
+            项目类别
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectStatistic.Number">
+            <summary>
+            项目数量
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ProjectStatisticByInst">
+            <summary>
+            通过单位分组的在研项目统计模型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectStatisticByInst.InstName">
+            <summary>
+            单位名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.ProjectStatisticByInst.Number">
+            <summary>
+            项目数量
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ActionType">
+            <summary>
+            用户操作操作类型
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ActionType.LOGIN">
+            <summary>
+            登录
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ActionType.LOGOUT">
+            <summary>
+            注销
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ActionType.SUBMIT_MESSAGE">
+            <summary>
+            提交信息
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ActionType.SUBMIT_EVALUATION">
+            <summary>
+            提交审核
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ActionType.UPDATE_RECORD">
+            <summary>
+            修改记录
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ActionType.DELETE_RECORD">
+            <summary>
+            删除记录
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ActionType.SUBMIT_ALL">
+            <summary>
+            提交全文
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ActionType.DELETE_ALL">
+            <summary>
+            删除全文
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ActionType.REJECT_APPLICATION">
+            <summary>
+            单位管理员驳回申请书
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ActionType.REFUSE_APPLICATION">
+            <summary>
+            院管理员不受理申请书
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Announcement.AnnouncementAttachments">
+            <summary>
+            导航属性,公告附件
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.AnnouncementAttachment">
+            <summary>
+            公告附件
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnouncementAttachment.AnnouncementAttachmentId">
+            <summary>
+            附件ID
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnouncementAttachment.AnnouncementId">
+            <summary>
+            公告ID，自增
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnouncementAttachment.Name">
+            <summary>
+            附件名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnouncementAttachment.RelativeURL">
+            <summary>
+            相对路径
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.AnnouncementAttachment.Announcement">
+            <summary>
+            导航属性
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Email">
+            <summary>
+            邮件通知
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Email.EmailId">
+            <summary>
+            代理主键，自增
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Email.SenderId">
+            <summary>
+            此处是发信人的邮箱
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Email.ReceiverId">
+            <summary>
+            收信人,外键，参照User
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Email.ReciveAddress">
+            <summary>
+            接收邮箱
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Email.Content">
+            <summary>
+            邮件内容
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Email.IdentifyCode">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Email.SendTime">
+            <summary>
+            发送时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Email.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Email.Receiver">
+            <summary>
+            导航属性，收信人
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.EmailStatus">
+            <summary>
+            邮件发送状态
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.EmailStatus.SEND_FIRST">
+            <summary>
+            第一次发送
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.EmailStatus.SEND_SECOND">
+            <summary>
+            第二次发送
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.EmailStatus.SEND_THIRD">
+            <summary>
+            第三次发送
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.EmailStatus.FAIL">
+            <summary>
+            失败
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.EmailStatus.SUCCESS">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Log">
+            <summary>
+            日志表
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Log.LogId">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Log.TableName">
+            <summary>
+            修改表名
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Log.EditRecordId">
+            <summary>
+            修改记录编号
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Log.Type">
+            <summary>
+            操作类型功能
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Log.OldRecord">
+            <summary>
+            修改前内容
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Log.NewRecord">
+            <summary>
+            修改后内容
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Log.EditTime">
+            <summary>
+            时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Log.UserId">
+            <summary>
+            操作人ID
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Log.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Log.IpAddress">
+            <summary>
+            操作终端IP地址
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Log.User">
+            <summary>
+            导航属性，操作人
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.LoginLog">
+            <summary>
+            用户登录日志
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.LoginLog.LoginLogId">
+            <summary>
+            主键，UUID
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.LoginLog.UserId">
+            <summary>
+            外键，参照User表
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.LoginLog.Roles">
+            <summary>
+            登录角色，如有多个用，分隔
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.LoginLog.LoginIP">
+            <summary>
+            登录的IP
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.LoginLog.LoginTime">
+            <summary>
+            登录时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.LoginLog.LastActiveTime">
+            <summary>
+            上次登录时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.LoginLog.IsLogout">
+            <summary>
+            是否注销
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.LoginLog.TimeStamp">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.LoginLog.User">
+            <summary>
+            导航属性，用户
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.LoginLog.LoginTimeStamp">
+            <summary>
+            登录时间戳
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.LoginLog.Token">
+            <summary>
+            Token
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Notice">
+            <summary>
+            页面通知
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Notice.NoticeID">
+            <summary>
+            代理主键，自增
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Notice.NoticeTemplateId">
+            <summary>
+            消息通知内容的ID
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Notice.ReceiveId">
+            <summary>
+            收信人
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Notice.SendTime">
+            <summary>
+            发送时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Notice.Read">
+            <summary>
+            消息是否已读
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Notice.Content">
+            <summary>
+            非模板的通知内容
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Notice.NoticeTemplate">
+            <summary>
+            导航属性，通知模板
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Notice.Receive">
+            <summary>
+            导航属性， 收信人
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.SpNotice">
+            <summary>
+            管理员统计申请书信息的存储过程返回的对象
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SpNotice.Number">
+            <summary>
+            生情书数量
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SpNotice.Content">
+            <summary>
+            模板内容
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SpNotice.NoticeType">
+            <summary>
+            通知类别
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SpNotice.ReceiverType">
+            <summary>
+            接受者类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SpNotice.URL">
+            <summary>
+            跳转链接
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.NoticeTypes">
+            <summary>
+            页面通知状态
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.NoticeTypes.Normal">
+            <summary>
+            正常
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.NoticeTypes.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.NoticeTypes.Fail">
+            <summary>
+            失败
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.NoticeTypes.Refuse">
+            <summary>
+            拒绝
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.NoticeTypes.Warning">
+            <summary>
+            警告
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.NoticeTypes.Error">
+            <summary>
+            错误
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.NoticeTypes.Pending">
+            <summary>
+            等待操作
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.NoticeTemplate">
+            <summary>
+            通知模板
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.NoticeTemplate.Id">
+            <summary>
+            通知消息模板的ID，自增
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.NoticeTemplate.Content">
+            <summary>
+            通知消息模板的内容 
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.NoticeTemplate.NoticeType">
+            <summary>
+            消息类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.NoticeTemplate.URL">
+            <summary>
+            跳转url
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.NoticeTemplate.ReceiverType">
+            <summary>
+            接收此消息的用户类型
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.ReceiverType">
+            <summary>
+            接收此消息的用户类型
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReceiverType.All">
+            <summary>
+            所有用户 0
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReceiverType.User">
+            <summary>
+            普通用户 1
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReceiverType.InstManager">
+            <summary>
+            单位管理员 2
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.ReceiverType.DeptManager">
+            <summary>
+            院管理员 3
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Sms">
+            <summary>
+            通知
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Sms.SmsId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Sms.SmsType">
+            <summary>
+            通知类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Sms.Phone">
+            <summary>
+            手机
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Sms.SmsContent">
+            <summary>
+            通知内容
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Sms.SendTime">
+            <summary>
+            发送时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Sms.Status">
+            <summary>
+            发送状态
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Sms.UserId">
+            <summary>
+            接受用户ID
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Sms.UserName">
+            <summary>
+            接受用户名
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Sms.User">
+            <summary>
+            导航属性，User
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.SysSetting">
+            <summary>
+            系统设置
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSetting.SetId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSetting.SetName">
+            <summary>
+            设置变量名称
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSetting.SetValue">
+            <summary>
+            设置变量值
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSetting.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Authorize">
+            <summary>
+            用户和角色的中间表
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Authorize.RoleId">
+            <summary>
+            角色ID，参照Role的外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Authorize.UserId">
+            <summary>
+            用户ID，参照User的外键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Authorize.User">
+            <summary>
+            导航属性，用户
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Authorize.Role">
+            <summary>
+            导航属性
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Permission">
+            <summary>
+            角色和资源的中间表
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Permission.RoleId">
+            <summary>
+            角色,外键，参照Role
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Permission.ResourceId">
+            <summary>
+            资源URL，外键，参照Resource
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Permission.Resource">
+            <summary>
+            导航属性，资源
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Permission.Role">
+            <summary>
+            导航属性，角色
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Resource">
+            <summary>
+            资源类
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Resource.ResourceId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Resource.URL">
+            <summary>
+            资源URL
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Resource.Name">
+            <summary>
+            资源名
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.Role">
+            <summary>
+            角色类
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Role.RoleId">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.Role.Name">
+            <summary>
+            角色名
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.User">
+            <summary>
+            用户类
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.User.UserId">
+            <summary>
+            邮箱，用户名，主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.User.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.User.IDCard">
+            <summary>
+            身份证号
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.User.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.User.SessionId">
+            <summary>
+            sessionId
+            计划用session存储登录信息
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.User.InstituteId">
+            <summary>
+            用户所属单位，外键，参照Institute表
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.User.Login">
+            <summary>
+            登录状态
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.User.LastLogin">
+            <summary>
+            上次登录时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.User.PersonId">
+            <summary>
+            人员ID
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.User.ReviewAmount">
+            <summary>
+            分配给专家的申请书数目
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.User.Person">
+            <summary>
+            导航属性，人员
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.User.Institute">
+            <summary>
+            导航属性,单位
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.User.ExpertFields">
+            <summary>
+            导航属性,研究领域
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSettingHistory.Id">
+            <summary>
+            自增主键
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSettingHistory.ApplicationSubmitBeginTime">
+            <summary>
+            个人提交开始时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSettingHistory.ApplicationSubmitDeadline">
+            <summary>
+            个人提交截止时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSettingHistory.ApplicationVerifyDeadline">
+            <summary>
+            单位管理员审核截止时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSettingHistory.ApplicationExpertDeadline">
+            <summary>
+            专家评分截止时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSettingHistory.ApplicationStartYear">
+            <summary>
+            项目开始年
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSettingHistory.UpdateTime">
+            <summary>
+            设置更新时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSettingHistory.UpdateIp">
+            <summary>
+            设置更新IP
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSettingHistory.UpdateId">
+            <summary>
+            设置更新ID
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.SysSettingHistory.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.TemplateDoc">
+            <summary>
+            系统文档模板
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.TemplateDoc.DocId">
+            <summary>
+            代理主键，自增
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.TemplateDoc.Type">
+            <summary>
+            模板类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.TemplateDoc.Name">
+            <summary>
+            文档名称 
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.TemplateDoc.RelativeURL">
+            <summary>
+            文档URL相对路径
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.TemplateDoc.Remark">
+            <summary>
+            说明项
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.TemplateReason">
+            <summary>
+            原因模板
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.TemplateReason.ReasonId">
+            <summary>
+            代理主键，自增
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.TemplateReason.EditorId">
+            <summary>
+            编辑人
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.TemplateReason.Type">
+            <summary>
+            原因类型
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.TemplateReason.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.TemplateReason.EditTime">
+            <summary>
+            添加/修改时间
+            </summary>
+        </member>
+        <member name="T:ASPODES.Model.TemplateReasonType">
+            <summary>
+            原因模板
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.TemplateReasonType.REJECT">
+            <summary>
+            驳回理由
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.TemplateReasonType.CANCEL">
+            <summary>
+            撤回理由
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.TemplateReasonType.DECLINE">
+            <summary>
+            不受理理由
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.TemplateReasonType.REFUSE_REVIEW">
+            <summary>
+            拒审理由
+            </summary>
+        </member>
+        <member name="F:ASPODES.Model.TemplateReasonType.NON_FUND">
+            <summary>
+            不资助理由
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.VisitLog.VisitId">
+            <summary>
+            主键 Id
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.VisitLog.UserId">
+            <summary>
+            操作人
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.VisitLog.ControllerName">
+            <summary>
+            控制器名
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.VisitLog.ActionName">
+            <summary>
+            操作action名
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.VisitLog.ActionNameDetail">
+            <summary>
+            操作action用途说明
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.VisitLog.BeginTime">
+            <summary>
+            开始执行时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.VisitLog.EndTime">
+            <summary>
+            结束执行时间
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.VisitLog.CostTime">
+            <summary>
+            执行耗时
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.VisitLog.RequestParamaters">
+            <summary>
+            请求参数
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.VisitLog.ResponseResult">
+            <summary>
+            相应数据
+            </summary>
+        </member>
+        <member name="P:ASPODES.Model.VisitLog.UsersAgents">
+            <summary>
+            用户UA
+            </summary>
+        </member>
+    </members>
+</doc>

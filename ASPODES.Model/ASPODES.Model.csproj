@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{43F5F2E2-3C24-42BD-AA17-43C889DD5C5E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASPODES.Model</RootNamespace>
+    <AssemblyName>ASPODES.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\ASPODES.Model.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnnulTask\AnnualTaskInstBudget.cs" />
+    <Compile Include="Application\ApplicationDoc.cs" />
+    <Compile Include="Application\ApplicationField.cs" />
+    <Compile Include="Application\ApplicationLog.cs" />
+    <Compile Include="Category\DelegateType.cs" />
+    <Compile Include="Category\ProjectType.cs" />
+    <Compile Include="Category\AccountingSubject.cs" />
+    <Compile Include="Category\Direction.cs" />
+    <Compile Include="Category\SupportCategory.cs" />
+    <Compile Include="Consultation\ApplicationConsultation.cs" />
+    <Compile Include="Consultation\ProjectConsultation.cs" />
+    <Compile Include="Inst-Person-User\ExpertField.cs" />
+    <Compile Include="Consultation\Consultation.cs" />
+    <Compile Include="Project\ProjectLog.cs" />
+    <Compile Include="Project\ProjectMember.cs" />
+    <Compile Include="Review\ReviewAssignment.cs" />
+    <Compile Include="Review\ReviewComment.cs" />
+    <Compile Include="Application\AnnualBudget.cs" />
+    <Compile Include="Application\Application.cs" />
+    <Compile Include="Application\AnnualBudgetItem.cs" />
+    <Compile Include="Application\InstAnnualBudget.cs" />
+    <Compile Include="Application\InstBudget.cs" />
+    <Compile Include="Category\SubField.cs" />
+    <Compile Include="Inst-Person-User\Institute.cs" />
+    <Compile Include="Application\Member.cs" />
+    <Compile Include="Review\Recommendation.cs" />
+    <Compile Include="Inst-Person-User\Person.cs" />
+    <Compile Include="AnnulTask\AnnualTask.cs" />
+    <Compile Include="AnnulTask\AnnualTaskDoc.cs" />
+    <Compile Include="AnnulTask\AnnualTaskBudgetItem.cs" />
+    <Compile Include="Project\Project.cs" />
+    <Compile Include="Project\ProjectDoc.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Category\Field.cs" />
+    <Compile Include="Role\ApplicationAssignment.cs" />
+    <Compile Include="Statistic\ApplicationStatistic.cs" />
+    <Compile Include="Statistic\CommonStatistic.cs" />
+    <Compile Include="Statistic\FundStatistic.cs" />
+    <Compile Include="Statistic\ProjectStatistic.cs" />
+    <Compile Include="System\ActionType.cs" />
+    <Compile Include="System\Announcement.cs" />
+    <Compile Include="System\AnnouncementAttachment.cs" />
+    <Compile Include="System\Email.cs" />
+    <Compile Include="System\Log.cs" />
+    <Compile Include="System\LoginLog.cs" />
+    <Compile Include="System\Notice.cs" />
+    <Compile Include="System\NoticeTemplate.cs" />
+    <Compile Include="System\Sms.cs" />
+    <Compile Include="System\SysSetting.cs" />
+    <Compile Include="Role\Authorize.cs" />
+    <Compile Include="Role\Permission.cs" />
+    <Compile Include="Role\Resource.cs" />
+    <Compile Include="Role\Role.cs" />
+    <Compile Include="Inst-Person-User\User.cs" />
+    <Compile Include="System\SysSettingHistory.cs" />
+    <Compile Include="System\TemplateDoc.cs" />
+    <Compile Include="System\TemplateReason.cs" />
+    <Compile Include="System\VisitLog.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ReviewLog\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

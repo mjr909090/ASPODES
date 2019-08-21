@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-app="ngSubmitDiscriptionApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body ng-controller="ngSubmitDiscriptionCtrl">
+    <div class="container">
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 全院管理</a>
+            </li>
+            <li>
+                <a> 文档管理</a>
+            </li>
+            <li class="active">提交说明</li>
+        </ol>
+        <div class="box box-info collapsed-box">
+            <div class="box-header">
+                <h3 class="box-title">
+                    文档提交说明
+                    <small>富文本编辑器</small>
+                </h3>
+                <div class="pull-right box-tools">
+                    <button class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body pad" style="display: block;">
+                <form>
+                    <div class="row">
+                        <div class="form-group col-lg-8 col-md-8 col-sm-8">
+                            <div class="form-group col-lg-2 col-md-2 col-sm-2">
+                                <div class="dropdown">
+                                    <a class="btn btn-default dropdown-toggle " data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-font"></span>
+                                        <span class="current-font">Normal text</span>
+                                        <b class="caret"></b>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-4 col-md-4 col-sm-4">
+                                <div class="btn-group">
+                                    <a class="btn btn-default" data-wysihtml5-command="bold" title="CTRL+B" tabindex="-1" href="" unselectable="on">Bold</a>
+                                    <a class="btn btn-default" data-wysihtml5-command="italic" title="CTRL+I" tabindex="-1" href="" unselectable="on">Italic</a>
+                                    <a class="btn btn-default" data-wysihtml5-command="underline" title="CTRL+U" tabindex="-1" href="" unselectable="on">Underline</a>
+                                </div>
+
+                            </div>
+                            <div class="form-group col-lg-4 col-md-4 col-sm-4">
+                                <div class="btn-group">
+                                    <a class="btn btn-default" data-wysihtml5-command="insertUnorderedList" title="Unordered list" tabindex="-1" href="" unselectable="on">
+                                        <span class="glyphicon glyphicon-list"></span>
+                                    </a>
+                                    <a class="btn btn-default" data-wysihtml5-command="insertOrderedList" title="Ordered list" tabindex="-1" href="" unselectable="on">
+                                        <span class="glyphicon glyphicon-th-list"></span>
+                                    </a>
+                                    <a class="btn btn-default" data-wysihtml5-command="Outdent" title="Outdent" tabindex="-1" href="" unselectable="on">
+                                        <span class="glyphicon glyphicon-indent-right"></span>
+                                    </a>
+                                    <a class="btn btn-default" data-wysihtml5-command="Indent" title="Indent" tabindex="-1" href="" unselectable="on">
+                                        <span class="glyphicon glyphicon-indent-left"></span>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="form-group col-lg-1 col-md-1 col-sm-1">
+                                <div>
+                                    <a class="btn btn-default" data-wysihtml5-command="createLink" title="Insert link" tabindex="-1" href="javascript:;" unselectable="on">
+                                        <span class="glyphicon glyphicon-share"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-1 col-md-1 col-sm-1">
+                                <div>
+                                    <a class="btn btn-default" data-wysihtml5-command="insertImage" title="Insert image" tabindex="-1" href="" unselectable="on">
+                                        <span class="glyphicon glyphicon-picture"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-4 col-sm-4"></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <textarea id="email_message" class="form-control" name="message" placeholder="Place some text here" style="height: 200px;"></textarea>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

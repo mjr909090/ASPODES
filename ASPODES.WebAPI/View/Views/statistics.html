@@ -1,0 +1,778 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngStatisticsApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <!--<script type="text/javascript" src="plugins/nicescroll-3.7.6/dist/jquery.nicescroll.js"></script>-->
+    <script type="text/javascript" src="js/underscore.js"></script>
+    <link href="plugins/animate.min.css" rel="stylesheet" />
+    <link href="css/Views/statistics.css" rel="stylesheet" />
+    
+</head>
+<body ng-controller="ngStatisticsCtrl">
+    <div class="container-fluid">
+
+        <div class="view-page view-1" ng-show="current == 1">
+            <ol class="breadcrumb">
+                <li class="active">
+                    单位统计
+                    <a ng-if="roleSelects.superAdmin == true" class="btn btn-primary btn-sm pull-right" ng-click="jumpTo(2)"><i class="fa fa-angle-double-right"></i> 全院统计</a>
+                </li>
+            </ol>
+
+            <div class="col-lg-6">
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('instGetAppChartExtend',1,'instGetAppOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.instGetAppChart == 'chart']" ng-click="chartOrTable.instGetAppChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.instGetAppChart == 'table']" ng-click="chartOrTable.instGetAppChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="instGetAppChart" style="width: 100%;height:400px;" ng-show="chartOrTable.instGetAppChart == 'chart'"></div>
+                        <div id="instGetAppTable" ng-show="chartOrTable.instGetAppChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>2018年度提交申请书状态数量</caption>
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-4">类型</th>
+                                        <th class="col-md-2">待审核</th>
+                                        <th class="col-md-2">已通过</th>
+                                        <th class="col-md-2">已驳回</th>
+                                        <th class="col-md-2">总数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="appData in instGetAppData track by $index">
+                                        <td>{{ appData.Category }}</td>
+                                        <td>{{ appData.Checking }}</td>
+                                        <td>{{ appData.Accept }}</td>
+                                        <td>{{ appData.Reject }}</td>
+                                        <td>{{ appData.Total }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('instGetFundAndAcceptAppByCateChartExtend',5,'instGetFundAndAcceptAppByCateOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.instGetFundAndAcceptAppByCateChart == 'chart']" ng-click="chartOrTable.instGetFundAndAcceptAppByCateChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.instGetFundAndAcceptAppByCateChart == 'table']" ng-click="chartOrTable.instGetFundAndAcceptAppByCateChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="instGetFundAndAcceptAppByCateChart" style="width: 100%;height:400px;" ng-show="chartOrTable.instGetFundAndAcceptAppByCateChart == 'chart'"></div>
+                        <div id="instGetFundAndAcceptAppByCateChart" ng-show="chartOrTable.instGetFundAndAcceptAppByCateChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>2018年度提交申请书总数与资助数</caption>
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-4">类型</th>
+                                        <th class="col-md-4">资助数</th>
+                                        <th class="col-md-4">总数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Data in instGetFundAndAcceptAppByCateChartData track by $index">
+                                        <td>{{ Data.Category }}</td>
+                                        <td>{{ Data.FundNumber }}</td>
+                                        <td>{{ Data.AcceptNumber }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('instGetProjectChartExtend',2,'instGetProjectOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.instGetProjectChart == 'chart']" ng-click="chartOrTable.instGetProjectChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.instGetProjectChart == 'table']" ng-click="chartOrTable.instGetProjectChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="instGetProjectChart" style="width: 100%;height:400px;" ng-show="chartOrTable.instGetProjectChart == 'chart'"></div>
+                        <div id="instGetProjectTable" ng-show="chartOrTable.instGetProjectChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>2018年度在研项目数量</caption>
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-8">类型</th>
+                                        <th class="col-md-4">待审核</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="projectData in instGetProjectData track by $index">
+                                        <td>{{ projectData.Category }}</td>
+                                        <td>{{ projectData.Number }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('instGetFundByCateChartExtend',2,'instGetFundByCateOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.instGetFundByCateChart == 'chart']" ng-click="chartOrTable.instGetFundByCateChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.instGetFundByCateChart == 'table']" ng-click="chartOrTable.instGetFundByCateChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="instGetFundByCateChart" style="width: 100%;height:400px;" ng-show="chartOrTable.instGetFundByCateChart == 'chart'"></div>
+                        <div id="instGetFundByCateTable" ng-show="chartOrTable.instGetFundByCateChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>2018年度各类项目经费分配</caption>
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-8">类型</th>
+                                        <th class="col-md-4">本年度拨款经费(W)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="fundByCateData in instGetFundByCateData track by $index">
+                                        <td>{{ fundByCateData.Category }}</td>
+                                        <td>{{ fundByCateData.Amount }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('instGetFundByCateAndYearChartExtend',3,'instGetFundByCateAndYearOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.instGetFundByCateAndYearChart == 'chart']" ng-click="chartOrTable.instGetFundByCateAndYearChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.instGetFundByCateAndYearChart == 'table']" ng-click="chartOrTable.instGetFundByCateAndYearChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="instGetFundByCateAndYearChart" style="width: 100%;height:400px;" ng-show="chartOrTable.instGetFundByCateAndYearChart == 'chart'"></div>
+                        <div id="instGetFundByCateAndYearTable" ng-show="chartOrTable.instGetFundByCateAndYearChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>历年各类项目经费分配趋势</caption>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th ng-repeat="year in instGetFundByCateAndYearData.Year track by $index">{{year}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>联盟重点工作</td>
+                                        <td ng-repeat="allianceFocusWork in instGetFundByCateAndYearData.AllianceFocusWork track by $index">{{allianceFocusWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>应急性科研工作</td>
+                                        <td ng-repeat="emergencyResearchWork in instGetFundByCateAndYearData.EmergencyResearchWork track by $index">{{emergencyResearchWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>科技基础工作</td>
+                                        <td ng-repeat="basicScienceAndTechnologyWork in instGetFundByCateAndYearData.BasicScienceAndTechnologyWork track by $index">{{basicScienceAndTechnologyWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>基础研究引导计划</td>
+                                        <td ng-repeat="basicResearchGuidancePlan in instGetFundByCateAndYearData.BasicResearchGuidancePlan track by $index">{{basicResearchGuidancePlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大成果培育计划</td>
+                                        <td ng-repeat="majorResultsDevelopmentProgram in instGetFundByCateAndYearData.MajorResultsDevelopmentProgram track by $index">{{majorResultsDevelopmentProgram}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大平台推进计划</td>
+                                        <td ng-repeat="majorPlatformPromotionPlan in instGetFundByCateAndYearData.MajorPlatformPromotionPlan track by $index">{{majorPlatformPromotionPlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大项目储备计划</td>
+                                        <td ng-repeat="majorProjectReservePlan in instGetFundByCateAndYearData.MajorProjectReservePlan track by $index">{{majorProjectReservePlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>农业智库建设计划</td>
+                                        <td ng-repeat="agriculturalThinkTankConstructionPlan in instGetFundByCateAndYearData.AgriculturalThinkTankConstructionPlan track by $index">{{agriculturalThinkTankConstructionPlan}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('instGetFundRatioByCateAndYearChartExtend',3,'instGetFundRatioByCateAndYearOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.instGetFundRatioByCateAndYearChart == 'chart']" ng-click="chartOrTable.instGetFundRatioByCateAndYearChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.instGetFundRatioByCateAndYearChart == 'table']" ng-click="chartOrTable.instGetFundRatioByCateAndYearChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="instGetFundRatioByCateAndYearChart" style="width: 100%;height:400px;" ng-show="chartOrTable.instGetFundRatioByCateAndYearChart == 'chart'"></div>
+                        <div id="instGetFundRatioByCateAndYearTable" ng-show="chartOrTable.instGetFundRatioByCateAndYearChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>历年申请书资助率趋势</caption>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th ng-repeat="year in instGetFundRatioByCateAndYearData.Year track by $index">{{year}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>联盟重点工作</td>
+                                        <td ng-repeat="allianceFocusWork in instGetFundRatioByCateAndYearData.AllianceFocusWork track by $index">{{allianceFocusWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>应急性科研工作</td>
+                                        <td ng-repeat="emergencyResearchWork in instGetFundRatioByCateAndYearData.EmergencyResearchWork track by $index">{{emergencyResearchWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>科技基础工作</td>
+                                        <td ng-repeat="basicScienceAndTechnologyWork in instGetFundRatioByCateAndYearData.BasicScienceAndTechnologyWork track by $index">{{basicScienceAndTechnologyWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>基础研究引导计划</td>
+                                        <td ng-repeat="basicResearchGuidancePlan in instGetFundRatioByCateAndYearData.BasicResearchGuidancePlan track by $index">{{basicResearchGuidancePlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大成果培育计划</td>
+                                        <td ng-repeat="majorResultsDevelopmentProgram in instGetFundRatioByCateAndYearData.MajorResultsDevelopmentProgram track by $index">{{majorResultsDevelopmentProgram}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大平台推进计划</td>
+                                        <td ng-repeat="majorPlatformPromotionPlan in instGetFundRatioByCateAndYearData.MajorPlatformPromotionPlan track by $index">{{majorPlatformPromotionPlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大项目储备计划</td>
+                                        <td ng-repeat="majorProjectReservePlan in instGetFundRatioByCateAndYearData.MajorProjectReservePlan track by $index">{{majorProjectReservePlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>农业智库建设计划</td>
+                                        <td ng-repeat="agriculturalThinkTankConstructionPlan in instGetFundRatioByCateAndYearData.AgriculturalThinkTankConstructionPlan track by $index">{{agriculturalThinkTankConstructionPlan}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm"><i class="fa fa-expand"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body id="instGetTopTenFundProjectChartBody">
+                        <div id="instGetTopTenFundProjectChart">
+                            <table class="table table-striped table-hover">
+                                <caption>本单位项目总拨款排名前十的项目</caption>
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-2">#</th>
+                                        <th class="col-md-6">项目名称</th>
+                                        <th class="col-md-2">拨款金额(W)</th>
+                                        <th class="col-md-2">结题时间</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="instTopTenFundProject in instTopTenFundProjects track by $index">
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{ instTopTenFundProject.ProjectName }}</td>
+                                        <td>{{ instTopTenFundProject.Amount }}</td>
+                                        <td>{{ instTopTenFundProject.EndDate | date:'yyyy-MM-dd' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+            </div>
+
+        </div>
+
+        <div class="view-page view-2" ng-show="current == 2">
+
+            <ol class="breadcrumb">
+                <li class="active">
+                    全院统计
+                    <a ng-if="roleSelects.divisionAdmin == true" class="btn btn-primary btn-sm pull-right" ng-click="jumpTo(1)"><i class="fa fa-angle-double-left"></i> 单位统计</a>
+                </li>
+            </ol>
+
+            <div class="col-lg-6">
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('deptGetAppChartExtend',1,'deptGetAppOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetAppChart == 'chart']" ng-click="chartOrTable.deptGetAppChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetAppChart == 'table']" ng-click="chartOrTable.deptGetAppChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="deptGetAppChart" style="width: 100%;height:400px;" ng-show="chartOrTable.deptGetAppChart == 'chart'"></div>
+                        <div id="deptGetAppChart" ng-show="chartOrTable.deptGetAppChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>2018年度提交申请书状态数量</caption>
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-4">类型</th>
+                                        <th class="col-md-2">待审核</th>
+                                        <th class="col-md-2">已通过</th>
+                                        <th class="col-md-2">已驳回</th>
+                                        <th class="col-md-2">总数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="AppData in deptGetAppData track by $index">
+                                        <td>{{ AppData.Category }}</td>
+                                        <td>{{ AppData.Checking }}</td>
+                                        <td>{{ AppData.Accept }}</td>
+                                        <td>{{ AppData.Reject }}</td>
+                                        <td>{{ AppData.Total }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('deptGetFundAndAcceptAppByCateChartExtend',5,'deptGetFundAndAcceptAppByCateOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetFundAndAcceptAppByCateChart == 'chart']" ng-click="chartOrTable.deptGetFundAndAcceptAppByCateChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetFundAndAcceptAppByCateChart == 'table']" ng-click="chartOrTable.deptGetFundAndAcceptAppByCateChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="deptGetFundAndAcceptAppByCateChart" style="width: 100%;height:400px;" ng-show="chartOrTable.deptGetFundAndAcceptAppByCateChart == 'chart'"></div>
+                        <div id="deptGetFundAndAcceptAppByCateChart" ng-show="chartOrTable.deptGetFundAndAcceptAppByCateChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>2018年度提交申请书总数与资助数</caption>
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-4">类型</th>
+                                        <th class="col-md-4">资助数</th>
+                                        <th class="col-md-4">总数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Data in deptGetFundAndAcceptAppByCateChartData track by $index">
+                                        <td>{{ Data.Category }}</td>
+                                        <td>{{ Data.FundNumber }}</td>
+                                        <td>{{ Data.AcceptNumber }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('deptGetProjectChartExtend',2,'deptGetProjectOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetProjectChart == 'chart']" ng-click="chartOrTable.deptGetProjectChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetProjectChart == 'table']" ng-click="chartOrTable.deptGetProjectChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="deptGetProjectChart" style="width: 100%;height:400px;" ng-show="chartOrTable.deptGetProjectChart == 'chart'"></div>
+                        <div id="deptGetProjectChart" ng-show="chartOrTable.deptGetProjectChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>2018年度在研项目分布</caption>
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-8">类型</th>
+                                        <th class="col-md-4">数量</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="ProjectData in deptGetProjectData track by $index">
+                                        <td>{{ ProjectData.Category }}</td>
+                                        <td>{{ ProjectData.Number }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('deptGetFundByCateChartExtend',2,'deptGetFundByCateOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetFundByCateChart == 'chart']" ng-click="chartOrTable.deptGetFundByCateChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetFundByCateChart == 'table']" ng-click="chartOrTable.deptGetFundByCateChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="deptGetFundByCateChart" style="width: 100%;height:400px;" ng-show="chartOrTable.deptGetFundByCateChart == 'chart'"></div>
+                        <div id="deptGetFundByCateChart" ng-show="chartOrTable.deptGetFundByCateChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>2018年度在研项目分布</caption>
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-8">类型</th>
+                                        <th class="col-md-4">数量</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="FundByCateData in deptGetFundByCateData track by $index">
+                                        <td>{{ FundByCateData.Category }}</td>
+                                        <td>{{ FundByCateData.Amount }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('deptGetProjectByYearChartExtend',3,'deptGetProjectByYearOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetProjectByYearChart == 'chart']" ng-click="chartOrTable.deptGetProjectByYearChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetProjectByYearChart == 'table']" ng-click="chartOrTable.deptGetProjectByYearChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="deptGetProjectByYearChart" style="width: 100%;height:400px;" ng-show="chartOrTable.deptGetProjectByYearChart == 'chart'"></div>
+                        <div id="deptGetProjectByYearChart" ng-show="chartOrTable.deptGetProjectByYearChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>历年各类项目立项趋势</caption>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th ng-repeat="year in deptGetProjectByYearData.Year track by $index">{{year}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>联盟重点工作</td>
+                                        <td ng-repeat="allianceFocusWork in deptGetProjectByYearData.AllianceFocusWork track by $index">{{allianceFocusWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>应急性科研工作</td>
+                                        <td ng-repeat="emergencyResearchWork in deptGetProjectByYearData.EmergencyResearchWork track by $index">{{emergencyResearchWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>科技基础工作</td>
+                                        <td ng-repeat="basicScienceAndTechnologyWork in deptGetProjectByYearData.BasicScienceAndTechnologyWork track by $index">{{basicScienceAndTechnologyWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>基础研究引导计划</td>
+                                        <td ng-repeat="basicResearchGuidancePlan in deptGetProjectByYearData.BasicResearchGuidancePlan track by $index">{{basicResearchGuidancePlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大成果培育计划</td>
+                                        <td ng-repeat="majorResultsDevelopmentProgram in deptGetProjectByYearData.MajorResultsDevelopmentProgram track by $index">{{majorResultsDevelopmentProgram}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大平台推进计划</td>
+                                        <td ng-repeat="majorPlatformPromotionPlan in deptGetProjectByYearData.MajorPlatformPromotionPlan track by $index">{{majorPlatformPromotionPlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大项目储备计划</td>
+                                        <td ng-repeat="majorProjectReservePlan in deptGetProjectByYearData.MajorProjectReservePlan track by $index">{{majorProjectReservePlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>农业智库建设计划</td>
+                                        <td ng-repeat="agriculturalThinkTankConstructionPlan in deptGetProjectByYearData.AgriculturalThinkTankConstructionPlan track by $index">{{agriculturalThinkTankConstructionPlan}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('deptGetFundRatioByCateAndYearChartExtend',3,'deptGetFundRatioByCateAndYearOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetFundRatioByCateAndYearChart == 'chart']" ng-click="chartOrTable.deptGetFundRatioByCateAndYearChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetFundRatioByCateAndYearChart == 'table']" ng-click="chartOrTable.deptGetFundRatioByCateAndYearChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="deptGetFundRatioByCateAndYearChart" style="width: 100%;height:400px;" ng-show="chartOrTable.deptGetFundRatioByCateAndYearChart == 'chart'"></div>
+                        <div id="deptGetFundRatioByCateAndYearChart" ng-show="chartOrTable.deptGetFundRatioByCateAndYearChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>历年申请书资助率趋势</caption>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th ng-repeat="year in deptGetFundRatioByCateAndYearData.Year track by $index">{{year}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>联盟重点工作</td>
+                                        <td ng-repeat="allianceFocusWork in deptGetFundRatioByCateAndYearData.AllianceFocusWork track by $index">{{allianceFocusWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>应急性科研工作</td>
+                                        <td ng-repeat="emergencyResearchWork in deptGetFundRatioByCateAndYearData.EmergencyResearchWork track by $index">{{emergencyResearchWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>科技基础工作</td>
+                                        <td ng-repeat="basicScienceAndTechnologyWork in deptGetFundRatioByCateAndYearData.BasicScienceAndTechnologyWork track by $index">{{basicScienceAndTechnologyWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>基础研究引导计划</td>
+                                        <td ng-repeat="basicResearchGuidancePlan in deptGetFundRatioByCateAndYearData.BasicResearchGuidancePlan track by $index">{{basicResearchGuidancePlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大成果培育计划</td>
+                                        <td ng-repeat="majorResultsDevelopmentProgram in deptGetFundRatioByCateAndYearData.MajorResultsDevelopmentProgram track by $index">{{majorResultsDevelopmentProgram}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大平台推进计划</td>
+                                        <td ng-repeat="majorPlatformPromotionPlan in deptGetFundRatioByCateAndYearData.MajorPlatformPromotionPlan track by $index">{{majorPlatformPromotionPlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大项目储备计划</td>
+                                        <td ng-repeat="majorProjectReservePlan in deptGetFundRatioByCateAndYearData.MajorProjectReservePlan track by $index">{{majorProjectReservePlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>农业智库建设计划</td>
+                                        <td ng-repeat="agriculturalThinkTankConstructionPlan in deptGetFundRatioByCateAndYearData.AgriculturalThinkTankConstructionPlan track by $index">{{agriculturalThinkTankConstructionPlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>总数</td>
+                                        <td ng-repeat="total in deptGetFundRatioByCateAndYearData.Total track by $index">{{total}}</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('deptGetFundByCateAndYearChartExtend',3,'deptGetFundByCateAndYearOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetFundByCateAndYearChart == 'chart']" ng-click="chartOrTable.deptGetFundByCateAndYearChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetFundByCateAndYearChart == 'table']" ng-click="chartOrTable.deptGetFundByCateAndYearChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="deptGetFundByCateAndYearChart" style="width: 100%;height:400px;" ng-show="chartOrTable.deptGetFundByCateAndYearChart == 'chart'"></div>
+                        <div id="deptGetFundByCateAndYearChart" ng-show="chartOrTable.deptGetFundByCateAndYearChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>历年各类项目经费分配趋势</caption>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th ng-repeat="year in deptGetFundByCateAndYearData.Year track by $index">{{year}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>联盟重点工作</td>
+                                        <td ng-repeat="allianceFocusWork in deptGetFundByCateAndYearData.AllianceFocusWork track by $index">{{allianceFocusWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>应急性科研工作</td>
+                                        <td ng-repeat="emergencyResearchWork in deptGetFundByCateAndYearData.EmergencyResearchWork track by $index">{{emergencyResearchWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>科技基础工作</td>
+                                        <td ng-repeat="basicScienceAndTechnologyWork in deptGetFundByCateAndYearData.BasicScienceAndTechnologyWork track by $index">{{basicScienceAndTechnologyWork}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>基础研究引导计划</td>
+                                        <td ng-repeat="basicResearchGuidancePlan in deptGetFundByCateAndYearData.BasicResearchGuidancePlan track by $index">{{basicResearchGuidancePlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大成果培育计划</td>
+                                        <td ng-repeat="majorResultsDevelopmentProgram in deptGetFundByCateAndYearData.MajorResultsDevelopmentProgram track by $index">{{majorResultsDevelopmentProgram}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大平台推进计划</td>
+                                        <td ng-repeat="majorPlatformPromotionPlan in deptGetFundByCateAndYearData.MajorPlatformPromotionPlan track by $index">{{majorPlatformPromotionPlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重大项目储备计划</td>
+                                        <td ng-repeat="majorProjectReservePlan in deptGetFundByCateAndYearData.MajorProjectReservePlan track by $index">{{majorProjectReservePlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>农业智库建设计划</td>
+                                        <td ng-repeat="agriculturalThinkTankConstructionPlan in deptGetFundByCateAndYearData.AgriculturalThinkTankConstructionPlan track by $index">{{agriculturalThinkTankConstructionPlan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>总数</td>
+                                        <td ng-repeat="total in deptGetFundByCateAndYearData.Total track by $index">{{total}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('deptGetProjectByInstChartExtend',4,'deptGetProjectByInstOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetProjectByInstChart == 'chart']" ng-click="chartOrTable.deptGetProjectByInstChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetProjectByInstChart == 'table']" ng-click="chartOrTable.deptGetProjectByInstChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="deptGetProjectByInstChart" style="width: 100%;height:400px;" ng-show="chartOrTable.deptGetProjectByInstChart == 'chart'"></div>
+                        <div id="deptGetProjectByInstChart" ng-show="chartOrTable.deptGetProjectByInstChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>2018年度各单位在研项目数量分布</caption>
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-8">单位</th>
+                                        <th class="col-md-4">数量</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="ProjectByInstDat in deptGetProjectByInstData track by $index">
+                                        <td>{{ ProjectByInstDat.InstName }}</td>
+                                        <td>{{ ProjectByInstDat.Number }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm" ng-click="extendChart('deptGetFundByInstChartExtend',4,'deptGetFundByInstOption')"><i class="fa fa-expand"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetFundByInstChart == 'chart']" ng-click="chartOrTable.deptGetFundByInstChart = 'chart'"><i class="fa fa-bar-chart"></i></a>
+                                <a class="btn btn-default btn-sm" ng-class="{true:'active'}[chartOrTable.deptGetFundByInstChart == 'table']" ng-click="chartOrTable.deptGetFundByInstChart = 'table'"><i class="fa fa-table"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <div id="deptGetFundByInstChart" style="width: 100%;height:400px;" ng-show="chartOrTable.deptGetFundByInstChart == 'chart'"></div>
+                        <div id="deptGetFundByInstChart" ng-show="chartOrTable.deptGetFundByInstChart == 'table'">
+                            <table class="table table-striped table-hover">
+                                <caption>2018年度各单位经费分配(W)</caption>
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-8">类型</th>
+                                        <th class="col-md-4">经费金额(W)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="FundByInstData in deptGetFundByInstData track by $index">
+                                        <td>{{ FundByInstData.InstName }}</td>
+                                        <td>{{ FundByInstData.Amount }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </chart-body>
+                </section>
+
+            </div>
+
+
+            <div class="col-lg-12">
+                <section class="chartContainer">
+                    <tool-head>
+                        <tool-bar>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-sm"><i class="fa fa-expand"></i></a>
+                            </div>
+                        </tool-bar>
+                    </tool-head>
+                    <chart-body>
+                        <table class="table table-striped table-hover">
+                            <caption>全院项目总拨款排名前十的项目</caption>
+                            <thead>
+                                <tr>
+                                    <th class="col-md-1">#</th>
+                                    <th class="col-md-4">项目名称</th>
+                                    <th class="col-md-2">项目类别</th>
+                                    <th class="col-md-2">所属单位</th>
+                                    <th class="col-md-1">拨款金额(W)</th>
+                                    <th class="col-md-2">结题时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="deptTopTenFundProject in deptTopTenFundProjects track by $index">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{ deptTopTenFundProject.ProjectName }}</td>
+                                    <td>{{ deptTopTenFundProject.Category }}</td>
+                                    <td>{{ deptTopTenFundProject.InstName }}</td>
+                                    <td>{{ deptTopTenFundProject.Amount }}</td>
+                                    <td>{{ deptTopTenFundProject.EndDate | date:'yyyy-MM-dd' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </chart-body>
+                </section>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="blur" ng-hide="extendBlurIsHide" ng-click="hideChartBlur()"></div>
+    <div id="extendCharts" ng-hide="extendBlurIsHide">
+        <a id="closeExtendChart" ng-click="hideChartBlur()"><i class="fa fa-remove" style="font-size:2.5rem;"></i></a>
+        <div id="extendChartsContainer"></div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+﻿<form class="form-horizontal" name="BasicInfo" novalidate>
+
+    <fieldset>
+
+        <legend>项目信息</legend>
+        <div class="form-group" ng-class="{true:'has-error'}[BasicInfo.ProjectName.$error.required && BasicInfo.ProjectName.$dirty]">
+            <label for="ProjectName" class="col-lg-3 control-label">工作任务名称<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <input name="ProjectName"
+                       ng-model="pInfoCtrl.projectSource.ProjectName"
+                       type="text"
+                       class="form-control"
+                       placeholder="工作任务名称"
+                       required />
+                <div ng-messages="BasicInfo.ProjectName.$error" ng-if="BasicInfo.ProjectName.$dirty" style="width: 100%;">
+                    <small class="error" ng-message="required">工作任务名称不能为空</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="projectType" class="col-lg-3 control-label">委托类型<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <select name="ProjectType"
+                        ng-model="pInfoCtrl.projectSource.DeleageType"
+                        class="form-control"
+                        id="DeleageType"
+                        ng-options="deleageType.DeleageTypeId as deleageType.Name for deleageType in [{'DeleageTypeId': 0, 'Name': '非定向委托'},{'DeleageTypeId': 1, 'Name': '定向委托'}]">
+                    <option value="" disabled>-------请选择委托类型-------</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{true:'has-error'}[BasicInfo.Period.$error.pattern || (BasicInfo.Period.$error.required && BasicInfo.Period.$dirty)]">
+            <label for="period" class="col-lg-3 control-label">执行期限<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-3">
+                <input name="Period"
+                       ng-init="pInfoCtrl.projectSource.Period = 3"
+                       ng-model="pInfoCtrl.projectSource.Period"
+                       type="text"
+                       class="form-control"
+                       id="period"
+                       ng-pattern="/^[0-5]$/"
+                       required />
+                <div ng-messages="BasicInfo.Period.$error" ng-if="BasicInfo.Period.$dirty" style="width: 100%">
+                    <small class="error" ng-message="required">执行期限不能为空</small>
+                    <small class="error" ng-message="pattern">执行期限需要在1到5年内,且为整数</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="projectType" class="col-lg-3 control-label">项目类型<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <select name="ProjectType"
+                        ng-model="pInfoCtrl.projectSource.ProjectTypeId"
+                        class="form-control"
+                        id="projectType"
+                        ng-change="getSupportCategory(pInfoCtrl.projectSource.ProjectTypeId);"
+                        ng-options="projectType.ProjectTypeId as projectType.Name for projectType in pInfoCtrl.projectSource.ProjectTypes"
+                        required>
+                    <option value="" disabled>-------请选择项目类型-------</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{true:'has-error'}[BasicInfo.SupportCategory.$error.required]">
+            <label for="supportCategory" class="col-lg-3 control-label">支持类别<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <select name="SupportCategory"
+                        ng-model="pInfoCtrl.projectSource.SupportCategoryId"
+                        class="form-control"
+                        id="supportCategory"
+                        ng-options="supportCategory.SupportCategoryId as supportCategory.Name for supportCategory in pInfoCtrl.projectSource.SupportCategorys"
+                        required>
+                    <option value="" disabled>-------请选择支持类别-------</option>
+                </select>
+                <div ng-messages="BasicInfo.Period.$error" ng-if="BasicInfo.Period.$dirty" style="width: 100%">
+                    <small class="error" ng-message="required">执行期限不能为空</small>
+                    <small class="error" ng-message="pattern">执行期限需要在1到5年内,且为整数</small>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <legend>经费信息</legend>
+        <div class="form-group" ng-class="{true:'has-error'}[BasicInfo.WholeAmount.$error.pattern || (BasicInfo.WholeAmount.$error.required && BasicInfo.WholeAmount.$dirty)]">
+            <label for="TotalBudget" class="col-lg-3 control-label">总经费预算<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <div class="input-group">
+                    <span class="input-group-addon">￥</span>
+                    <input name="WholeAmount"
+                           id="TotalBudget"
+                           ng-model="pInfoCtrl.projectSource.TotalBudget"
+                           type="number"
+                           step="0.01"
+                           class="form-control"
+                           aria-label="Amount (to the nearest dollar)"
+                           ng-pattern="/(^[1-9]\d*\.\d{1,2}$)|(^[1-9]+\d*$)|(^0\.0[1-9]$)|(^0\.[1-9]\d$)/"
+                           required />
+                    <span class="input-group-addon">万元</span>
+                </div>
+                <div ng-messages="BasicInfo.WholeAmount.$error" ng-if="BasicInfo.WholeAmount.$dirty" style="width: 100%;">
+                    <small class="error" ng-message="required">经费预算（总经费）不能为空</small>
+                    <small class="error" ng-message="pattern">输入金额应为正数，且最多保留两位小数</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{true:'has-error'}[BasicInfo.FirstYearAmount.$error.pattern || (BasicInfo.FirstYearAmount.$error.required && BasicInfo.FirstYearAmount.$dirty)]">
+            <label for="FirstYearBudget" class="col-lg-3 control-label">首年度经费<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <div class="input-group">
+                    <span class="input-group-addon">￥</span>
+                    <input name="FirstYearAmount"
+                           id="FirstYearBudget"
+                           ng-model="pInfoCtrl.projectSource.FirstYearBudget"
+                           type="number"
+                           step="0.01"
+                           class="form-control"
+                           aria-label="Amount (to the nearest dollar)"
+                           ng-pattern="/(^[1-9]\d*\.\d{1,2}$)|(^[1-9]+\d*$)|(^0\.0[1-9]$)|(^0\.[1-9]\d$)/"
+                           required />
+                    <span class="input-group-addon">万元</span>
+                </div>
+                <div ng-messages="BasicInfo.FirstYearAmount.$error" ng-if="BasicInfo.FirstYearAmount.$dirty" style="width: 100%;">
+                    <small class="error" ng-message="required">首年度经费不能为空</small>
+                    <small class="error" ng-message="pattern">输入金额应为正数，且最多保留两位小数</small>
+                    <small class="error" ng-show="pInfoCtrl.projectSource.FirstYearBudget > pInfoCtrl.projectSource.TotalBudget">首年度经费不可大于总经费</small>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <legend>摘要</legend>
+        <div class="form-group" ng-class="{true:'has-error'}[BasicInfo.constract.$error.required && BasicInfo.constract.$dirty]">
+            <label for="constract" class="col-lg-3 control-label">摘要<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <textarea class="form-control" name="constract" id="constract" ng-model="pInfoCtrl.projectSource.AbstractContent" rows="5" required></textarea>
+                <div ng-messages="BasicInfo.constract.$error" ng-if="BasicInfo.constract.$dirty" style="width: 100%;">
+                    <small class="error" ng-message="required">摘要不能为空</small>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+</form>

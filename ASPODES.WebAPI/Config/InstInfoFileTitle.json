@@ -1,0 +1,15 @@
+﻿{
+	"Code":"机构代码",
+	"Name":"单位名称",
+	"ShortName":"单位名称简称",
+	"Address":"地址",
+	"Zip":"邮编",
+	"WebSite":"网址",
+	"Comment":"备注",
+    "Type": "单位类型",
+    "FirstName": "姓",
+    "LastName": "名",
+    "IDCard": "身份证",
+    "Email": "邮箱",
+    "Phone": "手机"
+}

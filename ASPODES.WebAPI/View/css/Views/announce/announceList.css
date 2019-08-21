@@ -1,0 +1,40 @@
+﻿.mainContainer {
+    min-height:100vh;
+    background-image:url("../../../images/welcome/1511.jpg");
+    background-position:left top;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.announceMainBody{
+    padding:24px;
+}
+
+.TimeSelectMenu{
+    background-color:white;
+    padding:16px 24px;
+    box-shadow:-1px 2px 10px #808080;
+}
+
+.announceListBody{
+    width:100%;
+    background-color:white;
+    padding:16px 48px;
+    box-shadow:-1px 2px 10px #808080;
+}
+
+.products-list .product-info {
+  margin-left: 10px;
+}
+
+.timeSelect:hover{
+    margin-left:24px;
+    color:#259b24;
+    cursor:pointer;
+
+}
+
+.pagination{
+
+}

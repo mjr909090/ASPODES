@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngProjectPartakeApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body ng-controller="ngProjectPartakeCtrl">
+
+		<div class="container">
+			
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 项目申请</a>
+				</li>
+				<li>
+					<a>我的项目</a>
+				</li>
+				<li class="active">我参与的项目</li>
+			</ol>
+			
+			<div class="box box-solid">
+				<div class="box-header ui-sortable-handle bg-green">
+					<i class="ion ion-clipboard"></i>
+
+					<h3 class="box-title">正在参与的项目</h3>
+					
+					<div class="box-tools pull-right">
+			            <button type="button" class="btn bg-green btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		            </div>
+					
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+
+                    <div class="warningMsg" ng-if="nowProject.length == 0">
+                        <div class="callout callout-warning">
+                            <h4>注意!</h4>
+
+                            <p>您还没有正在参与的项目！</p>
+                        </div>
+                    </div>
+
+					<ul class="todo-list ui-sortable">
+						
+						<li ng-repeat="project in nowProject">
+							<!-- todo text -->
+							<span class="text">{{project.Name}}</span>
+							<small class="label label-primary"><i class="fa fa-user"></i> {{project.Leader.Task}}</small>
+							<small class="label label-success"><i class="fa fa-clock-o"></i> {{project.StartDate | date:'yyyy-MM-dd'}} -- {{project.EndDate | date:'yyyy-MM-dd'}}</small>
+							
+							<!-- General tools such as edit or delete-->
+							<div class="tools pull-right">
+                                <i class="fa fa-search" ng-click="showProjectInfo(project)" data-toggle="tooltip" data-placement="top" title="" data-original-title="详细信息"></i>
+							</div>
+						</li>
+					    
+					</ul>
+				</div>
+			</div>
+			
+			<br />
+			<br />
+			
+			<div class="box box-solid">
+				<div class="box-header ui-sortable-handle bg-primary">
+					<i class="ion ion-clipboard" style="color: white;"></i>
+
+					<h3 class="box-title" style="color: white;">已结题的参与项目</h3>
+					
+					<div class="box-tools pull-right">
+			            <button type="button" class="btn bg-primary btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		            </div>
+					
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					<ul class="todo-list ui-sortable">
+
+                        <div class="warningMsg" ng-if="pastProject.length == 0">
+                            <div class="callout callout-warning">
+                                <h4>注意!</h4>
+
+                                <p>您还没有已结题的参与项目！</p>
+                            </div>
+                        </div>
+
+						
+                        <li ng-repeat="project in pastProject">
+                            <!-- todo text -->
+                            <span class="text">{{project.Name}}</span>
+                            <small class="label label-primary"><i class="fa fa-user"></i> {{project.Leader.Task}}</small>
+                            <small class="label label-success"><i class="fa fa-clock-o"></i> {{project.StartTime}} -- {{project.EndTime}}</small>
+
+                            <!-- General tools such as edit or delete-->
+                            <div class="tools pull-right">
+                                <i class="fa fa-search" ng-click="showProjectInfo(project)" data-toggle="tooltip" data-placement="top" title="" data-original-title="详细信息"></i>
+                            </div>
+                        </li>
+						
+						
+					</ul>
+					
+				</div>
+			</div>
+		</div>
+
+
+
+        <!-- 项目具体信息 projectDetailModal-->
+        <div class="modal fade" id="projectDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">项目具体信息</h3>
+                    </div>
+                    <div class="modal-body">
+
+                        <tabs active="0">
+                            <tab label=" 基本信息">
+                                <br />
+                                <form class="form-horizontal" role="form">
+
+                                    <div class="form-group">
+                                        <label for="name" class="col-sm-2 control-label">项目名称</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static">{{projectData.Name}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">执行期限</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static">{{projectData.Period}}年</p>
+                                        </div>
+                                        <!--<span class="col-sm-10">{{projectData.Period}}年</span>-->
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">类型</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static">{{projectData.ProjectTypeName}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">起止日期</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static">{{projectData.StartDate | date:"yyyy-MM-dd"}} - {{projectData.EndDate | date:"yyyy-MM-dd"}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">总预算</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static">{{projectData.TotalBudget}}万</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">定向类型</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static">{{projectData.DelegateType}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">状态</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static" ng-if="projectData.Status == 0">在研</p>
+                                            <p class="form-control-static" ng-if="projectData.Status == 1">结题</p>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </tab>
+                            <tab label=" 项目成员">
+                                <br />
+                                <h4>主持单位人员</h4>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>姓名</th>
+                                            <th>单位</th>
+                                            <th>责任分工</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>{{projectData.Leader.PersonName}}</strong></td>
+                                            <td><strong>{{projectData.Leader.InstituteName}}</strong></td>
+                                            <td><strong>{{projectData.Leader.Task}}</strong></td>
+                                        </tr>
+                                        <tr ng-repeat="hostMem in projectData.HostDepartMembers track by $index">
+                                            <td>{{hostMem.PersonName}}</td>
+                                            <td>{{hostMem.InstituteName}}</td>
+                                            <td>{{hostMem.Task}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br />
+                                <h4>外协单位人员</h4>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>姓名</th>
+                                            <th>单位</th>
+                                            <th>责任分工</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="otherMem in projectData.OtherDepartMembers track by $index">
+                                            <td>{{otherMem.PersonName}}</td>
+                                            <td>{{otherMem.InstituteName}}</td>
+                                            <td>{{otherMem.Task}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </tab>
+                            <tab label=" 项目文件">
+
+                                <br />
+                                <project-file></project-file>
+
+                            </tab>
+                            <tab label=" 任务书">
+                                <br />
+
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h4 class="box-title">项目任务书</h4>
+                                        <div class="box-tools pull-right">
+                                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body no-padding">
+
+                                        <ul class="todo-list ui-sortable">
+                                            <li ng-repeat="task in projectData.AnnualTasks track by task.AnnualTaskId">
+                                                <span class="text">{{task.Name}}</span>
+                                                <small class="label label-info"><i class="fa fa-clock-o"></i> {{task.EditTime | date:"yyyy-MM-dd"}}</small>
+                                                <small class="label label-primary" ng-if="task.Status == 1">待审核</small>
+                                                <small class="label label-danger" ng-if="task.Status == 2 || task.Status == 4">已驳回</small>
+                                                <small class="label label-success" ng-if="task.Status == 3">已提交</small>
+                                                <small class="label label-success" ng-if="task.Status == 10">审核通过</small>
+                                                <div class="pull-right">
+                                                    <a class="pdfDownload" ng-click="downloadPDF(task.AnnualTaskId,task.Name)">
+                                                        <i class="fa fa-download" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"></i>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+
+                            </tab>
+                        </tabs>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		
+	</body>
+
+</html>

@@ -1,0 +1,824 @@
+﻿<!DOCTYPE html>
+<!--专家分配建议-->
+<html ng-app="ngAssignment_RecommendationApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="css/Views/superAdmin/expertAssignment/assignment_recommendation.css" rel="stylesheet" />
+
+
+    <script type="text/javascript" src="js/underscore.js"></script>
+</head>
+<body ng-controller="ngAssignment_RecommendationCtrl">
+
+
+    <div class="container">
+
+        <br />
+
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 全院管理</a>
+            </li>
+            <li>
+                <a> 专家指派管理</a>
+            </li>
+            <li class="active"> 专家指派</li>
+        </ol>
+
+        <div class="box box-solid" style="margin-top: 40px">
+            <div class="box-header ui-sortable-handle bg-green">
+                <i class="fa  fa-users"></i>
+                <h3 class="box-title">专家指派列表</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body" style="display: block;">
+
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#needConfirm" data-toggle="tab" ng-click="getNeedList(0, 1)">待确认</a></li>
+                        <li><a href="#artificialAssign" data-toggle="tab" ng-click="getArtificialAssignList(0, 1)">手动指派</a></li>
+                        <li><a href="#alreadyAssign" data-toggle="tab" ng-click="getAlreadyAssignList(0, 1)">已指派</a></li>
+
+                    </ul>
+                    <div class="tab-content">
+
+                        <!-- needConfirm tab-pane-->
+                        <div class="tab-pane active" id="needConfirm">
+
+                            <br />
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ConfirmAllModal">全部确认</button>
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    申请书筛选 <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" style="width: 480px">
+                                    <li>
+                                        <form class="form-horizontal">
+                                            <fieldset>
+                                                <div class="form-group">
+                                                    <label class="control-label col-xs-3" for="field">研究领域</label>
+                                                    <div class="col-xs-8">
+                                                        <select id="field" class="form-control" ng-model="needConfirmField.Field" ng-options="field.FieldId as field.FieldId for field in Fields" ng-change="getNeedSubField(needConfirmField.Field)">
+                                                            <option value="">全部</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-1"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="subfield" class="control-label col-xs-3">子领域</label>
+                                                    <div class="col-xs-8">
+                                                        <select id="subfield" class="form-control" ng-model="needConfirmField.subField" ng-options="subField.SubFieldId as subField.SubFieldId for subField in needSubFields">
+                                                            <option value="">全部</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-1"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="institute" class="control-label col-xs-3">单位</label>
+                                                    <div class="col-xs-8">
+                                                        <select id="institute" class="form-control" ng-model="needConfirmField.Institute" ng-options="institute.InstituteId as institute.Name for institute in instList">
+                                                            <option value="">全部</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-1"></div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-lg-1"></div>
+                                        <div class="col-lg-10">
+                                            <button class="btn btn-primary btn-block" ng-click="getNeedList(needConfirmField.Institute, 1)">确定</button>
+                                        </div>
+                                        <div class="col-lg-1"></div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <br />
+                            <br />
+
+                            <table class="table table-hover" ng-show="!needListIsNull">
+                                <thead>
+                                    <tr>
+                                        <th>申请书</th>
+                                        <th>类别</th>
+                                        <th>承担单位</th>
+                                        <th>负责人</th>
+                                        <th colspan="5" class="table-middle" style="min-width:400px">专家</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="application in needConfirmApplications">
+                                        <td>{{application.ProjectName}}</td>
+                                        <td>{{application.ProjectTypeName}}</td>
+                                        <td>{{application.InstituteName}}</td>
+                                        <td>{{application.LeaderName}}</td>
+                                        <td><span class="label label-success" ng-if="application.ReviewAssignments[0] != null" ng-click="showChangeExpertModal(application,0)">{{application.ReviewAssignments[0].ExpertName}}</span></td>
+                                        <td><span class="label label-success" ng-if="application.ReviewAssignments[1] != null" ng-click="showChangeExpertModal(application,1)">{{application.ReviewAssignments[1].ExpertName}}</span></td>
+                                        <td><span class="label label-success" ng-if="application.ReviewAssignments[2] != null" ng-click="showChangeExpertModal(application,2)">{{application.ReviewAssignments[2].ExpertName}}</span></td>
+                                        <td><span class="label label-success" ng-if="application.ReviewAssignments[3] != null" ng-click="showChangeExpertModal(application,3)">{{application.ReviewAssignments[3].ExpertName}}</span></td>
+                                        <td><span class="label label-success" ng-if="application.ReviewAssignments[4] != null" ng-click="showChangeExpertModal(application,4)">{{application.ReviewAssignments[4].ExpertName}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <ul class="pagination pull-right" ng-show="!needListIsNull">
+                                <li ng-class="{true:'disabled'}[needConfirmNowPage == 1]"><a ng-click="needConfirmJumpToPage(needConfirmNowPage-1)">&laquo;</a></li>
+                                <li ng-show="needConfirmNowPage > 3"><a ng-click="needConfirmJumpToPage(1)">1</a></li>
+                                <li ng-show="needConfirmNowPage - 1 > 3"><a>...</a></li>
+                                <li ng-repeat="page in needConfirmPageArry" ng-if="pageAbs(needConfirmNowPage,page)" ng-class="{true:'active'}[page == needConfirmNowPage]">
+                                    <a ng-click="needConfirmJumpToPage(page)">{{page}}</a>
+                                </li>
+                                <li ng-show="needConfirmNowPage < needConfirmTotalPageNum - 3"><a>...</a></li>
+                                <li ng-show="needConfirmNowPage < needConfirmTotalPageNum - 3"><a ng-click="needConfirmJumpToPage(needConfirmTotalPageNum)">{{needConfirmTotalPageNum}}</a></li>
+                                <li><a ng-class="{true:'disabled'}[needConfirmNowPage == needConfirmTotalPageNum]" ng-click="needConfirmneedConfirmJumpToPage(needConfirmNowPage+1)">&raquo;</a></li>
+                            </ul>
+
+                            <div class="callout callout-info" ng-if="needListIsNull">
+                                <h4>注意!</h4>
+                                <p>当前没有需要确认的申请书！</p>
+                            </div>
+
+
+
+
+                        </div>
+                        <!-- /.tab-pane -->
+                        <!-- artificialAssign tab-pane-->
+                        <div class="tab-pane" id="artificialAssign">
+
+                            <br />
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#assignProfessorModal" ng-click="getExpertList(0,1)">批量分配</button>
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    申请书筛选 <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" style="width: 480px">
+                                    <li>
+                                        <form class="form-horizontal">
+                                            <fieldset>
+                                                <div class="form-group">
+                                                    <label class="control-label col-xs-3" for="field">研究领域</label>
+                                                    <div class="col-xs-8">
+                                                        <select id="field" class="form-control" ng-model="artificialAssignField.Field" ng-options="field.FieldId as field.FieldId for field in Fields" ng-change="getArtificialSubField(artificialAssignField.Field)">
+                                                            <option value="">全部</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-1"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="subfield" class="control-label col-xs-3">子领域</label>
+                                                    <div class="col-xs-8">
+                                                        <select id="subfield" class="form-control" ng-model="artificialAssignField.subField" ng-options="subField.SubFieldId as subField.SubFieldId for subField in artificialSubFields">
+                                                            <option value="">全部</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-1"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="institute" class="control-label col-xs-3">单位</label>
+                                                    <div class="col-xs-8">
+                                                        <select id="institute" class="form-control" ng-model="artificialAssignField.institute" ng-options="institute.InstituteId as institute.Name for institute in instList">
+                                                            <option value="">全部</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-1"></div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-lg-1"></div>
+                                        <div class="col-lg-10">
+                                            <button class="btn btn-primary btn-block" ng-click="getArtificialAssignList(artificialAssignField.institute,1)">确定</button>
+                                        </div>
+                                        <div class="col-lg-1"></div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <br />
+                            <br />
+
+                            <table class="table table-hover" ng-show="!artificialAssignListIsNull">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>申请书</th>
+                                        <th>类别</th>
+                                        <th>承担单位</th>
+                                        <th>负责人</th>
+                                        <th colspan="5" class="table-middle" style="min-width:400px">专家</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="application in artificialAssignApplications track by $index">
+                                        <td><input type="checkbox" ng-checked="exists(application, $parent.artificialAssignSelected) != -1" ng-click="toggle(application, $parent.artificialAssignSelected)" /></td>
+                                        <td>{{application.ProjectName}}</td>
+                                        <td>{{application.ProjectTypeName}}</td>
+                                        <td>{{application.InstituteName}}</td>
+                                        <td>{{application.LeaderName}}</td>
+                                        <td><span class="label label-success" ng-if="application.ReviewAssignments[0] != null" ng-click="showChangeExpertModal(application,0)">{{application.ReviewAssignments[0].ExpertName}}</span><span class="label label-danger" ng-if="application.ReviewAssignments[0] == null" ng-click="showChangeExpertModal(application,0)">没有专家</span></td>
+                                        <td><span class="label label-success" ng-if="application.ReviewAssignments[1] != null" ng-click="showChangeExpertModal(application,1)">{{application.ReviewAssignments[1].ExpertName}}</span><span class="label label-danger" ng-if="application.ReviewAssignments[1] == null" ng-click="showChangeExpertModal(application,1)">没有专家</span></td>
+                                        <td><span class="label label-success" ng-if="application.ReviewAssignments[2] != null" ng-click="showChangeExpertModal(application,2)">{{application.ReviewAssignments[2].ExpertName}}</span><span class="label label-danger" ng-if="application.ReviewAssignments[2] == null" ng-click="showChangeExpertModal(application,2)">没有专家</span></td>
+                                        <td><span class="label label-success" ng-if="application.ReviewAssignments[3] != null" ng-click="showChangeExpertModal(application,3)">{{application.ReviewAssignments[3].ExpertName}}</span><span class="label label-danger" ng-if="application.ReviewAssignments[3] == null" ng-click="showChangeExpertModal(application,3)">没有专家</span></td>
+                                        <td><span class="label label-success" ng-if="application.ReviewAssignments[4] != null" ng-click="showChangeExpertModal(application,4)">{{application.ReviewAssignments[4].ExpertName}}</span><span class="label label-danger" ng-if="application.ReviewAssignments[4] == null" ng-click="showChangeExpertModal(application,4)">没有专家</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <br />
+                            <br />
+
+                            <ul class="pagination pull-right" ng-show="!artificialAssignListIsNull">
+                                <li ng-class="{true:'disabled'}[artificialAssignNowPage == 1]"><a ng-click="artificialAssignJumpToPage(artificialAssignNowPage-1)">&laquo;</a></li>
+                                <li ng-show="artificialAssignNowPage > 3"><a ng-click="artificialAssignJumpToPage(1)">1</a></li>
+                                <li ng-show="artificialAssignNowPage - 1 > 3"><a>...</a></li>
+                                <li ng-repeat="page in artificialAssignPageArry" ng-if="pageAbs(artificialAssignNowPage,page)" ng-class="{true:'active'}[page == artificialAssignNowPage]">
+                                    <a ng-click="artificialAssignJumpToPage(page)">{{page}}</a>
+                                </li>
+                                <li ng-show="artificialAssignNowPage < artificialAssignTotalPageNum - 3"><a>...</a></li>
+                                <li ng-show="artificialAssignNowPage < artificialAssignTotalPageNum - 3"><a ng-click="artificialAssignJumpToPage(artificialAssignTotalPageNum)">{{artificialAssignTotalPageNum}}</a></li>
+                                <li><a ng-class="{true:'disabled'}[artificialAssignNowPage == artificialAssignTotalPageNum]" ng-click="artificialAssignJumpToPage(artificialAssignNowPage+1)">&raquo;</a></li>
+                            </ul>
+
+
+                            <div class="callout callout-info" ng-if="artificialAssignListIsNull">
+                                <h4>注意!</h4>
+                                <p>当前没有需要手动指派的申请书！</p>
+                            </div>
+
+                        </div>
+                        <!-- /.tab-pane -->
+                        <!-- alreadyAssign tab-pane-->
+                        <div class="tab-pane" id="alreadyAssign">
+
+                            <br />
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    申请书筛选 <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" style="width: 480px">
+                                    <li>
+                                        <form class="form-horizontal">
+                                            <fieldset>
+                                                <div class="form-group">
+                                                    <label class="control-label col-xs-3" for="field">研究领域</label>
+                                                    <div class="col-xs-8">
+                                                        <select id="field" class="form-control" ng-model="alreadyAssignField.Field" ng-options="field.FieldId as field.FieldId for field in Fields" ng-change="getAlreadySubField(alreadyAssignField.Field)">
+                                                            <option value="">全部</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-1"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="subfield" class="control-label col-xs-3">子领域</label>
+                                                    <div class="col-xs-8">
+                                                        <select id="subfield" class="form-control" ng-model="alreadyAssignField.subField" ng-options="subField.SubFieldId as subField.SubFieldId for subField in alreadySubFields">
+                                                            <option value="">全部</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-1"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="institute" class="control-label col-xs-3">单位</label>
+                                                    <div class="col-xs-8">
+                                                        <select id="institute" class="form-control" ng-model="alreadyAssignField.institute" ng-options="institute.InstituteId as institute.Name for institute in instList">
+                                                            <option value="">全部</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-1"></div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-lg-1"></div>
+                                        <div class="col-lg-10">
+                                            <button class="btn btn-primary btn-block" ng-click="getAlreadyAssignList(alreadyAssignField.institute,1)">确定</button>
+                                        </div>
+                                        <div class="col-lg-1"></div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <br />
+                            <br />
+
+                            <table class="table table-hover" ng-show="!alreadyAssignListIsNull">
+                                <thead>
+                                    <tr>
+                                        <th>申请书</th>
+                                        <th>类别</th>
+                                        <th>承担单位</th>
+                                        <th>负责人</th>
+                                        <th colspan="5">专家</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="application in alreadyConfirmApplications">
+                                        <td>{{application.ProjectName}}</td>
+                                        <td>{{application.ProjectTypeName}}</td>
+                                        <td>{{application.InstituteName}}</td>
+                                        <td>{{application.LeaderName}}</td>
+                                        <td><span class="label label-success" ng-click="showViewExpertInfoModal(application.ReviewAssignments[0].ExpertId)">{{application.ReviewAssignments[0].ExpertName}}</span></td>
+                                        <td><span class="label label-success" ng-click="showViewExpertInfoModal(application.ReviewAssignments[1].ExpertId)">{{application.ReviewAssignments[1].ExpertName}}</span></td>
+                                        <td><span class="label label-success" ng-click="showViewExpertInfoModal(application.ReviewAssignments[2].ExpertId)">{{application.ReviewAssignments[2].ExpertName}}</span></td>
+                                        <td><span class="label label-success" ng-click="showViewExpertInfoModal(application.ReviewAssignments[3].ExpertId)">{{application.ReviewAssignments[3].ExpertName}}</span></td>
+                                        <td><span class="label label-success" ng-click="showViewExpertInfoModal(application.ReviewAssignments[4].ExpertId)">{{application.ReviewAssignments[4].ExpertName}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="callout callout-info" ng-if="alreadyAssignListIsNull">
+                                <h4>注意!</h4>
+                                <p>当前没有已指派的申请书！</p>
+                            </div>
+
+                            <ul class="pagination pull-right" ng-show="!alreadyAssignListIsNull">
+                                <li ng-class="{true:'disabled'}[alreadyAssignNowPage == 1]"><a ng-click="alreadyAssignJumpToPage(alreadyAssignNowPage-1)">&laquo;</a></li>
+                                <li ng-show="alreadyAssignNowPage > 3"><a ng-click="alreadyAssignJumpToPage(1)">1</a></li>
+                                <li ng-show="alreadyAssignNowPage - 1 > 3"><a>...</a></li>
+                                <li ng-repeat="page in alreadyAssignPageArry" ng-if="pageAbs(alreadyAssignNowPage,page)" ng-class="{true:'active'}[page == alreadyAssignNowPage]">
+                                    <a ng-click="alreadyAssignJumpToPage(page)">{{page}}</a>
+                                </li>
+                                <li ng-show="alreadyAssignNowPage < alreadyAssignTotalPageNum - 3"><a>...</a></li>
+                                <li ng-show="alreadyAssignNowPage < alreadyAssignTotalPageNum - 3"><a ng-click="alreadyAssignJumpToPage(alreadyAssignTotalPageNum)">{{alreadyAssignTotalPageNum}}</a></li>
+                                <li><a ng-class="{true:'disabled'}[alreadyAssignNowPage == alreadyAssignTotalPageNum]" ng-click="alreadyAssignJumpToPage(alreadyAssignNowPage+1)">&raquo;</a></li>
+                            </ul>
+
+                        </div>
+                        <!-- /.tab-pane -->
+
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ConfirmAllModal -->
+    <div class="modal fade" id="ConfirmAllModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">注意</h4>
+                </div>
+                <div class="modal-body">
+                    此操作会确认全部的申请书指派，不论是否您的列表经过筛选或者处于哪一页。请谨慎操作。
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ConfirmAll()">仍要确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AssignProfessorModal -->
+    <div class="modal fade" id="assignProfessorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">批量分配专家</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="box box-solid box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">待分配申请书{{artificialAssignSelected.length}}封</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <select multiple class="form-control" ng-model="applicationList" ng-options="application.ApplicationId as application.ProjectName for application in artificialAssignSelected"></select>
+                        </div>
+                    </div>
+
+
+                    <div class="box box-solid box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">候选专家</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <label class="control-label col-lg-4" for="expertFieldSelect">研究领域</label>
+                                    <div class="col-lg-8">
+                                        <select id="expertFieldSelect" class="form-control" ng-model="expertField.Field" ng-options="field.FieldId as field.FieldId for field in Fields" ng-change="getExpertSubField(expertField.Field)">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="control-label col-lg-4" for="expertSubFieldSelect">子领域</label>
+                                    <div class="col-lg-8">
+                                        <select id="expertSubFieldSelect" class="form-control" ng-model="expertField.subField" ng-options="subField.SubFieldId as subField.SubFieldId for subField in expertSubFields">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="control-label col-lg-4" for="expertFieldSelect">单位</label>
+                                    <div class="col-lg-8">
+                                        <select id="expertFieldSelect" class="form-control" ng-model="expertField.instituteId" ng-options="institute.InstituteId as institute.Name for institute in instList">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <a class="btn btn-primary" ng-click="getExpertList(expertField.instituteId,1)">筛选</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div ng-repeat="expert in expertList track by $index">
+                                        <div ng-if="setLine($index,2) == 0">
+                                            <input type="checkbox" ng-checked="exists(expert, expertSelect) != -1" ng-click="toggle(expert, $parent.expertSelect)" />{{expert.Name}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div ng-repeat="expert in expertList track by $index">
+                                        <div ng-if="setLine($index,2) == 1">
+                                            <input type="checkbox" ng-checked="exists(expert, expertSelect) != -1" ng-click="toggle(expert, $parent.expertSelect)" />{{expert.Name}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <ul class="pagination pull-right">
+                                <li ng-class="{true:'disabled'}[expertNowPage == 1]"><a ng-click="jumpToPage(expertNowPage-1)">&laquo;</a></li>
+                                <li ng-show="expertNowPage > 3"><a ng-click="jumpToPage(1)">1</a></li>
+                                <li ng-show="expertNowPage - 1 > 3"><a>...</a></li>
+                                <li ng-repeat="page in expertPageArry" ng-if="pageAbs(expertNowPage,page)" ng-class="{true:'active'}[page == expertNowPage]">
+                                    <a ng-click="jumpToPage(page)">{{page}}</a>
+                                </li>
+                                <li ng-show="expertNowPage < expertTotalPageNum - 3"><a>...</a></li>
+                                <li ng-show="expertNowPage < expertTotalPageNum - 3"><a ng-click="jumpToPage(expertTotalPageNum)">{{expertTotalPageNum}}</a></li>
+                                <li><a ng-class="{true:'disabled'}[expertNowPage == expertTotalPageNum]" ng-click="jumpToPage(expertNowPage+1)">&raquo;</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="overlay" ng-hide="backExpertListIsReady">
+                            <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                    </div>
+
+
+                    <div class="box box-solid box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">当前已选择{{expertSelect.length}}个专家</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div ng-repeat="expert in expertSelect track by $index">
+                                        <div ng-if="setLine($index,2) == 0">
+                                            {{expert.Name}}
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div ng-repeat="expert in expertSelect track by $index">
+                                        <div ng-if="setLine($index,2) == 1">
+                                            {{expert.Name}}
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="expertGroupAssign()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ChangeProfessorModal -->
+    <div class="modal fade" id="ChangeProfessorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">专家调整</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="box box-solid box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">待分配申请书</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="changeApplicationName" class="control-label col-lg-3">当前申请书</label>
+                                    <p id="changeApplicationName" class="form-control-static">{{selectApplication.ProjectName}}</p>
+                                </div>
+                                <div class="form-group" ng-if="NeedChangeExpert != null">
+                                    <label for="changeApplicationName" class="control-label col-lg-3">待替换专家</label>
+                                    <p id="changeApplicationName" class="form-control-static">{{NeedChangeExpert.ExpertName}}</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="box box-solid box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">候选专家</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <label class="control-label col-lg-4" for="expertFieldSelect">研究领域</label>
+                                    <div class="col-lg-8">
+                                        <select id="expertFieldSelect" class="form-control" ng-model="expertField.Field" ng-options="field.FieldId as field.FieldId for field in Fields" ng-change="getExpertSubField(expertField.Field)">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="control-label col-lg-4" for="expertSubFieldSelect">子领域</label>
+                                    <div class="col-lg-8">
+                                        <select id="expertSubFieldSelect" class="form-control" ng-model="expertField.subField" ng-options="subField.SubFieldId as subField.SubFieldId for subField in expertSubFields">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="control-label col-lg-4" for="expertFieldSelect">单位</label>
+                                    <div class="col-lg-8">
+                                        <select id="expertFieldSelect" class="form-control" ng-model="expertField.instituteId" ng-options="institute.InstituteId as institute.Name for institute in instList">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <a class="btn btn-primary" ng-click="getExpertList(expertField.instituteId,1)">筛选</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div ng-repeat="expert in expertList">
+                                        <div class="radio" ng-show="setLine($index,2) == 0">
+                                            <label>
+                                                <input type="radio" name="backExpert" ng-click="selectExpert(expert)" /> {{expert.Name}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div ng-repeat="expert in expertList">
+                                        <div class="radio" ng-show="setLine($index,2) == 1">
+                                            <label>
+                                                <input type="radio" name="backExpert" ng-click="selectExpert(expert)" /> {{expert.Name}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <ul class="pagination pull-right">
+                                <li ng-class="{true:'disabled'}[expertNowPage == 1]"><a ng-click="jumpToPage(expertNowPage-1)">&laquo;</a></li>
+                                <li ng-show="expertNowPage > 3" ng-click="jumpToPage(1)"><a>1</a></li>
+                                <li ng-show="expertNowPage - 1 > 3"><a>...</a></li>
+                                <li ng-repeat="page in expertPageArry" ng-if="pageAbs(expertNowPage,page)" ng-class="{true:'active'}[page == expertNowPage]">
+                                    <a ng-click="jumpToPage(page)">{{page}}</a>
+                                </li>
+                                <li ng-show="expertNowPage < expertTotalPageNum - 3"><a>...</a></li>
+                                <li ng-show="expertNowPage < expertTotalPageNum - 3"><a ng-click="jumpToPage(expertTotalPageNum)">{{expertTotalPageNum}}</a></li>
+                                <li><a ng-class="{true:'disabled'}[expertNowPage == expertTotalPageNum]" ng-click="jumpToPage(expertNowPage+1)">&raquo;</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="overlay" ng-hide="backExpertListIsReady">
+                            <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                    </div>
+
+
+                    <div class="box box-solid box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">当前已选择</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <form class="form-horizontal">
+                                    <div class="col-lg-4">
+                                        <label class="col-lg-3 control-label">姓名</label>
+                                        <div class="col-lg-9">
+                                            <p class="form-control-static">{{selectChangeExpert.Name}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label class="col-lg-3 control-label">单位</label>
+                                        <div class="col-lg-9">
+                                            <p class="form-control-static">{{selectChangeExpert.InstituteName}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label class="col-lg-3 control-label">邮箱</label>
+                                        <div class="col-lg-9">
+                                            <p class="form-control-static">{{selectChangeExpert.UserId}}</p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="ChangeExpert()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- showProfessorInfoModal -->
+    <div class="modal" id="viewExpertInfoModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">详细信息</h3>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <!--
+             {{expertInfo}}
+              -->
+                                <div class="row">
+
+                                    <div class="col-lg-6">
+
+                                        <h4>姓名：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertInfo.Name}}</strong></h5>
+                                        <h4>英文名：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertInfo.EnglishName}}</strong></h5>
+                                        <h4>性别：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertInfo.Male}}</strong></h5>
+                                        <h4>身份证号：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertInfo.IDCard}}</strong></h5>
+                                        <h4>出生日期：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertInfo.Birthday}}</strong></h5>
+                                        <h4>单位：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertInfo.InstituteName}}</strong></h5>
+                                    </div>
+                                    <div class="col-lg-6">
+
+                                        <h4>电子邮箱：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertInfo.Email}}</strong></h5>
+                                        <h4>手机号：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertInfo.Phone}}</strong></h5>
+                                        <h4>职务：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertInfo.Duty}}</strong></h5>
+                                        <h4>职称：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertInfo.Title}}</strong></h5>
+                                        <h4>地址：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertInfo.Address}}</strong></h5>
+                                        <h4>邮编：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertInfo.Zip}}</strong></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <!--
+             {{expertFieldInfo}}
+            {{expertFieldInfo1}}
+            {{expertFieldInfo2}}
+                              -->
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <h4>研究领域1：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertFieldInfo1.FieldId}}</strong></h5>
+                                        <h4>研究子领域1：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertFieldInfo1.SubFieldId}}</strong></h5>
+                                        <h4>中文关键字：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertFieldInfo1.KeyWordsCN}}</strong></h5>
+                                        <h4>英文关键字：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertFieldInfo1.KeyWordsEN}}</strong></h5>
+
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <h4>研究领域2：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertFieldInfo2.FieldId}}</strong></h5>
+                                        <h4>研究子领域2：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertFieldInfo2.SubFieldId}}</strong></h5>
+                                        <h4>中文关键字：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertFieldInfo2.KeyWordsCN}}</strong></h5>
+                                        <h4>英文关键字：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{expertFieldInfo2.KeyWordsEN}}</strong></h5>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- 显示专家既往评审 -->
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <table class="table table-hover" ng-show="!artificialAssignListIsNull">
+                                            <thead>
+                                                <tr>
+                                                    <th>序号</th>
+                                                    <th>申请书名称</th>
+                                                    <th>评审等级</th>
+                                                    <th>评审得分</th>
+                                                    <th>资助意见属性</th>
+                                                    <th>资助金额</th>
+                                                    <th>评审意见</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="reviewCommentInfo in expertReviewCommentInfo track by $index">
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

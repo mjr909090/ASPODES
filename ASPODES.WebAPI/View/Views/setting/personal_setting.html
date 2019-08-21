@@ -1,0 +1,737 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngPersonalSettingApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link href="plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/Views/setting/personal_setting.css" />
+    <link href="/View/plugins/ngVerify-master/css/ngVerify.css" rel="stylesheet" />
+    <script src=" /View/plugins/ngVerify-master/js/ngVerify.js"></script>
+    <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+
+    <script src=""></script>
+
+</head>
+<body ng-controller="ngPersonalSettingCtrl">
+    <div class="container">
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i> 信息与设置
+            </li>
+            <li>
+                设置
+            </li>
+            <li class="active">个人基本信息</li>
+        </ol>
+        <br />
+
+        <!-- 基本信息 -->
+
+
+        <div class="box box-solid">
+            <div class="box-header ui-sortable-handle bg-green">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">基本信息</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-11">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="user_name" class="col-lg-2 control-label">姓名</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="user_name" value="{{BasicInfo.Name}}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_mail" class="col-lg-2 control-label">邮箱</label>
+                                <div class="col-lg-10">
+                                    <input type="email" class="form-control" id="user_mail" ng-init="postInfo.Email = BasicInfo.Email" value="{{BasicInfo.Email}}" ng-model="postInfo.Email" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_phone" class="col-lg-2 control-label">手机</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="user_phone" ng-init="postInfo.Phone = BasicInfo.Phone" value="{{BasicInfo.Phone}}" ng-model="postInfo.Phone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_address" class="col-lg-2 control-label">通讯地址</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="user_address" ng-init="postInfo.Address = BasicInfo.Address" value="{{BasicInfo.Address}}" ng-model="postInfo.Address">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-11">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="user_division" class="col-lg-2 control-label">单位</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="user_division" value="{{BasicInfo.InstituteName}}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_part" class="col-lg-2 control-label">部门</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="user_part" value="{{BasicInfo.InstituteName}}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_duty" class="col-lg-2 control-label">职务</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="user_duty" value="{{BasicInfo.Duty}}" disabled>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <a class="btn btn-primary btn-block" style="margin-right: 64px;" ng-click="putBasicInfo()">提交</a>
+
+            </div>
+        </div>
+
+
+
+
+        <br />
+        <div class="box box-solid">
+            <div class="box-header ui-sortable-handle bg-green">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">教育经历</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="添加教育经历" ng-click="showAddNewStudyHistoryModal()"><i class="fa  fa-calendar-plus-o"></i></button>
+                    <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-hover" ng-init="selectStudyHistoryNum = null;">
+                    <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>地点</th>
+                            <th>专业</th>
+                            <th class="table-middle" style="width: 128px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="studyHistory in studyHistorys">
+                            <td>{{studyHistory.BeginTime|date: "yyyy-MM-dd"}} —— {{studyHistory.EndTime|date:"yyyy-MM-dd"}}</td>
+                            <td>{{studyHistory.Location}}</td>
+                            <td>{{studyHistory.Major}}</td>
+                            <td class="table-middle">
+                                <a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改" ng-click="initUpdataModel(studyHistory);showEditStudyHistoryModal()"><i class="fa fa-edit"></i></a>
+                                <a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除" ng-click="initUpdataModel(studyHistory);showDeleteStudyHistoryModal()"><i class="fa fa-remove"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <div class="box box-solid">
+            <div class="box-header ui-sortable-handle bg-green">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">工作经历</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="添加工作经历" ng-click="showAddNewProjectHistoryModal()"><i class="fa  fa-calendar-plus-o"></i></button>
+                    <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>公司名称</th>
+                            <th>项目名称</th>
+                            <th class="table-middle" style="width: 128px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="workingHistory in workingHistorys">
+                            <td>{{workingHistory.BeginTime|date:"yyyy-MM-dd"}} —— {{workingHistory.EndTime|date:"yyyy-MM-dd"}}</td>
+                            <td>{{workingHistory.Location}}</td>
+                            <td>{{workingHistory.Major}}</td>
+                            <td class="table-middle">
+                                <a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改" ng-click="initWorkingUpdataModel(workingHistory);showEditWorkingHistoryModal()"><i class="fa fa-edit"></i></a>
+                                <a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除" ng-click="initWorkingUpdataModel(workingHistory);showDeleteWorkingHistoryModal()"><i class="fa fa-remove"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <div class="box box-solid">
+            <div class="box-header ui-sortable-handle bg-green">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">成果</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="添加科研成果" ng-click="showAddNewAchievementModal()"><i class="fa  fa-calendar-plus-o"></i></button>
+                    <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>获取时间</th>
+                            <th>成果名称</th>
+                            <th>所属单位</th>
+                            <th>备注</th>
+                            <th class="table-middle" style="width: 128px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="Achievement in Achievements">
+                            <td>{{Achievement.AchievementTime|date:"yyyy-MM"}}</td>
+                            <td>{{Achievement.Name}}</td>
+                            <td>{{Achievement.Depart}}</td>
+                            <th>
+                                <p ng-if="Achievement.Note == null">无</p>
+                                <p ng-if="Achievement.Note != null">{{Achievement.Note}}</p>
+                            </th>
+                            <td class="table-middle">
+                                <a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改" ng-click="initAchievementUpdataModel(Achievement);showEditAchievementModal()"><i class="fa fa-edit"></i></a>
+                                <a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除" ng-click="initAchievementUpdataModel(Achievement);showDeleteAchievementModal()"><i class="fa fa-remove"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <div class="box box-solid">
+            <div class="box-header ui-sortable-handle bg-green">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">研究领域</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="添加研究领域" ng-click="showAddNewFieldModal()" ng-hide="Fields.length == 2"><i class="fa  fa-calendar-plus-o"></i></button>
+                    <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>研究领域</th>
+                            <th>子领域</th>
+                            <th>中文关键字</th>
+                            <th>英文关键字</th>
+                            <th class="table-middle" style="width: 128px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="Field in Fields">
+                            <td>{{Field.FieldId}}</td>
+                            <td>{{Field.SubFieldId}}</td>
+                            <td>{{Field.KeyWordsCN}}</td>
+                            <th>{{Field.KeyWordsEN}}</th>
+                            <td class="table-middle">
+                                <a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改" ng-click="initFieldUpdataModel($index);getSubField(Field.FieldId);showEditFieldModal()"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <br />
+            <br />
+
+        </div>
+
+
+        <!--addNewStudyHistoryModal-->
+        <div class="modal fade" id="addNewStudyHistoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">添加教育经历</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="startDate">时间</label>
+                                    <div class="col-lg-10">
+                                        <div class="input-daterange input-group" data-provide="datepicker" id="datepicker">
+                                            <input type="text" class="form-control datepicker" name="start" id="studyStartDate" ng-model="newStudyHistory.BeginTime" />
+                                            <div class="input-group-addon">到</div>
+                                            <input type="text" class="form-control datepicker" name="end" id="studyEndDate" ng-model="newStudyHistory.EndTime" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="studyPlace">地点</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="studyPlace" ng-model="newStudyHistory.Location" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="studyMajor">专业</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="studyMajor" ng-model="newStudyHistory.Major" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNewStudyHistory()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!--editStudyHistoryModal-->
+        <div class="modal fade" id="editStudyHistoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">修改教育经历</h3>
+                    </div>
+                    <div class="modal-body" ng-init="updataStudyHistory.EducationId = null;">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="startDate">时间</label>
+                                    <div class="col-lg-10">
+                                        <div class="input-group input-daterange" data-provide="datepicker" id="startDate" name="startDate">
+                                            <input type="text" class="form-control datepicker" ng-model="updataStudyHistory.BeginTime" />
+                                            <div class="input-group-addon">到</div>
+                                            <input type="text" class="form-control datepicker" ng-model="updataStudyHistory.EndTime" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="studyPlace">地点</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="studyPlace" ng-model="updataStudyHistory.Location" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="studyMajor">专业</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="studyMajor" ng-model="updataStudyHistory.Major" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editStudyHistory()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!--deleteStudyHistoryModal-->
+        <div class="modal fade" id="deleteStudyHistoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">删除教育经历</h3>
+                    </div>
+                    <div class="modal-body">
+                        确定要删除该条教育经历吗？
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteStudyHistory()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!--addNewPorjectHistoryModal-->
+        <div class="modal fade" id="inputProjectHistory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">添加工作经历</h3>
+                    </div>
+                    <div class="modal-body">
+                        <br />
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="startDate">时间</label>
+                                    <div class="col-lg-10">
+                                        <div class="input-group input-daterange" data-provide="datepicker" id="startDate" name="startDate">
+                                            <input type="text" class="form-control datepicker" ng-model="newWorkingHistory.BeginTime" />
+                                            <div class="input-group-addon">到</div>
+                                            <input type="text" class="form-control datepicker" ng-model="newWorkingHistory.EndTime" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="studyPlace">公司名称</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="studyPlace" ng-model="newWorkingHistory.Location" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="studyMajor">项目名称</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="studyMajor" ng-model="newWorkingHistory.Major" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNewWorkingHistory()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!--editWorkingHistoryModal-->
+        <div class="modal fade" id="editWorkingHistoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">修改工作经历</h3>
+                    </div>
+                    <div class="modal-body" ng-init="updataWorkingHistory.WorkingId = null;">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="startDate">时间</label>
+                                    <div class="col-lg-10">
+                                        <div class="input-group input-daterange" data-provide="datepicker" id="startDate" name="startDate">
+                                            <input type="text" class="form-control datepicker" ng-model="updataWorkingHistory.BeginTime" />
+                                            <div class="input-group-addon">到</div>
+                                            <input type="text" class="form-control datepicker" ng-model="updataWorkingHistory.EndTime" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="WorkingPlace">公司名称</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="WorkingPlace" ng-model="updataWorkingHistory.Location" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="WorkingMajor">项目名称</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="WorkingMajor" ng-model="updataWorkingHistory.Major" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editWorkingHistory()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!--deleteStudyHistoryModal-->
+        <div class="modal fade" id="deleteWorkingHistoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">删除工作经历</h3>
+                    </div>
+                    <div class="modal-body">
+                        确定要删除该条工作经历吗？
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteWorkingHistory()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!--addNewAchievementModal-->
+        <div class="modal fade" id="inputAchievement" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">添加成果</h3>
+                    </div>
+                    <div class="modal-body">
+                        <br />
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementTime">获取时间</label>
+                                    <div class="col-lg-10">
+                                        <div class="input-group date" id="startDate">
+                                            <input type="text" class="form-control datepicker" ng-model="newAchievement.AchievementTime" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementTitle">成果名称</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="AchievementTitle" ng-model="newAchievement.Name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementLocation">所属单位</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="AchievementLocation" ng-model="newAchievement.Depart" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementOther">备注</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="AchievementOther" ng-model="newAchievement.Note" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addAchievementHistory()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!--editAchievementModal-->
+        <div class="modal fade" id="editAchievementModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">修改成果</h3>
+                    </div>
+                    <div class="modal-body" ng-init="updataAchievement.AchievementId = null;">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementTime">获取时间</label>
+                                    <div class="col-lg-10">
+                                        <div class="input-group date" id="startDate">
+                                            <input type="text" class="form-control datepicker" ng-model="updataAchievement.AchievementTime" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementTitle">成果名称</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="AchievementTitle" ng-model="updataAchievement.Name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementLocation">所属单位</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="AchievementLocation" ng-model="updataAchievement.Depart" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementOther">备注</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="AchievementOther" ng-model="updataAchievement.Note" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editAchievementHistory()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!--deleteStudyHistoryModal-->
+        <div class="modal fade" id="deleteAchievementModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">删除研究成果</h3>
+                    </div>
+                    <div class="modal-body">
+                        确定要删除该条研究成果吗？
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteAchievementHistory()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!--addNewFieldModal-->
+        <div class="modal fade" id="inputField" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">添加研究领域</h3>
+                    </div>
+                    <div class="modal-body">
+                        <br />
+                        <form class="form-horizontal" name="field1Form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementTime">研究领域</label>
+                                    <div class="col-lg-10">
+                                        <select name="FieldName"
+                                                ng-model="newField.FieldId"
+                                                class="form-control"
+                                                id="FieldName"
+                                                ng-options="field.FieldId as field.FieldId for field in fields"
+                                                ng-change="getSubField(newField.FieldId)">
+                                            <option value="" disabled>-------请选择研究领域-------</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementTitle">子领域</label>
+                                    <div class="col-lg-10">
+                                        <select name="selectSubField"
+                                                ng-model="newField.SubFieldId"
+                                                class="form-control"
+                                                id="subField"
+                                                ng-options="subField.SubFieldId as subField.SubFieldId for subField in subFields"
+                                                required>
+                                            <option value="" disabled>-------请选择研究领域子领域-------</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementLocation">中文关键字</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control"
+                                               type="text"
+                                               name="KeyWordsCN"
+                                               ng-model="newField.KeyWordsCN"
+                                               ng-pattern="/[\u4e00-\u9fa5]/"
+                                               required />
+                                        <div ng-show="field1Form.KeyWordsCN.$dirty && field1Form.KeyWordsCN.$invalid" style="width: 100%;">
+                                            <small class="error" ng-show="(field1Form.KeyWordsCN.$error.required && field1Form.KeyWordsCN.$error.dirty)&&(!field1Form.KeyWordsCN.$error.pattern)">中文关键字不能为空</small>
+                                            <small class="error" ng-show="field1Form.KeyWordsCN.$error.pattern">输入的关键字必须为中文</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementOther">英文关键字</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="KeyWordsEN" ng-model="newField.KeyWordsEN" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNewField()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!--editWorkingHistoryModal-->
+        <div class="modal fade" id="editFieldModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">修改研究领域</h3>
+                    </div>
+                    <div class="modal-body">
+                        <br />
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementTime">研究领域</label>
+                                    <div class="col-lg-10">
+                                        <select name="FieldName"
+                                                ng-model="updataField.FieldId"
+                                                class="form-control"
+                                                id="FieldName"
+                                                ng-options="field.FieldId as field.FieldId for field in fields"
+                                                ng-change="getSubField(updataField.FieldId)">
+                                            <option value="" disabled>-------请选择研究领域-------</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementTitle">子领域</label>
+                                    <div class="col-lg-10">
+                                        <select name="selectSubField"
+                                                ng-model="updataField.SubFieldId"
+                                                class="form-control"
+                                                id="subField"
+                                                ng-options="subField.SubFieldId as subField.SubFieldId for subField in subFields"
+                                                required>
+                                            <option value="" disabled>-------请选择研究领域子领域-------</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementLocation">中文关键字</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="KeyWordsCN" ng-model="updataField.KeyWordsCN" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2" for="AchievementOther">英文关键字</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" type="text" name="KeyWordsEN" ng-model="updataField.KeyWordsEN" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="getUserField()">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editField()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+    </div>
+
+</body>
+</html>

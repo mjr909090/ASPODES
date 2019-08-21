@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html ng-app="ngERApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<link rel="stylesheet" href="css/bootstrap-table.css" />
+		
+		<script type="text/javascript" src="js/bootstrap-table.js" ></script>
+		
+	</head>
+	<body ng-controller="ngERCtrl">
+		
+		<div class="container">
+			<!-- 面包屑导航 -->
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 单位管理</a>
+				</li>
+				<!--<li>
+					<a> 信息</a>
+				</li>-->
+				<li class="active"> 专家管理</li>
+			</ol>
+			
+			
+			<!-- 已推荐 -->
+			<div class="box box-solid">
+				<!-- box header -->
+				<div class="box-header bg-light-blue-gradient" style="cursor: move;">
+					<div class="pull-right box-tools">
+						<button class="btn btn-primary btn-sm daterange pull-right">
+							<i class="fa fa-calendar"></i>
+						</button>
+						<button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px;">
+							<i class="fa fa-minus"></i>
+						</button>
+					</div>
+					<h3 class="box-title">单位已推荐专家</h3>
+				</div>
+				<!-- box body -->
+				<div class="box-body">
+					<table id="ytjTable" class="table table-bordered table-striped table-hover">
+						<tbody>
+							<tr>
+								<td></td>
+								<td>姓名01</td>
+								<td>水稻所</td>
+								<td>教授</td>
+								<td>专业01</td>
+								<td>
+									<a data-toggle="modal" data-target="#lookModal">
+										查看
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>姓名02</td>
+								<td>植保所</td>
+								<td>教授</td>
+								<td>专业02</td>
+								<td>
+									<a>
+										查看
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>姓名03</td>
+								<td>果树所</td>
+								<td>教授</td>
+								<td>专业03</td>
+								<td>
+									<a>
+										查看
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- /.box -->
+			</div>
+
+			<!-- 待院审核 -->
+			<div class="box box-solid">
+				<!-- box header -->
+				<div class="box-header bg-yellow" style="cursor: move;">
+					<div class="pull-right box-tools">
+						<button class="btn btn-primary btn-sm bg-yellow pull-right" data-toggle="tooltip" title="" data-original-title="Date range">
+							<i class="fa fa-calendar"></i>
+						</button>
+						<button class="btn btn-primary btn-sm bg-yellow pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px;" data-original-title="Collapse">
+							<i class="fa fa-minus"></i>
+						</button>
+					</div>
+					<h3 class="box-title">待院审核专家列表</h3>
+				</div>
+				<!-- box body -->
+				<div class="box-body">
+					<table id="dyshTable" class="table table-bordered table-striped table-bordered">
+						<tbody>
+							<tr>
+								<td></td>
+								<td>姓名01</td>
+								<td>水稻所</td>
+								<td>教授</td>
+								<td>专业01</td>
+								<td>
+									<a>
+										查看
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>姓名02</td>
+								<td>植保所</td>
+								<td>教授</td>
+								<td>专业02</td>
+								<td>
+									<a>
+										查看
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>姓名03</td>
+								<td>果树所</td>
+								<td>教授</td>
+								<td>专业03</td>
+								<td>
+									<a>
+										查看
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<!-- 院通过 -->
+			<div class="box box-solid">
+				<!-- box header -->
+				<div class="box-header bg-green" style="cursor: move;">
+					<div class="pull-right box-tools">
+						<button class="btn btn-primary btn-sm bg-green pull-right" data-toggle="tooltip" title="" data-original-title="Date range">
+							<i class="fa fa-calendar"></i>
+						</button>
+						<button class="btn btn-primary btn-sm bg-green pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px;" data-original-title="Collapse">
+							<i class="fa fa-minus"></i>
+						</button>
+					</div>
+					<h3 class="box-title">院通过单位推荐专家列表</h3>
+				</div>
+				<!-- box body -->
+				<div class="box-body">
+					<table id="ytgTable" class="table table-bordered table-striped table-bordered">
+						<tbody>
+							<tr>
+								<td></td>
+								<td>姓名01</td>
+								<td>水稻所</td>
+								<td>教授</td>
+								<td>专业01</td>
+								<td>
+									<a>
+										查看
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>姓名02</td>
+								<td>植保所</td>
+								<td>教授</td>
+								<td>专业02</td>
+								<td>
+									<a>
+										查看
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>姓名03</td>
+								<td>果树所</td>
+								<td>教授</td>
+								<td>专业03</td>
+								<td>
+									<a>
+										查看
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<!-- 查看Modal-->
+			<div class="modal fade" id="lookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="modal-title">用户信息</h3>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="progress xs col-lg-12">
+									<div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-4">
+									<h4>姓名：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名01</strong></h5>
+									<h4>性别：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;男</strong></h5>
+								</div>
+								<div class="col-lg-4">
+									<h4>职称：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;教授</strong></h5>
+									<h4>专业：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专业01</strong></h5>
+									<h4>所属单位：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;水稻所</strong></h5>
+								</div>
+								<div class="col-lg-4">
+									<h4>电子邮箱：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;namename01@123.cn</strong></h5>
+									<h4>手机：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;13621307320</strong></h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="progress xs col-lg-12">
+									<div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+			<!-- /.container -->
+		</div>
+		
+	</body>
+</html>

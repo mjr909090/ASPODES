@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngNoticeYuanApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="css/Views/notice/notice_yuan.css" />
+    <link href="plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+
+</head>
+
+	<body ng-controller="ngNoticeYuanCtrl">
+
+		<div class="container">
+
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 信息与设置</a>
+				</li>
+				<li>
+					<a> 信息</a>
+				</li>
+				<li class="active"> 通知</li>
+			</ol>
+
+            <div class="box box-info collapsed-box">
+                <div class="box-header">
+                    <h3 class="box-title">
+                        通知
+                        <small>列表</small>
+                    </h3>
+                    <div class="pull-right box-tools">
+                        <button class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+
+                <br />
+                <div class="box-body pad" style="display:block;">
+                    <div id="noticePanel">
+                        <!-- menu -->
+                        <!--<div id="noticePanelHeader">
+                            <div class="btn-group btn-group-sm col-md-3">
+                                <button type="button" ng-class="{true:'btn btn-info',false:'btn btn-default'}[noticeListState == 2]" ng-click="getNoticeList(2,1)">全部</button>
+                                <button type="button" ng-class="{true:'btn btn-info',false:'btn btn-default'}[noticeListState == 0]" ng-click="getNoticeList(0,1)">未读</button>
+                                <button type="button" ng-class="{true:'btn btn-info',false:'btn btn-default'}[noticeListState == 1]" ng-click="getNoticeList(1,1)">已读</button>
+                            </div>
+                        </div>-->
+                        <!-- ./menu -->
+                        <!-- notice content -->
+                        <div id="noticePanelBody">
+                            <!-- 单个通知 -->
+                            <div ng-repeat="notice in NoticeList | orderBy:['Read','-SendTime']">
+                                <div class="panel panel-info">
+                                    <div class="panel-body noticeBody" ng-class="{true:'readAnnouncement',false:'unreadAnnouncement'}[notice.Read == true]">
+                                        <div class="noticeTitle">
+                                            <span><a ng-click="clickNotice(notice)">{{ notice.NoticeContent }}</a></span>
+                                            <label class="label label-success" ng-if="notice.Type == 'Success'">成功</label>
+                                            <label class="label label-warning" ng-if="notice.Type == 'Warning'">待办</label>
+                                            <label class="label label-info" ng-if="notice.Type == 'Primary'">普通</label>
+                                            <label class="label label-danger" ng-if="notice.Type == 'Error'">警告</label>
+                                            <label class="label label-info" ng-if="notice.ReciverType == 1">普通用户</label>
+                                            <label class="label label-info" ng-if="notice.ReciverType == 2">单位管理员</label>
+                                            <label class="label label-info" ng-if="notice.ReciverType == 3">院管理员</label>
+                                            <label class="label label-default" ng-if="notice.Read == false" id="unreadLabel">未读</label>
+                                        </div>
+                                        <div class="noticeTime">
+                                            <span>{{ notice.SendTime | date:'yyyy-MM-dd hh:mm:ss' }}</span>
+                                        </div>
+                                        <!--<div class="noticeIcon">
+                                            <i class="glyphicon glyphicon-ok-sign" data-toggle="tooltip" data-placement="top" title="" data-original-title="标记为已读" ng-hide="notice.Read == true" ng-click="clickNoticeBtn(notice)"></i>
+                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ./单个通知 -->
+                            <div class="callout callout-info" ng-hide="!divisionAppliesIsNull">
+                                <h4>注意!</h4>
+
+                                <p>当前没有任何通知！</p>
+                            </div>
+                        </div>
+                        <!-- ./notice content -->
+                        <!-- box footer 放body里面了 -->
+                        <div ng-hide="divisionAppliesIsNull">
+                            <self-pagination></self-pagination>
+                        </div>
+                        <!-- /.box-footer -->
+
+                    </div>
+                </div>
+                <div class="overlay" ng-hide="listAlready">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+            </div>
+
+            <a class="btn btn-block btn-default" ng-show="isEnd" disabled>没有更多通知了</a>
+
+            <br />
+            <br />
+        </div>
+	</body>
+
+</html>

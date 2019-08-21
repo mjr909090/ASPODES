@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngInstAnnounceApp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+
+    <link href="css/Views/announce/announceList.css" rel="stylesheet" />
+
+</head>
+<body ng-controller="ngInstAnnounceCtrl">
+
+    <div class="mainContainer">
+
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 首页</a>
+            </li>
+            <li class="active">单位公告</li>
+        </ol>
+
+        <div class="row announceMainBody">
+            <div class="col-lg-2" style="margin-bottom:36px">
+                <div class="TimeSelectMenu">
+                    <h3>时间选择</h3>
+                    <br />
+                    <div>
+                        <p class="timeSelect"><i class="fa fa-chevron-right"></i> &nbsp;全部</p>
+                        <p class="timeSelect"><i class="fa fa-chevron-right"></i> &nbsp;最近一周</p>
+                        <p class="timeSelect"><i class="fa fa-chevron-right"></i> &nbsp;最近一月</p>
+                        <p class="timeSelect"><i class="fa fa-chevron-right"></i> &nbsp;最近三月</p>
+                        <p class="timeSelect"><i class="fa fa-chevron-right"></i> &nbsp;最近半年</p>
+                        <p class="timeSelect"><i class="fa fa-chevron-right"></i> &nbsp;最近一年</p>
+                        <p class="timeSelect"><i class="fa fa-chevron-right"></i> &nbsp;最近三年</p>
+                        <p class="timeSelect"><i class="fa fa-chevron-right"></i> &nbsp;自定义时间</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="announceListBody">
+                    <ul class="products-list product-list-in-box">
+                        <li class="item" ng-repeat="announce in announceList">
+                            <div class="product-info">
+                                <a ng-click="openAnnounceDetail(announce.AnnouncementId)" class="product-title">
+                                    {{announce.Title}}
+                                    <span class="label label-warning pull-right">{{announce.PublishDate | date:'yyyy-MM-dd'}}</span>
+                                </a>
+                                <span class="product-description">
+                                    {{announce.Content}}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <ul class="pagination">
+                        <li ng-class="{true:'disabled'}[announceListNowPage == 1]"><a ng-click="announceJumpToPage(announceListNowPage-1)">&laquo;</a></li>
+                        <li ng-show="announceListNowPage > 3"><a ng-click="announceJumpToPage(1)">1</a></li>
+                        <li ng-show="announceListNowPage - 1 > 3"><a>...</a></li>
+                        <li ng-repeat="page in announceListPageArry" ng-if="pageAbs(announceListNowPage,page)" ng-class="{true:'active'}[page == announceListNowPage]">
+                            <a ng-click="announceJumpToPage(page)">{{page}}</a>
+                        </li>
+                        <li ng-show="announceListNowPage < announceListTotalPageNum - 3"><a>...</a></li>
+                        <li ng-show="announceListNowPage < announceListTotalPageNum - 3"><a ng-click="announceJumpToPage(announceListTotalPageNum)">{{announceListTotalPageNum}}</a></li>
+                        <li><a ng-class="{true:'disabled'}[announceListNowPage == announceListTotalPageNum]" ng-click="announceJumpToPage(announceListNowPage+1)">&raquo;</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html ng-App="ngAuditDocumentApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body ng-controller="ngAuditDocumentCtrl">
+		
+		<div class="container">
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 单位管理</a>
+				</li>
+				<li>
+					<a> 项目管理</a>
+				</li>
+				<li class="active"> 待审核文档</li>
+			</ol>
+			
+			
+			<!--待审核文档-->
+			<div class="box box-primary" style="margin-top: 40px">
+				<div class="box-header">
+					<i class="ion ion-clipboard"></i>
+					<h3 class="box-title">待审核文档列表</h3>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div>
+				</div>
+				<div class="box-body">
+
+					<br />
+
+					<table class="table table-striped table-hover">
+						<thead>
+						<tr>
+							<th>项目名称</th>
+							<th>项目类型</th>
+							<th>承担单位</th>
+							<th>牵头负责人</th>
+							<th>年度任务书</th>
+							<th>申请结题文件</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称01</a>
+							</td>
+							<td>重点实验室应用基础研究</td>
+							<td>作科所</td>
+							<td>姓名01</td>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#annualTaskBookModal">年度任务书</a>
+							</td>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#applyKnotDocumentModal">申请结题文件</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称02</a>
+							</td>
+							<td>重点实验室应用基础研究</td>
+							<td>植保所</td>
+							<td>姓名02</td>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#annualTaskBookModal">年度任务书</a>
+							</td>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#applyKnotDocumentModal">申请结题文件</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#projectDetailModal">项目名称03</a>
+							</td>
+							<td>行业三性科研工作任务</td>
+							<td>牧医所</td>
+							<td>姓名03</td>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#annualTaskBookModal">年度任务书</a>
+							</td>
+							<td>
+								<a class='refuse' data-toggle="modal" data-target="#applyKnotDocumentModal">申请结题文件</a>
+							</td>
+						</tr>
+
+					</table>
+					<br />
+
+					<div class="dataTables_info col-lg-9">
+						<h3>当前显示 1 到 6 条， 共 3条</h3>
+					</div>
+
+					<div class="dataTables_paginate col-lg-3">
+						<ul class="pagination">
+							<li class="disabled">
+								<a>&laquo;</a>
+							</li>
+							<li class="active">
+								<a>1</a>
+							</li>
+							<li>
+								<a>2</a>
+							</li>
+							<li>
+								<a>3</a>
+							</li>
+							<li>
+								<a>4</a>
+							</li>
+							<li>
+								<a>5</a>
+							</li>
+							<li>
+								<a>&raquo;</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+		<!-- 详情查看 Modal -->
+			<div class="modal" id="projectDetailModal">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header bg-light-blue">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">详情查看</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-lg-4">
+									<h4>工作任务名称</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目名称01</strong></h5>
+									<br />
+									<h4>委托部门（甲方）</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中国农业科学院</strong></h5>
+									<br />
+									<h4>承担部门（乙方）</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主持单位：科技管理局</strong></h5>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目负责人：牵头负责人01</strong></h5>
+								</div>
+								<div class="col-lg-8">
+									<!--<h4>起止日期</h4>
+								<h5><strong>2017年1月至2017年12月</strong></h5>
+								<h4>填报时间</h4>
+								<h5><strong>2016年11月</strong></h5>-->
+									<div class="box-body">
+										<ul class="todo-list ui-sortable">
+											<li>
+												<span class="text">编号：123456789</span>
+											</li>
+											<br />
+											<br />
+											<br />
+											<li>
+												<span class="text">实施起止年限：2017年1月&nbsp;&nbsp;至&nbsp;&nbsp;2017年12月</span>
+											</li>
+											<br />
+											<br />
+											<br />
+											<li>
+												<span class="text">类别：应急性科研工作</span>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<br />
+
+							<div class="row">
+								<div class="progress xs col-lg-12">
+									<div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+								</div>
+							</div>
+
+							<div class="row">
+
+								<div class="col-lg-4">
+									<h4>单位名称：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;研究院01</strong></h5>
+								</div>
+								<div class="col-lg-4">
+									<h4>主持人：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;负责人01</strong></h5>
+									<h4>性别：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;男</strong></h5>
+									<h4>职称：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;教授</strong></h5>
+								</div>
+								<div class="col-lg-4">
+									<h4>电子邮箱：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fuzeren01@123.cn</strong></h5>
+									<h4>手机：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;13621307320</strong></h5>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="progress xs col-lg-12">
+									<div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-12">
+									<h3>经费总览</h3>
+									<br />
+								</div>
+
+								<div class="col-lg-6">
+									<div class="small-box bg-yellow">
+										<div class="inner">
+											<h3>30万</h3>
+
+											<p>经费预算(总经费)</p>
+										</div>
+										<div class="icon">
+											<i class="fa fa-rmb"></i>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="small-box bg-yellow">
+										<div class="inner">
+											<h3>15万</h3>
+
+											<p>2017年度</p>
+										</div>
+										<div class="icon">
+											<i class="fa fa-rmb"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<!--<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		<!-- 年度任务书 -->
+			<div class="modal" id="annualTaskBookModal">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">提示</h4>
+						</div>
+						<div class="modal-body">
+							<p>下载任务书成功！</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 申请结题文件 -->
+			<div class="modal" id="applyKnotDocumentModal">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">提示</h4>
+						</div>
+						<div class="modal-body">
+							<p>下载申请结题文件成功！</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		<!--待审核文档的通过的模态框-->
+		<div class="modal fade" id="auditPassedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+			<!--<div class="modal">-->
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">审核通过</h3>
+					</div>
+					<div class="modal-body">
+
+						<div class="container">
+							<p style="font-size: 20px;">您确定要审核通过该项目的任务书吗？</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" >确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--审核结题申请的通过的模态框-->
+		<div class="modal fade" id="checkConclusionPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+			<!--<div class="modal">-->
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">审核通过</h3>
+					</div>
+					<div class="modal-body">
+
+						<div class="container">
+							<p style="font-size: 20px;">您确定要审核通过该项目的结题申请吗？？</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" >确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+			<!-- /.container -->
+		</div>
+		
+	</body>
+</html>

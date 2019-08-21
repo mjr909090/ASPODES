@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngNoticeListApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="plugins/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="js/underscore.js"></script>
+    <!--
+        <script src="plugins/ng-file-upload-bower-12.2.13/ng-file-upload-shim.min.js"></script>
+    <script src="plugins/ng-file-upload-bower-12.2.13/ng-file-upload.min.js"></script>
+    -->
+    
+</head>
+<body ng-controller="ngNoticeListCtrl">
+    <div class="container">
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 全院管理</a>
+            </li>
+            <li class="active">通知公告</li>
+        </ol>
+        <div class="box box-info collapsed-box">
+            <div class="box-header">
+                <h3 class="box-title">
+                    通知公告
+                    <small>列表</small>
+                </h3>
+                <div class="pull-right box-tools">
+                    <button class="btn btn-info btn-sm" data-toggle="tooltip" title="" data-original-title="添加公告" ng-click="showAddNoticeModal()"><i class="fa fa-plus"></i></button>
+                    <button class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+
+            <br />
+            <div class="box-body pad" style="display: block;">
+                <table class="table table-hover" ng-hide="departAppliesIsNull">
+                    <thead>
+                        <tr>
+                            <th>公告名称</th>
+                            <th>发布时间</th>
+                            <th>发布人</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="notice in noticeList">
+                            <td><a ng-click="showViewNoticeModal(notice)">{{notice.Title}}</a></td>
+                            <!-- <td>{{notice.Content}}</td> -->
+                            <td>{{notice.PublishDate}}</td>
+                            <td>{{notice.PublisherId}}</td>
+                            <td>
+                                <a class="manage-icon" ng-click="showEditNoticeModal(notice)" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑"><i class="fa fa-edit"></i> </a>
+                                <a class="manage-icon" ng-click="showDeleteNoticeModal(notice.AnnouncementId)" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="callout callout-info" ng-hide="!departAppliesIsNull">
+                    <h4>注意!</h4>
+
+                    <p>当前没有任何公告！</p>
+                </div>
+
+                <!-- box footer 放body里面了 -->
+                <div class=" " ng-hide="departAppliesIsNull">
+                    <div class="col-lg-8 col-md-7 col-sm-6 col-xs-12">
+                        <span style="font-size: 24px;">共： {{pageItem}}页，{{count}} 条；当前第{{p_current}}页，显示&nbsp;{{p_count}}&nbsp;条</span>
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+                        <ul class="pagination" style="margin: 0px;">
+                            <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == 1" ng-click="p_index()">首页</button></li>
+                            <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == 1" ng-click="p_prev()">&lt;&lt;Prev</button></li>
+
+                            <li ng-repeat="page in pages" ng-class="{active: p_current == page}" class="waves-effect">
+                                <button class="btn btn-default btn-sm" ng-disabled="pageItem == 0" ng-click="load_page(page)">{{page}}</button>
+                            </li>
+                            <li>
+                                <button class="btn btn-default btn-sm" ng-disabled=" p_current == pageItem || pageItem == 0" ng-click="p_next()">Next&gt;&gt;</button>
+                            </li>
+                            <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == pageItem || pageItem == 0" ng-click="p_last()">尾页</button></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.box-footer -->
+
+            </div>
+           
+            
+        </div>
+    </div>
+
+    <!-- 编辑公告 editNoticeModal -->
+    <div class="modal fade" id="editNoticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">编辑公告</h3>
+                </div>
+                <div class="modal-body pad">
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">公告标题:</span>
+                                <input class="form-control" name="title" type="text" ng-model="editNoticeFormData.Title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">内容摘要:</span>
+                                <input class="form-control" name="title" type="text" ng-model="editNoticeFormData.AbstractContent">
+                            </div>
+                        </div>
+                        <textarea name="editor2" id="editor2" rows="10" cols="80"></textarea>
+                        <script>
+                            // Replace the <textarea id="editor2"> with a CKEditor
+                            // instance, using default configuration.
+                            CKEDITOR.replace('editor2');
+                        </script>
+                    </form>
+                    <br />
+                    <div>
+                        <a class="btn btn-primary" ngf-select="uploadFiles2($files, $invalidFiles)">选择文件</a>
+                        <br />
+                        <span class="progress" ng-show="file.progress == 100">
+                            <div style="width:{{file.progress}}%" ng-bind="file.progress + '%'">已上传</div>
+                        </span>
+                        <p>{{file.$error}}</p>
+                        <p>{{showErrorMsg}}</p>
+                    </div>
+                    <br />
+                    
+                    <table class="table" ng-hide="editFilesTableIsNull">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>文件名</th>
+                                <th class="table-middle">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="file in editfileTableList track by $index">
+                                <td>{{$index + 1}}</td>
+                                <td>
+                                    <p>{{ file.Name }}</p>
+                                </td>
+                                <td class="table-middle">
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="deleteFile2(file.AnnouncementAttachmentId);">
+                                        <span class="glyphicon glyphicon-trash"></span> 删除
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-right-container">
+                        <!--data-dismiss="modal"-->
+                        <button type="button" ng-click="editNotice()" class="btn btn-primary" ng-disabled="addNoticeForm.title.$error.required">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--添加公告-->
+    <div class="modal" id="addNoticeModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">添加公告</h3>
+                </div>
+                <div class="modal-body">
+                    <form role="form" name="addNoticeForm" novalidate>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">公告标题:</span>
+                                <input class="form-control required" name="title" id="title" type="text" ng-model="formData.title" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">内容摘要:</span>
+                                <input class="form-control" name="title" type="text" ng-model="formData.AbstractContent">
+                            </div>
+                        </div>
+                        <textarea name="editorNotice" id="editorNotice" rows="10" cols="80" placeholder="请在这里填写公告内容"></textarea>
+                        <script>
+                            // Replace the <textarea id="editorNotice"> with a CKEditor
+                            // instance, using default configuration.
+                            CKEDITOR.replace('editorNotice');
+                        </script>
+                    </form>
+                    <br />
+                    <div>
+                        <a class="btn btn-primary" ngf-select="uploadFiles($files, $invalidFiles)" ngf-multiple="true">选择文件</a>
+                        <br />
+                        <span class="progress" ng-show="file.progress == 100">
+                            <div style="width:{{file.progress}}%" ng-bind="file.progress + '%'">已上传</div>
+                        </span>
+                        <p>{{file.$error}}</p>
+                        <p>{{showErrorMsg}}</p>
+                    </div>
+                    <br />
+                    
+                    <table class="table" ng-hide="filesTable">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>文件名</th>
+                                <th class="table-middle">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="thisFile in fileTableList track by $index">
+                                <td>{{$index + 1}}</td>
+                                <td>
+                                    <p>{{ thisFile.Name }}</p>
+                                </td>
+                                <td class="table-middle">
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="deleteFile(thisFile);">
+                                        <span class="glyphicon glyphicon-trash"></span> 删除
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-right-container">
+                        <!--data-dismiss="modal"-->
+                        <button type="button" ng-click="saveNotice()" class="btn btn-primary" ng-disabled="addNoticeForm.title.$error.required">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--删除公告-->
+    <div class="modal" id="deleteNoticeModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">删除</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <p style="font-size: 20px;">您确定要删除该公告吗？删除后不可恢复,请谨慎操作。</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteNotice()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngDelegationApplicationApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <!-- 自定义样式 -->
+
+</head>
+
+<body ng-controller="ngDelegationApplicationCtrl">
+
+    <div class="container">
+
+        <!-- 面包屑导航 -->
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 单位管理</a>
+            </li>
+            <li>
+                <a> 申请书管理</a>
+            </li>
+            <li class="active"> 定向委托申请书</li>
+        </ol>
+
+
+        <!-- 定向委托-已提交申请书列表 -->
+        <div class="box box-solid">
+            <!-- box header -->
+            <div class="box-header bg-green" style="cursor: move;">
+                <div class="pull-right box-tools">
+                    <!--<button class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip" title="" data-original-title="Date range">
+                        <i class="fa fa-calendar"></i>
+                    </button>-->
+                    <button class="btn btn-primary btn-sm bg-green pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px;" data-original-title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <i class="fa fa-sticky-note"></i>
+                <h3 class="box-title">定向委托-已提交申请书</h3>
+            </div>
+            <!-- box body -->
+            <div class="box-body">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+
+                    <br />
+
+                    <!-- toolbar-->
+                    <div class="row">
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12" style="margin-left: 8px;">
+                            <!-- 搜索分类 -->
+                            <label for="select" class="control-label">分类</label>
+                            <select class="form-control" id="select" style="margin-left: 16px;">
+                                <option>基础研究引导计划</option>
+                                <option>重大项目储备计划</option>
+                                <option>重大成果培育计划</option>
+                                <option>重大平台推进计划</option>
+                                <option>农业智库建设计划</option>
+                                <option>联盟重点工作</option>
+                                <option>农业部提出的工作任务</option>
+                                <option>应急性科研</option>
+                            </select>
+                        </div>
+                        <!-- 搜索框 及按钮 -->
+                        <div class="form-group pull-right col-lg-3 col-md-4 col-sm-12">
+                            <input class="form-control" id="inputDefault" type="text" placeholder="search">
+                            <button class="form-control"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <table id="submitedTable" class="table table-bordered table-striped table-hover">
+                        <tbody>
+                            <tr>
+                                <th style="width: 48px;">序号</th>
+                                <th>名称</th>
+                                <th style="min-width: 104px;">执行期限</th>
+                                <th style="min-width: 64px;">类别</th>
+                                <th style="min-width: 64px;">部门</th>
+                                <th style="min-width: 72px;">负责人</th>
+                                <th style="min-width: 48px;">受理状态</th>
+                                <th style="min-width: 72px;">评审结果</th>
+                                <th style="min-width: 72px;">撤回</th>
+                            </tr>
+                            <tr>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <a data-toggle="modal" data-target="#xqckModal">项目名称01</a>
+                                </td>
+                                <td>一年</td>
+                                <td>应急性科研工作</td>
+                                <td>研究所01</td>
+                                <td>
+                                    <a data-toggle="modal" data-target="#fzrInfo">负责人01</a>
+                                </td>
+                                <td>
+                                    <span class="label label-warning">未受理</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm disabled">查看</button>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#backApplication">撤回</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>
+                                    <a data-toggle="modal" data-target="#xqckModal">项目名称02</a>
+                                </td>
+                                <td>一年</td>
+                                <td>科研工作</td>
+                                <td>研究所02</td>
+                                <td>
+                                    <a data-toggle="modal" data-target="#fzrInfo">负责人02</a>
+                                </td>
+                                <td>
+                                    <span class="label label-success">评审结束</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm disabled">查看</button>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" disabled="">撤回</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- /.example-wrapper -->
+                </div>
+            </div>
+            <!-- box footer -->
+            <div class="box-footer no-border">
+                <!-- 分页 -->
+                <div class="dataTables_info col-lg-9">
+                    <h3>当前显示 1 到 2 条， 共 2  条</h3>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- /.container-->
+    </div>
+
+</body>
+
+</html>

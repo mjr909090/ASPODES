@@ -1,0 +1,11 @@
+a:hover{
+	cursor: pointer;
+}
+
+.content-wrapper{
+    background-image:url("/View/images/welcome/3132.jpg");
+    background-position:left top;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}

@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngApplicationRejectReasonApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body ng-controller="ngApplicationRejectReasonCtrl">
+
+
+        <div class="content container">
+
+            <br />
+            <ol class="breadcrumb">
+                <li>
+                    <a><i class="fa fa-dashboard"></i> 项目申请</a>
+                </li>
+                <li>
+                    <a>申请书驳回理由配置</a>
+                </li>
+                <li class="active"></li>
+            </ol>
+
+
+            <!------------------------------Division Reject Reason-------------------------------------->
+            <div class="box box-solid">
+                <div class="box-header ui-sortable-handle bg-green">
+                    <i class="ion ion-clipboard"></i>
+
+                    <h3 class="box-title"> 单位管理员驳回原因</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="添加" ng-click="showAddDivisionReasonModal()" ><i class="fa fa-plus"></i></button>
+                        <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <ul class="todo-list ui-sortable" ng-show="!DivisionAdminReasonListIsNull">
+                        <li ng-repeat="reason in divisionReasonList | orderBy:'ReasonId'">
+                            <!-- todo text -->
+                            <span class="text">{{reason.ReasonContent}}</span>
+
+                            <!-- General tools such as edit or delete-->
+                            <div class="tools pull-right">
+                                <i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改" ng-click="showEditDivisionReasonModal(reason)"></i>
+                                <i class="fa fa-remove" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除" ng-click="showDeleteDivisionReasonModal(reason)"></i>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="callout callout-warning" ng-show="DivisionAdminReasonListIsNull">
+                        <h4>注意!</h4>
+                        <p>当前还没有单位的驳回理由！</p>
+                    </div>
+
+
+                </div>
+
+                <div class="overlay" ng-hide="DivisionAdminReasonListReady">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+
+            </div>
+
+
+
+            <!------------------------------SuperAdmin Reject Reason-------------------------------------->
+            <div class="box box-solid">
+                <div class="box-header ui-sortable-handle bg-green">
+                    <i class="ion ion-clipboard"></i>
+
+                    <h3 class="box-title"> 院管理员不受理理由</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="添加" ng-click="showAddSuperAdminReasonModal()"><i class="fa fa-plus"></i></button>
+                        <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <ul class="todo-list ui-sortable" ng-show="!SuperAdminReasonListIsNull">
+                        <li ng-repeat="reason in superAdminReasonList | orderBy:'ReasonId'">
+                            <!-- todo text -->
+                            <span class="text">{{reason.ReasonContent}}</span>
+
+                            <!-- General tools such as edit or delete-->
+                            <div class="tools pull-right">
+                                <i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改" ng-click="showEditSuperAdminReasonModal(reason)"></i>
+                                <i class="fa fa-remove" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除" ng-click="showDeleteSuperAdminReasonModal(reason)"></i>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="callout callout-warning" ng-show="SuperAdminReasonListIsNull">
+                        <h4>注意!</h4>
+                        <p>当前还没有单位的驳回理由！</p>
+                    </div>
+
+
+                </div>
+
+                <div class="overlay" ng-hide="SuperAdminReasonListReady">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!--addDivisionReasonModal-->
+        <div class="modal fade" id="addDivisionReason" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">新增驳回原因</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3" for="addReasonInput">驳回原因</label>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" id="addReasonInput" ng-model="addDivisionReasonContent"></textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addDivisionReason()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+
+
+        <!--editDivisionReasonModal-->
+        <div class="modal fade" id="editDivisionReason" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">修改驳回原因</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3" for="addReasonInput">驳回原因</label>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" id="addReasonInput" ng-model="selectDivisionReason.ReasonContent"></textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editDivisionReason()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+
+
+        <!--deleteDivisionReasonModal-->
+        <div class="modal fade" id="deleteDivisionReason" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">删除驳回原因</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>确认要删除此驳回原因？<br /><br />一旦删除您将无法找回此驳回原因，请谨慎操作！</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteDivisionReason()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+
+        <!--addSuperAdminReasonModal-->
+        <div class="modal fade" id="addSuperAdminReason" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">新增不受理原因</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3" for="addReasonInput">驳回原因</label>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" id="addReasonInput" ng-model="addSuperAdminReasonContent"></textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addSuperAdminReason()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--editSuperAdminReasonModal-->
+        <div class="modal fade" id="editSuperAdminReason" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">修改不受理原因</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3" for="addReasonInput">驳回原因</label>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" id="addReasonInput" ng-model="selectSuperAdminReason.ReasonContent"></textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editSuperAdminReason()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--deleteSuperAdminReasonModal-->
+        <div class="modal fade" id="deleteSuperAdminReason" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">删除不受理原因</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>确认要删除此驳回原因？<br /><br />一旦删除您将无法找回此驳回原因，请谨慎操作！</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteSuperAdminReason()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+	</body>
+</html>

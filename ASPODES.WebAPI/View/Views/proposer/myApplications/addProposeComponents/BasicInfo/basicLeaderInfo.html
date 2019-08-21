@@ -1,0 +1,76 @@
+﻿<form class="form-horizontal" name="otherInfo">
+    <fieldset>
+        <legend>承担单位信息</legend>
+        <div class="form-group">
+            <label for="institute" class="col-lg-3 control-label">单位名称</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="institute" value="{{institute.Name}}" disabled="">
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <legend>牵头负责人信息</legend>
+        <div class="form-group">
+            <label for="leaderName" class="col-lg-3 control-label">牵头负责人</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="leader" value="{{leader.Name}}" disabled="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="male" class="col-lg-3 control-label">性别</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="male" value="{{leader.Male}}" disabled="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="duty" class="col-lg-3 control-label">职称</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="duty" value="{{leader.Duty}}" disabled="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-lg-3 control-label">电子邮箱</label>
+            <div class="col-lg-9">
+                <input type="email" class="form-control" id="email" value="{{::leader.Email}}" disabled="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="col-lg-3 control-label">手机</label>
+            <div class="col-lg-9">
+                <input class="form-control" id="phone" value="{{::leader.Phone}}" disabled="">
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <legend>联系人信息</legend>
+        <div class="form-group">
+            <label for="contactName" class="col-lg-3 control-label">联系人</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="contactName" value="{{::institute.ContactName}}" disabled="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="contactPhone" class="col-lg-3 control-label">联系人电话</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="contactPhone" value="{{::institute.ContactPhone}}" disabled="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="contactEmail" class="col-lg-3 control-label">联系人电子邮箱</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="contactEmail" value="{{::institute.ContactEmail}}" disabled="">
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </fieldset>
+</form>

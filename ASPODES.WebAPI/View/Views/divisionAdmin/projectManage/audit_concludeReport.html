@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngAuditConcludeReportApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/Views/divisionAdmin/applicationManagement/division_application.css" />
+
+</head>
+<body ng-controller="ngAuditConcludeReportCtrl">
+
+    <div class="container">
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 单位管理</a>
+            </li>
+            <li>
+                <a> 项目管理</a>
+            </li>
+            <li> 结题报告</li>
+        </ol>
+
+        <!-- 审核结题报告 -->
+        <div class="box box-solid" style="margin-top: 40px">
+            <div class="box-header bg-light-blue-gradient">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">待审核结题报告列表</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn bg-light-blue-gradient btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                    <br />
+
+                    <table class="table" ng-hide="listIsNull">
+                        <thead>
+                            <tr>
+                                <th>项目名称</th>
+                                <th style="min-width:96px;">项目负责人</th>
+                                <th style="min-width:96px;">项目状态</th>
+                                <th>结题报告</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr ng-repeat="project in projectList track by project.ProjectId">
+                                <td>
+                                    <a ng-click="showProjectInfo(project)">{{project.Name}}</a>
+                                </td>
+                                <td>
+                                    <!--<a>{{project.Leader.PersonName}}</a>-->
+                                    <span>{{project.Leader.PersonName}}</span>
+                                </td>
+                                <td>
+                                    <label class="label-primary" ng-show="project.Status == 2">待审核</label>
+                                </td>
+                                <td>
+                                    <a data-toggle="tooltip" data-placement="top" title="" data-original-title="下载" ng-click="downloadConcludeFile(project)">文件</a>
+                                </td>
+                                <td>
+                                    <a class="manage-icon" ng-click="showRejectConfirmModal(project)" data-toggle="tooltip" data-placement="top" title="" data-original-title="驳回"><i class="fa fa-remove"></i></a>
+                                    <a class="manage-icon" ng-click="showPassedConfirmModal(project)" data-toggle="tooltip" data-placement="top" title="" data-original-title="通过"><i class="fa fa-check"></i></a>
+                                </td>
+                            </tr>
+                    </table>
+
+                    <div class="callout callout-info" ng-show="listIsNull">
+                        <h4>注意!</h4>
+
+                        <p>当前没有任何待审核的项目结题报告！</p>
+                    </div>
+
+                </div>
+                <!-- /.dataTables_wrapper -->
+            </div>
+            <!-- /.box body -->
+            <!-- start box footer -->
+            <div class="box-footer" ng-hide="listIsNull">
+
+                <!-- paging -->
+                <self-pagination></self-pagination>
+
+            </div>
+            <!-- /.End box-footer -->
+            <div class="overlay" ng-hide="listAlready">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+
+        </div>
+        <!-- /.box -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- 项目具体信息 projectDetailModal-->
+    <div class="modal fade" id="projectDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">项目具体信息</h3>
+                </div>
+                <div class="modal-body">
+                    <tabs active="0">
+                        <tab label=" 基本信息">
+                            <br />
+                            <form class="form-horizontal" role="form">
+
+                                <div class="form-group">
+                                    <label for="name" class="col-sm-2 control-label">项目名称</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">{{projectData.Name}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">执行期限</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">{{projectData.Period}}年</p>
+                                    </div>
+                                    <!--<span class="col-sm-10">{{projectData.Period}}年</span>-->
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">类型</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">{{projectData.ProjectTypeName}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">起止日期</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">{{projectData.StartDate | date:"yyyy-MM-dd"}} - {{projectData.EndDate | date:"yyyy-MM-dd"}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">总预算</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">{{projectData.TotalBudget}}万</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">定向类型</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">{{projectData.DelegateType}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">状态</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static" ng-if="projectData.Status == 0">在研</p>
+                                        <p class="form-control-static" ng-if="projectData.Status == 1">结题</p>
+                                        <p class="form-control-static" ng-if="projectData.Status == 2">待审核结题报告</p>
+                                        <p class="form-control-static" ng-if="projectData.Status == 3">驳回结题报告</p>
+                                        <p class="form-control-static" ng-if="projectData.Status == 4">待院审核结题报告</p>
+                                        <p class="form-control-static" ng-if="projectData.Status == 5">院驳回结题报告</p>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </tab>
+                        <tab label=" 项目成员">
+                            <br />
+
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h4 class="box-title">主持单位人员</h4>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body no-padding">
+
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>姓名</th>
+                                                <th>单位</th>
+                                                <th>责任分工</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>{{projectData.Leader.PersonName}}</strong></td>
+                                                <td><strong>{{projectData.Leader.InstituteName}}</strong></td>
+                                                <td><strong>{{projectData.Leader.Task}}</strong></td>
+                                            </tr>
+                                            <tr ng-repeat="hostMem in projectData.HostDepartMembers track by $index">
+                                                <td>{{hostMem.PersonName}}</td>
+                                                <td>{{hostMem.InstituteName}}</td>
+                                                <td>{{hostMem.Task}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+
+                            <br />
+
+                            <div class="box box-default">
+                                <div class="box-header with-border">
+                                    <h4 class="box-title">外协单位人员</h4>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body no-padding">
+
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>姓名</th>
+                                                <th>单位</th>
+                                                <th>责任分工</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="otherMem in projectData.OtherDepartMembers track by $index">
+                                                <td>{{otherMem.PersonName}}</td>
+                                                <td>{{otherMem.InstituteName}}</td>
+                                                <td>{{otherMem.Task}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+
+                        </tab>
+                    </tabs>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- rejectModal -->
+    <div class="modal fade" id="rejectApplication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-red">
+                    <h3 class="modal-title">提示</h3>
+                </div>
+                <div class="modal-body">
+                    <h4>* 该结题报告将退回至项目负责人处，驳回后不可撤回，请谨慎操作</h4>
+
+                    <form role="form" name="rejectForm" novalidate>
+                        <div class="form-group">
+                            <label>请填写驳回原因（<label style="color:red;">必填</label>）</label>
+                            <textarea class="form-control required" name="rejectReason" ng-model="rejectReason" rows="4" style="resize:none" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="rejectForm.rejectReason.$error.required" ng-click="rejectReport(rejectId)" data-dismiss="modal">确认</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- passedModal-->
+    <div class="modal fade" id="submitApplication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">提交结题报告</h3>
+                </div>
+                <div class="modal-body">
+                    <h4>确认将该项目的结题报告提交至院机关吗？</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="passedReport(passedId)" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+</body>
+</html>
+

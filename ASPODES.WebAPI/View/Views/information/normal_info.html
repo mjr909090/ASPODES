@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html ng-app="ngNormalInfoApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body ng-controller="ngNormalInfoCtrl">
+		
+		<div class="container">
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 信息与设置</a>
+				</li>
+				<li>
+					<a> 信息</a>
+				</li>
+				<li class="active"> 基本信息</li>
+			</ol>
+			
+			
+			<!--
+            	作者：923470791@qq.com
+            	时间：2017-04-16
+            	描述：修改密码
+            -->
+			<div class="box box-info">
+	            <div class="box-header with-border">
+	              	<h3 class="box-title">修改密码</h3>
+	              
+	              	<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div>
+	            </div>
+	            <!-- /.box-header -->
+	            <!-- form start -->
+	            <form class="form-horizontal">
+	              <div class="box-body">
+	                <div class="form-group">
+	                  <label for="proPwd" class="col-sm-2 control-label">原始密码</label>
+	                  <div class="col-sm-10">
+	                    <input type="password" class="form-control" id="proPwd">
+	                  </div>
+	                </div>
+	                <div class="form-group">
+	                  <label for="newPwd" class="col-sm-2 control-label">新密码</label>
+	                  <div class="col-sm-10">
+	                    <input type="password" class="form-control" id="newPwd">
+	                  </div>
+	                </div>
+	                <div class="form-group">
+	                  <label for="newPwdAgain" class="col-sm-2 control-label">再次输入新密码</label>
+	                  <div class="col-sm-10">
+	                    <input type="password" class="form-control" id="newPwdAgain">
+	                  </div>
+	                </div>
+	              </div>
+	              <!-- /.box-body -->
+	              <div class="box-footer">
+	                <button class="btn btn-info pull-right">修改</button>
+	              </div>
+	              <!-- /.box-footer -->
+	            </form>
+          	</div>
+          	
+          	<br />
+          	<br />
+          	
+          	<!--
+            	作者：923470791@qq.com
+            	时间：2017-04-16
+            	描述：个人信息
+            -->
+			<div class="box box-info">
+	            <div class="box-header with-border">
+	              	<h3 class="box-title">个人信息</h3>
+	              
+	              	<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div>
+	            </div>
+	            <!-- /.box-header -->
+	            <!-- form start -->
+	            
+	            <div class="box-body">
+	            	<form class="form-horizontal row">
+	            		<div class="col-lg-6">
+			                <div class="form-group">
+			                  <label for="userName" class="col-sm-2 control-label">姓名</label>
+			                  <div class="col-sm-10">
+			                    <input type="text" class="form-control" id="userName" value="刘振虎" disabled="">
+			                  </div>
+			                </div>
+			                <div class="form-group">
+			                  	<label for="UserSex" class="col-sm-2 control-label">性别</label>
+			                  	<div class="radio col-sm-3">
+				                    <label>
+				                      	<input type="radio" name="sexSelect" id="UserSex" value="male" checked="" disabled="">
+				                      	男
+				                    </label>
+			                  	</div>
+			                  	<div class="radio col-sm-3">
+				                    <label>
+				                      	<input type="radio" name="sexSelect" id="UserSex" value="famale" disabled="">
+				                      	女
+				                    </label>
+			                  	</div>
+			                </div>
+			                <div class="form-group">
+			                  <label for="userIdCard" class="col-sm-2 control-label">身份证号</label>
+			                  <div class="col-sm-10">
+			                    <input type="text" class="form-control" id="userIdCard" value="150102197508202053" disabled="">
+			                  </div>
+			                </div>
+			                <div class="form-group">
+			                  <label for="userPhone" class="col-sm-2 control-label">手机</label>
+			                  <div class="col-sm-10">
+			                    <input type="number" class="form-control" id="userPhone" value="13621307320">
+			                  </div>
+			                </div>
+	            		</div>
+	            		<div class="col-lg-6">
+			                <div class="form-group">
+			                  <label for="userEmail" class="col-sm-2 control-label">邮箱</label>
+			                  <div class="col-sm-10">
+			                    <input type="email" class="form-control" id="userEmail" value="Liuzhenhu@caas.cn" disabled="">
+			                  </div>
+			                </div>
+			                <div class="form-group">
+			                  <label for="userTitle" class="col-sm-2 control-label">职称</label>
+			                  <div class="col-sm-10">
+			                    <input type="text" class="form-control" id="userTitle" value="副研究员">
+			                  </div>
+			                </div>
+			                <div class="form-group">
+			                  <label for="userDivision" class="col-sm-2 control-label">所在单位</label>
+			                  <div class="col-sm-10">
+			                    <input type="text" class="form-control" id="userDivision" value="科技管理局" disabled="">
+			                  </div>
+			                </div>
+			                <div class="form-group">
+			                  <label for="userMajor" class="col-sm-2 control-label">专业</label>
+			                  <div class="col-sm-10">
+			                    <input type="text" class="form-control" id="userMajor" value="农业科技管理">
+			                  </div>
+			                </div>
+	            		</div>
+	            	</form>
+	            </div>
+	            
+	           
+				<div class="box-footer">
+	                <button class="btn btn-info pull-right">修改</button>
+	            </div>
+	            
+	            
+          	</div>
+          	
+          	
+		</div>
+		
+	</body>
+</html>

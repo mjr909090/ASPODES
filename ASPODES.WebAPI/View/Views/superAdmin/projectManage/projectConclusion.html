@@ -1,0 +1,666 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngProjectConclusionApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-controller="ngProjectConclusionCtrl">
+<div class="container">
+    <br />
+    <ol class="breadcrumb">
+
+        <li>
+            <a><i class="fa fa-dashboard"></i> 全院管理</a>
+        </li>
+        <li>
+            <a> 项目管理</a>
+        </li>
+        <li class="active"> 已结题项目</li>
+    </ol>
+
+    <div class="box box-primary" style="margin-top: 40px">
+
+        <div class="box-header ui-sortable-handle bg-primary">
+            <i class="ion ion-clipboard" style="color: white;"></i>
+
+            <h3 class="box-title" style="color: white;">已结题项目</h3>
+
+            <div class="box-tools pull-right">
+                <button type="button" class="btn bg-primary btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div id="example1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+
+                <!-- toolbar-->
+                <div class="row">
+                    <div class="form-group pull-right">
+                        <select class="form-control">
+                            <option value="">全部</option>
+                            <option value="">项目名称</option>
+                            <option value="">项目负责人</option>
+                            <option value="">项目类型</option>
+                            <option value="">立项年份</option>
+                            <option value="">结题年份</option>
+                        </select>
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="searchData.keywords" ng-keyup="enterEvent($event)" />
+                            <span class="input-group-addon" ng-click=""><i class="glyphicon glyphicon-search"></i></span>
+                        </div>
+                    </div>
+                    <!-- End(toolbar) -->
+                </div>
+
+                <ul class="todo-list ui-sortable">
+
+                    <li>
+                        <!-- todo text -->
+                        <span class="text">基于基因组学的农业生物重要性状的功能位点挖掘与鉴定</span>
+                        <a class="label label-primary" data-target="#fzrInfo" data-toggle="modal"><i class="fa fa-user"></i> 负责人</a>
+                        <small class="label label-success"><i class="fa fa-clock-o"></i> 2017-3-12</small>
+
+                        <!-- General tools such as edit or delete-->
+                        <div class="tools pull-right">
+                            <i class="fa  fa-file-o" ng-click="showProjectInfo(1)" data-toggle="tooltip" data-placement="top" title="" data-original-title="项目信息"></i>
+                            <i class="fa fa-map-o" ng-click="showFinishedTaskModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="查看任务书"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <!-- todo text -->
+                        <span class="text">主要农作物重要农艺性状的变异组学研究</span>
+                        <a class="label label-primary" data-target="#fzrInfo" data-toggle="modal"><i class="fa fa-user"></i> 负责人</a>
+                        <small class="label label-success"><i class="fa fa-clock-o"></i> 2015-3-12</small>
+
+                        <!-- General tools such as edit or delete-->
+                        <div class="tools pull-right">
+                            <i class="fa  fa-file-o" ng-click="showProjectInfo(1)" data-toggle="tooltip" data-placement="top" title="" data-original-title="项目信息"></i>
+                            <i class="fa fa-map-o" ng-click="showFinishedTaskModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="查看任务书"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <!-- todo text -->
+                        <span class="text">蔬菜生产灾害性天气应对技术研究</span>
+                        <a class="label label-primary" data-target="#fzrInfo" data-toggle="modal"><i class="fa fa-user"></i> 负责人</a>
+                        <small class="label label-success"><i class="fa fa-clock-o"></i> 2016-04-12</small>
+
+                        <!-- General tools such as edit or delete-->
+                        <div class="tools pull-right">
+                            <i class="fa  fa-file-o" ng-click="showProjectInfo(1)" data-toggle="tooltip" data-placement="top" title="" data-original-title="项目信息"></i>
+                            <i class="fa fa-map-o" ng-click="showFinishedTaskModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="查看任务书"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <!-- todo text -->
+                        <span class="text">生猪肉牛等畜禽基因组选择育种技术研发与集成</span>
+                        <a class="label label-primary" data-target="#fzrInfo" data-toggle="modal"><i class="fa fa-user"></i> 负责人</a>
+                        <small class="label label-success"><i class="fa fa-clock-o"></i> 2017-3-12</small>
+
+                        <!-- General tools such as edit or delete-->
+                        <div class="tools pull-right">
+                            <i class="fa  fa-file-o" ng-click="showProjectInfo(1)" data-toggle="tooltip" data-placement="top" title="" data-original-title="项目信息"></i>
+                            <i class="fa fa-map-o" ng-click="showFinishedTaskModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="查看任务书"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <!-- todo text -->
+                        <span class="text">家禽常见病防控技术的应急储备研究</span>
+                        <a class="label label-primary" data-target="#fzrInfo" data-toggle="modal"><i class="fa fa-user"></i> 负责人</a>
+                        <small class="label label-success"><i class="fa fa-clock-o"></i> 2017-3-12</small>
+
+                        <!-- General tools such as edit or delete-->
+                        <div class="tools pull-right">
+                            <i class="fa  fa-file-o" ng-click="showProjectInfo(1)" data-toggle="tooltip" data-placement="top" title="" data-original-title="项目信息"></i>
+                            <i class="fa fa-map-o" ng-click="showFinishedTaskModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="查看任务书"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <!-- todo text -->
+                        <span class="text">病原微生物及生物毒素识别评估技术研究</span>
+                        <a class="label label-primary" data-target="#fzrInfo" data-toggle="modal"><i class="fa fa-user"></i> 负责人</a>
+                        <small class="label label-success"><i class="fa fa-clock-o"></i> 2017-3-12</small>
+
+                        <!-- General tools such as edit or delete-->
+                        <div class="tools pull-right">
+                            <i class="fa  fa-file-o" ng-click="showProjectInfo(1)" data-toggle="tooltip" data-placement="top" title="" data-original-title="项目信息"></i>
+                            <i class="fa fa-map-o" ng-click="showFinishedTaskModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="查看任务书"></i>
+                        </div>
+                    </li>
+
+                </ul>
+
+                <div class="dataTables_paginate pull-right">
+                    <ul class="pagination">
+                        <li class="disabled">
+                            <a>&laquo;</a>
+                        </li>
+                        <li class="active">
+                            <a>1</a>
+                        </li>
+                        <li>
+                            <a>2</a>
+                        </li>
+                        <li>
+                            <a>3</a>
+                        </li>
+                        <li>
+                            <a>4</a>
+                        </li>
+                        <li>
+                            <a>5</a>
+                        </li>
+                        <li>
+                            <a>&raquo;</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <!-- /.box wapper -->
+        </div>
+        <!-- /.box body -->
+     </div>
+     <!-- /.box -->
+
+</div>
+<!-- /.container -->
+
+    <!-- 负责人fzrInfolModal-->
+    <!--<principal-detail></principal-detail>-->
+
+    <div class="modal fade" id="fzrInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">负责人信息</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label>姓名：</label>刘振虎
+                                </div>
+                                <div class="form-group">
+                                    <label>电子邮箱：</label>liuzhenhu@777.com
+                                </div>
+                                <div class="form-group">
+                                    <label>职务：</label>讲师
+                                </div>
+                                <div class="form-group">
+                                    <label>手机号码：</label>17856236523
+                                </div>
+                                <div class="form-group">
+                                    <label>所在单位：</label>中国农业科学院
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label>性别：</label>男
+                                </div>
+                                <div class="form-group">
+                                    <label>出生年月：</label>1980-07-15
+                                </div>
+                                <div class="form-group">
+                                    <label>职称：</label>--
+                                </div>
+                                <div class="form-group">
+                                    <label>办公电话：</label>--
+                                </div>
+                                <div class="form-group">
+                                    <label>所在地址：</label>北京市海淀区
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <!-- /.modal body -->
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!--taskModal-->
+    <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">项目任务书列表</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div class="box box-success">
+                        <div class="box-header with-border">
+                            <h4 class="box-title">本年度任务书</h4>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body no-padding">
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>任务书名称</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>中国农业科学院科技管理与服务平台建设研究-2017</td>
+                                        <td>
+                                            <label class="label-info">待审核</label>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-download" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF下载"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+
+                    <br />
+
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">既往任务书</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>任务书名称</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>中国农业科学院科技管理与服务平台建设研究-2015</td>
+                                        <td>
+                                            <i class="fa fa-download" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF下载"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>中国农业科学院科技管理与服务平台建设研究-2016</td>
+                                        <td>
+                                            <i class="fa fa-download" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF下载"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+    <!--finishedTaskModal-->
+    <div class="modal fade" id="finishedTaskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">项目任务书列表</h3>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>任务书名称</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>中国农业科学院科技管理与服务平台建设研究-2015</td>
+                                <td>
+                                    <i class="fa fa-download" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF下载"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>中国农业科学院科技管理与服务平台建设研究-2016</td>
+                                <td>
+                                    <i class="fa fa-download" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF下载"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>中国农业科学院科技管理与服务平台建设研究-2017</td>
+                                <td>
+                                    <i class="fa fa-download" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF下载"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+
+
+
+<!--申请书全文modal-->
+<div class="modal" id="applicationDocumentModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">申请书</h3>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <p style="font-size: 20px;">申请书内容</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--结题报告modal-->
+<div class="modal" id="conclusionReportModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">结题报告</h3>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <p style="font-size: 20px;">结题报告内容</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--牵头负责人信息的模态框-->
+<div class="modal fade" id="responserLeaderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <!--<div class="modal">-->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><!--右上角的关闭按钮-->
+                <h3 class="modal-title">负责人信息</h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="progress xs col-lg-12">
+                        <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h4>单位名称：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;科技管理局</strong></h5>
+                    </div>
+                    <div class="col-lg-4">
+                        <h4>主持人：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名01</strong></h5>
+                        <h4>性别：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;男</strong></h5>
+                        <h4>职称：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;研究员</strong></h5>
+                        <h4>电子邮箱：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zhuchiren@163.cn</strong></h5>
+                        <h4>手机：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;123456789</strong></h5>
+                    </div>
+                    <div class="col-lg-4">
+                        <h4>联系人：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系人01</strong></h5>
+                        <h4>电话：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12345678985</strong></h5>
+                        <h4>电子邮箱：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lianxiren@163.cn</strong></h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="progress xs col-lg-12">
+                        <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看模态框-->
+<div class="modal" id="projectDetailModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">详细信息</h3>
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h4>工作任务名称</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;申请书01</strong></h5>
+                                    <h4>委托部门（甲方）</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中国农业科学院</strong></h5>
+                                    <h4>承担部门（乙方）</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主持单位：科技管理局</strong></h5>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目负责人：项目负责人01</strong></h5>
+
+                                    <h4>经费预算：</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20万</strong></h5>
+                                    <h4>2017年度经费：</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15万</strong></h5>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h4>单位名称：</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;科技管理局</strong></h5>
+                                    <h4>编号：</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;123456789</strong></h5>
+                                    <h4>实施起止年限：</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2017年1月&nbsp;&nbsp;至&nbsp;&nbsp;2017年12月</strong></h5>
+                                    <h4>类别：</h4>
+                                    <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类别01</strong></h5>
+                                </div>
+                            </div>
+                            <!--  <form class="form-horizontal row">
+                                  <div class="col-lg-6">
+                                      <div class="form-group">
+                                          <label for="rankNum" class="col-sm-4 control-label">排序位次</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="rankNum" value="01" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="projectID" class="col-sm-4 control-label">项目ID</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="projectID" value="00000001" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="projectName" class="col-sm-4 control-label">项目名称</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="projectName" value="项目名称01" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="projectType" class="col-sm-4 control-label">项目类型</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="projectType" value="项目类型01" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="supportAmount" class="col-sm-4 control-label">资助金额</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="supportAmount" value="20万" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="aprojectDocument" class="col-sm-4 control-label">项目文档</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="aprojectDocument" value="项目文档.pdf" data-toggle="modal" data-target="#PDFDownLoad" disabled="">
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                      <div class="form-group">
+                                          <label for="applyDate" class="col-sm-4 control-label">申请日期</label>
+                                          <div class="col-sm-8">
+                                              <input type="email" class="form-control" id="applyDate" value="2017.03.14" disabled="">
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                          <label for="CommitmentUnit" class="col-sm-4 control-label">承担单位</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="CommitmentUnit" value="茶叶研究所" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="responserLeaderName" class="col-sm-4 control-label">牵头负责人</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="responserLeaderName" value="牵头负责人01" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="executPeriod" class="col-sm-4 control-label">执行期限</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="executPeriod" value="一年" disabled="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="consignationProject" class="col-sm-4 control-label">委托项目</label>
+                                          <div class="col-sm-8">
+                                              <input type="text" class="form-control" id="consignationProject" value="委托项目01" disabled="">
+                                          </div>
+                                      </div>
+                                  </div>
+                              </form>
+                              <form class="form-horizontal row">
+                                  <div class="form-group">
+                                      <label for="index" class="col-lg-2 control-label">内容摘要</label>
+                                      <div class="col-lg-8">
+                                          <textarea class="form-control" rows="3" id="index" placeholder="内容摘要..." disabled=""></textarea>
+                                      </div>
+
+                                  </div>
+                              </form>-->
+                        </div>
+                    </div>
+                    <!--项目参与人员-->
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title">项目参与人员</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+
+                        </div>
+                        <div class="box-body">
+
+                            <form class="form-horizontal row">
+
+                                <table class="table table-striped table-hover" id="personTable">
+                                    <thead>
+                                    <tr>
+                                        <th>选择</th>
+                                        <th>姓名</th>
+                                        <th>邮箱</th>
+                                        <th>手机号</th>
+                                        <th>单位</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+                                        <td>姓名01</td>
+                                        <td>111111111@163.com</td>
+                                        <td>手机号01</td>
+                                        <td>单位01</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+                                        <td>姓名02</td>
+                                        <td>222222222@163.com</td>
+                                        <td>手机号02</td>
+                                        <td>单位02</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+                                        <td>姓名03</td>
+                                        <td>333333333@163.com</td>
+                                        <td>手机号03</td>
+                                        <td>单位03</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-warning" data-dismiss="modal">确定</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

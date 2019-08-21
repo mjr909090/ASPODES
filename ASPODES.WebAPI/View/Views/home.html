@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngHomeApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="css/Views/home.css" rel="stylesheet" />
+    
+</head>
+<body ng-controller="ngHomeCtrl">
+
+    <div class="container-fluid mainContainer">
+
+        <div class="noticeTitle">
+            <h4>通知与公告</h4>
+        </div>
+
+        <!-- 轮播 -->
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <!-- item -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <!-- 通知 -->
+                    <div class="carouselItemContent">
+                        <div id="notice" class="col-sm-10 col-md-10 col-lg-10 col-md-offset-1 col-sm-offset-1">
+                            <div id="noticeList">
+                                <div class="listTitle">
+                                    通知
+                                    <a class="getMoreBtn pull-right label label-success" ui-sref="notice-yuan">更多 <i class="fa fa-send-o"></i></a>
+                                </div>
+                                <div class="listBody">
+                                    <div ng-repeat="notice in NoticeList | orderBy:['Read','-SendTime'] | limitTo: 6">
+                                        <div class="panel panel-info">
+                                            <div class="panel-body" ng-class="{true:'readAnnouncement',false:'unreadAnnouncement'}[notice.Read == true]">
+                                                <div>
+                                                    <span><a ng-click="clickNotice(notice)">{{ notice.NoticeContent }}</a></span>
+                                                    <label class="label label-success" ng-if="notice.Type == 'Success'">成功</label>
+                                                    <label class="label label-warning" ng-if="notice.Type == 'Warning'">待办</label>
+                                                    <label class="label label-info" ng-if="notice.Type == 'Primary'">普通</label>
+                                                    <label class="label label-danger" ng-if="notice.Type == 'Error'">警告</label>
+                                                    <label class="label label-info userLabel" ng-if="notice.ReciverType == 1">普通用户</label>
+                                                    <label class="label label-info userLabel" ng-if="notice.ReciverType == 2">单位管理员</label>
+                                                    <label class="label label-info userLabel" ng-if="notice.ReciverType == 3">院管理员</label>
+                                                </div>
+                                                <div class="noticeTime">
+                                                    <span>{{ notice.SendTime | date:'yyyy-MM-dd hh:mm:ss' }}</span>
+                                                </div>
+                                                <!--<div class="noticeIcon">
+                                                    <i class="glyphicon glyphicon-ok-sign pull-right" data-toggle="tooltip" data-placement="top" title="" data-original-title="标记为已读" ng-hide="notice.Read == true" ng-click="clickNoticeBtn(notice)"></i>
+                                                </div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="" ng-hide="!divisionAppliesIsNull">
+                                        <h4>注意!</h4>
+                                        <p>当前没有任何通知！</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Controls -->
+                        <div id="carouselCtrl">
+                            <a class="left carousel-control turnLeft" href="#carousel-example-generic" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control turnRight" href="#carousel-example-generic" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <!-- 公告 -->
+                    <div class="carouselItemContent">
+                        <div id="divisionAnnounce" class="col-sm-10 col-md-10 col-lg-10 col-md-offset-1 col-sm-offset-1">
+                            <div id="divisionAnnounceList">
+                                <div class="listTitle">
+                                    单位公告
+                                    <a class="getMoreBtn pull-right label label-success" ui-sref="instAnnounce">更多 <i class="fa fa-send-o"></i></a>
+                                </div>
+                                <div class="listBody">
+                                    <p ng-show="divisionAnnounceIsNull">目前还没有任何公告</p>
+                                    <p class="departAnnounceTitle" ng-show="!divisionAnnounceIsNull" ng-repeat="divisionAnnounce in divisionAnnounces" ng-click="openAnnounceDetail(divisionAnnounce.AnnouncementId)">{{divisionAnnounce.Title}} <span class="pull-right">{{divisionAnnounce.PublishDate | date:'yyyy-MM-dd'}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="departAnnounce" class="col-sm-10 col-md-10 col-lg-10 col-md-offset-1 col-sm-offset-1">
+                            <div id="departAnnounceList">
+                                <div class="listTitle">
+                                    全院公告
+                                    <a class="getMoreBtn pull-right label label-success" ui-sref="departAnnounce">更多 <i class="fa fa-send-o"></i></a>
+                                </div>
+                                <div class="listBody">
+                                    <p ng-show="departAnnounceIsNull">目前还没有任何公告</p>
+                                    <p class="departAnnounceTitle" ng-show="!departAnnounceIsNull" ng-repeat="departAnnounce in departAnnounces" ng-click="openAnnounceDetail(departAnnounce.AnnouncementId)">{{departAnnounce.Title}} <span class="pull-right">{{departAnnounce.PublishDate | date:'yyyy-mm-dd'}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Controls -->
+                        <div id="carouselCtrl">
+                            <a class="left carousel-control turnLeft" href="#carousel-example-generic" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control turnRight" href="#carousel-example-generic" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                        <!-- end of Controls -->
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+
+
+        
+
+        <div class="col-sm-12 col-md-12 col-lg-1"></div>
+
+        
+
+        <div class="col-sm-12 col-md-12 col-lg-1"></div>
+
+    </div>
+
+</body>
+</html>

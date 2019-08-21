@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html ng-App="ngFinishedReviewApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+        <!-- dataTimePicker -->
+        <link rel="stylesheet" href="plugins/datepicker/datepicker3.css" />
+        <!-- 自定义样式 -->
+        <link rel="stylesheet" href="css/Views/Expert/ApplicationReview/preReview.css" />
+        
+        <!-- dataTimePicker -->
+        <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+        <script src="plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+
+	</head>
+
+	<body ng-controller="ngFinishedReviewCtrl">
+
+		<div class="container">
+
+			<!-- 面包屑导航 -->
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 专家评议</a>
+				</li>
+				<li> <span>既往评审记录</span></li>
+			</ol>
+
+			<!-- 既往评议 -->
+            <div class="box box-primary">
+                <!-- 头部（box-header）-->
+                <div class="box-header ui-sortable-handle with-border">
+                    <i class="ion ion-clipboard"></i>
+                    <h3 class="box-title">既往评审申请书列表</h3>
+                    <div class="box-tools pull-right">
+                        <a class="load-icon" data-widget="collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="折叠"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <!-- /.box-header-->
+                </div>
+                <!-- 中部（box-body）-->
+                <div class="box-body">
+                    <div id="example1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                        <br />
+
+                        <!-- toolbar-->
+                        <div class="row">
+                            <div class="pull-right">
+                                <label for="selectYear" class="control-label" style="margin-left: 16px;">年份</label>
+                                <div class="input-group date" style="margin-left: 16px;">
+                                    <input type="text" class="form-control" id="selectYear" ng-model="yearValue" ng-change="load_page(1)" data-date-end-date="0y" readonly>
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group" style="margin-left: 8px;" ng-hide="AppliesIsNull" ng-cloak>
+                                <span style="margin-left: 8px;">打开PDF口令为：</span><span class="text-primary" style="font-size:16px;">{{PDFpassword}}</span>
+                            </div>
+
+                        </div>
+
+                        <br />
+                        <table id="jwpyTable" class="table" ng-hide="AppliesIsNull">
+                            <thead>
+                                <tr>
+                                    <th style="min-width: 48px;">序号</th>
+                                    <th>申请书名称</th>
+                                    <th style="min-width: 72px;">评审等级</th>
+                                    <th style="min-width: 72px;">评审得分</th>
+                                    <th style="min-width: 72px;">资助意见属性</th>
+                                    <th style="min-width: 72px;">资助金额</th>
+                                    <th style="min-width: 48px;">全文</th>
+                                    <th style="min-width: 72px;">评审意见</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="finishedApply in finishedApplies track by $index" ng-cloak>
+                                    <td>{{$index + 1}}</td>
+                                    <td>
+                                        {{finishedApply.ProjectName}}
+                                    </td>
+                                    <td>
+                                        <!--{{finishedApply.Level}}.
+                                        <span ng-if="finishedApply.Level == 'A'">优</span>
+                                        <span ng-if="finishedApply.Level == 'B'">良</span>
+                                        <span ng-if="finishedApply.Level == 'C'">中</span>
+                                        <span ng-if="finishedApply.Level == 'D'">差</span>-->
+                                        {{finishedApply.Score | changeScoreToLevel}}
+                                    </td>
+                                    <td>
+                                        <span ng-show="finishedApply.Score != null">{{finishedApply.Score}}分</span>
+                                        <span ng-show="finishedApply.Score == null">0分</span>
+                                    </td>
+                                    <td>
+                                        <span ng-if="finishedApply.Imburse == 'A'">优先资助</span>
+                                        <span ng-if="finishedApply.Imburse == 'B'">建议资助</span>
+                                        <span ng-if="finishedApply.Imburse == 'C'">不予资助</span>
+                                    </td>
+                                    <td>{{finishedApply.Amount}}万</td>
+                                    <td>
+                                        <a class="pdfDownload" ng-click="downloadPDF(finishedApply.ApplicationId,finishedApply.ProjectName)">下载</a>
+                                    </td>
+                                    <td>
+                                        <a ng-click="showResuiltModal(finishedApply)">查看</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="callout callout-info" ng-hide="!AppliesIsNull" ng-cloak>
+                            <h4>注意!</h4>
+
+                            <p>当前没有任何既往评审的申请书！</p>
+                        </div>
+                    </div>
+                    <!-- /.box-body-->
+                </div>
+                <!-- 尾部（box-footer）-->
+                <div class="box-footer" ng-hide="AppliesIsNull">
+                    <!-- paging -->
+                   
+                    <self-pagination></self-pagination>
+
+                    <!-- 结束（box-footer） -->
+                </div>
+                <div class="overlay" ng-hide="listAlready">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+                <!-- 结束（box） -->
+            </div>
+           
+			<!-- 评审结论resultModal -->
+			<div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title">查看</h3>
+						</div>
+                        <div class="modal-body">
+                            <p ng-show="formData.Comment != null">
+                                {{formData.Comment}}
+                            </p>
+                            <p ng-show="formData.Comment == null">
+                                评审意见为空
+                            </p>
+
+                            <!-- /.modal body -->
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+			<!-- /.container -->
+		</div>
+	</body>
+
+</html>

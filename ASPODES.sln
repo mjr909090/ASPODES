@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPODES.WebAPI", "ASPODES.WebAPI\ASPODES.WebAPI.csproj", "{8C08277F-A44C-4FFA-A338-E5234DF582C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPODES.DTO", "ASPODES.DTO\ASPODES.DTO.csproj", "{46816AE9-50C5-4CD1-AE1C-E9E71BFC9899}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPODES.Model", "ASPODES.Model\ASPODES.Model.csproj", "{43F5F2E2-3C24-42BD-AA17-43C889DD5C5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPODES.Database", "ASPODES.Database\ASPODES.Database.csproj", "{C7387E66-2174-4965-A3C6-49DB9B743592}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPODES.Common", "ASPODES.Common\ASPODES.Common.csproj", "{B01F9F02-0875-403C-9516-26E1F734B169}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPODES.WebAPI.Common", "ASPODES.WebAPI.Common\ASPODES.WebAPI.Common.csproj", "{AE210390-5978-4C78-A2A7-47B8DC839D71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C08277F-A44C-4FFA-A338-E5234DF582C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C08277F-A44C-4FFA-A338-E5234DF582C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C08277F-A44C-4FFA-A338-E5234DF582C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C08277F-A44C-4FFA-A338-E5234DF582C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46816AE9-50C5-4CD1-AE1C-E9E71BFC9899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46816AE9-50C5-4CD1-AE1C-E9E71BFC9899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46816AE9-50C5-4CD1-AE1C-E9E71BFC9899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46816AE9-50C5-4CD1-AE1C-E9E71BFC9899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43F5F2E2-3C24-42BD-AA17-43C889DD5C5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43F5F2E2-3C24-42BD-AA17-43C889DD5C5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43F5F2E2-3C24-42BD-AA17-43C889DD5C5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43F5F2E2-3C24-42BD-AA17-43C889DD5C5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7387E66-2174-4965-A3C6-49DB9B743592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7387E66-2174-4965-A3C6-49DB9B743592}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7387E66-2174-4965-A3C6-49DB9B743592}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7387E66-2174-4965-A3C6-49DB9B743592}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B01F9F02-0875-403C-9516-26E1F734B169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B01F9F02-0875-403C-9516-26E1F734B169}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B01F9F02-0875-403C-9516-26E1F734B169}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B01F9F02-0875-403C-9516-26E1F734B169}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE210390-5978-4C78-A2A7-47B8DC839D71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE210390-5978-4C78-A2A7-47B8DC839D71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE210390-5978-4C78-A2A7-47B8DC839D71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE210390-5978-4C78-A2A7-47B8DC839D71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://222.195.226.29:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ASPODES.Common\\ASPODES.Common.csproj
+		SccProjectName1 = ASPODES.Common
+		SccLocalPath1 = ASPODES.Common
+		SccProjectUniqueName2 = ASPODES.Database\\ASPODES.Database.csproj
+		SccProjectName2 = ASPODES.Database
+		SccLocalPath2 = ASPODES.Database
+		SccProjectUniqueName3 = ASPODES.DTO\\ASPODES.DTO.csproj
+		SccProjectName3 = ASPODES.DTO
+		SccLocalPath3 = ASPODES.DTO
+		SccProjectUniqueName4 = ASPODES.Model\\ASPODES.Model.csproj
+		SccProjectName4 = ASPODES.Model
+		SccLocalPath4 = ASPODES.Model
+		SccProjectUniqueName5 = ASPODES.WebAPI\\ASPODES.WebAPI.csproj
+		SccProjectName5 = ASPODES.WebAPI
+		SccLocalPath5 = ASPODES.WebAPI
+		SccProjectUniqueName6 = ASPODES.WebAPI.Common\\ASPODES.WebAPI.Common.csproj
+		SccProjectName6 = ASPODES.WebAPI.Common
+		SccLocalPath6 = ASPODES.WebAPI.Common
+	EndGlobalSection
+EndGlobal

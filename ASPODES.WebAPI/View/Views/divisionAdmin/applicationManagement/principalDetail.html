@@ -1,0 +1,66 @@
+﻿<div class="modal fade" id="fzrInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">负责人信息</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group">
+                                <label>姓名：</label>{{modalData.Name}}
+                            </div>
+                            <div class="form-group">
+                                <label>电子邮箱：</label>{{modalData.Email}}
+                            </div>
+                            <div class="form-group">
+                                <label>职务：</label>
+                                <span ng-if="modalData.Duty==null">--</span>
+                                <span ng-if="modalData.Duty!=null"> {{modalData.Duty}}</span>
+                            </div>
+                            <div class="form-group">
+                                <label>手机号码：</label>{{modalData.Phone}}
+                            </div>
+                            <div class="form-group">
+                                <label>所在单位：</label>{{modalData.InstituteName}}
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group">
+                                <label>性别：</label>{{modalData.Male}}
+                            </div>
+                            <div class="form-group">
+                                <label>出生年月：</label>{{modalData.Birthday | date:"yyyy-MM-dd"}}
+                            </div>
+                            <div class="form-group">
+                                <label>职称：</label>
+                                <span ng-if="modalData.Title==null">--</span>
+                                <span ng-if="modalData.Title!=null"> {{modalData.Title}}</span>
+                            </div>
+                            <div class="form-group">
+                                <label>办公电话：</label>
+                                <span ng-if="modalData.OfficePhone==null">--</span>
+                                <span ng-if="modalData.OfficePhone!=null"> {{modalData.OfficePhone}}</span>
+                            </div>
+                            <div class="form-group">
+                                <label>所在地址：</label>
+                                <span ng-if="modalData.Address==null">--</span>
+                                <span ng-if="modalData.Address!=null"> {{modalData.Address}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <!-- /.modal body -->
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

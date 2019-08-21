@@ -1,0 +1,32 @@
+tbody a:hover{
+	cursor: pointer;
+}
+
+#toolbar{
+	margin-top: 16px;
+}
+
+.saved-table{
+	margin-top: 16px;
+	border: 2px;
+	border-color: #000000;
+}
+
+.pdfDownload{
+	color: #F39C12;
+	font-weight: 600;
+}
+
+.manage-icon{
+	font-size: large;
+	margin-left: 8px;
+	color: #00C0EF;
+}
+
+.table-left{
+	text-align: left;
+}
+
+.table-middle{
+	text-align: center;
+}

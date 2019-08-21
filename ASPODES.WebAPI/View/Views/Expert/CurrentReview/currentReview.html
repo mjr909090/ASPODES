@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngCurrentReviewApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/Views/Expert/ApplicationReview/preReview.css" />
+
+</head>
+<body ng-controller="ngCurrentReviewCtrl">
+    <div class="container">
+        <!-- 面包屑导航 -->
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 专家评议</a>
+            </li>
+            <li> <span>本年度评审记录</span></li>
+        </ol>
+        <!-- 既往评议 -->
+        <div class="box box-primary">
+            <!-- 头部（box-header）-->
+            <div class="box-header ui-sortable-handle with-border">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">本年度评审申请书列表</h3>
+                <div class="box-tools pull-right">
+                    <a class="load-icon" data-widget="collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="折叠"><i class="fa fa-minus"></i></a>
+                </div>
+                <!-- /.box-header-->
+            </div>
+            <!-- 中部（box-body）-->
+            <div class="box-body">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                    <br />
+
+                    <!-- toolbar-->
+                    <div class="row" ng-hide="AppliesIsNull" ng-cloak>
+                        <div class="form-group" style="margin-left: 8px;">
+                            <span style="margin-left: 8px;">打开PDF口令为：</span><span class="text-primary" style="font-size:16px;">{{PDFpassword}}</span>
+                        </div>
+
+                    </div>
+
+                    <br />
+
+                    <table id="currentYearTable" class="table" ng-hide="AppliesIsNull">
+                        <thead>
+                            <tr>
+                                <th style="min-width: 48px;">序号</th>
+                                <th>申请书名称</th>
+                                <th style="min-width: 72px;">评审等级</th>
+                                <th style="min-width: 72px;">评审得分</th>
+                                <th style="min-width: 72px;">资助意见属性</th>
+                                <th style="min-width: 72px;">资助金额</th>
+                                <th style="min-width: 48px;">全文</th>
+                                <th style="min-width: 72px;">评审意见</th>
+                                <th style="min-width: 48px;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="currentApply in currentApplies track by $index" ng-cloak>
+                                <td>{{$index + 1}}</td>
+                                <td>
+                                    {{currentApply.ProjectName}}
+                                </td>
+                                <td>
+                                    {{currentApply.Score | changeScoreToLevel}}
+                                </td>
+                                <td>
+                                    <span ng-show="currentApply.Score != null">{{currentApply.Score}}分</span>
+                                    <span ng-show="currentApply.Score == null">0分</span>
+                                </td>
+                                <td>
+                                    <span ng-if="currentApply.Imburse == 'A'">优先资助</span>
+                                    <span ng-if="currentApply.Imburse == 'B'">建议资助</span>
+                                    <span ng-if="currentApply.Imburse == 'C'">不予资助</span>
+                                </td>
+                                <td>{{currentApply.Amount}}万</td>
+                                <td>
+                                    <a class="pdfDownload" ng-click="downloadPDF(currentApply.ApplicationId,currentApply.ProjectName)">下载</a>
+                                <td>
+                                    <a ng-click="showResuiltModal(currentApply)">查看</a>
+                                </td>
+                                <td>
+                                    <a class="manage-icon" ng-click="showReviewModal(currentApply)" data-toggle="tooltip" data-placement="top" title="" data-original-title="更改评议"><i class="fa fa-edit"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!-- /.table-->
+                    </table>
+                    <div class="callout callout-info" ng-hide="!AppliesIsNull" ng-cloak>
+                        <h4>注意!</h4>
+
+                        <p>当前没有任何本年度评审的申请书！</p>
+                    </div>
+                </div>
+                <!-- /.box-body-->
+            </div>
+            <!-- 尾部（box-footer）-->
+            <div class="box-footer" ng-hide="AppliesIsNull">
+                <!-- paging -->
+
+               <self-pagination></self-pagination>
+
+                <!-- 结束（box-footer） -->
+            </div>
+            <div class="overlay" ng-hide="listAlready">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+            <!-- 结束（box） -->
+        </div>
+
+        <!-- 评审结论resultModal -->
+        <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title">具体评审意见：</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p ng-show="lookFormData.Comment != null">
+                            {{lookFormData.Comment}}
+                        </p>
+                        <p ng-show="lookFormData.Comment == null">
+                            评审意见为空
+                        </p>
+                        <!-- /.modal body -->
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <!-- 修改在线评议 editReviewModal -->
+        <div class="modal" id="editReviewModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">在线评议表</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" name="OnlineForm" novalidate>
+                            <!--{{formData}}-->
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width: 144px">评议指标</th>
+                                        <th class="text-center">评议指标选项</th>
+                                        <th style="width: 48px">必填</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">评审分数：</td>
+                                        <td class="text-left">
+                                            <div class="form-inline" ng-class="{true:'has-error'}[OnlineForm.Score.$error.pattern || (isOnlineFormSubmit && OnlineForm.Score.$error.required)]">
+                                                <input name="Score"
+                                                       class="form-control"
+                                                       type="text"
+                                                       id="Score"
+                                                       style="text-align:right"
+                                                       ng-model="formData.Score"
+                                                       ng-pattern="/^100$|^(\d|[1-9]\d)$/"
+                                                       ng-change="judgeScore()"
+                                                       autocomplete="off"
+                                                       required />
+                                                <span style="margin-left:8px;">分</span>
+                                            </div>
+                                            <div ng-messages="OnlineForm.Score.$error">
+                                                <div class="error" ng-show="isOnlineFormSubmit" ng-message="required">不能为空</div>
+                                                <div class="error" ng-message="pattern">评审分数范围为0-100，且为整数</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <font style="color: red;">*</font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">
+                                            <span>评审等级：</span>
+                                        </td>
+                                        <td class="text-left">
+                                            <div class="form-inline">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input name="Level"
+                                                               value="A"
+                                                               type="radio"
+                                                               id="radioA"
+                                                               ng-model="formData.Level"
+                                                               ng-checked="formData.Level"
+                                                               disabled
+                                                               required />
+                                                        A、优
+                                                    </label>
+                                                </div>
+                                                <div class="radio" style="margin-left:16px;">
+                                                    <label>
+                                                        <input name="Level"
+                                                               value="B"
+                                                               type="radio"
+                                                               id="radioB"
+                                                               ng-model="formData.Level"
+                                                               ng-checked="formData.Level"
+                                                               disabled
+                                                               required />
+                                                        B、良
+                                                    </label>
+                                                </div>
+                                                <div class="radio" style="margin-left:16px;">
+                                                    <label>
+                                                        <input name="Level"
+                                                               value="C"
+                                                               type="radio"
+                                                               id="radioC"
+                                                               ng-model="formData.Level"
+                                                               ng-checked="formData.Level"
+                                                               disabled
+                                                               required />
+                                                        C、中
+                                                    </label>
+                                                </div>
+                                                <div class="radio" style="margin-left:16px;">
+                                                    <label>
+                                                        <input name="Level"
+                                                               value="D"
+                                                               type="radio"
+                                                               id="radioD"
+                                                               ng-model="formData.Level"
+                                                               ng-checked="formData.Level"
+                                                               disabled
+                                                               required />
+                                                        D、差
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <font style="color: red;">*</font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">
+                                            <span>资助意见属性：</span>
+                                        </td>
+                                        <td class="text-left">
+                                            <div class="form-inline">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input name="Imburse"
+                                                               value="A"
+                                                               type="radio"
+                                                               id="attr_adioA"
+                                                               ng-model="formData.Imburse"
+                                                               ng-checked="formData.Imburse"
+                                                               required />
+                                                        A、优先资助
+                                                    </label>
+                                                </div>
+                                                <div class="radio" style="margin-left:16px;">
+                                                    <label>
+                                                        <input name="Imburse"
+                                                               value="B"
+                                                               type="radio"
+                                                               id="attr_radioB"
+                                                               ng-model="formData.Imburse"
+                                                               ng-checked="formData.Imburse"
+                                                               required />
+                                                        B、建议资助
+                                                    </label>
+                                                </div>
+                                                <div class="radio" style="margin-left:16px;">
+                                                    <label>
+                                                        <input name="Imburse"
+                                                               value="C"
+                                                               type="radio"
+                                                               id="attr_radioC"
+                                                               ng-model="formData.Imburse"
+                                                               ng-checked="formData.Imburse"
+                                                               ng-change="notSubsidize()"
+                                                               required />
+                                                        C、不予资助
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <font style="color: red;">*</font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">建议资助：</td>
+                                        <td class="text-left">
+                                            <div class="form-inline" ng-class="{true:'has-error'}[OnlineForm.Amount.$error.pattern || (isOnlineFormSubmit && OnlineForm.Amount.$error.required)]">
+                                                <input name="Amount"
+                                                       class="form-control"
+                                                       type="text"
+                                                       style="text-align:right"
+                                                       ng-model="formData.Amount"
+                                                       ng-pattern="/^\d+(\.\d{1,2})?$/"
+                                                       ng-disabled="formData.Imburse == 'C'"
+                                                       autocomplete="off"
+                                                       required />
+                                                <span style="margin-left:8px;">万元</span>
+                                            </div>
+                                            <div ng-messages="OnlineForm.Amount.$error">
+                                                <div class="error" ng-show="isOnlineFormSubmit" ng-message="required">不能为空</div>
+                                                <div class="error" ng-message="pattern">资助金额填写不规范（数字保留至小数点后两位）</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <font style="color: red;">*</font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">
+                                            <span>具体评价意见：</span>
+                                        </td>
+                                        <td>
+                                            <div class="form-inline">
+                                                <textarea name="Comment"
+                                                          class="form-control"
+                                                          rows="7"
+                                                          style="resize: none;width:100%"
+                                                          ng-model="formData.Comment"
+                                                          required
+                                                          placeholder="按所评议项目的相关评议要点提纲填写，对同意资助的项目，要着重指出其创新点和研究价值；对不同意自不同意资助的项目，要说明具体理由"></textarea>
+                                                <div ng-messages="OnlineForm.Comment.$error">
+                                                    <div class="error" ng-show="isOnlineFormSubmit" ng-message="required">不能为空</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <font style="color: red;">*</font>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-group">
+                                <div class="col-sm-7 pull-right">
+                                    <button type="button" class="btn btn-primary" ng-disabled="" ng-click="updateReview()">提交</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

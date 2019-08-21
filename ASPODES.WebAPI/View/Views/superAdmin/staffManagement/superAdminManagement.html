@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html ng-app="ngSuperAdminManagementApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-controller="ngSuperAdminManagementCtrl">
+    <div class="container">
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 全院管理</a>
+            </li>
+            <li>
+                <a> 用户管理</a>
+            </li>
+            <li class="active"> 院管理员</li>
+        </ol>
+        <div class="box box-solid" style="margin-top: 40px" >
+            <div class="box-header" style="cursor: move; background-color:#a6e1ec;">
+                <div class="pull-right box-tools">
+                    <button type="button" class="btn btn-box-tool" ng-click="exportExcelSuperAdmin()" data-toggle="tooltip" data-placement="top" title=""
+                            data-original-title="导出"><i class="fa fa-sign-out"></i></button>
+                    <button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px; background-color:#a6e1ec;" data-original-title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+
+                <h3 class="box-title"> 院管理员列表 </h3>
+            </div>
+            <div class="box-body" style="display: block;">
+                <div>
+                    <div class="jvectormap-container" style="width: 100%; height: 100%; position: relative; overflow: hidden; background-color: transparent;">
+                        <div class="row">
+
+                            <div class="form-group col-lg-1 col-md-1 col-sm-1">
+                                <button class="btn" style="background-color:#a6e1ec;" data-toggle="modal" data-target="#addSuperAdmin">添加</button>
+                            </div>
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                                <label for="applyUnit_searchcobobox" class="col-lg-5 control-label">单位</label>
+                                <div class="col-lg-7">
+                                    <select class="form-control" id="applyUnit_searchcobobox">
+                                        <option></option>
+                                        <option>生物所</option>
+                                        <option>蔬菜所</option>
+                                        <option>沼气所</option>
+                                        <option>作科所</option>
+                                        <option>水稻所</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-5 col-md-5 col-sm-5"></div>
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                                <div class="box-tools">
+                                    <div class="input-group">
+                                        <input class="form-control input-sm pull-right" name="table_search" style="width: 150px;" placeholder="Search" type="text">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-default">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <table class="table table-striped table-hover" id="unhandledTable">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>职称</th>
+                            <th>单位</th>
+                            <th>用户角色</th><!--查看已提交的申请书-->
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr >
+                            <td>1</td>
+                            <td><a class='refuse' data-toggle="modal" data-target="#viewSuperAdminInfo">姓名01</a></td>
+                            <td>教授</td>
+                            <td>植保所</td>
+                            <td><a class='refuse' data-toggle="modal" data-target="#divisionAdminType">用户角色</a></td>
+                            <td>
+                                <a class="manage-icon" ng-click="showModifySuperAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑"><i class="fa fa-edit"></i></a>
+                                <a class="manage-icon" ng-click="showDeleteSuperAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove"></i></a>
+
+                            </td>
+                        </tr>
+                        <tr >
+                            <td>2</td>
+                            <td><a class='refuse' data-toggle="modal" data-target="#viewSuperAdminInfo">姓名02</a></td>
+                            <td>教授</td>
+                            <td>植保所</td>
+                            <td><a class='refuse' data-toggle="modal" data-target="#divisionAdminType">用户角色</a></td>
+                            <td>
+                                <a class="manage-icon" ng-click="showModifySuperAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑"><i class="fa fa-edit"></i></a>
+                                <a class="manage-icon" ng-click="showDeleteSuperAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove"></i></a>
+
+                            </td>
+                        </tr>
+                        <tr >
+                            <td>3</td>
+                            <td><a class='refuse' data-toggle="modal" data-target="#viewSuperAdminInfo">姓名03</a></td>
+                            <td>教授</td>
+                            <td>植保所</td>
+                            <td><a class='refuse' data-toggle="modal" data-target="#divisionAdminType">用户角色</a></td>
+                            <td>
+                                <a class="manage-icon" ng-click="showModifySuperAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑"><i class="fa fa-edit"></i></a>
+                                <a class="manage-icon" ng-click="showDeleteSuperAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove"></i></a>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+
+
+                    <div class="dataTables_info col-lg-9">
+                        <h3>当前显示 1 到 6 条， 共 3 条</h3>
+                    </div>
+
+                    <div class="dataTables_paginate col-lg-3">
+                        <ul class="pagination">
+                            <li class="disabled">
+                                <a>&laquo;</a>
+                            </li>
+                            <li class="active">
+                                <a>1</a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" data-target="#pageNextWaring">2</a>
+                            </li>
+                            <li>
+                                <a>3</a>
+                            </li>
+                            <li>
+                                <a>4</a>
+                            </li>
+                            <li>
+                                <a>5</a>
+                            </li>
+                            <li>
+                                <a>&raquo;</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--导出-->
+    <div class="modal" id="exportExcelSuperAdminModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">导出</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <p style="font-size: 20px;">确定进行导出操作吗，即将该列表中的数据导出到excel中！</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--查看详细信息-->
+    <div class="modal" id="viewSuperAdminInfo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">详细信息</h3>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                </div>
+
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <h4>姓名：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名01</strong></h5>
+                                        <h4>证件类型：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;身份证</strong></h5>
+                                        <h4>职称：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;教授</strong></h5>
+                                        <h4>电子邮箱：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;123456789@163.com</strong></h5>
+                                        <h4>所在单位：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所在单位</strong></h5>
+                                        <h4>用户角色：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户角色</strong></h5>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <h4>性别：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;男</strong></h5>
+                                        <h4>证件号码：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;123456789</strong></h5>
+                                        <h4>最高学位：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;博士后</strong></h5>
+                                        <h4>工作电话：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12345678988</strong></h5>
+                                        <h4>国别或地区：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中国-北京</strong></h5>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--添加的模态框-->
+    <div class="modal" id="addSuperAdmin">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">添加用户</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <!-- <h3 class="box-title">个人基本信息</h3>-->
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="box-body">
+                            <form class="form-horizontal">
+                                <fieldset>
+                                    <div style="margin-left: 10px;" class="btn-group" >
+                                        <font size='2' color='red'>申请人在填写本人姓名时，姓名与使用的证件一致。</font>
+                                    </div>
+                                    <div class="form-group" >
+                                        <label  class="col-lg-2 col-sm-2 col-xm-2 control-label" ><font style="color: red;">*</font>姓名</label>
+                                        <div class="col-lg-3 col-sm-3 col-xm-3">
+                                            <input class="form-control" id="expertName"  type="text">
+                                        </div>
+
+                                        <label class="col-lg-2 col-sm-2 col-xm-2-2 control-label">性别</label>
+                                        <div class="col-lg-5 col-sm-5 col-xm-5">
+                                            <div class="radio">
+                                                <label>
+                                                    <input name="optionsRadios" id="optionsRadios1" value="option1" type="radio"><!--默认选项checked=""-->
+                                                    男
+                                                </label>
+                                                <label style="margin-left: 40px;">
+                                                    <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio">
+                                                    女
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="CertificateType" class="col-lg-2 col-sm-2 col-xm-2 control-label"><font style="color: red;">*</font>证件类型</label>
+                                        <div class="col-lg-3 col-sm-3 col-xm-3">
+                                            <select class="form-control" id="CertificateType">
+                                                <option></option>
+                                                <option>身份证</option>
+                                                <option>工作证</option>
+                                            </select>
+                                        </div>
+                                        <label  class="col-lg-2 col-sm-2 col-xm-2 control-label"><font style="color: red;">*</font>证件号码</label>
+                                        <div class="col-lg-3 col-sm-3 col-xm-3">
+                                            <input class="form-control" id="CertificateNum"  type="text">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="title" class="col-lg-2 col-sm-2 col-xm-2 control-label">职称</label>
+                                        <div class="col-lg-3 col-sm-3 col-xm-3">
+                                            <select class="form-control" id="title">
+                                                <option></option>
+                                                <option>教授</option>
+                                                <option>副教授</option>
+                                                <option>讲师</option>
+                                            </select>
+                                        </div>
+
+
+                                        <label for="highestDegree" class="col-lg-2 col-sm-2 col-xm-2 control-label">最高学位</label>
+                                        <div class="col-lg-3 col-sm-3 col-xm-3">
+                                            <select class="form-control" id="highestDegree">
+                                                <option></option>
+                                                <option>博士</option>
+                                                <option>硕士</option>
+                                                <option>本科</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" >
+                                        <label for="inputEmail" class="col-lg-2 col-sm-2 col-xm-2 control-label" ><font style="color: red;">*</font>电子邮箱</label>
+                                        <div class="col-lg-3 col-sm-3 col-xm-3">
+                                            <input class="form-control" id="inputEmail" placeholder="Email" type="text"><!--placeholder是默认值-->
+                                        </div>
+                                        <label  class="col-lg-2 col-sm-2 col-xm-2 control-label" >工作电话</label>
+                                        <div class="col-lg-3 col-sm-3 col-xm-3">
+                                            <input class="form-control" id="wokPhone"  type="text">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label  class="col-lg-2 col-sm-2 col-xm-2 control-label" >所在单位</label>
+                                        <div class="col-lg-3 col-sm-3 col-xm-3">
+                                            <input class="form-control" id="unitName"  type="text">
+                                        </div>
+                                        <label  class="col-lg-2 col-sm-2 col-xm-2 control-label">国别或地区</label>
+                                        <div class="col-lg-3 col-sm-3 col-xm-3">
+                                            <input class="form-control" id="country" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label  class="col-lg-2 col-sm-2 col-xm-2 control-label" >用户角色</label>
+                                        <div class="col-lg-3 col-sm-3 col-xm-3">
+                                            <input class="form-control" id="userType"  type="text">
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--编辑-->
+    <div class="modal" id="modifySuperAdminModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">编辑</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <form class="form-horizontal row">
+                                <div class="col-lg-6 col-sm-6 col-xm-6">
+                                    <div class="form-group">
+                                        <label for="userName_Modify" class="col-lg-4 col-sm-4 col-xm-4 control-label">姓名</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <input type="text" class="form-control" id="userName_Modify" value="姓名01" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userTitle_Modify" class="col-lg-4 col-sm-4 col-xm-4  control-label">证件类型</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <select class="form-control" id="certificateType_Modify">
+                                                <option>身份证</option>
+                                                <option>副教授</option>
+                                                <option>研究员</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userTitle_Modify" class="col-lg-4 col-sm-4 col-xm-4  control-label">职称</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <select class="form-control" id="userTitle_Modify">
+                                                <option>教授</option>
+                                                <option>副教授</option>
+                                                <option>研究员</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userEmail_Modify" class="col-lg-4 col-sm-4 col-xm-4  control-label">邮箱</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <input type="email" class="form-control" id="userEmail_Modify" value="123456789@163.com" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userDivision_Modify" class="col-lg-4 col-sm-4 col-xm-4  control-label">所在单位</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <input type="text" class="form-control" id="userDivision_Modify" value="蔬菜研究所" >
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="userDivision_Modify" class="col-lg-4 col-sm-4 col-xm-4  control-label">用户角色</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <input type="text" class="form-control" id="userType_Modify" value="用户角色" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-6 col-xm-6">
+                                    <div class="form-group">
+                                        <label for="UserSex_Modify" class="col-lg-4 col-sm-4 col-xm-4  control-label">性别</label>
+                                        <div class="radio col-lg-8 col-sm-8 col-xm-8">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="sexSelect" id="UserSex_Modify" value="male" checked="">
+                                                    男
+                                                </label>
+
+                                                <label>
+                                                    <input type="radio" name="sexSelect" id="UserSex_Modify" value="famale" >
+                                                    女
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userIdCard_Modify" class="col-lg-4 col-sm-4 col-xm-4  control-label">证件号码</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <input type="text" class="form-control" id="userIdCard_Modify" value="37092******1111" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="highestDegree_Modify" class="col-lg-4 col-sm-4 col-xm-4  control-label">最高学位</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <select class="form-control" id="highestDegree_Modify" >
+                                                <option>博士后</option>
+                                                <option>博士</option>
+                                                <option>硕士</option>
+                                                <option>学士</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userPhone_Modify" class="col-lg-4 col-sm-4 col-xm-4  control-label">工作电话</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <input type="number" class="form-control" id="userPhone_Modify" value="12345678900">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userDivision_Modify" class="col-lg-4 col-sm-4 col-xm-4  control-label">国别或地区</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <input type="text" class="form-control" id="location" value="中国-北京" >
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--删除-->
+    <div class="modal" id="deleteSuperAdminModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">删除</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <p style="font-size: 20px;">您确定要删除该院管理员吗？删除后不可恢复，请谨慎操作！</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

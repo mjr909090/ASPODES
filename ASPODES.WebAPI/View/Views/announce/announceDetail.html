@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngAnnounceDetailApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../css/Views/announce/announceDetail.css" rel="stylesheet" />
+
+    <script src="../../js/jquery-2.2.3.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/angular.js"></script>
+    <script src="../../js/angular-cookies.js"></script>
+    <script src="../../js/Service/interceptorFactory.js"></script>
+    <script src="../../js/Views/announce/announceDetail.js"></script>
+    <script src="../../plugins/notifIt/js/notifIt.min.js"></script>
+
+
+
+
+</head>
+<body ng-controller="ngAnnounceDetailCtrl">
+
+    <div class="container">
+
+        <div class="Title">
+            <h1>{{announceElement.Title}}</h1>
+        </div>
+
+        <div class="publishDate">日期：{{announceElement.PublishDate | date:'yyyy-MM-dd'}}</div>
+
+        <div class="cutline"></div>
+
+        <div class="announceBody">
+
+        </div>
+
+        <div class="cutline" ng-hide="fileListIsNull"></div>
+
+        <div class="file" ng-hide="fileListIsNull">
+            <h4>附件：</h4>
+            <a ng-repeat="attachment in announceElement.Attachments" href="{{attachment.RelativeURL}}" download>{{attachment.Name}}<br /></a>
+        </div>
+    </div>
+
+</body>
+</html>

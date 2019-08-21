@@ -1,0 +1,70 @@
+﻿<div class="box box-solid">
+    <div class="box-header ui-sortable-handle bg-green">
+        <i class="ion ion-clipboard"></i>
+        <h3 class="box-title">基本信息</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="row">
+
+            <div class="col-lg-6 col-md-6 col-sm-11">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="user_name" class="col-lg-2 control-label">姓名</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="user_name" value="{{BasicInfo.Name}}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_mail" class="col-lg-2 control-label">邮箱</label>
+                        <div class="col-lg-10">
+                            <input type="email" class="form-control" id="user_mail" ng-init="postInfo.Email = BasicInfo.Email" value="{{BasicInfo.Email}}" ng-model="postInfo.Email" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_phone" class="col-lg-2 control-label">手机</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="user_phone" ng-init="postInfo.Phone = BasicInfo.Phone" value="{{BasicInfo.Phone}}" ng-model="postInfo.Phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_address" class="col-lg-2 control-label">通讯地址</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="user_address" ng-init="postInfo.Address = BasicInfo.Address" value="{{BasicInfo.Address}}" ng-model="postInfo.Address">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-11">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="user_division" class="col-lg-2 control-label">单位</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="user_division" value="{{BasicInfo.InstituteName}}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_part" class="col-lg-2 control-label">部门</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="user_part" value="{{BasicInfo.InstituteName}}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_duty" class="col-lg-2 control-label">职务</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="user_duty" value="{{BasicInfo.Duty}}" disabled>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <a class="btn btn-primary btn-block" style="margin-right: 64px;" ng-click="putBasicInfo()">提交</a>
+
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿<div class="jumbotron">
+    <h1>恭喜！</h1>
+    <p>您已经完成了任务书的填写！现在您可以提交您的任务书。</p>
+    <p>请注意，一旦您提交了任务书，则除非管理员允许，您将无法再修改您的申请书。</p>
+    <p>您也可以选择关闭此页面，已经填写的内容将始终为您保存。</p>
+    <!--<a class="btn btn-success">下载申请书PDF</a>-->
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-lg-8"></div>
+        <div class="col-lg-2">
+            <a class="btn btn-primary btn-lg btn-block" ng-show="SaveLoading == false && pdfCreat == false" ng-click="saveAnnualTask()">提交</a>
+            <button class="btn btn-info btn-large btn-block" ng-if="SaveLoading == true" disabled>PDF生成中...</button>
+            <a class="btn btn-primary btn-lg btn-block" ng-show="pdfCreat == true" ng-click="closeWindow()">关闭</a>
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+</div>

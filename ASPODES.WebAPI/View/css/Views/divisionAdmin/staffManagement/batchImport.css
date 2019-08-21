@@ -1,0 +1,63 @@
+﻿tbody a:hover{
+	cursor: pointer;
+}
+
+#toolbar{
+	margin-top: 16px;
+}
+/*文件上传*/
+.file-name{
+    width: 300px;
+    height: 30px;
+    line-height: 30px;
+}
+.browser-label{
+    width: 50px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+    cursor: pointer;
+    overflow:hidden;
+    display: inline-block;
+}
+.browser-label input{
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+/*PDF下载*/
+.pdfDownload{
+	color: #F39C12;
+	font-weight: 600;
+}
+
+.load-icon {
+	font-size: large;
+	margin-left: 8px;
+	color: #0F0F0F;
+}
+.manage-icon{
+	font-size: large;
+	margin-left: 8px;
+	color: #00C0EF;
+}
+.reject-icon {
+	font-size: large;
+	margin-left: 8px;
+	color: #9E9E9E;
+}
+/*错误信息*/
+.error {
+	width: 100%;
+    color: red;
+    padding-top:4px;
+    padding-bottom: 4px;
+}
+
+#PMTable , #toolbar{
+	margin-top: 16px;
+}
+
+

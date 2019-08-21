@@ -1,0 +1,874 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngApplication_AcceptedApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap-table.css" />
+    <link rel="stylesheet" href="css/bootstrap-editable.css" />
+    <script type="text/javascript" src="js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="js/Views/superAdmin/applicationManagement/application_accepted.js" ></script>
+</head>
+<body ng-controller="ngApplication_AcceptedCtrl">
+<div class="container">
+    <br />
+    <ol class="breadcrumb">
+        <li>
+            <a><i class="fa fa-dashboard"></i> 全院管理</a>
+        </li>
+        <li>
+            <a> 申请书管理</a>
+        </li>
+        <li class="active"> 已受理申请书</li>
+    </ol>
+    <div class="box box-solid" style="margin-top: 40px" >
+        <div class="box-header" style="cursor: move; background-color: #30bbbb">
+            <div class="pull-right box-tools">
+                <button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px; background-color: #30bbbb" data-original-title="Collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!--<i class="fa fa-map-marker"></i>--><!--位置的图标-->
+            <h3 class="box-title"> 已受理申请书列表 </h3>
+        </div>
+        <div class="box-body" style="display: block;">
+           
+                <div class="jvectormap-container" style="width: 100%; height: 100%; position: relative; overflow: hidden; background-color: transparent;">
+                    <div class="row">
+                        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                            <label for="applyType_searchcobobox" class="col-lg-5 control-label">类型</label>
+                            <div class="col-lg-7">                            
+                                <select class="form-control" ng-model="selectedProject" ng-options="x.Name for x in projectTypes" ng-change="getProjectTypeIdForPage(selectedProject.ProjectTypeId)">
+                                    <option value="">请选择类型</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                            <label for="applyUnit_searchcobobox" class="col-lg-5 control-label">单位</label>
+                            <div class="col-lg-7">
+                                <select class="form-control" ng-model="selectedInst" ng-options="x.Name for x in instTypes" ng-change="getInstIdForPage(selectedInst.InstituteId)">
+                                    <option value="">请选择单位</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="float:right;margin-right:3vw;">
+                            <button class="btn btn-primary" ng-click="exportDeptAcceptedList(selectedProject.ProjectTypeId,selectedInst.InstituteId)">导出列表</button>
+                        </div>
+                       <!--
+                         <div class="form-group col-lg-2 col-md-2 col-sm-2">
+                            <button class="btn btn-primary" style="background-color:#30bbbb;" data-toggle="modal" data-target="#BatchAllocationExpertsModal_accepted">批量分配专家</button>
+                        </div>
+                        <div class="form-group col-lg-2 col-md-2 col-sm-2">
+                            <button class="btn btn-primary" style="background-color:#30bbbb;" data-toggle="modal" data-target="#AutoAllocationExpertsModal_accepted">自动分配专家</button>
+                        </div>
+                       
+                       -->
+                       
+                        <div class="form-group col-lg-2 col-md-2 col-sm-2"></div>
+
+                    </div>
+                   
+                    <table class="table table-striped table-hover" id="thisTable" ng-hide="divisionAppliesIsNull">
+                        <thead>
+                            <tr>
+                                <!--
+                      <th><input type="checkbox" ng-model="select_all" ng-change="selectAll()" /></th>
+                -->
+
+                                <th>申请书名称</th>
+                                <th class="table-middle" style="width:144px">委托</th>
+                                <th style="min-width: 104px;">类型</th>
+                                <th>单位</th>
+                                <th style="min-width: 64px;">牵头负责人</th>
+                                <th style="min-width: 48px;">PDF文件</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="acceptApplication in acceptApplications | filter:selectedProject.Name | filter:selectedInst.Name">
+
+                                <td><a class='refuse' ng-click="showPDFpage(acceptApplication.PDF)">{{acceptApplication.ProjectName}}</a></td>
+                                <td class="table-middle">
+                                    <span class="label label-default" ng-if="acceptApplication.DeleageType == 0"> 非委托</span>
+                                    <span class="label label-primary" ng-if="acceptApplication.DeleageType == 1"> 委托</span>
+                                </td>
+                                <td>{{acceptApplication.ProjectTypeName}}</td>
+                                <td>{{acceptApplication.InstituteName}}</td>
+                                <td> <a class='refuse' ng-click="acceptLeaderId(acceptApplication.LeaderId);responserLeaderModal()">{{acceptApplication.LeaderName}}</a></td>
+                                <td>
+                                    <a class="pdfDownload" ng-click="downloadPDF(acceptApplication.ApplicationId,acceptApplication.ProjectName)">下载</a>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="callout callout-info" ng-hide="!divisionAppliesIsNull">
+                        <h4>注意!</h4>
+
+                        <p>当前没有任何已受理的申请书！</p>
+                    </div>
+                </div>
+            
+        </div>
+        <!-- box footer -->
+        <div class="box-footer" ng-hide="divisionAppliesIsNull">
+            <!-- paging -->
+            <div class="col-lg-8 col-md-7 col-sm-6 col-xs-12">
+                <span style="font-size: 24px;" ng-cloak>共： {{pageItem}}页，{{count}} 条，当前第{{p_current}}页，显示&nbsp;{{p_count}}&nbsp;条</span>
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+                <ul class="pagination" style="margin: 0px;">
+                    <li ng-class="{true:'disabled'}[p_current  == 1]"><a ng-click="nextPage(p_current-1)">&laquo;</a></li>
+                    <li ng-show="p_current  > 3"><a ng-click="nextPage(1)">1</a></li>
+                    <li ng-show=" p_current > 4">
+                        <a href="javascript:void(0)">...</a>
+                    </li>
+                    <li ng-repeat="page in pages" ng-if="judgeAbs(p_current,page)" ng-class="{true:'active'}[page == p_current ]">
+                        <a ng-click="nextPage(page)">{{page}}</a>
+                    </li>
+                    <li ng-show=" p_current  < pageItem - 3">
+                        <a href="javascript:void(0)">...</a>
+                    </li>
+                    <li ng-show="p_current  < pageItem - 2"><a ng-click="nextPage(pageItem)">{{pageItem}}</a></li>
+                    <li ng-class="{true:'disabled'}[p_current == pageItem || pageItem == 0]"><a ng-click="nextPage(p_current+1)">&raquo;</a></li>
+                </ul>
+            </div>
+            <!--
+                <div class="col-lg-8 col-md-7 col-sm-6 col-xs-12">
+                <span style="font-size: 24px;">共： {{pageItem}}页，{{count}} 条；当前第{{p_current}}页，显示&nbsp;{{p_count}}&nbsp;条</span>
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+                <ul class="pagination" style="margin: 0px;">
+                    <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == 1" ng-click="p_index()">首页</button></li>
+                    <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == 1" ng-click="p_prev()">&lt;&lt;Prev</button></li>
+                    <li ng-repeat="page in pages" ng-class="{active: p_current == page}" class="waves-effect">
+                        <button class="btn btn-default btn-sm" ng-disabled="pageItem == 0" ng-click="load_page(page)">{{page}}</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-default btn-sm" ng-disabled=" p_current == pageItem || pageItem == 0" ng-click="p_next()">Next&gt;&gt;</button>
+                    </li>
+                    <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == pageItem || pageItem == 0" ng-click="p_last()">尾页</button></li>
+                </ul>
+            </div> 
+            -->
+           
+            <!-- /.box-footer -->
+        </div>
+    </div>
+</div>
+<!--批量分配专家-->
+<div class="modal" id="BatchAllocationExpertsModal_accepted">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><!--右上角关闭-->
+                <h3 class="modal-title">批量分配专家</h3>
+
+            </div>
+            <div class="modal-body">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <br />
+
+                            <div class="form-group col-lg-4 col-md-4 col-sm-4">
+                                <label for="applyType_searchcobobox" class="col-lg-5 control-label">项目类型</label>
+                                <div class="col-lg-7">
+                                    <select class="form-control" ng-model="selectedProject" ng-options="x.Name for x in projectTypes"></select>
+                                </div>
+                                <!--
+                                  <label for="applyType_searchcobobox" class="col-lg-5 control-label">项目类型</label>
+                                <div class="col-lg-7">
+
+                                </div>
+                                -->
+
+                            </div>
+                            <div class="form-group col-lg-4 col-md-4 col-sm-4">
+                                <label for="applyUnit_searchcobobox" class="col-lg-5 control-label">单位</label>
+                                <div class="col-lg-7">
+                                    <select class="form-control" ng-model="selectedInst" ng-options="x.Name for x in instTypes"></select>
+                                </div>
+                                <!--
+                                <label for="applyUnit_searchcobobox" class="col-lg-5 control-label">申请单位</label>
+                                <div class="col-lg-7">
+                                    <select class="form-control" id="applyUnit">
+                                        <option></option>
+                                        <option>生物所</option>
+                                        <option>蔬菜所</option>
+                                        <option>沼气所</option>
+                                        <option>作科所</option>
+                                        <option>水稻所</option>
+                                    </select>
+                                </div> -->
+                            </div>
+                            <div class="form-group col-lg-4 col-md-4 col-sm-4">
+                                <label for="applyUnit_searchcobobox" class="col-lg-5 control-label">研究领域</label>
+                                <div class="col-lg-7">
+                                    <select class="form-control" id="searchCircle">
+                                        <option></option>
+                                        <option>研究领域01</option>
+                                        <option>研究领域02</option>
+                                        <option>研究领域03</option>
+                                        <option>研究领域04</option>
+                                        <option>研究领域05</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <table class="table table-striped table-hover" id="BatchAllocationExpertsTable">
+                            <thead>
+                                <tr>
+                                    <th>选择</th>
+                                    <th>专家姓名</th>
+                                    <th>研究领域</th>
+                                    <th>单位</th>
+                                    <th>已分配评审量</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>姓名01</td>
+                                    <td>研究领域01</td>
+                                    <td>单位01</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>姓名02</td>
+                                    <td>研究领域02</td>
+                                    <td>单位02</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>姓名03</td>
+                                    <td>研究领域03</td>
+                                    <td>单位03</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>姓名04</td>
+                                    <td>研究领域04</td>
+                                    <td>单位04</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>姓名05</td>
+                                    <td>研究领域05</td>
+                                    <td>单位05</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>姓名06</td>
+                                    <td>研究领域06</td>
+                                    <td>单位06</td>
+                                    <td>2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="dataTables_info col-lg-8">
+                            <h4>当前显示 1 到 6 条， 共 6 条</h4>
+                        </div>
+
+                        <div class="dataTables_paginate col-lg-4">
+                            <ul class="pagination">
+                                <li class="disabled">
+                                    <a>&laquo;</a>
+                                </li>
+                                <li class="active">
+                                    <a>1</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" data-target="#pageNextWaring">2</a>
+                                </li>
+                                <li>
+                                    <a>&raquo;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary pull-right" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--自动分配专家-->
+<div class="modal" id="AutoAllocationExpertsModal_accepted">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><!--右上角关闭-->
+                <h3 class="modal-title">自动分配专家</h3>
+
+            </div>
+            <div class="modal-body">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <table class="table table-striped table-hover" id="AutoAllocationExpertsTable">
+                            <thead>
+                                <tr>
+                                    <th>选择</th>
+                                    <th>项目名称</th>
+                                    <th>项目类型</th>
+                                    <th>分配专家1</th>
+                                    <th>分配专家2</th>
+                                    <th>分配专家3</th>
+                                    <th>分配专家4</th>
+                                    <th>分配专家5</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>项目名称01</td>
+                                    <td>项目类型01</td>
+                                    <td><a class='refuse' data-toggle="modal" data-target="#expertInfo_ViewModal">姓名01</a></td>
+                                    <td><a class='refuse' data-toggle="modal" data-target="#expertInfo_ViewModal">姓名02</a></td>
+                                    <td><a class='refuse' data-toggle="modal" data-target="#expertInfo_ViewModal">姓名03</a></td>
+                                    <td><a class='refuse' data-toggle="modal" data-target="#expertInfo_ViewModal">姓名04</a></td>
+                                    <td><a class='refuse' data-toggle="modal" data-target="#expertInfo_ViewModal">姓名05</a></td>
+
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>项目名称02</td>
+                                    <td>项目类型02</td>
+                                    <td><a class='refuse' data-toggle="modal" data-target="#expertInfo_ViewModal">姓名01</a></td>
+                                    <td><a class='refuse' data-toggle="modal" data-target="#expertInfo_ViewModal">姓名02</a></td>
+                                    <td><a class='refuse' data-toggle="modal" data-target="#expertInfo_ViewModal">姓名03</a></td>
+                                    <td><a class='refuse' data-toggle="modal" data-target="#expertInfo_ViewModal">姓名04</a></td>
+                                    <td><a class='refuse' data-toggle="modal" data-target="#expertInfo_ViewModal">姓名05</a></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="dataTables_info col-lg-8">
+                            <h4>当前显示 1 到 2 条， 共 6 条</h4>
+                        </div>
+
+                        <div class="dataTables_paginate col-lg-4">
+                            <ul class="pagination">
+                                <li class="disabled">
+                                    <a>&laquo;</a>
+                                </li>
+                                <li class="active">
+                                    <a>1</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" data-target="#pageNextWaring">2</a>
+                                </li>
+                                <li>
+                                    <a>&raquo;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary pull-right" data-dismiss="modal">确定向专家发送短信</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--牵头负责人信息的模态框-->
+    <div class="modal fade" id="responserLeader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <!--<div class="modal">-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <!--右上角的关闭按钮-->
+                    <h3 class="modal-title">负责人信息</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="progress xs col-lg-12">
+                            <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <h4>负责人姓名：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Name}}</strong></h5>
+                            <h4>身份证号：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.IDCard}}</strong></h5>
+                            <h4>性别：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Male}}</strong></h5>
+                            <h4>英文名：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.EnglishName}}</strong></h5>
+                            <h4>电子邮箱：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Email}}</strong></h5>
+                            <h4>手机：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Phone}}</strong></h5>
+                        </div>
+                        <div class="col-lg-6">
+                            <h4>职务：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Duty}}</strong></h5>
+                            <h4>职称：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Title}}</strong></h5>
+                            <h4>办公室电话：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.OfficePhone}}</strong></h5>
+                            <h4>地址：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Address}}</strong></h5>
+                            <h4>邮编：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Zip}}</strong></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="progress xs col-lg-12">
+                            <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--修改项目的模态框-->
+<div class="modal fade" id="modifyApplication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <!--<div class="modal">-->
+    <div class="modal-dialog">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>--><!--右上角的关闭按钮-->
+                <h3 class="modal-title">负责人信息</h3>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <!--基本信息修改-->
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+
+                        </div>
+                        <div class="box-body">
+                            <form class="form-horizontal row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="rankNum" class="col-sm-4 control-label">工作任务名称</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="rankNum" value="申请书01" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="projectID" class="col-sm-4 control-label">委托部门</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="projectID" value="中国农业科学院">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="projectName" class="col-sm-4 control-label">主持单位</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="projectName" value="科技管理局">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="supportAmount" class="col-sm-4 control-label">资助金额</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="supportAmount" value="20万" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="projectDocument" class="col-sm-4 control-label">项目文档</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="projectDocument" value="项目文档.pdf">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="documentmodify" class="col-sm-4 control-label">修改文档</label>
+                                        <div class="col-lg-8 col-sm-8 col-xm-8">
+                                            <div class="col-lg-12 col-sm-12 col-xm-12  btn btn-default btn-file">
+                                                <i class="fa fa-paperclip"></i>
+                                                Attachment
+                                                <input  name="attachment" id="documentmodify" type="file">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="budget" class="col-sm-4 control-label">经费预算</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="budget" value="20万">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="number_HandledApplication" class="col-sm-4 control-label">编号</label>
+                                        <div class="col-sm-8">
+                                            <input type="email" class="form-control" id="number_HandledApplication" value="123456789" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="applyDate" class="col-sm-4 control-label">申请日期</label>
+                                        <div class="col-sm-8">
+                                            <input type="email" class="form-control" id="applyDate" value="2017.03.14" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="executPeriod" class="col-sm-4 control-label">执行期限</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id= "executPeriod" value="一年" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="CommitmentUnit" class="col-sm-4 control-label">承担单位</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="CommitmentUnit" value="茶叶研究所" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="responserLeaderName" class="col-sm-4 control-label">类别</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="responserLeaderName" value="类别01" >
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="consignationProject" class="col-sm-4 control-label">委托项目</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="consignationProject" value="委托项目01" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="yearBudget" class="col-sm-4 control-label">年度经费预算</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="yearBudget" value="15万">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--牵头负责人 负责人的信息修改-->
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title">负责人</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+
+                        </div>
+                        <div class="box-body">
+                            <form class="form-horizontal row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">主持人</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" value="姓名01" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">性别</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" value="男">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">职称</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" value="研究院">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">电子邮箱</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" value="zhuchiren@163.com" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">项目负责人</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" value="项目负责人01">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">联系人</label>
+                                        <div class="col-sm-8">
+                                            <input type="email" class="form-control" value="联系人01" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">联系人电话</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" value="12345678985" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="CommitmentUnit" class="col-sm-4 control-label">联系人邮箱</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="CommitmentUnit" value="lianxiren@163.com" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--项目参与人员-->
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title">项目参与人员</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+
+                        </div>
+                        <div class="box-body">
+                            <form class="form-horizontal row">
+                                <div class="btn-group" id="toolbar2">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddParticipate"><i class="fa fa-plus"></i> 添加</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteParticipate"><i class="fa fa-remove"></i> 删除</button>
+                                </div>
+                                <table class="table table-striped table-hover" id="personTable">
+                                    <thead>
+                                    <tr>
+                                        <th>选择</th>
+                                        <th>姓名</th>
+                                        <th>邮箱</th>
+                                        <th>手机号</th>
+                                        <th>单位</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+                                        <td>姓名01</td>
+                                        <td>111111111@163.com</td>
+                                        <td>手机号01</td>
+                                        <td>单位01</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+                                        <td>姓名02</td>
+                                        <td>222222222@163.com</td>
+                                        <td>手机号02</td>
+                                        <td>单位02</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+                                        <td>姓名03</td>
+                                        <td>333333333@163.com</td>
+                                        <td>手机号03</td>
+                                        <td>单位03</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--查看 已评议的模态框-->
+<div class="modal fade" id="viewApplication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">申请书</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="progress xs col-lg-12">
+                        <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                    </div>
+                    <h3>&nbsp;&nbsp;&nbsp;基本信息</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4>工作任务名称</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{applicationInfo.ProjectName}}</strong></h5>
+                        <h4>委托部门（甲方）</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中国农业科学院</strong></h5>
+                        <h4>承担部门（乙方）</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主持单位：{{applicationInfo.InstituteName}}</strong></h5>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目负责人：{{applicationInfo.LeaderName}}</strong></h5>
+
+                    </div>
+                    <div class="col-lg-6">
+                        <h4>单位名称：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{applicationInfo.InstituteName}}</strong></h5>
+                        <h4>类别：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{applicationInfo.ProjectTypeName}}</strong></h5>
+                    </div>
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="progress xs col-lg-12">
+                        <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <form class="form-horizontal">
+
+                            <h3>&nbsp;&nbsp;&nbsp;各专家评分及意见</h3>
+                        <!--各专家具体评价意见-->
+
+                        <table class="table table-bordered table-striped table-hover" id="expertReview">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>评审专家</th>
+                                <th>评分</th>
+                                <th>资助意见</th>
+                                <th>建议资助金额</th>
+                                <th>意见</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>1</td>
+                                <td>评审专家01</td>
+                                <td>A、优</td>
+                                <td>A、优先资助</td>
+                                <td>20万</td>
+                                <td>评审专家的意见</td>
+                            </tr>
+                            <tr>
+
+                                <td>2</td>
+                                <td>评审专家02</td>
+                                <td>B、中</td>
+                                <td>B、可资助</td>
+                                <td>10万</td>
+                                <td>评审专家的意见</td>
+                            </tr>
+                            <tr>
+
+                                <td>3</td>
+                                <td>评审专家03</td>
+                                <td>A、优</td>
+                                <td>A、优先资助</td>
+                                <td>20万</td>
+                                <td>评审专家的意见</td>
+                            </tr>
+                            <tr>
+
+                                <td>4</td>
+                                <td>评审专家04</td>
+                                <td>A、优</td>
+                                <td>A、优先资助</td>
+                                <td>20万</td>
+                                <td>评审专家的意见</td>
+                            </tr>
+                            <tr>
+
+                                <td>5</td>
+                                <td>评审专家05</td>
+                                <td>A、优</td>
+                                <td>A、优先资助</td>
+                                <td>20万</td>
+                                <td>评审专家的意见</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </form>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看未评议的模态框-->
+<div class="modal fade" id="viewApplication1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">申请书</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="progress xs col-lg-12">
+                        <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                    </div>
+                    <h3>&nbsp;&nbsp;&nbsp;基本信息</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4>工作任务名称</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;申请书01</strong></h5>
+                        <h4>委托部门（甲方）</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中国农业科学院</strong></h5>
+                        <h4>承担部门（乙方）</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主持单位：科技管理局</strong></h5>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目负责人：项目负责人01</strong></h5>
+
+                        <h4>经费预算：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20万</strong></h5>
+                        <h4>2017年度经费：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15万</strong></h5>
+                    </div>
+                    <div class="col-lg-6">
+                        <h4>单位名称：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;科技管理局</strong></h5>
+                        <h4>编号：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;123456789</strong></h5>
+                        <h4>实施起止年限：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2017年1月&nbsp;&nbsp;至&nbsp;&nbsp;2017年12月</strong></h5>
+                        <h4>类别：</h4>
+                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类别01</strong></h5>
+                    </div>
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="progress xs col-lg-12">
+                        <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

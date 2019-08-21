@@ -1,0 +1,101 @@
+﻿<h5>附件列表</h5>
+<div id="yusuanToolbar" class="btn-group">
+    <button type="button" class="btn btn-default" ng-show="uploadType == 0" ng-click="fileUploadType = 0;openFileUploadModal();">
+        <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传正文
+    </button>
+    <a type="button btn" class="btn btn-default" ng-show="uploadType == 0" href="/view/Upload/申请书填写模板.docx" download>
+        <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>下载模板
+    </a>
+    <button type="button" class="btn btn-default" ng-show="uploadType == 1" ng-click="fileUploadType = 1;openFileUploadModal();">
+        <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传附件
+    </button>
+    <button type="button" class="btn btn-default" data-toggle="modal" ng-click="openFielDeleteModal();">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+    </button>
+</div>
+
+<br />
+
+<h4 ng-show="uploadType == 'main'">正文模板下载请点击<a href="../../../Upload/申请书填写模板.docx">点此下载</a></h4>
+
+<br />
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>文件名称</th>
+            <th>文件类型</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="file in fileList | filter:{Type:uploadType}">
+            <td>
+                <input type="radio" name="fileId" ng-model="deleteFile.ApplicationDocId" value="{{file.ApplicationDocId}}" />
+            </td>
+            <td>
+                <p>{{file.Name}}</p>
+            </td>
+            <td>
+                <span class="label label-primary" ng-if="file.Type == 0"> 正文</span>
+                <span class="label label-info" ng-if="file.Type == 1"> 附件</span>
+                <span class="label label-success" ng-if="file.Type == 2"> PDF</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="list-inline pull-right">
+    <li><button type="button" class="btn btn-default prev-step" ng-click="backPage()">上一步</button></li>
+    <li><button type="button" class="btn btn-primary btn-info-full next-step" ng-click="toNextPage()">下一步</button></li>
+</ul>
+
+
+<!--uploadFileModal-->
+<div class="modal fade" id="{{updataModalName}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">添加文件</h4>
+            </div>
+            <div class="modal-body">
+                <a ng-show="uploadType == 0" class="btn btn-primary" ngf-select="uploadFiles($files, $invalidFiles)" ngf-max-size="10MB" ngf-pattern="'.docx'">选择文件</a>
+                <a ng-show="uploadType == 1" class="btn btn-primary" ngf-select="uploadFiles($files, $invalidFiles)" ngf-max-size="10MB">选择文件</a>
+                <br />
+                <ul>
+                    <li ng-repeat="f in files" style="font:small">
+                        {{f.name}} &nbsp;&nbsp;&nbsp;{{f .progress;}}%
+                    </li>
+                    <li ng-repeat="f in errFiles" style="font:smaller">{{f.name}}&nbsp;&nbsp;错误：{{f.$error}}{{f.$errorParam}}</li>
+                    <p style="color:red">{{showErrorMsg}}</p>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="clearFiles()">确定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!--deleteFileModal-->
+<div class="modal fade" id="{{deleteModalName}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">删除附件</h4>
+            </div>
+            <div class="modal-body">
+                <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>确认要删除此附件？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteFile();">确定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

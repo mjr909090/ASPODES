@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html ng-App="ngProjectInfoApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<!-- 自定义样式 -->
+		<link rel="stylesheet" href="css/Views/Expert/ProjectInfo/projectInfo.css" />
+
+	</head>
+
+	<body ng-controller="ngProjectInfoCtrl">
+
+		<div class="container">
+
+			<!-- 面包屑导航 -->
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 专家评议</a>
+				</li>
+				<!--<li>
+					<a> 信息</a>
+				</li>-->
+				<li class="active"> 项目信息</li>
+			</ol>
+
+			<!-- 既往评议 -->
+			<div class="box box-primary">
+				<!-- 头部（box-header）-->
+				<div class="box-header ui-sortable-handle with-border" style="cursor: move;">
+					<i class="ion ion-clipboard"></i>
+
+					<h3 class="box-title">项目列表</h3>
+
+					<div class="box-tools pull-right">
+						<a class="load-icon" data-widget="collapse">
+							<i class="fa fa-minus"></i>
+						</a>
+						<!--<button id="finishedTime" class="btn btn-primary btn-sm bg-light-blue-gradient pull-right" data-toggle="tooltip" title="" data-original-title="Date range">
+							<i class="fa fa-calendar"></i>
+						</button>-->
+					</div>
+					<!-- /.box-header-->
+				</div>
+
+				<!-- 中部（box-body）-->
+				<div class="box-body">
+					<div id="example1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+
+						<table id="jwpyTable" class="table table-bordered table-striped table-hover">
+							<tbody>
+								<tr>
+									<th style="width: 56px;">序号</th>
+									<th>申请书名称</th>
+									<th style="min-width: 104px;">申请书类型</th>
+									<th style="width: 64px;">申请人</th>
+									<th style="width: 80px;">所属单位</th>
+									<th style="width: 80px;">资助金额</th>
+									<th style="width: 80px;">评议状态</th>
+									<th style="width: 80px;">评审意见</th>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>
+										<a data-toggle="modal" data-target="#xqckModal">基于基因组学的农业生物重要性状的功能位点挖掘与鉴定</a>
+									</td>
+									<td>重点实验室应用基础研究</td>
+									<td>刘振虎</td>
+									<td>生物所</td>
+									<td>20万</td>
+									<td>
+										<span class="label label-primary">已评审</span>
+									</td>
+									<td>
+										<a data-toggle="modal" data-target="#resultModal">查看</a>
+									</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>
+										<a data-toggle="modal" data-target="#xqckModal">主要农作物重要农艺性状的变异组学研究</a>
+									</td>
+									<td>重点实验室应用基础研究</td>
+									<td>王琳</td>
+									<td>生物所</td>
+									<td>15万</td>
+									<td>
+										<span class="label label-info">已入库</span>
+									</td>
+									<td>
+										<a data-toggle="modal" data-target="#resultModal">查看</a>
+									</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>
+										<a data-toggle="modal" data-target="#xqckModal">蔬菜生产灾害性天气应对技术研究</a>
+									</td>
+									<td>行业三性科研工作任务</td>
+									<td>刘霖</td>
+									<td>蔬菜所</td>
+									<td>18万</td>
+									<td>
+										<span class="label label-warning">在研</span>
+									</td>
+									<td>
+										<a data-toggle="modal" data-target="#resultModal">查看</a>
+									</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>
+										<a data-toggle="modal" data-target="#xqckModal">生猪肉牛等畜禽基因组选择育种技术研发与集成</a>
+									</td>
+									<td>重点实验室应用基础研究</td>
+									<td>王振</td>
+									<td>生物所</td>
+									<td>17万</td>
+									<td>
+										<span class="label label-success">结题</span>
+									</td>
+									<td>
+										<a data-toggle="modal" data-target="#resultModal">查看</a>
+									</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>
+										<a data-toggle="modal" data-target="#xqckModal">家禽常见病防控技术的应急储备研究</a>
+									</td>
+									<td>重点实验室应用基础研究</td>
+									<td>王虎</td>
+									<td>生物所</td>
+									<td>16万</td>
+									<td>
+										<span class="label label-primary">已评审</span>
+									</td>
+									<td>
+										<a data-toggle="modal" data-target="#resultModal">查看</a>
+									</td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>
+										<a data-toggle="modal" data-target="#xqckModal">病原微生物及生物毒素识别评估技术研究</a>
+									</td>
+									<td>行业三性科研工作任务</td>
+									<td>王大虎</td>
+									<td>生物所</td>
+									<td>30万</td>
+									<td>
+										<span class="label label-primary">已评审</span>
+									</td>
+									<td>
+										<a data-toggle="modal" data-target="#resultModal">查看</a>
+									</td>
+								</tr>
+							</tbody>
+							<!-- /.table-->
+						</table>
+					</div>
+					<!-- /.box-body-->
+				</div>
+				<!-- 尾部（box-footer）-->
+				<div class="box-footer">
+					<!-- 分页 -->
+					<div class="dataTables_info col-lg-9">
+						<h3>当前显示 1 到 6 条， 共 6 条</h3>
+					</div>
+		
+					<div class="dataTables_paginate col-lg-3">
+						<ul class="pagination">
+							<li class="disabled">
+								<a>&laquo;</a>
+							</li>
+							<li class="active">
+								<a>1</a>
+							</li>
+							<li>
+								<a>2</a>
+							</li>
+							<li>
+								<a>3</a>
+							</li>
+							<li>
+								<a>4</a>
+							</li>
+							<li>
+								<a>&raquo;</a>
+							</li>
+						</ul>
+					</div>
+					
+					<!-- /.box-footer-->
+				</div>
+			</div>
+
+			<!-- 评审指标resultModal -->
+			<div class="modal fade" id="evaluateIndex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title">评审指标详情</h3>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-lg-12">
+									<ul>
+										<li>
+											<span style="font-size: medium;">对于评审内容的熟悉程度</span>
+										</li>
+										<br />
+										<li>
+											<span style="font-size: medium;">申请书综合评价</span>
+										</li>
+										<br />
+										<li>
+											<span style="font-size: medium;">资助意见</span>
+										</li>
+										<br />
+										<li>
+											<span style="font-size: medium;">建议资助</span>
+										</li>
+										<br />
+										<li>
+											<span style="font-size: medium;">具体评价意见</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<br />
+
+							<!--<div class="row">
+								<div class="col-lg-4">
+									<h4>具体评价意见：</h4>
+									<textarea></textarea>
+								</div>
+							</div>-->
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+			<!-- 评审结论resultModal -->
+			<div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title">评审结论</h3>
+						</div>
+						<div class="modal-body">
+							<table class="table" style="width: 288px;">
+								<tbody>
+									<tr>
+										<td style="text-align: right; width: 192px;">
+											<strong>对于评审内容的熟悉程度：</strong>
+										</td>
+										<td>较为熟悉</td>
+									</tr>
+									<tr>
+										<td style="text-align: right; width: 192px;">
+											<strong>申请书综合评价：</strong>
+										</td>
+										<td>A.优</td>
+									</tr>
+									<tr>
+										<td style="text-align: right; width: 192px;">
+											<strong>资助意见：</strong>
+										</td>
+										<td>B.可资助</td>
+									</tr>
+									<tr>
+										<td style="text-align: right; width: 192px;">
+											<strong>建议资助：</strong>
+										</td>
+										<td>15 万元</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div class="progress progress-xxs">
+								<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+									<span class="sr-only">100% Complete (primary)</span>
+								</div>
+							</div>
+
+							<form role="form">
+								<div class="form-group">
+									<span style="font-size: medium;">具体评价意见：</span>
+									<br />
+									<br />
+									<p>
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</p>
+								</div>
+							</form>
+
+							<!-- /.modal body -->
+						</div>
+						<!--<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+						</div>-->
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+			<!-- 详情查看 Modal -->
+			<div class="modal" id="xqckModal">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">详情查看</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-lg-4">
+									<h4>工作任务名称</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基于基因组学的农业生物重要性状的功能位点挖掘与鉴定</strong></h5>
+									<br />
+									<h4>申请人</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;刘振虎</strong></h5>
+									<br />
+								</div>
+								<div class="col-lg-8">
+									<!--<h4>起止日期</h4>
+								<h5><strong>2017年1月至2017年12月</strong></h5>
+								<h4>填报时间</h4>
+								<h5><strong>2016年11月</strong></h5>-->
+									<div class="box-body">
+										<ul class="todo-list ui-sortable">
+											<li>
+												<span class="text">编号：123456789</span>
+											</li>
+											<br />
+											<br />
+											<br />
+											<li>
+												<span class="text">实施起止年限：2017年1月&nbsp;&nbsp;至&nbsp;&nbsp;2017年12月</span>
+											</li>
+											<br />
+											<br />
+											<br />
+											<li>
+												<span class="text">类别：重点实验室应用基础研究</span>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<br />
+
+							<div class="row">
+								<div class="progress xs col-lg-12">
+									<div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+								</div>
+							</div>
+
+							<div class="row">
+
+								<div class="col-lg-4">
+									<h4>单位名称：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;研究院01</strong></h5>
+								</div>
+								<div class="col-lg-4">
+									<h4>主持人：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;刘振虎</strong></h5>
+									<h4>性别：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;男</strong></h5>
+									<h4>职称：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;教授</strong></h5>
+								</div>
+								<div class="col-lg-4">
+									<h4>电子邮箱：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fuzeren01@123.cn</strong></h5>
+									<h4>手机：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;13621307320</strong></h5>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="progress xs col-lg-12">
+									<div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-12">
+									<h3>经费总览</h3>
+									<br />
+								</div>
+
+								<div class="col-lg-6">
+									<div class="small-box bg-yellow">
+										<div class="inner">
+											<h3>30万</h3>
+
+											<p>经费预算(总经费)</p>
+										</div>
+										<div class="icon">
+											<i class="fa fa-rmb"></i>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="small-box bg-yellow">
+										<div class="inner">
+											<h3>15万</h3>
+
+											<p>2017年度</p>
+										</div>
+										<div class="icon">
+											<i class="fa fa-rmb"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<!--<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- /.container -->
+		</div>
+
+	</body>
+
+</html>

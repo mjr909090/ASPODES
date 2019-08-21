@@ -1,0 +1,44 @@
+﻿body {
+    background-image:url("../../../images/welcome/3132.jpg");
+    background-position:left top;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+
+.container{
+    background-color:rgba(255,255,255,0.7);
+    margin-top:48px;
+    margin-bottom:48px;
+    box-shadow:-1px 2px 10px #808080;
+    padding-top:48px;
+    padding-bottom:48px;
+}
+
+.Title{
+    margin-top:16px;
+    margin-bottom:32px;
+    text-align:center;
+}
+
+.publishDate{
+    margin-left:480px;
+    text-align:center;
+}
+
+.cutline{
+    height:1px;
+    width:90%;
+    margin:32px auto;
+    background-color:black;
+    border-color:black
+}
+
+.projectDetailBody{
+    margin-left:5%;
+}
+
+.products-list .product-info {
+  margin-left: 0;
+}

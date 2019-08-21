@@ -1,0 +1,6 @@
+//ÓÃ»§ÓÊ¼þ
+var userEmail = angular.module('ngUserEmailApp',[]);
+
+userEmail.controller('ngUserEmailCtrl', function($scope) {
+});
+

@@ -1,0 +1,17 @@
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\bin\Debug\ASPODES.Model.dll.config
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\bin\Debug\ASPODES.Model.XML
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\bin\Debug\ASPODES.Model.dll
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\bin\Debug\ASPODES.Model.pdb
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\bin\Debug\EntityFramework.xml
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\bin\Debug\EntityFramework.SqlServer.xml
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\bin\Debug\Newtonsoft.Json.xml
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\bin\Debug\Ninject.pdb
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\bin\Debug\Ninject.xml
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\obj\Debug\ASPODES.Model.csprojResolveAssemblyReference.cache
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\obj\Debug\ASPODES.Model.dll
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\obj\Debug\ASPODES.Model.pdb
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\obj\Debug\ASPODES.Model.csproj.CoreCompileInputs.cache
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\bin\Debug\EntityFramework.dll
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\bin\Debug\EntityFramework.SqlServer.dll
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\bin\Debug\Newtonsoft.Json.dll
+F:\实验室项目\ASPODES\Aspodes\ASPODES.Model\bin\Debug\Ninject.dll

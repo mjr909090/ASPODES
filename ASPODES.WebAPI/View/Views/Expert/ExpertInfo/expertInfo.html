@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<html ng-App="ngExpertInfoApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+		<!-- 自定义样式 -->
+		<link rel="stylesheet" href="css/Views/Expert/ExpertInfo/expertInfo.css" />
+
+	</head>
+
+	<body ng-controller="ngExpertInfoCtrl">
+
+		<div class="container">
+
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 专家评议</a>
+				</li>
+				<li class="active"> 专家信息</li>
+			</ol>
+
+			<div class="box box-primary">
+				<div class="box-header">
+					<i class="ion ion-clipboard"></i>
+
+					<h3 class="box-title">基本信息</h3>
+
+					<div class="box-tools pull-right">
+						<a class="load-icon" data-widget="collapse">
+							<i class="fa fa-minus"></i>
+						</a>
+					</div>
+
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					<div class="row">
+
+						<div class="col-lg-6 col-md-6 col-sm-11">
+							<form class="form-horizontal">
+								<div class="form-group">
+									<label for="user_name" class="col-lg-2 control-label">姓名</label>
+									<div class="col-lg-10">
+                                        <input type="text" class="form-control" id="user_name" value="{{expertInformation.Name}}" disabled="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="user_mail" class="col-lg-2 control-label">邮箱</label>
+									<div class="col-lg-10">
+										<input type="email" class="form-control" id="user_mail" value="liuzhenhu@123.cn" disabled="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="user_phone" class="col-lg-2 control-label">手机</label>
+									<div class="col-lg-10">
+										<input type="text" class="form-control" id="user_phone" value="13678954265" disabled="">
+									</div>
+								</div>
+
+							</form>
+						</div>
+
+						<div class="col-lg-6 col-md-6 col-sm-11">
+							<form class="form-horizontal">
+								<div class="form-group">
+									<label for="user_division" class="col-lg-2 control-label">单位</label>
+									<div class="col-lg-10">
+										<input type="text" class="form-control" id="user_division" value="生物所" disabled="">
+									</div>
+								</div>
+								<!--<div class="form-group">
+									<label for="user_part" class="col-lg-2 control-label">部门</label>
+									<div class="col-lg-10">
+										<input type="text" class="form-control" id="user_part" value="行政部门">
+									</div>
+								</div>-->
+								<div class="form-group">
+									<label for="user_address" class="col-lg-2 control-label">通讯地址</label>
+									<div class="col-lg-10">
+										<input type="text" class="form-control" id="user_address" value="XXXXXXXX街道XXXXX号" disabled="">
+									</div>
+								</div>
+							</form>
+						</div>
+
+						<div class="form-group col-lg-12" style="margin-top: 16px;">
+							<button class="form-control btn btn-primary" ng-click="editPrimaryInfo()">编辑</button>
+						</div>
+
+						<!-- /.row -->
+					</div>
+
+				</div>
+			</div>
+
+			<!-- 专业领域 -->
+			<div class="box box-primary">
+				<div class="box-header">
+					<i class="ion ion-clipboard"></i>
+
+					<h3 class="box-title">专业领域</h3>
+
+					<div class="box-tools pull-right">
+						<!-- 编辑图标按钮 -->
+						<a class="manage-icon" ng-click="editExpertInfo()" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑">
+							<i class="fa fa-edit"></i>
+						</a>
+
+						<a class="load-icon" data-widget="collapse">
+							<i class="fa fa-minus"></i>
+						</a>
+					</div>
+					<!-- /.box-header -->
+				</div>
+
+				<div class="box-body">
+
+					<div class="row">
+
+						<div class="col-lg-6 col-md-6 col-sm-11">
+							<form class="form-horizontal">
+								<div class="form-group">
+									<label for="user_name" class="col-lg-2 control-label">职称</label>
+									<div class="col-lg-10">
+										<input type="text" class="form-control" id="user_name" value="教授" disabled="">
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- /.row -->
+					</div>
+
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-11">
+							<form class="form-horizontal">
+								<div class="form-group">
+									<label for="user_name" class="col-lg-2 control-label">研究领域</label>
+									<div class="col-lg-10">
+										<input type="text" class="form-control" id="user_name" value="刘振虎" disabled="">
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- /.row -->
+					</div>
+				</div>
+			</div>
+
+			<!-- 基本信息の编辑 -->
+			<div class="modal" id="editPrimaryModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">修改基本信息</h4>
+						</div>
+						<!-- model_body -->
+						<div class="modal-body">
+							<form class="form-horizontal row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label class="col-sm-4 control-label">姓名</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" value="刘振虎">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 control-label">邮箱</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" value="liuzhenhu@123.cn">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 control-label">手机</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" value="13678954265">
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label class="col-sm-4 control-label">单位</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" value="生物所">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 control-label">通讯地址</label>
+										<div class="col-sm-8">
+											<input type="email" class="form-control" value="XXXXXXXX街道XXXXX号">
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- model_footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">修改</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 专业信息の编辑 -->
+			<div class="modal" id="editExpertModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">修改专业信息</h4>
+						</div>
+						<!-- model_body -->
+						<div class="modal-body">
+							<form class="form-horizontal row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label class="col-lg-2 control-label">职称</label>
+										<div class="col-lg-10">
+											<select class="form-control">
+												<option>教授</option>
+												<option>副教授</option>
+												<option>讲师</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">研究领域</label>
+										<div class="col-sm-10">
+											<textarea class="form-control" rows="3" placeholder="研究领域XXXXXXXX"></textarea>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- model_footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">修改</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- /.container-->
+		</div>
+
+	</body>
+
+</html>

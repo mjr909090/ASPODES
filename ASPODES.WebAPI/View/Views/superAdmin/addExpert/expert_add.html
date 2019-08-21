@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html ng-app="ngExpert_AddApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap-table.css" />
+    <link rel="stylesheet" href="css/bootstrap-editable.css" />
+    <script type="text/javascript" src="js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="js/Views/superAdmin/addExpert/expert_add.js" ></script>
+</head>
+<body ng-controller="ngExpert_AddCtrl">
+<div class="container">
+    <div class="box box-solid" style="margin-top: 40px" >
+        <div class="box-header bg-light-blue" style="cursor: move;">
+            <div class="pull-right box-tools">
+                <button class="btn btn-primary btn-sm pull-right" data-toggle="tooltip" title="" data-original-title="Date range">
+                    <i class="fa fa-calendar"></i>
+                </button>
+                <button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px;" data-original-title="Collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!--<i class="fa fa-map-marker"></i>--><!--位置的图标-->
+            <h3 class="box-title"> 专家列表 </h3>
+        </div>
+        <div class="box-body" style="display: block;">
+            <div>
+                <div class="jvectormap-container" style="width: 100%; height: 100%; position: relative; overflow: hidden; background-color: transparent;">
+                    <div id="toolbar1" class="btn-group">
+                        <a id="btn_addExpert" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addExpert">添加</a>
+                    </div>
+
+                    <table class="table table-striped table-hover" id="thisTable">
+                        <thead>
+                        <tr>
+                            <th>选择</th>
+                            <th>姓名</th>
+                            <th>项目名称</th>
+                            <th>项目类型</th>
+                            <th>申请日期</th>
+                            <th>状 态</th>
+                            <th>查 看</th>
+                            <th>修 改</th>
+                            <th>删 除</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+                            <td>姓名01</td>
+                            <td>基于基因组学的农业生物重要性状的功能位点挖掘与鉴定</td>
+                            <td>重点实验室应用基础研究</td>
+                            <td>2017.03.14</td>
+                            <td><!--未处理-->
+                                <span class="badge bg-red">添加</span>
+                            </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>姓名02</td>
+                            <td>农产品独特营养组分及活性物质鉴定评价技术研究</td>
+                            <td>重点实验室应用基础研究</td>
+                            <td>2017.03.24</td>
+                            <td> <span class="badge bg-green">单位推荐</span></td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>姓名03</td>
+                            <td>蔬菜生产灾害性天气应对技术研究</td>
+                            <td>行业三性科研工作任务</td>
+                            <td>2017.03.24</td>
+                            <td> <span class="badge bg-green">单位推荐</span></td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>姓名04</td>
+                            <td>生猪肉牛等畜禽基因组选择育种技术研发与集成</td>
+                            <td>重点实验室应用基础研究</td>
+                            <td>2017.03.24</td>
+                            <td> <span class="badge bg-green">单位推荐</span></td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>姓名05</td>
+                            <td>家禽常见病防控技术的应急储备研究</td>
+                            <td>重点实验室应用基础研究</td>
+                            <td>2017.04.12</td>
+                            <td> <span class="badge bg-red">添加</span></td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>姓名06</td>
+                            <td>病原微生物及生物毒素识别评估技术研究</td>
+                            <td>行业三性科研工作任务</td>
+                            <td>2017.04.12</td>
+                            <td> <span class="badge bg-red">添加</span></td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>姓名07</td>
+                            <td>农田地块信息天空地一体化智能采集和分析技术研究</td>
+                            <td>重点实验室应用基础研究</td>
+                            <td>2017.04.28</td>
+                            <td> <span class="badge bg-red">添加</span></td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                            <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="container">
+
+    <div id="myTabContent" class="tab-content" style="margin-top: 70px">
+        <h2 style="margin-left: 320px; ">初审专家列表</h2>
+        <div id="toolbar1" class="btn-group">
+            <a id="btn_addExpert" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addExpert">添加</a>
+          &lt;!&ndash;  <a id="btn_modifyExpert" type="button" class="btn btn-primary" style="margin-left: 7px" data-toggle="modal" data-target="#modifyExpert">修改</a>&ndash;&gt;
+            &lt;!&ndash;<a id="btn_deleteExpert" type="button" class="btn btn-primary" style="margin-left: 7px" data-toggle="modal" data-target="#deleteExpert">删除</a>&ndash;&gt;
+
+        </div>
+
+        <table class="table table-striped table-hover" id="thisTable">
+            <thead>
+            <tr>
+                <th>选择</th>
+                <th>姓名</th>
+                <th>项目名称</th>
+                <th>项目类型</th>
+                <th>申请日期</th>
+                <th>状 态</th>
+                <th>查 看</th>
+                <th>修 改</th>
+                <th>删 除</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input class="icheckbox_minimal" aria-checked="true" aria-disabled="false" type="checkbox"></td>
+                <td>姓名01</td>
+                <td>基于基因组学的农业生物重要性状的功能位点挖掘与鉴定</td>
+                <td>重点实验室应用基础研究</td>
+                <td>2017.03.14</td>
+                <td>&lt;!&ndash;未处理&ndash;&gt;
+                    <span class="badge bg-red">添加</span>
+                </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>姓名02</td>
+                <td>农产品独特营养组分及活性物质鉴定评价技术研究</td>
+                <td>重点实验室应用基础研究</td>
+                <td>2017.03.24</td>
+                <td> <span class="badge bg-green">单位推荐</span></td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>姓名03</td>
+                <td>蔬菜生产灾害性天气应对技术研究</td>
+                <td>行业三性科研工作任务</td>
+                <td>2017.03.24</td>
+                <td> <span class="badge bg-green">单位推荐</span></td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>姓名04</td>
+                <td>生猪肉牛等畜禽基因组选择育种技术研发与集成</td>
+                <td>重点实验室应用基础研究</td>
+                <td>2017.03.24</td>
+                <td> <span class="badge bg-green">单位推荐</span></td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>姓名05</td>
+                <td>家禽常见病防控技术的应急储备研究</td>
+                <td>重点实验室应用基础研究</td>
+                <td>2017.04.12</td>
+                <td> <span class="badge bg-red">添加</span></td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>姓名06</td>
+                <td>病原微生物及生物毒素识别评估技术研究</td>
+                <td>行业三性科研工作任务</td>
+                <td>2017.04.12</td>
+                <td> <span class="badge bg-red">添加</span></td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>姓名07</td>
+                <td>农田地块信息天空地一体化智能采集和分析技术研究</td>
+                <td>重点实验室应用基础研究</td>
+                <td>2017.04.28</td>
+                <td> <span class="badge bg-red">添加</span></td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#viewExpertInfo">查看</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#modifyExpert">修改</a> </td>
+                <td> <a class='refuse' data-toggle="modal" data-target="#deleteExpert">删除</a> </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>-->
+
+
+
+<!--查看专家页面的模态框-->
+<div class="modal" id="viewExpertInfo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">专家的详细信息</h3>
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <div class="box box-warning">
+                        <div class="box-header">
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+
+                        </div>
+                        <div class="box-body">
+                            <form class="form-horizontal row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="userName" class="col-sm-4 control-label">姓名</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userName" value="姓名01" disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="UserSex" class="col-sm-4 control-label">性别</label>
+                                        <div class="radio col-sm-4">
+                                            <label>
+                                                <input type="radio" name="sexSelect" id="UserSex" value="male" checked="" disabled="">
+                                                男
+                                            </label>
+                                        </div>
+                                        <div class="radio col-sm-4">
+                                            <label>
+                                                <input type="radio" name="sexSelect" id="UserSex" value="famale" disabled="">
+                                                女
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userIdCard" class="col-sm-4 control-label">身份证号</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userIdCard" value="37092******1111" disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userPhone" class="col-sm-4 control-label">手机</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" class="form-control" id="userPhone" value="12345678900" disabled="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="userEmail" class="col-sm-4 control-label">邮箱</label>
+                                        <div class="col-sm-8">
+                                            <input type="email" class="form-control" id="userEmail" value="123456789@163.com" disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userTitle" class="col-sm-4 control-label">职称</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" id="userTitle" disabled="">
+                                                <option>教授</option>
+                                                <option>副教授</option>
+                                                <option>研究员</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userDivision" class="col-sm-4 control-label">所在单位</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userDivision" value="蔬菜研究所" disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userMajor" class="col-sm-4 control-label">专业</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userMajor" value="蔬菜研究" disabled="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div>
+                    <div class="box box-danger">
+                        <div class="box-header">
+                            <h3 class="box-title">Danger Box (Loading state)</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-danger btn-sm" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm" data-widget="remove">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            Box class:
+                            <code>.box.box-danger</code>
+                            <p> amber, microbrewery abbey hydrometer, brewpub ale lauter tun saccharification oxidized barrel. berliner weisse wort chiller adjunct hydrometer alcohol aau! sour/acidic sour/acidic chocolate malt ipa ipa hydrometer. </p>
+                        </div>
+                        <div class="overlay"></div>
+                        <div class="loading-img"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="box box-success">
+                        <div class="box-header">
+                            <h3 class="box-title">Success Box (toggle buttons)</h3>
+                            <div class="box-tools pull-right">
+                                <div class="btn-group" data-toggle="btn-toggle">
+                                    <button class="btn btn-success btn-xs" type="button" data-toggle="on">Left</button>
+                                    <button class="btn btn-success btn-xs active" type="button" data-toggle="off">Right</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            Box class:
+                            <code>.box.box-success</code>
+                            <p> amber, microbrewery abbey hydrometer, brewpub ale lauter tun saccharification oxidized barrel. berliner weisse wort chiller adjunct hydrometer alcohol aau! sour/acidic sour/acidic chocolate malt ipa ipa hydrometer. </p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="box box-warning">
+                        <div class="box-header">
+                            <h3 class="box-title">Warning Box</h3>
+                            <div class="box-tools pull-right">
+                                <ul class="pagination pagination-sm inline">
+                                    <li>
+                                        <a href="#">«</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">2</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">»</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            Box class:
+                            <code>.box.box-warning</code>
+                            <p> amber, microbrewery abbey hydrometer, brewpub ale lauter tun saccharification oxidized barrel. berliner weisse wort chiller adjunct hydrometer alcohol aau! sour/acidic sour/acidic chocolate malt ipa ipa hydrometer. </p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="box box-solid box-danger">
+                        <div class="box-header">
+                            <h3 class="box-title">Danger Solid Box</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-danger btn-sm" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm" data-widget="remove">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            Box class:
+                            <code>.box.box-solid.box-danger</code>
+                            <p> amber, microbrewery abbey hydrometer, brewpub ale lauter tun saccharification oxidized barrel. berliner weisse wort chiller adjunct hydrometer alcohol aau! sour/acidic sour/acidic chocolate malt ipa ipa hydrometer. </p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="box box-solid bg-yellow">
+                        <div class="box-header">
+                            <h3 class="box-title">Warning Tile</h3>
+                        </div>
+                        <div class="box-body">
+                            Box class:
+                            <code>.box.box-solid.bg-yellow</code>
+                            <p> amber, microbrewery abbey hydrometer, brewpub ale lauter tun saccharification oxidized barrel. berliner weisse wort chiller adjunct hydrometer alcohol aau! sour/acidic sour/acidic chocolate malt ipa ipa hydrometer. </p>
+                        </div>
+                    </div>
+                </div>-->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--添加专家页面的模态框-->
+<div class="modal fade" id="addExpert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <!--<div class="modal">-->
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">添加专家</h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">个人基本信息</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="box-body">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <!-- <legend>添加专家</legend>-->
+                                <!--<a style="margin-left:0px; font-size:15px;">个人基本信息</a>-->
+                                <div style="margin-left: 10px;" class="btn-group" >
+                                    <font size='2' color='red'>申请人在填写本人姓名时，姓名与使用的证件一致。</font>
+                                </div>
+                                <div class="form-group" >
+                                    <label  class="col-lg-2 control-label" ><font style="color: red;">*</font>专家姓名</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="expertName"  type="text">
+                                    </div>
+
+                                    <label class="col-lg-2 control-label">性别</label>
+                                    <div class="col-lg-5">
+                                        <div class="radio">
+                                            <label>
+                                                <input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio">
+                                                男
+                                            </label>
+                                            <label style="margin-left: 40px;">
+                                                <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio">
+                                                女
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="CertificateType" class="col-lg-2 control-label"><font style="color: red;">*</font>证件类型</label>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" id="CertificateType">
+                                            <option>身份证</option>
+                                            <option>工作证</option>
+                                        </select>
+                                    </div>
+                                    <label  class="col-lg-2 control-label"><font style="color: red;">*</font>证件号码</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="CertificateNum"  type="text">
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="rate" class="col-lg-2 control-label">民族</label>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" id="rate">
+                                            <option>汉族</option>
+                                            <option>满族</option>
+                                            <option>回族</option>
+                                            <option>其他民族</option>
+                                        </select>
+                                    </div>
+                                    <label  class="col-lg-2 control-label" >出生日期</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="birthday"  type="text">
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+
+                                    <label for="title" class="col-lg-2 control-label">职称</label>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" id="title">
+                                            <option>教授</option>
+                                            <option>副教授</option>
+                                            <option>讲师</option>
+                                        </select>
+                                    </div>
+
+
+                                    <label for="highestDegree" class="col-lg-2 control-label">最高学位</label>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" id="highestDegree">
+                                            <option>博士</option>
+                                            <option>硕士</option>
+                                            <option>本科</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-lg-2 control-label" >授予学校</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="school" type="text">
+                                    </div>
+                                    <label  class="col-lg-2 control-label" >授予年份</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="Year"  type="text">
+                                    </div>
+
+                                </div>
+                                <div class="form-group" >
+                                    <label for="inputEmail" class="col-lg-2 control-label" ><font style="color: red;">*</font>电子邮箱</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="inputEmail" placeholder="Email" type="text"><!--placeholder是默认值-->
+                                    </div>
+                                    <label  class="col-lg-2 control-label" >工作电话</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="wokPhone"  type="text">
+                                    </div>
+
+                                </div>
+                                <!--<div class="form-group">
+                                    <label for="inputPassword" class="col-lg-2 control-label">初始密码</label>
+                                    <div class="col-lg-5">
+                                        <input class="form-control" id="inputPassword" placeholder="Password" type="password">
+                                    </div>
+                                </div>-->
+                                <div class="form-group">
+
+                                    <label  class="col-lg-2 control-label" >所在单位</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="unitName"  type="text">
+                                    </div>
+                                    <label  class="col-lg-2 control-label">国别或地区</label>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" id="country" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" for="exampleInputFile">上传文件</label>
+                                    <input class="col-lg-3" id="exampleInputFile" type="file">
+                                    <!--<p class="help-block">Example block-level help text here.</p>-->
+                                    <label class="col-lg-2 control-label">选择</label>
+                                    <div class="col-lg-3">
+                                        <label  class="control-label">
+                                            <div class="icheckbox_minimal" style="position: relative;" aria-checked="true" aria-disabled="false">
+                                                <input type="checkbox">Checkbox 1
+                                            </div>
+                                            <!--Checkbox 1--><!--放在这，复选框和文字成两行-->
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+
+                </div>
+
+
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">研究领域</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="box-body">
+                        <form class="form-horizontal">
+                            <fieldset>
+
+                                <div class="btn-group">
+                                    <button class="badge bg-red">添加</button>
+                                    <button class="badge bg-red">删除</button>
+                                    <button class="badge bg-red">返回</button>
+                                    <!-- <a class="btn btn-primary" style="margin-left: 8px;">返回</a>-->
+                                </div>
+
+                                <table class="table table-striped table-hover" id="searchCircleTable">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">选择</th>
+                                        <th class="text-center">序号</th>
+                                        <th class="text-center">研究领域</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-center"><input type="radio"></td>
+                                        <td class="text-center">1</td>
+                                        <td>
+                                            <div>
+                                                <p>每个熟悉领域最多五个关键词。</p>
+                                            </div>
+                                            <div>
+                                                <label  class="col-lg-2 control-label" >研究领域</label>
+                                                <div class="col-lg-9">
+                                                    <input class="form-control" id="searchCircle" type="text">
+                                                </div>
+                                            </div>
+
+
+                                            <div>
+                                                <label class="col-lg-2 control-label" >中文关键字</label>
+                                                <div class="col-lg-9">
+                                                    <input class="form-control" id="chineseKeyWord" type="text">
+                                                </div>
+                                            </div>
+
+
+                                            <div>
+                                                <label class="col-lg-2 control-label" >英文关键字</label>
+                                                <div class="col-lg-9">
+                                                    <input class="form-control" id="englishKeyWord" type="text">
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </fieldset>
+                        </form>
+                    </div>
+
+                </div>
+
+
+               <!--可以直接删除上面的两个boxinfo  使用这个
+                <form class="form-horizontal">
+                    <fieldset>
+                        &lt;!&ndash; <legend>添加专家</legend>&ndash;&gt;
+                            <legend>个人基本信息</legend>
+                            &lt;!&ndash;<a style="margin-left:0px; font-size:15px;">个人基本信息</a>&ndash;&gt;
+                            <div style="margin-left: 10px;" class="btn-group" >
+                                <font size='2' color='red'>申请人在填写本人姓名时，姓名与使用的证件一致。</font>
+                            </div>
+                            <div class="form-group" >
+                                <label  class="col-lg-2 control-label" >专家姓名</label>
+                                <div class="col-lg-3">
+                                    <input class="form-control" id="expertName"  type="text">
+                                </div>
+
+                                <label class="col-lg-2 control-label">性别</label>
+                                <div class="col-lg-5">
+                                    <div class="radio">
+                                        <label>
+                                            <input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio">
+                                            男
+                                        </label>
+                                        <label style="margin-left: 40px;">
+                                            <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio">
+                                            女
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="CertificateType" class="col-lg-2 control-label"><font style="color: red;">*</font>证件类型</label>
+                                <div class="col-lg-3">
+                                    <select class="form-control" id="CertificateType">
+                                        <option>身份证</option>
+                                        <option>工作证</option>
+                                    </select>
+                                </div>
+                                <label  class="col-lg-2 control-label"><font style="color: red;">*</font>证件号码</label>
+                                <div class="col-lg-3">
+                                    <input class="form-control" id="CertificateNum"  type="text">
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="rate" class="col-lg-2 control-label">民族</label>
+                                <div class="col-lg-3">
+                                    <select class="form-control" id="rate">
+                                        <option>汉族</option>
+                                        <option>满族</option>
+                                        <option>回族</option>
+                                        <option>其他民族</option>
+                                    </select>
+                                </div>
+                                <label  class="col-lg-2 control-label" >出生日期</label>
+                                <div class="col-lg-3">
+                                    <input class="form-control" id="birthday"  type="text">
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+
+                                <label for="title" class="col-lg-2 control-label">职称</label>
+                                <div class="col-lg-3">
+                                    <select class="form-control" id="title">
+                                        <option>教授</option>
+                                        <option>副教授</option>
+                                        <option>讲师</option>
+                                    </select>
+                                </div>
+
+
+                                <label for="highestDegree" class="col-lg-2 control-label">最高学位</label>
+                                <div class="col-lg-3">
+                                    <select class="form-control" id="highestDegree">
+                                        <option>博士</option>
+                                        <option>硕士</option>
+                                        <option>本科</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-lg-2 control-label" >授予学校</label>
+                                <div class="col-lg-3">
+                                    <input class="form-control" id="school" type="text">
+                                </div>
+                                <label  class="col-lg-2 control-label" >授予年份</label>
+                                <div class="col-lg-3">
+                                    <input class="form-control" id="Year"  type="text">
+                                </div>
+
+                            </div>
+                            <div class="form-group" >
+                                <label for="inputEmail" class="col-lg-2 control-label" >电子邮箱</label>
+                                <div class="col-lg-3">
+                                    <input class="form-control" id="inputEmail" placeholder="Email" type="text">&lt;!&ndash;placeholder是默认值&ndash;&gt;
+                                </div>
+                                <label  class="col-lg-2 control-label" >工作电话</label>
+                                <div class="col-lg-3">
+                                    <input class="form-control" id="wokPhone"  type="text">
+                                </div>
+
+                            </div>
+                            &lt;!&ndash;<div class="form-group">
+                                <label for="inputPassword" class="col-lg-2 control-label">初始密码</label>
+                                <div class="col-lg-5">
+                                    <input class="form-control" id="inputPassword" placeholder="Password" type="password">
+                                </div>
+                            </div>&ndash;&gt;
+                            <div class="form-group">
+
+                                <label  class="col-lg-2 control-label" >所在单位</label>
+                                <div class="col-lg-3">
+                                    <input class="form-control" id="unitName"  type="text">
+                                </div>
+                                <label  class="col-lg-2 control-label">国别或地区</label>
+                                <div class="col-lg-3">
+                                    <input class="form-control" id="country" type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label" for="exampleInputFile">上传文件</label>
+                                <input class="col-lg-3" id="exampleInputFile" type="file">
+                                &lt;!&ndash;<p class="help-block">Example block-level help text here.</p>&ndash;&gt;
+                                <label class="col-lg-2 control-label">选择</label>
+                                <div class="col-lg-3">
+                                    <label  class="control-label">
+                                        <div class="icheckbox_minimal" style="position: relative;" aria-checked="true" aria-disabled="false">
+                                            <input type="checkbox">Checkbox 1
+                                        </div>
+                                        &lt;!&ndash;Checkbox 1&ndash;&gt;&lt;!&ndash;放在这，复选框和文字成两行&ndash;&gt;
+                                    </label>
+                                </div>
+
+
+
+                            </div>
+
+                    </fieldset>
+                </form>
+
+                <br />
+
+                <form class="form-horizontal">
+                    <fieldset>
+                        <legend>研究领域</legend>
+
+                        <div class="btn-group">
+                            <button class="badge bg-red">添加</button>
+                            <button class="badge bg-red">删除</button>
+                            <button class="badge bg-red">返回</button>
+                            &lt;!&ndash; <a class="btn btn-primary" style="margin-left: 8px;">返回</a>&ndash;&gt;
+                        </div>
+
+                        <table class="table table-striped table-hover" id="searchCircleTable">
+                            <thead>
+                            <tr>
+                                <th class="text-center">选择</th>
+                                <th class="text-center">序号</th>
+                                <th class="text-center">研究领域</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="text-center"><input type="radio"></td>
+                                <td class="text-center">1</td>
+                                <td>
+                                    <div>
+                                        <p>每个熟悉领域最多五个关键词。</p>
+                                    </div>
+                                    <div>
+                                        <label  class="col-lg-2 control-label" >研究领域</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" id="searchCircle" type="text">
+                                        </div>
+                                    </div>
+
+
+                                    <div>
+                                        <label class="col-lg-2 control-label" >中文关键字</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" id="chineseKeyWord" type="text">
+                                        </div>
+                                    </div>
+
+
+                                    <div>
+                                        <label class="col-lg-2 control-label" >英文关键字</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" id="englishKeyWord" type="text">
+                                        </div>
+                                    </div>
+                                    &lt;!&ndash; <div class="row">
+                                         <label  class="col-lg-2 control-label" >研究领域</label>
+                                         <div class="col-lg-7">
+                                             <input class="form-control" id="searchCircle" type="text">
+                                         </div>
+                                     </div>
+
+                                     <br />
+
+                                     <div class="row">
+                                         <label for="inputEmail" class="col-lg-2 control-label" >中文关键字</label>
+                                         <div class="col-lg-7">
+                                             <input class="form-control" id="chineseKeyWord" type="text">
+                                         </div>
+                                     </div>
+
+
+                                     <br />
+
+                                     <div class="row">
+                                         <label for="inputEmail" class="col-lg-2 control-label" >英文关键字</label>
+                                         <div class="col-lg-7">
+                                             <input class="form-control" id="englishKeyWord" type="text">
+                                         </div>
+                                     </div>&ndash;&gt;
+
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </fieldset>
+                </form>-->
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-info pull-right">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改专家页面的模态框-->
+<div class="modal" id="modifyExpert">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">修改专家信息</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <div class="box-body">
+                        <form class="form-horizontal row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="userName" class="col-sm-4 control-label">姓名</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="userName" value="姓名01" disabled="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="UserSex" class="col-sm-4 control-label">性别</label>
+                                    <div class="radio col-sm-4">
+                                        <label>
+                                            <input type="radio" name="sexSelect" id="UserSex" value="male" checked="" disabled="">
+                                            男
+                                        </label>
+                                    </div>
+                                    <div class="radio col-sm-4">
+                                        <label>
+                                            <input type="radio" name="sexSelect" id="UserSex" value="famale" disabled="">
+                                            女
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userIdCard" class="col-sm-4 control-label">身份证号</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="userIdCard" value="37092******1111" disabled="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userPhone" class="col-sm-4 control-label">手机</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" class="form-control" id="userPhone" value="12345678900">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="userEmail" class="col-sm-4 control-label">邮箱</label>
+                                    <div class="col-sm-8">
+                                        <input type="email" class="form-control" id="userEmail" value="123456789@163.com" disabled="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userTitle" class="col-sm-4 control-label">职称</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" id="userTitle">
+                                            <option>教授</option>
+                                            <option>副教授</option>
+                                            <option>研究员</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userDivision" class="col-sm-4 control-label">所在单位</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="userDivision" value="蔬菜研究所" disabled="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userMajor" class="col-sm-4 control-label">专业</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="userMajor" value="蔬菜研究">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--<p style="font-size: 20px; margin-left: 20px">修改专家</p>-->
+               <!-- <div class="col-lg-11">
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3> 修改 </h3>
+                            <p> User Modify </p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add" data-toggle="modal" data-target="#addExpert"></i>
+                        </div>
+                        <a class="small-box-footer" data-toggle="modal" data-target="#viewExpertInfo">&lt;!&ndash;<a class="small-box-footer" href="#">&ndash;&gt;
+                            More info
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>-->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-info pull-right" data-dismiss="modal">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--删除专家页面的模态框-->
+<div class="modal" id="deleteExpert">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">删除</h3>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 20px; margin-left: 20px">你确定要删除该专家吗</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<form class="form-horizontal">
+    <fieldset>
+       &lt;!&ndash; <legend>添加专家</legend>&ndash;&gt;
+        <div>
+            <a style="margin-left:50px; font-size:20px;">基本信息</a>
+            <div class="form-group" >
+                <label  class="col-lg-2 control-label" >专家姓名</label>
+                <div class="col-lg-5">
+                    <input class="form-control" id="expertName"  type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">性别</label>
+                <div class="col-lg-5">
+                    <div class="radio">
+                        <label>
+                            <input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio">
+                            男
+                        </label>
+                        <label style="margin-left: 40px;">
+                            <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio">
+                            女
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label for="inputEmail" class="col-lg-2 control-label" >电子邮箱</label>
+                <div class="col-lg-5">
+                    <input class="form-control" id="inputEmail" placeholder="Email" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">初始密码</label>
+                <div class="col-lg-5">
+                    <input class="form-control" id="inputPassword" placeholder="Password" type="password">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="unitName" class="col-lg-2 control-label">单位名称</label>
+                <div class="col-lg-5">
+                    <select class="form-control" id="unitName">
+                        <option>中国海洋大学</option>
+                        <option>山东大学</option>
+                        <option>山东师范大学</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div>
+
+            <a style="margin-left: 50px; font-size:20px;">其他信息</a>
+            <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">内容摘要</label>
+                <div class="col-lg-5">
+                    <textarea class="form-control" rows="3" id="textArea"></textarea>
+                    <span class="help-block">请填写其他信息</span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-lg-5 col-lg-offset-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-default">Cancel</button>
+            </div>
+        </div>
+    </fieldset>
+</form>-->
+
+</body>
+</html>

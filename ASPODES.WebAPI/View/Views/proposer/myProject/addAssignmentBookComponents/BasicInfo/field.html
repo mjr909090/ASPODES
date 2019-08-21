@@ -1,0 +1,33 @@
+﻿<form class="form-horizontal" name="FieldInfo" novalidate>
+    <fieldset>
+
+        <legend>研究领域</legend>
+
+        <div class="form-group" ng-class="{true:'has-error'}[$ctrl.fieldResource.ParentFieldName == null && submitted]">
+            <label for="field" class="col-lg-3 control-label">研究领域<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <p class="form-control-static">{{$ctrl.fieldResource.FieldId}}</p>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{true:'has-error'}[$ctrl.fieldResource.SubFieldId == null && submitted]">
+            <label for="subField" class="col-lg-3 control-label">子领域<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <p class="form-control-static">{{$ctrl.fieldResource.SubFieldId}}</p>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{true:'has-error'}[FieldInfo.KeyWordsCN.$error.pattern || (FieldInfo.KeyWordsCN.$error.required && FieldInfo.KeyWordsCN.$dirty)]">
+            <label for="projectName" class="col-lg-3 control-label">中文关键字<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <p class="form-control-static">{{$ctrl.fieldResource.KeyWordsCN}}</p>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{true:'has-error'}[FieldInfo.KeyWordsEN.$error.pattern || (FieldInfo.KeyWordsEN.$error.required && FieldInfo.KeyWordsEN.$dirty)]">
+            <label for="projectName" class="col-lg-3 control-label">英文关键字<span style="color:red;font-size:large"> *</span></label>
+            <div class="col-lg-9">
+                <p class="form-control-static">{{$ctrl.fieldResource.KeyWordsEN}}</p>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+

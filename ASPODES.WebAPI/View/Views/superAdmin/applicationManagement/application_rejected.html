@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngApplication_RejectedApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap-table.css" />
+    <link rel="stylesheet" href="css/bootstrap-editable.css" />
+    <script type="text/javascript" src="js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="js/Views/superAdmin/applicationManagement/application_rejected.js" ></script>
+</head>
+<body ng-controller="ngApplication_RejectedCtrl">
+<div class="container">
+    <br />
+    <ol class="breadcrumb">
+        <li>
+            <a><i class="fa fa-dashboard"></i> 全院管理</a>
+        </li>
+        <li>
+            <a> 申请书管理</a>
+        </li>
+        <li class="active"> 不受理申请书</li>
+    </ol>
+    <div class="box box-solid" style="margin-top: 40px" >
+        <div class="box-header" style="cursor: move; background-color: #30bbbb">
+            <div class="pull-right box-tools">
+                <button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px; background-color: #30bbbb" data-original-title="Collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!--<i class="fa fa-map-marker"></i>--><!--位置的图标-->
+            <h3 class="box-title"> 不受理申请书列表 </h3>
+        </div>
+        <div class="box-body" style="display: block;">
+            <div class="row">
+                <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                    <label for="applyType_searchcobobox" class="col-lg-5 control-label">类型</label>
+                    <div class="col-lg-7">
+                        <select class="form-control" ng-model="selectedProject" ng-options="x.Name for x in projectTypes" ng-change="getProjectTypeIdForPage(selectedProject.ProjectTypeId)">
+                            <option value="">请选择类型</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                    <label for="applyUnit_searchcobobox" class="col-lg-5 control-label">单位</label>
+                    <div class="col-lg-7">
+                        <select class="form-control" ng-model="selectedInst" ng-options="x.Name for x in instTypes" ng-change="getInstIdForPage(selectedInst.InstituteId)">
+                            <option value="">请选择单位</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-lg-2 col-md-2 col-sm-2"></div>
+
+            </div>
+            <table class="table table-striped table-hover" id="thisTable" ng-hide="divisionAppliesIsNull">
+                <thead>
+                    <tr>
+                        <th>申请书名称</th>
+                        <th class="table-middle" style="width:144px">委托</th>
+                        <th style="min-width: 104px;">类型</th>
+                        <th>承担单位</th>
+                        <th style="min-width: 64px;">牵头负责人</th>
+                        <th style="min-width: 48px;">PDF文件</th>
+
+                        <th>不受理理由</th>
+                        <!--  <th>承担单位</th>
+                <th>牵头负责人</th>
+                <th>状 态</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="rejectedApplication in rejectedApplications">
+                        <td><a class='refuse' ng-click="showPDFpage(rejectedApplication.PDF)">{{rejectedApplication.ProjectName}}</a></td>
+                        <td class="table-middle">
+                            <span class="label label-default" ng-if="rejectedApplication.DeleageType == 0"> 非委托</span>
+                            <span class="label label-primary" ng-if="rejectedApplication.DeleageType == 1"> 委托</span>
+                        </td>
+                        <td>{{rejectedApplication.ProjectTypeName}}</td>
+                        <td>{{rejectedApplication.InstituteName}}</td>
+                        <td> <a class='refuse' ng-click="rejectedLeaderId(rejectedApplication.LeaderId);responserLeaderModal()">{{rejectedApplication.LeaderName}}</a></td>
+                        <td>
+                            <a class="pdfDownload" ng-click="downloadPDF(rejectedApplication.ApplicationId,rejectedApplication.ProjectName)">下载</a>
+                        </td>
+
+                        <td><a class='refuse' ng-click="showRejectedReasonModal(rejectedApplication.ApplicationId)">原因</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="callout callout-info" ng-hide="!divisionAppliesIsNull">
+                <h4>注意!</h4>
+
+                <p>当前没有任何不受理的申请书！</p>
+            </div>
+        </div>
+        <!-- box footer -->
+        <div class="box-footer" ng-hide="divisionAppliesIsNull">
+            <!-- paging -->
+            <div class="col-lg-8 col-md-7 col-sm-6 col-xs-12">
+                <span style="font-size: 24px;" ng-cloak>共： {{pageItem}}页，{{count}} 条，当前第{{p_current}}页，显示&nbsp;{{p_count}}&nbsp;条</span>
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+                <ul class="pagination" style="margin: 0px;">
+                    <li ng-class="{true:'disabled'}[p_current  == 1]"><a ng-click="nextPage(p_current-1)">&laquo;</a></li>
+                    <li ng-show="p_current  > 3"><a ng-click="nextPage(1)">1</a></li>
+                    <li ng-show=" p_current > 4">
+                        <a href="javascript:void(0)">...</a>
+                    </li>
+                    <li ng-repeat="page in pages" ng-if="judgeAbs(p_current,page)" ng-class="{true:'active'}[page == p_current ]">
+                        <a ng-click="nextPage(page)">{{page}}</a>
+                    </li>
+                    <li ng-show=" p_current  < pageItem - 3">
+                        <a href="javascript:void(0)">...</a>
+                    </li>
+                    <li ng-show="p_current  < pageItem - 2"><a ng-click="nextPage(pageItem)">{{pageItem}}</a></li>
+                    <li ng-class="{true:'disabled'}[p_current == pageItem || pageItem == 0]"><a ng-click="nextPage(p_current+1)">&raquo;</a></li>
+                </ul>
+            </div>
+            <!--
+                   <div class="col-lg-8 col-md-7 col-sm-6 col-xs-12">
+                <span style="font-size: 24px;">共： {{pageItem}}页，{{count}} 条；当前第{{p_current}}页，显示&nbsp;{{p_count}}&nbsp;条</span>
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+                <ul class="pagination" style="margin: 0px;">
+                    <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == 1" ng-click="p_index()">首页</button></li>
+                    <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == 1" ng-click="p_prev()">&lt;&lt;Prev</button></li>
+                    <li ng-repeat="page in pages" ng-class="{active: p_current == page}" class="waves-effect">
+                        <button class="btn btn-default btn-sm" ng-disabled="pageItem == 0" ng-click="load_page(page)">{{page}}</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-default btn-sm" ng-disabled=" p_current == pageItem || pageItem == 0" ng-click="p_next()">Next&gt;&gt;</button>
+                    </li>
+                    <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == pageItem || pageItem == 0" ng-click="p_last()">尾页</button></li>
+                </ul>
+            </div>
+            -->
+         
+            <!-- /.box-footer -->
+        </div>
+    </div>
+</div>
+    <!--查看不受理理由的模态框-->
+    <div class="modal fade" id="rejectedReasonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">不受理理由</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="progress xs col-lg-12">
+                            <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                      
+                        <div class=" col-lg-5">
+                            <h4>该申请书的不受理理由：</h4>
+                        </div>
+                        <div class="col-lg-7"><h4>{{thisRejectedReason}}</h4></div>
+
+                    </div>
+                    <div class="row">
+                        <div class="progress xs col-lg-12">
+                            <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!--查看的模态框-->
+    <div class="modal fade" id="viewApplication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">申请书</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="progress xs col-lg-12">
+                            <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col-lg-12">
+                            <h4>该申请书状态为不受理</h4>
+                        </div>
+                        <div class="col-lg-12" >{{rejectedReason}}</div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="progress xs col-lg-12">
+                            <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                        </div>
+                        <h3>&nbsp;&nbsp;&nbsp;基本信息</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h4>工作任务名称</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{applicationInfo.ProjectName}}</strong></h5>
+                            <h4>委托部门（甲方）</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中国农业科学院</strong></h5>
+                            <h4>承担部门（乙方）</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主持单位：{{applicationInfo.InstituteName}}</strong></h5>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目负责人：{{applicationInfo.LeaderName}}</strong></h5>
+
+                        </div>
+                        <div class="col-lg-6">
+                            <h4>单位名称：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{applicationInfo.InstituteName}}</strong></h5>
+                            <h4>类别：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{applicationInfo.ProjectTypeName}}</strong></h5>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="progress xs col-lg-12">
+                            <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+<!--牵头负责人信息的模态框-->
+    <div class="modal fade" id="responserLeader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <!--<div class="modal">-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <!--右上角的关闭按钮-->
+                    <h3 class="modal-title">负责人信息</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="progress xs col-lg-12">
+                            <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <h4>负责人姓名：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Name}}</strong></h5>
+                            <h4>身份证号：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.IDCard}}</strong></h5>
+                            <h4>性别：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Male}}</strong></h5>
+                            <h4>英文名：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.EnglishName}}</strong></h5>
+                            <h4>电子邮箱：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Email}}</strong></h5>
+                            <h4>手机：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Phone}}</strong></h5>
+                        </div>
+                        <div class="col-lg-6">
+                            <h4>职务：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Duty}}</strong></h5>
+                            <h4>职称：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Title}}</strong></h5>
+                            <h4>办公室电话：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.OfficePhone}}</strong></h5>
+                            <h4>地址：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Address}}</strong></h5>
+                            <h4>邮编：</h4>
+                            <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Zip}}</strong></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="progress xs col-lg-12">
+                            <div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- 模态框 PDF下载-->
+<div class="modal" id="PDFDownLoad">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">注意：</h4>
+            </div>
+            <div class="modal-body">
+                <p>文件正在下载…</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngApplicationSavedApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/Views/proposer/application_saved.css" />
+
+		<script type="text/javascript" src="js/Views/proposer/myApplications/application_saved.js" ></script>
+
+	</head>
+
+	<body ng-controller="ngApplicationSavedCtrl">
+
+		<div class="content container">
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 项目申请</a>
+				</li>
+				<li>
+					<a>我的申请书</a>
+				</li>
+				<li class="active">申请书草稿</li>
+			</ol>
+
+			<div class="box box-solid">
+
+				<div class="box-header ui-sortable-handle bg-green">
+					<i class="fa fa-sticky-note"></i>
+
+					<h3 class="box-title">已保存申请书列表</h3>
+					<!-- tools box -->
+					<div class="pull-right box-tools">
+						<!-- button with a dropdown -->
+						<button type="button" class="btn btn-success btn-sm" ng-click="addApplication()" data-toggle="tooltip" data-placement="top" title="" data-original-title="新建申请书"><i class="fa fa-sticky-note-o"></i></button>
+                        <button type="button" class="btn btn-success btn-sm" ng-click="refresh()" data-toggle="tooltip" data-placement="top" title="" data-original-title="刷新"><i class="fa fa-refresh"></i></button>
+						<button type="button" class="btn btn-success btn-sm" data-widget="collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="最小化"><i class="fa fa-minus"></i></button>
+					</div>
+					<!-- /. tools -->
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body" ng-init="postId = null" style="display: block;">
+
+                    <br />
+
+                    <div class="callout callout-info" ng-show="savedProposes.length == 0">
+                        <h4>注意!</h4>
+
+                        <p>当前还没有已经保存的申请书！<br />请在点击右上角的“新建申请书”按钮新建一封申请书！</p>
+                    </div>
+
+                    <table class="table table-hover saved-table" ng-show="savedProposes.length != 0">
+                        <thead>
+                            <tr>
+                                <th class="table-left">名称</th>
+                                <th class="table-left">类别</th>
+                                <th class="table-middle" style="width:214px;">编辑时间</th>
+                                <th class="table-middle" style="width:144px">委托</th>
+                                <th class="table-middle" style="width: 144px;">状态</th>
+                                <th class="table-middle" style="width: 56px;">PDF</th>
+                                <th class="table-middle" style="width: 150px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="savedPropose in savedProposes | orderBy:'Status'">
+                                <td class="table-left">
+                                    <a ng-if="savedPropose.PDF != null" ng-click="showPDFpage(savedPropose.PDF)">{{savedPropose.ProjectName}}</a>
+                                    <p ng-if="savedPropose.PDF == null">{{savedPropose.ProjectName}}</p>
+                                </td>
+                                <td class="table-left">{{savedPropose.ProjectTypeName}}</td>
+                                <td class="table-middle">{{savedPropose.CurrentYear}}</td>
+                                <td class="table-middle">
+                                    <span class="label label-default" ng-if="savedPropose.DeleageType == 0"> 非委托</span>
+                                    <span class="label label-primary" ng-if="savedPropose.DeleageType == 1"> 委托</span>
+                                </td>
+                                <td class="table-middle">
+                                    <span class="label label-warning" ng-if="savedPropose.Status < 4"> 草稿</span>
+                                    <span class="label label-primary" ng-if="savedPropose.Status == 4"> 已保存</span>
+                                    <span class="label label-danger" ng-if="savedPropose.Status == 6" ng-click="showRejectReason(savedPropose.ApplicationId)"> 驳回</span>
+                                    <span class="label label-danger" ng-if="savedPropose.Status == 7"> 撤回</span>
+                                    <span class="label label-danger" ng-if="savedPropose.Status == 9" ng-click="showNotPassReason(savedPropose.ApplicationId)"> 不受理</span>
+                                </td>
+                                <td class="table-middle">
+                                    <a ng-if="savedPropose.PDF != null" ng-click="downloadFile(savedPropose.ApplicationId, savedPropose.ProjectName)">下载</a>
+                                    <p ng-if="savedPropose.PDF == null">无PDF</p>
+                                </td>
+                                <td class="table-middle">
+                                    <a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改" ng-click="jumpToEditPage(savedPropose.ApplicationId);"><i class="fa fa-edit"></i></a>
+                                    <a class="manage-icon" ng-click="saveApplicationId(savedPropose.ApplicationId);showDeleteModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove"></i></a>
+                                    <a class="manage-icon" ng-if="savedPropose.Status >= 4 && savedPropose.Status != 6 && savedPropose.Status != 7" ng-click="saveApplicationId(savedPropose.ApplicationId);showSubmitModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="提交"><i class="fa fa-check"></i></a>
+                                    <a class="manage-icon" ng-if="savedPropose.Status < 4" data-toggle="tooltip" data-placement="top" title="" data-original-title="请先填写完毕"><i class="fa fa-check" style="color:gray"></i></a>
+                                    <a class="manage-icon" ng-if="savedPropose.Status == 6 || savedPropose.Status == 7" data-toggle="tooltip" data-placement="top" title="" data-original-title="请先修改申请书"><i class="fa fa-check" style="color:gray"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!--测试用提示信息-->
+                    <div ng-if="debugger">{{savedProposes}}</div>
+					
+					<br />
+
+                    <div class="callout callout-warning" ng-show="noPropose">
+                        <h4>注意!</h4>
+
+                        <p>当前还没有任何已保存的申请书！<br /> 您可以点击右上角的新建按钮进行添加！</p>
+                    </div>
+
+				</div>
+				<!-- /.box-body -->
+                <div class="overlay" ng-hide="listAlready">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+			</div>
+
+		</div>
+
+		<!--deleteApplicationModal-->
+		<div class="modal fade" id="deleteApplication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">删除申请书</h3>
+					</div>
+					<div class="modal-body">
+						<h4>确认要删除此申请书？<br /><br />一旦删除您将无法找回此申请书，请谨慎操作！</h4>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteApplication()">确定</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+
+		<!--submitApplicationModal-->
+		<div class="modal fade" id="submitApplication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">提交申请书</h3>
+					</div>
+					<div class="modal-body">
+						<h4>确认要提交此申请书？<br /><br />一旦提交您将只能在撤回后修改此申请书，请谨慎操作！</h4>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="submitApplication()">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+        <!--rejectReasonModal-->
+        <div class="modal fade" id="rejectReasonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">驳回理由</h3>
+                    </div>
+                    <div class="modal-body">
+                        {{rejectReason}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--noPassReasonModal-->
+        <div class="modal fade" id="noPassReasonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">不受理理由</h3>
+                    </div>
+                    <div class="modal-body">
+                        {{noPassReason}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		
+		<!--showPDFModal-->
+        <!--<div ng-repeat="savedPropose in savedProposes" class="modal fade" id="{{savedPropose.ProjectName}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        <iframe ng-src="{{'plugins/pdfjs/web/viewer.html?file='+ savedPropose.PDF}}" width="100%" height="800"></iframe>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+
+
+	</body>
+
+</html>

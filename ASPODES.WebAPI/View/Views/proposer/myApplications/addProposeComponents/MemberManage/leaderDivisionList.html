@@ -1,0 +1,105 @@
+﻿
+<h5>项目主持单位</h5>
+<div class="btn-group">
+    <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#addLeaderPersonModal">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+    </button>
+    <button id="btn_delete" type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteLeaderPersonModal">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+    </button>
+    <!--<button id="btn_userReady" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-ok"></span>修改
+    </button>-->
+</div>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>姓名</th>
+            <th>单位</th>
+            <th>身份证号</th>
+            <th>性别</th>
+            <th>专业</th>
+            <th>职称/职务</th>
+            <th>责任分工</th>
+            <th>电话</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="leaderPerson in leaderPersons">
+            <td>
+                <input ng-model="$parent.postPersonId" type="radio" name="personId" value="{{leaderPerson.PersonId}}">
+            </td>
+            <td>{{leaderPerson.Name}}</td>
+            <td>{{leaderPerson.InstName}}</td>
+            <td>{{leaderPerson.IDCard}}</td>
+            <td>{{leaderPerson.Male}}</td>
+            <td>{{leaderPerson.Major}}</td>
+            <td>{{leaderPerson.Title}}</td>
+            <td>{{leaderPerson.Task}}</td>
+            <td>{{leaderPerson.Phone}}</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<!--addLeaderPersonModal-->
+<div class="modal fade" id="addLeaderPersonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">添加主持单位人员</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" autocomplete="off">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="add_in_name" class="col-lg-2 control-label">姓名</label>
+                            <div class="col-lg-10">
+                                <angucomplete-alt placeholder="内部人员" pause="300" selected-object="selectedInstPerson" local-data="selfInstitutePerson" search-fields="Name" title-field="Name" minlength="1" input-class="form-control form-control-small" match-class="highlight"></angucomplete-alt>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="leaderPersonTask" class="col-lg-2 control-label">责任分工</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" ng-model="leaderPersonTask" placeholder="责任分工" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <div class="" ng-show="selectedInstPerson">
+                    您已选择{{selectedInstPerson.originalObject.Name}}，ID为{{selectedInstPerson.originalObject.PersonId}}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addLeaderPerson(selectedInstPerson.originalObject.PersonId)">添加</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<!--deleteLeaderPersonModal-->
+<div class="modal fade" id="deleteLeaderPersonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">删除参加成员</h4>
+            </div>
+            <div class="modal-body">
+                <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>确认要删除此参加成员吗？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" ng-click="delPerson()" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

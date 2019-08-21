@@ -1,0 +1,61 @@
+﻿<form class="form-horizontal" name="BasicInfo" novalidate>
+
+    <fieldset>
+
+        <legend>项目信息</legend>
+        <br />
+        <br />
+        <div class="form-group">
+            <label class="col-lg-3 control-label">工作任务名称</label>
+            <div class="col-lg-9">
+                <input class="form-control" ng-model="basicInfo.Name" disabled />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">当前任务年度</label>
+            <div class="col-lg-3">
+                <input class="form-control" ng-model="basicInfo.Year" disabled />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">项目类型</label>
+            <div class="col-lg-9">
+                <input class="form-control" ng-model="basicInfo.ProjectTypeName" disabled />
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <legend>经费信息</legend>
+        <br />
+        <br />
+        <div class="form-group">
+            <label class="col-lg-3 control-label">总经费</label>
+            <div class="col-lg-9">
+                <input class="form-control" ng-model="basicInfo.TotalBudget" disabled />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">本年度经费</label>
+            <div class="col-lg-9">
+                <input class="form-control" ng-model="basicInfo.CurrentBudget" disabled />
+            </div>
+        </div>
+
+        <br />
+
+        <!--<legend>摘要</legend>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">摘要</label>
+            <div class="col-lg-9">
+                <input class="form-control" ng-model="basicInfo.Name" disabled />
+            </div>
+        </div>-->
+
+    </fieldset>
+</form>

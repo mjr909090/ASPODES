@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngRoleSettingApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+
+</head>
+<body ng-controller="ngRoleSettingCtrl">
+
+    <div class="content container">
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 系统管理</a>
+            </li>
+            <li>
+                <a>设置</a>
+            </li>
+            <li class="active">院管理员设置</li>
+        </ol>
+
+        <div class="box box-solid">
+            <div class="box-header ui-sortable-handle bg-green">
+                <i class="fa fa-sticky-note"></i>
+
+                <h3 class="box-title">院管理员设置</h3>
+                <!-- tools box -->
+                <div class="pull-right box-tools">
+                    <!-- button with a dropdown -->
+                    <button type="button" class="btn btn-success btn-sm" ng-click="addSuperAdminModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="添加院管理员"><i class="fa fa-user-plus"></i></button>
+                    <button type="button" class="btn btn-success btn-sm" data-widget="collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="最小化"><i class="fa fa-minus"></i></button>
+                </div>
+                <!-- /. tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" ng-init="postId = null" style="display: block;">
+
+                <br />
+                <table class="table table-hover saved-table">
+                    <thead>
+                        <tr>
+                            <th class="table-left">姓名</th>
+                            <th class="table-left">英文名</th>
+                            <th class="table-left">电子邮箱</th>
+                            <th class="table-left">手机号码</th>
+                            <th class="table-left">身份证号</th>
+                            <th class="table-left">所在单位</th>
+                            <th class="table-middle" style="width: 120px">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="superAdmin in superAdminList">
+                            <td>{{superAdmin.Name}}</td>
+                            <td>{{superAdmin.EnglishName}}</td>
+                            <td>{{superAdmin.Email}}</td>
+                            <td>{{superAdmin.Phone}}</td>
+                            <td>{{superAdmin.IDCard}}</td>
+                            <td>{{superAdmin.InstituteName}}</td>
+                            <td class="table-middle">
+                                <a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="分配类型" ng-click="showSetDutyModal(superAdmin.PersonId)"><i class="fa fa-random"></i></a>
+                                <a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除" ng-click="dismissSuperAdmin(superAdmin.PersonId)"><i class="fa fa-user-times"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br />
+
+                <div class="callout callout-warning" ng-show="noSuperAdmin">
+                    <h4>注意!</h4>
+
+                    <p>当前还没有任何已经添加的院管理员！<br /> 您可以点击右上角的新建按钮进行添加！</p>
+                </div>
+
+                <br />
+                <br />
+
+                <ul class="pager">
+                    <li class="previous" ng-class="{true:'disabled'}[NowPage == 1]"><a ng-click="getPrePageList(NowPage-1)">&larr; 上一页</a></li>
+                    <li class="next" ng-class="{true:'disabled'}[NowPage == TotalPageNum]"><a ng-click="getNextPageList(NowPage+1)">下一页 &rarr;</a></li>
+                </ul>
+
+            </div>
+            <!-- /.box-body -->
+
+            <div class="overlay" ng-hide="superAdminListReady">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!--addSuperAdminModal-->
+    <div class="modal fade" id="AddSuperAdmin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">添加院管理员</h3>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="box box-solid">
+                        <div class="box-header ui-sortable-handle bg-green">
+                            <input type="radio" name="selectAddType" value="0" ng-model="selectAddType" />
+                            我要从已有人员中选取
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body" style="display: block;" ng-show="selectAddType == 0">
+                            <div>
+                                <form class="form-horizontal">
+                                    <fieldset>
+                                        <legend>选择人员</legend>
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-2">人员</label>
+                                            <div class="col-lg-10">
+                                                <select class="form-control" ng-model="selectSuperAdminPerson" ng-options="headQuatePerson.PersonId as headQuatePerson.Name for headQuatePerson in headQuatePersonList">
+                                                    <option value="" disabled>-------请选择欲添加的人员-------</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+
+
+                    <div class="box box-solid">
+                        <div class="box-header ui-sortable-handle bg-green">
+                            <input type="radio" name="selectAddType" value="1" ng-model="selectAddType" />
+                            我要直接填写信息
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body" style="display: block;" ng-show="selectAddType == 1">
+                            <div>
+                                <form id="addUserForm" class="form-horizontal" role="form" name="AddUserForm" novalidate>
+                                    <div class="form-group" ng-class="{true:'has-error'}[(AddUserForm.FirstName.$dirty && AddUserForm.FirstName.$invalid)||(AddUserForm.FirstName.$pristine && addForm.submitted)]">
+                                        <label class="col-sm-2 control-label">姓<span style="color:red;">*</span></label>
+                                        <div class="col-sm-3">
+                                            <input name="FirstName"
+                                                   ng-model="addSuperAdmin.FirstName"
+                                                   type="text"
+                                                   class="form-control"
+                                                   id="FirstName"
+                                                   placeholder="姓"
+                                                   ng-pattern="/[\u4e00-\u9fa5]/"
+                                                   autocomplete="off"
+                                                   required />
+                                            <div ng-show="(AddUserForm.FirstName.$dirty && AddUserForm.FirstName.$invalid)||(AddUserForm.FirstName.$pristine && addForm.submitted)" style="width: 100%;">
+                                                <small class="error" ng-show="(AddUserForm.FirstName.$error.required || (AddUserForm.FirstName.$pristine && addForm.submitted)) && (! AddUserForm.FirstName.$error.pattern)">姓氏不能为空</small>
+                                                <small class="error" ng-show="AddUserForm.FirstName.$error.pattern">输入的姓氏必须为中文</small>
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-1 control-label">名<span style="color:red;">*</span></label>
+                                        <div class="col-sm-6">
+                                            <input name="LastName"
+                                                   ng-model="addSuperAdmin.LastName"
+                                                   type="text"
+                                                   class="form-control"
+                                                   id="LastName"
+                                                   placeholder="名"
+                                                   ng-pattern="/[\u4e00-\u9fa5]/"
+                                                   autocomplete="off"
+                                                   required />
+                                            <div ng-show="(AddUserForm.LastName.$dirty && AddUserForm.LastName.$invalid)||(AddUserForm.LastName.$pristine && addForm.submitted)" style="width: 100%;">
+                                                <small class="error" ng-show="(AddUserForm.LastName.$error.required || (AddUserForm.LastName.$pristine && addForm.submitted)) && (! AddUserForm.LastName.$error.pattern)">名字不能为空</small>
+                                                <small class="error" ng-show="AddUserForm.LastName.$error.pattern">输入的名字必须为中文</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{true:'has-error'}[(AddUserForm.EnglishName.$dirty && AddUserForm.EnglishName.$invalid)||(AddUserForm.EnglishName.$pristine && addForm.submitted)]">
+                                        <label class="col-sm-2 control-label">英文名字<span style="color:red;">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input name="EnglishName"
+                                                   ng-model="addSuperAdmin.EnglishName"
+                                                   type="text"
+                                                   class="form-control"
+                                                   id="EnglishName"
+                                                   placeholder="English Name"
+                                                   ng-pattern="/[a-zA-Z]/"
+                                                   autocomplete="off"
+                                                   required />
+                                            <div ng-show="(AddUserForm.EnglishName.$dirty && AddUserForm.EnglishName.$invalid)||(AddUserForm.EnglishName.$pristine && addForm.submitted)" style="width: 100%;">
+                                                <small class="error" ng-show="(AddUserForm.EnglishName.$error.required || (AddUserForm.EnglishName.$pristine && addForm.submitted)) && (! AddUserForm.EnglishName.$error.pattern)">英文名不能为空</small>
+                                                <small class="error" ng-show="AddUserForm.EnglishName.$error.pattern">输入的名字必须为英文</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender" class="col-sm-2 control-label">性别<span style="color:red;">*</span></label>
+                                        <div class="col-sm-4 form-inline">
+                                            <div class="radio">
+                                                <label>
+                                                    <input name="Male"
+                                                           value="男"
+                                                           type="radio"
+                                                           ng-model="addSuperAdmin.Male"
+                                                           required />
+                                                    男
+                                                </label>
+                                            </div>
+                                            <div class="radio" style="margin-left:16px;">
+                                                <label>
+                                                    <input name="Male"
+                                                           value="女"
+                                                           type="radio"
+                                                           ng-model="addSuperAdmin.Male"
+                                                           required />
+                                                    女
+                                                </label>
+                                            </div>
+                                            <div ng-show="(AddUserForm.Male.$pristine)&&(addForm.submitted)" style="width: 100%;">
+                                                <small class="error" ng-show="AddUserForm.Male.$error.required">性别不能为空</small>
+                                            </div>
+                                        </div>
+                                        <label for="gender" class="col-sm-2 control-label">出生日期<span style="color:red;">*</span></label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group date datepicker" data-provide="datepicker">
+                                                <input type="text" name="Birthday" class="form-control" ng-model="addSuperAdmin.Birthday" autocomplete="off" required />
+                                                <div class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-th"></span>
+                                                </div>
+                                            </div>
+                                            <div ng-show="(AddUserForm.Birthday.$pristine)&&(addForm.submitted)" style="width: 100%;">
+                                                <small class="error" ng-show="AddUserForm.Birthday.$error.required">出生日期不能为空</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{true:'has-error'}[(AddUserForm.IDCard.$dirty && AddUserForm.IDCard.$invalid)||(AddUserForm.Birthday.$pristine && addForm.submitted)]">
+                                        <label class="col-sm-2 control-label">身份证号<span style="color:red;">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input name="IDCard"
+                                                   ng-model="addSuperAdmin.IDCard"
+                                                   type="text"
+                                                   class="form-control"
+                                                   id="IDCard"
+                                                   placeholder="请输入有效居民身份证号"
+                                                   autocomplete="off"
+                                                   ng-pattern="/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/"
+                                                   required />
+                                            <div ng-show="(AddUserForm.IDCard.$dirty && AddUserForm.IDCard.$invalid)||(AddUserForm.IDCard.$pristine && addForm.submitted)" style="width: 100%;">
+                                                <small class="error" ng-show="(AddUserForm.IDCard.$error.required || (AddUserForm.IDCard.$pristine && addForm.submitted)) && (! AddUserForm.IDCard.$error.pattern)">身份证号不能为空</small>
+                                                <small class="error" ng-show="AddUserForm.IDCard.$error.pattern">身份证号格式错误</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">职称</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" ng-model="addSuperAdmin.Title" autocomplete="off">
+                                        </div>
+                                        <label class="col-sm-2 control-label">职务</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" ng-model="addSuperAdmin.Duty" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{true:'has-error'}[(AddUserForm.Email.$dirty && AddUserForm.Email.$invalid)||(AddUserForm.Email.$pristine && addForm.submitted)]">
+                                        <label for="email" class="col-sm-2 control-label">电子邮箱<span style="color:red;">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input name="Email"
+                                                   ng-model="addSuperAdmin.Email"
+                                                   type="text"
+                                                   class="form-control"
+                                                   id="Email"
+                                                   ng-pattern="/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/"
+                                                   autocomplete="off"
+                                                   required />
+                                            <div ng-show="(AddUserForm.Email.$dirty && AddUserForm.Email.$invalid)||(AddUserForm.Email.$pristine && addForm.submitted)" style="width: 100%;">
+                                                <small class="error" ng-show="(AddUserForm.Email.$error.required || (AddUserForm.Email.$pristine && addForm.submitted)) && (! AddUserForm.Email.$error.pattern)">电子邮箱不能为空</small>
+                                                <small class="error" ng-show="AddUserForm.Email.$error.pattern">请注意邮箱格式</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{true:'has-error'}[(AddUserForm.Phone.$dirty && AddUserForm.Phone.$invalid)||(AddUserForm.Phone.$pristine && addForm.submitted)]">
+                                        <label for="phone" class="col-sm-2 control-label">手机号码<span style="color:red;">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input name="Phone"
+                                                   ng-model="addSuperAdmin.Phone"
+                                                   type="text"
+                                                   class="form-control"
+                                                   id="Phone"
+                                                   ng-pattern="/^\d{11}$/"
+                                                   autocomplete="off"
+                                                   required />
+                                            <div ng-show="(AddUserForm.Phone.$dirty && AddUserForm.Phone.$invalid)||(AddUserForm.Phone.$pristine && addForm.submitted)" style="width: 100%;">
+                                                <small class="error" ng-show="(AddUserForm.Phone.$error.required || (AddUserForm.Phone.$pristine && addForm.submitted)) && (! AddUserForm.Phone.$error.pattern)">手机号码不能为空</small>
+                                                <small class="error" ng-show="AddUserForm.Phone.$error.pattern">手机号码必须为11位数字</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="officePhone" class="col-sm-2 control-label">办公电话</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="addSuperAdmin.OfficePhone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address" class="col-sm-2 control-label">所在地址</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="addSuperAdmin.Address">
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="addSuperAdminFun()">确定</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!--setDutyModal-->
+    <div class="modal fade" id="setDuty" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">设置负责类型</h3>
+                </div>
+                <div class="modal-body">
+                    <ul class="todo-list ui-sortable">
+                        <li ng-repeat="superAdminDuty in superAdminDutys">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="superAdminDuty.Checked"> {{superAdminDuty.ProjectTypeName}}
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="putSuperAdminDutys()">确定</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+</body>
+</html>

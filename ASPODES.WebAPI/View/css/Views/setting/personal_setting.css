@@ -1,0 +1,17 @@
+.manage-icon{
+	font-size: large;
+	margin-left: 8px;
+	color: #00C0EF;
+}
+
+.table-left{
+	text-align: left;
+}
+
+.table-middle{
+	text-align: center;
+}
+
+.error{
+    color:red;
+}

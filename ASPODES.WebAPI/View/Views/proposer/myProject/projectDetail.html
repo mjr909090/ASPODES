@@ -1,0 +1,410 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngProjectDetailApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <link rel="stylesheet" href="../../../css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../../css/ionicons.min.css" />
+    <link href="../../../bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../dist/css/AdminLTE.min.css" />
+    <link rel="stylesheet" href="../../../dist/css/skins/_all-skins.min.css" />
+    <link href="../../../css/Views/proposer/projectDetail.css" rel="stylesheet" />
+
+    <script src="../../../js/jquery-2.2.3.js"></script>
+    <script src="../../../js/bootstrap.js"></script>
+    <script src="../../../js/angular.js"></script>
+    <script src="../../../js/Views/proposer/myProject/projectDetail.js"></script>
+    <script type="text/javascript" src="../../../dist/js/app.min.js"></script>
+    <script type="text/javascript" src="../../../js/Views/proposer/myProject/projectDetail.js"></script>
+
+    <script src="../../../js/Service/interceptorFactory.js"></script>
+
+
+</head>
+<body ng-controller="ngProjectDetailCtrl">
+
+    <div class="container">
+
+        <div class="Title">
+            <h1>{{projectDetail.Name}}</h1>
+        </div>
+
+        <div class="publishDate">日期：{{projectDetail.StartDate | date:'yyyy-MM-dd'}} -- {{projectDetail.EndDate | date:'yyyy-MM-dd'}}</div>
+
+        <div class="cutline"></div>
+
+        <div class="projectDetailBody">
+
+
+            <div class="assignmentBook">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">任务书</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <ul class="products-list product-list-in-box">
+                            <li class="item" ng-repeat="annualTask in projectDetail.AnnualTasks">
+                                <div class="product-info">
+                                    <a href="javascript:void(0)" class="product-title">
+                                        {{annualTask.Name}}
+                                        <i class="fa fa-dollar pull-right manageLable" ng-click="showBudgetModal()" data-toggle="tooltip" data-placement="top" title="" data-original-title="查看经费"></i>
+                                        <i class="fa fa-download pull-right manageLable" ng-click="downloadYearReport(annualTask.AnnualTaskId)" ng-if="annualTask.Status >= 6" data-toggle="tooltip" data-placement="top" title="" data-original-title="年度报告下载"></i>
+                                        <i class="fa fa-download pull-right manageLable" ng-click="downloadPDF(annualTask.AnnualTaskId)" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF下载"></i>
+                                    </a>
+                                    <span class="product-description">
+                                        <span class="label label-info"><i class="fa fa-clock-o"></i> {{annualTask.EditTime | date:'yyyy-MM-dd'}}</span>
+                                        <span class="label" ng-class="{'label-warning': annualTask.Status == 1 || annualTask.Status == 3, 'label-error':annualTask.Status == 2 || annualTask.Status == 4, 'label-success': annualTask.Status == 0 || annualTask.Status == 5}"><i class="fa fa-check"></i> {{annualTask.Status | changeAnnualTaskStatus}}</span>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+
+            <div class="projectFile">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">文档</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                        <div class="warningMsg" ng-if="projectDetail.Docs.length == 0">
+                            <div class="callout callout-warning">
+                                <h4>注意!</h4>
+
+                                <p>当前项目还没有已经上传的文档！</p>
+                            </div>
+                        </div>
+
+                        <ul class="products-list product-list-in-box">
+                            <li class="item" ng-repeat="file in projectDetail.Docs">
+                                <div class="product-info">
+                                    <a href="javascript:void(0)" class="product-title">
+                                        {{file.Name}}
+                                        <i class="fa fa-download pull-right manageLable" ng-if="file.Type == 1" ng-click="downloadDoc(file.ProjectDocId, file.Name)" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"></i>
+                                        <i class="fa fa-download pull-right manageLable" ng-if="file.Type == 0" ng-click="downloadEndReport(file.ProjectDocId, file.Name)" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"></i>
+                                    </a>
+                                    <span class="product-description">
+                                        <span class="label label-info">{{file.Type | changeFileType}}</span>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+
+            <!--<div class="annualReport">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">年度报告</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <ul class="products-list product-list-in-box">
+                            <li class="item">
+                                <div class="product-info">
+                                    <a href="javascript:void(0)" class="product-title">
+                                        2015年度年度总结
+                                        <i class="fa fa-download pull-right manageLable" ng-click="downloadYearReport()" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"></i>
+                                    </a>
+                                    <span class="product-description">
+                                        <span class="label label-info"><i class="fa fa-clock-o"></i> 2015-3-14</span>
+                                        <span class="label label-success"><i class="fa fa-check"></i> 审核通过</span>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="memberDetail">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">人员详情</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        
+                        <h5>主持单位人员</h5>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>姓名</th>
+                                    <th>ID</th>
+                                    <th>责任分工</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- style="background-color:#d0f8ce"-->
+                                <tr style="background-color:greenyellow">
+                                    <td>{{projectDetail.Leader.PersonName}}</td>
+                                    <td>{{projectDetail.Leader.UserName}}</td>
+                                    <td>{{projectDetail.Leader.Task}}</td>
+                                </tr>
+                                <tr ng-repeat="member in projectDetail.HostDepartMembers">
+                                    <td>{{member.PersonName}}</td>
+                                    <td>{{member.UserName}}</td>
+                                    <td>{{member.Task}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <br />
+                        <br />
+
+                        <h5 ng-if="projectDetail.OtherDepartMember.length != 0">协作单位人员</h5>
+                        <table class="table table-bordered table-hover" ng-if="projectDetail.OtherDepartMember.length != 0">
+                            <thead>
+                                <tr>
+                                    <th>姓名</th>
+                                    <th>ID</th>
+                                    <th>单位</th>
+                                    <th>责任分工</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="member in projectDetail.OtherDepartMembers">
+                                    <td>{{member.PersonName}}</td>
+                                    <td>{{member.UserName}}</td>
+                                    <td>{{member.InstituteName}}</td>
+                                    <td>{{member.Task}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+    <!--memberModal-->
+    <div class="modal fade" id="memberDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">人员详情</h3>
+                </div>
+                <div class="modal-body">
+
+                    <h2>主持单位人员</h2>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>ID</th>
+                                <th>责任分工</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color:#d0f8ce">
+                                <td>张江丽</td>
+                                <td>zhangjiangli@777.com</td>
+                                <td>项目负责人</td>
+                            </tr>
+                            <tr>
+                                <td>王世坤</td>
+                                <td>wangshikun@777.com</td>
+                                <td>数据分析</td>
+                            </tr>
+                            <tr>
+                                <td>刘嘉琦</td>
+                                <td>liujiaqi@777.com</td>
+                                <td>实验统计</td>
+                            </tr>
+                            <tr>
+                                <td>张峰</td>
+                                <td>zhangfeng@777.com</td>
+                                <td>科研助理</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <br />
+                    <br />
+
+                    <h2>协作单位人员</h2>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>ID</th>
+                                <th>单位</th>
+                                <th>责任分工</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>高世庆</td>
+                                <td>gaoshiqing@777.com</td>
+                                <td>中国农业科学院茶叶研究所</td>
+                                <td>技术分析</td>
+                            </tr>
+                            <tr>
+                                <td>王晶</td>
+                                <td>wangjing@777.com</td>
+                                <td>中国农业科学院畜牧研究所</td>
+                                <td>技术分析</td>
+                            </tr>
+                            <tr>
+                                <td>王升奎</td>
+                                <td>wangshengkui@777.com</td>
+                                <td>中国农业科学院畜牧研究所</td>
+                                <td>客座教授</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!--budgetModal-->
+    <div class="modal fade" id="budgetDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">人员详情</h3>
+                </div>
+                <div class="modal-body">
+
+                    <h2>科目经费预算</h2>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>科目</th>
+                                <th>预算（万元）</th>
+                                <th>依据与说明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>知识产权事务费</td>
+                                <td>9.00</td>
+                                <td>测试提交经费预算第 1 项</td>
+                            </tr>
+                            <tr>
+                                <td>燃料动力费</td>
+                                <td>8.00</td>
+                                <td>测试提交经费预算第 2 项</td>
+                            </tr>
+                            <tr>
+                                <td>知识产权事务费</td>
+                                <td>9.00</td>
+                                <td>测试提交经费预算第 3 项</td>
+                            </tr>
+                            <tr>
+                                <td>燃料动力费</td>
+                                <td>8.00</td>
+                                <td>测试提交经费预算第 4 项</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <br />
+                    <br />
+
+                    <h2>各单位经费预算</h2>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>单位名称</th>
+                                <th>本年度经费</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>中国农业科学院茶叶研究所</td>
+                                <td>21.00</td>
+                            </tr>
+                            <tr>
+                                <td>中国农业科学院畜牧研究所</td>
+                                <td>29.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!--uploadModal-->
+    <div class="modal fade" id="fileUploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">附件上传</h3>
+                </div>
+                <div class="modal-body">
+
+                    <a class="btn btn-primary" ngf-select="uploadFiles($files, $invalidFiles)" ngf-max-size="10MB">选择文件</a>
+                    <br />
+                    <ul>
+                        <li ng-repeat="f in files" style="font:small">
+                            {{f.name}} &nbsp;&nbsp;&nbsp;{{f .progress;}}%
+                        </li>
+                        <li ng-repeat="f in errFiles" style="font:smaller">{{f.name}}&nbsp;&nbsp;错误：{{f.$error}}{{f.$errorParam}}</li>
+                        <p style="color:red">{{showErrorMsg}}</p>
+                    </ul>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+</body>
+</html>

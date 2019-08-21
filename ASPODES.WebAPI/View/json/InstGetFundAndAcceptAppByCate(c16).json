@@ -1,0 +1,40 @@
+{
+    "status": 0,
+    "response": [
+        {
+            "Category": "联盟重点工作",
+            "FundNumber": 4,
+            "AcceptNumber": 11
+        },
+        {
+            "Category": "应急性科研工作",
+            "FundNumber": 1,
+            "AcceptNumber": 3
+        },
+        {
+            "Category": "科技基础性工作",
+            "FundNumber": 2,
+            "AcceptNumber": 7
+        },
+        {
+            "Category": "基础研究引导计划",
+            "FundNumber": 0,
+            "AcceptNumber": 4
+        },
+        {
+            "Category": "重大成果培育计划",
+            "FundNumber": 7,
+            "AcceptNumber": 15
+        },
+        {
+            "Category": "重大项目储备计划",
+            "FundNumber": 5,
+            "AcceptNumber": 6
+        },
+        {
+            "Category": "农业智库建设计划",
+            "FundNumber": 3,
+            "AcceptNumber": 7
+        }
+    ]
+}

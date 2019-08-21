@@ -1,0 +1,12 @@
+﻿{
+	"IDCard":"身份证号码",
+	"FirstName":"姓",
+	"LastName":"名",
+	"Phone":"手机",
+	"Email":"邮箱",
+	"Duty":"职务",
+	"Title":"职称",
+	"Address":"通信地址",
+	"Zip":"邮编",
+	"OfficePhone":"办公室电话"
+}

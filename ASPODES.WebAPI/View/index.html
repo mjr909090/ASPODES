@@ -1,0 +1,831 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngIndexApp">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="pragma" content="no-cache">
+        <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+        <meta http-equiv="expires" content="0">
+		<title></title>
+
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/ionicons.min.css" />
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="dist/css/AdminLTE.min.css" />
+        <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css" />
+        <link rel="stylesheet" href="plugins/angucomplete-alt/angucomplete-alt.css" />
+        <link rel="stylesheet" href="plugins/notifIt/css/notifIt.min.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="css/table_type.css" />
+
+		<script type="text/javascript" src="dist/js/jquery-2.2.3.js"></script>
+        <script src="js/jquery-migrate-1.4.1.js"></script>
+        <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="plugins/slimScroll/jquery.slimscroll.js"></script>
+        <script type="text/javascript" src="js/angular.min.js"></script>
+        <script src="plugins/echarts.min.js"></script>
+        <script type="text/javascript" src="js/angular-animate.min.js"></script>
+        <script type="text/javascript" src="plugins/angucomplete-alt/angucomplete-alt.js"></script>
+        <script type="text/javascript" src="plugins/notifIt/js/notifIt.min.js"></script>
+        <script type="text/javascript" src="plugins/angular-file-upload/angular-file-upload.js"></script>
+        <script type="text/javascript" src="js/angular-messages.js"></script>
+        <script type="text/javascript" src="dist/js/app.min.js"></script>
+        <script type="text/javascript" src="js/angular-ui-router.min.js"></script>
+        <script type="text/javascript" src="js/angular-cookies.js"></script>
+        <script type="text/javascript" src="js/ocLazyLoad.min.js"></script>
+        <script type="text/javascript" src="plugins/pdfjs/build/pdf.js"></script>
+        <script type="text/javascript" src="plugins/ng-file-upload-bower-12.2.13/ng-file-upload-shim.js"></script>
+        <script type="text/javascript" src="plugins/ng-file-upload-bower-12.2.13/ng-file-upload.js"></script>
+        <script type="text/javascript" src="plugins/pagination/pagination.js"></script>
+        <script type="text/javascript" src="plugins/pagination/multiPagination.js"></script>
+
+
+        <!--<script src="plugins/fullpage.js/js/jquery.fullPage.js"></script>
+        <script src="plugins/angular-fullpage.js"></script>-->
+
+        <!--service-->
+        <script type="text/javascript" src="js/Service/setDebugger.js"></script>
+        <script type="text/javascript" src="js/Service/selectAllFunction.js"></script>
+        <script type="text/javascript" src="js/Service/publicFunction.js"></script>
+        <script type="text/javascript" src="js/Service/interceptorFactory.js"></script>
+
+		<!--
+        	作者：923470791@qq.com
+        	时间：2017-04-10
+        	描述：路由依赖JS
+        -->
+		<script type="text/javascript" src="js/Views/index.js"></script>
+	</head>
+
+	<body class="fixed skin-blue sidebar-mini" ng-controller="ngIndexCtrl">
+
+		<div class="wrapper" style="height: auto;">
+
+			<header class="main-header">
+
+				<!-- Logo -->
+				<a class="logo">
+					<!-- mini logo for sidebar mini 50x50 pixels -->
+					<span class="logo-mini"><b>A</b></span>
+					<!-- logo for regular state and mobile devices -->
+					<span class="logo-lg"><b>Aspo</b>des</span>
+				</a>
+
+				<!-- Header Navbar: style can be found in header.less -->
+				<nav class="navbar navbar-static-top">
+					<!-- Sidebar toggle button-->
+					<a class="sidebar-toggle" data-toggle="offcanvas" role="button">
+						<span class="sr-only">Toggle navigation</span>
+					</a>
+					<!-- Navbar Right Menu -->
+					<div class="navbar-custom-menu">
+						<ul class="nav navbar-nav">
+							<!-- Notifications: style can be found in dropdown.less -->
+							<li class="dropdown notifications-menu">
+								<a class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-bell-o"></i>
+									<span class="label label-warning" ng-hide="noticeList.TotalNum == 0">{{ noticeList.TotalNum }}</span>
+								</a>
+								<ul class="dropdown-menu" style="font-family: Microsoft YaHei;">
+									<li class="header">
+                                        您有{{ noticeList.TotalNum }}条新通知
+                                    </li>
+									<li>
+										<!-- inner menu: contains the actual data -->
+										<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;">
+											<ul class="menu" style="overflow: hidden; width: 100%;">
+                                                <li ng-repeat="notice in noticeList.ItemDTOs | limitTo:4 | orderBy:'-SendTime'">
+                                                    <a style="padding:10px 10px 0px 10px;font-size: 12px;color: #444444;" ng-click="clickNotice(notice)">
+                                                        <i class="fa fa-check text-green" ng-if="notice.Type == 'Success'" style="font-size:14px"></i>
+                                                        <i class="fa fa-clock-o text-yellow" ng-if="notice.Type == 'Warning'" style="font-size:14px"></i>
+                                                        <i class="fa fa-calendar-check-o text-aqua" ng-if="notice.Type == 'Primary'" style="font-size:14px"></i>
+                                                        <i class="fa fa-exclamation-triangle text-red" ng-if="notice.Type == 'Error'" style="font-size:14px"></i>
+                                                        {{ notice.NoticeContent }}
+                                                        <p style=" font-size: 8px;color: #A2A2A2;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notice.SendTime | date:'yyyy-MM-dd hh:mm:ss' }}</p>
+                                                    </a>
+                                                </li>
+											</ul>
+											<div class="slimScrollBar" style="width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div>
+											<div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
+										</div>
+									</li>
+									<li class="footer">
+										<a href="#/notice-yuan">查看全部</a>
+									</li>
+								</ul>
+							</li>
+							<!-- User Account: style can be found in dropdown.less -->
+							<li class="dropdown user user-menu">
+								<a class="dropdown-toggle" data-toggle="dropdown">
+									<img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+									<span class="hidden-xs">{{UserName}}</span>
+								</a>
+								<ul class="dropdown-menu">
+									<!-- User image -->
+									<li class="user-header">
+										<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+										<p>
+											{{UserName}}
+											<small>创建于2017-4-1</small>
+										</p>
+									</li>
+									<!-- Menu Footer-->
+									<li class="user-footer">
+										<div class="pull-left">
+                                            <a ui-sref="personal_setting" class="btn btn-default btn-flat">信息</a>
+										</div>
+										<div class="pull-right">
+											<a class="btn btn-default btn-flat" ng-click="Logout()">注销</a>
+										</div>
+									</li>
+								</ul>
+							</li>
+
+							<!-- testRoleSelect -->
+							<li class="dropdown tasks-menu">
+								<a class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-gears"></i>
+								</a>
+								<ul class="dropdown-menu">
+									<li class="header">角色选择</li>
+									<li>
+										<!-- inner menu: contains the actual data -->
+										<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;">
+											<ul class="menu" style="overflow: hidden; width: 100%; height: 80px;">
+                                                <li ng-show="roleSelects.proposer == true">
+                                                    <!-- Task item -->
+                                                    <label>
+                                                        <input type="checkbox" name="roleSelect" ng-model="role.proposer" /> 申请人
+                                                    </label>
+                                                </li>
+												<!-- end task item -->
+                                                <li ng-show="roleSelects.expert == true">
+                                                    <!-- Task item -->
+                                                    <label>
+                                                        <input type="checkbox" name="roleSelect" ng-model="role.expert" /> 初审专家
+                                                    </label>
+                                                </li>
+												<!-- end task item -->
+                                                <li ng-show="roleSelects.divisionAdmin == true">
+                                                    <!-- Task item -->
+                                                    <label>
+                                                        <input type="checkbox" name="roleSelect" ng-model="role.divisionAdmin" /> 单位管理员
+                                                    </label>
+                                                </li>
+												<!-- end task item -->
+                                                <li ng-show="roleSelects.superAdmin == true">
+                                                    <!-- Task item -->
+                                                    <label>
+                                                        <input type="checkbox" name="roleSelect" ng-model="role.superAdmin" /> 院管理员
+                                                    </label>
+                                                </li>
+												<!-- end task item -->
+                                                <li ng-show="roleSelects.systemAdmin == true">
+                                                    <!-- Task item -->
+                                                    <label>
+                                                        <input type="checkbox" name="roleSelect" ng-model="role.systemAdmin" /> 系统管理员
+                                                    </label>
+                                                </li>
+											</ul>
+											<div class="slimScrollBar" style="width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div>
+											<div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
+										</div>
+									</li>
+								</ul>
+							</li>
+							<!-- /testRoleSelect -->
+
+							<!-- Control Sidebar Toggle Button -->
+							<!--<li>
+								<a data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+							</li>-->
+						</ul>
+					</div>
+
+				</nav>
+			</header>
+
+			<aside class="main-sidebar">
+				<!-- sidebar: style can be found in sidebar.less -->
+				<section class="sidebar" style="height: auto;">
+					<!-- Sidebar user panel -->
+					<div class="user-panel">
+						<div class="pull-left image">
+							<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+						</div>
+						<div class="pull-left info">
+							<p>{{UserName}}</p>
+							<a><i class="fa fa-circle text-success"></i> Online</a>
+						</div>
+					</div>
+
+                    <br />
+
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a ui-sref="home">
+                                <i class="fa fa-home"></i>
+                                <span>首页</span>
+                            </a>
+                        </li>
+                        <li ng-show="roleSelects.divisionAdmin == true || roleSelects.superAdmin == true">
+                            <a ui-sref="statistics">
+                                <i class="fa fa-bar-chart"></i>
+                                <span>统计</span>
+                            </a>
+                        </li>
+                        <li ng-show="roleSelects.divisionAdmin == true || roleSelects.superAdmin == true">
+                            <a ui-sref="applicationInquire">
+                                <i class="fa fa-search"></i>
+                                <span>申请书查询</span>
+                            </a>
+                        </li>
+
+                        <!--项目申请-->
+                        <li class="header" ng-show="role.proposer == true">项目申请</li>
+                        <li class="treeview" ng-show="role.proposer == true">
+                            <a>
+                                <i class="fa  fa-sticky-note"></i> <span> 我的申请书</span>
+                                <!--<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i><small class="label pull-right bg-red" ng-show="noticeNumber.IntRejectAppNum != 0 || noticeNumber.DepartRefuseAppNum != 0"><i class="fa fa-exclamation"></i></small></span>-->
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="applicationSaved">
+                                        <i class="fa fa-circle-o text-yellow"></i>
+                                        申请书草稿
+                                        <!--<span class="pull-right-container" ng-show="noticeNumber.IntRejectAppNum != 0">
+                        <span class="label label-danger pull-right">{{noticeNumber.IntRejectAppNum}}</span>
+                    </span>-->
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ui-sref="applicationSubmit">
+                                        <i class="fa fa-circle-o text-green"></i>
+                                        已提交申请书
+                                        <!--<span class="pull-right-container" ng-show="noticeNumber.DepartRefuseAppNum != 0">
+                        <span class="label label-danger pull-right">{{noticeNumber.DepartRefuseAppNum}}</span>
+                    </span>-->
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ui-sref="applicationInBase"><i class="fa fa-circle-o text-blue"></i> 既往申请书</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.proposer == true">
+                            <a>
+                                <i class="fa fa-calendar-check-o"></i><span> 我的项目</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                    <!--<small class="label pull-right bg-red" ng-show="noticeNumber.DepartATBookNum != 0 || noticeNumber.DepartATTalkNum != 0 || noticeNumber.DepartProjectNum != 0
+                || noticeNumber.IntRejectATBookNum != 0 || noticeNumber.IntRejectATTalkNum != 0 || noticeNumber.IntRejectProjectNum != 0">
+                                               <i class="fa fa-exclamation"></i>
+                                           </small>-->
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="project_host">
+                                        <i class="fa fa-circle-o text-green"></i>
+                                        我主持的项目
+                                        <!--<span class="pull-right-container" ng-show="noticeNumber.DepartATBookNum != 0 || noticeNumber.DepartATTalkNum != 0 || noticeNumber.DepartProjectNum != 0
+                                                             || noticeNumber.IntRejectATBookNum != 0 || noticeNumber.IntRejectATTalkNum != 0 || noticeNumber.IntRejectProjectNum != 0">
+                        <span class="label label-danger pull-right">{{noticeNumber.DepartATBookNum + noticeNumber.DepartATTalkNum + noticeNumber.DepartProjectNum + noticeNumber.IntRejectATBookNum + noticeNumber.IntRejectATTalkNum + noticeNumber.IntRejectProjectNum}}</span>
+                    </span>-->
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ui-sref="project_partake"><i class="fa fa-circle-o text-yellow"></i>我参与的项目</a>
+                                </li>
+                                <li ng-hide="true">
+                                    <a ui-sref="conclusion_rejected"><i class="fa fa-circle-o text-red"></i> 被驳回的结题申请</a>
+                                </li>
+                                <li ng-hide="true">
+                                    <a ui-sref="assignment_rejected"><i class="fa fa-circle-o text-red"></i> 被驳回的任务书</a>
+                                </li>
+                                <li ng-hide="true">
+                                    <a ui-sref="document_rejected"><i class="fa fa-circle-o text-red"></i> 被驳回的文档</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!--专家评议-->
+                        <li class="header" ng-show="role.expert == true">专家评议</li>
+                        <li ng-show="role.expert == true">
+                            <a ui-sref="preReview">
+                                <i class="fa fa-file-o"></i>
+                                <span>待评审申请书</span>
+                            </a>
+                        </li>
+                        <li ng-show="role.expert == true">
+                            <a ui-sref="currentReview">
+                                <i class="fa fa-file-text-o"></i>
+                                <span>本年度评审记录</span>
+                            </a>
+                        </li>
+                        <li ng-show="role.expert == true">
+                            <a ui-sref="finishedReview">
+                                <i class="fa fa-file-text-o"></i>
+                                <span>既往评审记录</span>
+                            </a>
+                        </li>
+                        <li ng-show="role.expert == true" ng-hide="hideProject">
+                            <a ui-sref="projectInfo">
+                                <i class="fa fa-folder-o"></i>
+                                <span>项目信息</span>
+                            </a>
+                        </li>
+
+                        <!--单位管理-->
+                        <li class="header" ng-show="role.divisionAdmin == true">单位管理</li>
+                        <li class="treeview" ng-show="role.divisionAdmin == true">
+                            <a>
+                                <i class="fa fa-files-o"></i>
+                                <span>申请书管理</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i><small class="label pull-right bg-green" ng-show="noticeNumber.IntAppNum != 0">New</small></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="divisionApplication">
+                                        <i class="fa fa-circle-o text-yellow"></i>
+                                        待审核申请书
+                                        <span class="pull-right-container" ng-show="noticeNumber.IntAppNum != 0">
+                                            <span class="label label-primary pull-right">{{noticeNumber.IntAppNum}}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ui-sref="divisionApplicationRejected"><i class="fa fa-circle-o text-red"></i> 已驳回申请书</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="divisionApplicationSubmit"><i class="fa fa-circle-o text-green"></i> 已通过申请书</a>
+                                </li>
+                                <li ng-hide="hideProject">
+                                    <a ui-sref="divisionDirectedDelegation"><i class="fa fa-circle-o text-blue"></i> 定向委托申请书</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="finishedApplication"><i class="fa fa-circle-o text-green"></i> 既往申请书</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.divisionAdmin == true">
+                            <a>
+                                <i class="fa fa-folder-o"></i>
+                                <span>项目管理</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                    <small class="label pull-right bg-green" ng-show="noticeNumber.IntATBookNum != 0 || noticeNumber.IntATTalkNum != 0 || noticeNumber.IntProjectNum != 0">New</small>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="divisionHost"><i class="fa fa-circle-o text-green"></i> 本单位主持项目</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="divisionParticipate"><i class="fa fa-circle-o text-yellow"></i> 本单位参与项目</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="auditAssignBook">
+                                        <i class="fa fa-circle-o text-yellow"></i>
+                                        待审核任务书
+                                        <span class="pull-right-container" ng-show="noticeNumber.IntATBookNum != 0">
+                                            <span class="label label-primary pull-right">{{noticeNumber.IntATBookNum}}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li ng-hide="true">
+                                    <a ui-sref="auditDocument"><i class="fa fa-circle-o text-yellow"></i> 待审核文档</a>
+                                </li>
+                                <li ng-hide="true">
+                                    <a ui-sref="auditMidTermReport"><i class="fa fa-circle-o text-yellow"></i> 中期报告</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="auditAnnualSummary">
+                                        <i class="fa fa-circle-o text-yellow"></i>
+                                        年度总结
+                                        <span class="pull-right-container" ng-show="noticeNumber.IntATTalkNum != 0">
+                                            <span class="label label-primary pull-right">{{noticeNumber.IntATTalkNum}}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ui-sref="auditConcludeReport">
+                                        <i class="fa fa-circle-o text-yellow"></i>
+                                        结题报告
+                                        <span class="pull-right-container" ng-show="noticeNumber.IntProjectNum != 0">
+                                            <span class="label label-primary pull-right">{{noticeNumber.IntProjectNum}}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li ng-hide="true">
+                                    <a ui-sref="auditKnotApplication"><i class="fa fa-circle-o text-yellow"></i> 待审核结题申请</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.divisionAdmin == true">
+                            <a>
+                                <i class="fa fa-users"></i>
+                                <span>人员管理</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="divisionUserList"><i class="fa fa-circle-o text-blue"></i> 用户列表</a>
+                                </li>
+                                <li ng-hide="hideProject">
+                                    <a ui-sref="batchImport"><i class="fa fa-circle-o text-blue"></i> 批量导入</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="userDelete"><i class="fa fa-circle-o text-red"></i> 已删除用户</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.divisionAdmin == true">
+                            <a>
+                                <i class="fa fa-graduation-cap"></i>
+                                <span>专家</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="expertsList"><i class="fa fa-circle-o text-blue"></i> 专家列表</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="expertsRecommend"><i class="fa fa-circle-o text-green"></i> 专家推荐</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li ng-show="role.divisionAdmin == true" ng-hide="hideProject">
+                            <a ui-sref="timeSetting">
+                                <i class="fa fa-clock-o"></i>
+                                <span>申请期限设置</span>
+                            </a>
+                        </li>
+                        <li ng-show="role.divisionAdmin == true">
+                            <a ui-sref="infoMaintain">
+                                <i class="fa fa-wrench"></i>
+                                <span>单位信息维护</span>
+                            </a>
+                        </li>
+                        <li ng-show="role.divisionAdmin == true" ng-hide="hideProject">
+                            <a ui-sref="inform">
+                                <i class="fa fa-info-circle"></i>
+                                <span>通知</span>
+                            </a>
+                        </li>
+                        <li ng-show="role.divisionAdmin == true">
+                            <a ui-sref="announcement">
+                                <i class="fa fa-info-circle"></i>
+                                <span>公告</span>
+                            </a>
+                        </li>
+
+
+                        <!--全院管理-->
+                        <li class="header" ng-show="role.superAdmin == true">全院管理</li>
+                        <li class="treeview" ng-show="role.superAdmin == true">
+                            <a>
+                                <i class="fa fa-files-o"></i>
+                                <span>申请书管理</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i><small class="label pull-right bg-green" ng-show="noticeNumber.DepartAppNum != 0">New</small></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="applicationUnhandled">
+                                        <i class="fa fa-circle-o text-yellow"></i>
+                                        待受理申请书
+                                        <span class="pull-right-container" ng-show="noticeNumber.DepartAppNum != 0">
+                                            <span class="label label-primary pull-right">{{noticeNumber.DepartAppNum}}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ui-sref="applicationAccepted"><i class="fa fa-circle-o text-green"></i> 已受理申请书</a>
+                                </li>
+                                <li ng-hide="hideProject">
+                                    <a ui-sref="directedDelegation"><i class="fa fa-circle-o text-blue"></i> 定向委托申请书</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="applicationRejeccted"><i class="fa fa-circle-o text-red"></i> 不受理申请书</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="applicationPassed"><i class="fa fa-circle-o text-blue"></i> 既往申请书</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.superAdmin == true">
+                            <a>
+                                <i class="fa fa-cubes"></i>
+                                <span>项目管理</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                    <small class="label pull-right bg-green" ng-show="noticeNumber.DepartATBookNum != 0 || noticeNumber.DepartATTalkNum != 0 || noticeNumber.DepartProjectNum != 0">New</small>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="superAdminHost"><i class="fa fa-circle-o text-green"></i> 分管主持项目</a>
+                                </li>
+                                <li ng-hide="true">
+                                    <a ui-sref="superAdminParticipate"><i class="fa fa-circle-o text-yellow"></i> 分管参与项目</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="superAdmin_auditAssignBook">
+                                        <i class="fa fa-circle-o text-yellow"></i>
+                                        待审核任务书
+                                        <span class="pull-right-container" ng-show="noticeNumber.DepartATBookNum != 0">
+                                            <span class="label label-primary pull-right">{{noticeNumber.DepartATBookNum}}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li ng-hide="true">
+                                    <a ui-sref="superAdmin_auditDocument"><i class="fa fa-circle-o text-yellow"></i> 待审核文档</a>
+                                </li>
+                                <li ng-hide="true">
+                                    <a ui-sref="superAdmin_auditMidTermReport"><i class="fa fa-circle-o text-yellow"></i> 中期报告</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="superAdmin_auditAnnualSummary">
+                                        <i class="fa fa-circle-o text-yellow"></i>
+                                        年度报告
+                                        <span class="pull-right-container" ng-show="noticeNumber.DepartATTalkNum != 0">
+                                            <span class="label label-primary pull-right">{{noticeNumber.DepartATTalkNum}}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ui-sref="superAdmin_auditConcludeReport">
+                                        <i class="fa fa-circle-o text-yellow"></i>
+                                        结题报告
+                                        <span class="pull-right-container" ng-show="noticeNumber.DepartProjectNum != 0">
+                                            <span class="label label-primary pull-right">{{noticeNumber.DepartProjectNum}}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.superAdmin == true">
+                            <a>
+                                <i class="fa fa-user"></i>
+                                <span>专家管理</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="expertList"><i class="fa fa-circle-o text-blue"></i> 专家列表</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="exportRecommendAudited"><i class="fa fa-circle-o text-green"></i> 专家推荐列表</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.superAdmin == true">
+                            <a>
+                                <i class="fa fa-users"></i>
+                                <span>专家指派管理</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="assignmentRecommendation"><i class="fa fa-circle-o text-green"></i> 专家指派</a>
+                                </li>
+                                <li ng-hide="hideProject">
+                                    <a ui-sref="assignmentRefused"><i class="fa fa-circle-o text-red"></i> 被拒绝指派</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.superAdmin == true">
+                            <a>
+                                <i class="fa fa-table"></i>
+                                <span>咨询审议管理</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="firstReviewResult"><i class="fa fa-circle-o text-green"></i> 初审结果</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="consultReviewResult"><i class="fa fa-circle-o text-green"></i> 咨询审议结果</a>
+                                </li>
+                                <!--<li>
+                                    <a ui-sref="firstReviewPassed"><i class="fa fa-circle-o text-blue"></i> 既往初审</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="consultReviewPassed"><i class="fa fa-circle-o text-blue"></i> 既往咨询审议</a>
+                                </li>-->
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.superAdmin == true" ng-hide="hideProject">
+                            <a>
+                                <i class="fa fa-user-plus"></i>
+                                <span>用户管理</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="userList"><i class="fa fa-circle-o text-blue"></i> 用户列表</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="divisionAdminManagement"><i class="fa fa-circle-o text-blue"></i> 单位管理员</a>
+                                </li>
+                                <li ng-hide="hideProject">
+                                    <a ui-sref="superAdminManagement"><i class="fa fa-circle-o text-blue"></i> 院管理员</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li ng-show="role.superAdmin == true">
+                            <a ui-sref="noticeList">
+                                <i class="fa  fa-commenting"></i>
+                                <span>公告</span>
+                            </a>
+                        </li>
+                        <li class="treeview" ng-show="role.superAdmin == true" ng-hide="hideProject">
+                            <a>
+                                <i class="fa  fa-file"></i>
+                                <span>文档管理</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="documentsTemplate"><i class="fa fa-circle-o text-blue"></i> 文档模板</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="submitDiscription"><i class="fa fa-circle-o text-blue"></i> 提交说明</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.superAdmin == true" ng-hide="hideProject">
+                            <a>
+                                <i class="fa fa-fax"></i>
+                                <span>短信中心</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="userMessage"><i class="fa fa-circle-o text-blue"></i> 用户短信</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="divisionAdminMessage"><i class="fa fa-circle-o text-blue"></i> 单位管理员短信</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="superAdminMessage"><i class="fa fa-circle-o text-blue"></i> 院管理员短信</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.superAdmin == true" ng-hide="hideProject">
+                            <a>
+                                <i class="fa fa-envelope"></i>
+                                <span>邮件中心</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="userEmail"><i class="fa fa-circle-o text-blue"></i> 用户邮件</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="divisionAdminEmail"><i class="fa fa-circle-o text-blue"></i> 单位管理员邮件</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="superAdminEmail"><i class="fa fa-circle-o text-blue"></i> 院管理员邮件</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <!--系统管理员-->
+                        <li class="header" ng-show="role.systemAdmin == true">系统管理</li>
+                        <li class="treeview" ng-show="role.systemAdmin == true">
+                            <a>
+                                <i class="fa fa-cogs"></i>
+                                <span>机构设置</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li ng-hide="hideProject">
+                                    <a ui-sref="serverSetting"><i class="fa fa-circle-o text-blue"></i> 服务器设置</a>
+                                </li>
+                                <li ng-hide="hideProject">
+                                    <a ui-sref="runningSetting"><i class="fa fa-circle-o text-blue"></i> 运行设置</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="roleSetting"><i class="fa fa-circle-o text-blue"></i> 院管理员设置</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="divisionManagement"><i class="fa fa-circle-o text-blue"></i> 单位设置</a>
+                                </li>
+                                <li ng-hide="hideProject">
+                                    <a ui-sref="divisionSetting"><i class="fa fa-circle-o text-blue"></i> 单位信息</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.systemAdmin == true" ng-hide="hideProject">
+                            <a>
+                                <i class="fa fa-map-signs"></i>
+                                <span>日志</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="operationLog"><i class="fa fa-circle-o text-blue"></i> 操作日志</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="messageLog"><i class="fa fa-circle-o text-blue"></i> 短信记录</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="mailLog"><i class="fa fa-circle-o text-blue"></i> 邮件记录</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.systemAdmin == true">
+                            <a>
+                                <i class="fa fa-cog"></i>
+                                <span>申报设置</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="applicationSetting"><i class="fa fa-circle-o text-blue"></i> 期限设置</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="typeSetting"><i class="fa fa-circle-o text-blue"></i> 类别设置</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="scoreDescription"><i class="fa fa-circle-o text-blue"></i> 评分说明设置</a>
+                                </li>
+                                <li ng-hide="hideProject">
+                                    <a ui-sref="applicationModal"><i class="fa fa-circle-o text-blue"></i> 申请书模板</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview" ng-show="role.systemAdmin == true">
+                            <a>
+                                <i class="fa fa-info-circle"></i>
+                                <span>提示信息配置</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="applicationRefusedReason"><i class="fa fa-circle-o text-blue"></i> 申请书驳回理由配置</a>
+                                </li>
+                                <li ng-hide="hideProject">
+                                    <a ui-sref="messageModel"><i class="fa fa-circle-o text-blue"></i> 短信模板配置</a>
+                                </li>
+                                <li ng-hide="hideProject">
+                                    <a ui-sref="mailModel"><i class="fa fa-circle-o text-blue"></i> 邮件模板配置</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+
+                        <!--信息与设置-->
+                        <li class="header">信息与设置</li>
+                        <li>
+                            <a ui-sref="notice-yuan">
+                                <i class="fa fa-commenting"></i>
+                                <span>通知</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a>
+                                <i class="fa fa-gears"></i>
+                                <span>设置</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a ui-sref="personal_setting"><i class="fa fa-circle-o"></i> 个人基本信息</a>
+                                </li>
+                                <li ng-hide="hideProject">
+                                    <a ui-sref="system_setting"><i class="fa fa-circle-o"></i> 系统设置</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a ui-sref="password_change">
+                                <i class="fa fa-key"></i>
+                                <span>修改密码</span>
+                            </a>
+                        </li>
+                    </ul>
+				</section>
+				<!-- /.sidebar -->
+			</aside>
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<div ui-view></div>
+			</div>
+
+			<!--<footer class="main-footer">
+
+			</footer>-->
+
+		</div>
+
+	</body>
+
+</html>

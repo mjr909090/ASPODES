@@ -1,0 +1,473 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngDivisionManagementApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body ng-controller="ngDivisionManagementCtrl">
+    <div class="container">
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 系统管理</a>
+            </li>
+            <li>
+                <a><i class="fa fa-dashboard"></i> 设置</a>
+            </li>
+            <li class="active"> 单位设置</li>
+        </ol>
+
+
+        <div class="box box-solid">
+            <div class="box-header ui-sortable-handle bg-green">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title"> 单位管理列表 </h3>
+                <div class="pull-right box-tools">
+                    <button class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body" style="display: block;">
+                <div>
+                    <div class="jvectormap-container">
+
+                        <br />
+
+                        <div class="btn-group">
+                            <a class="btn btn-primary" style="background-color: cadetblue;" ng-click="showAddInstModal()"> 添加单位</a>
+                            <a class="btn btn-primary" style="background-color: cadetblue;" ng-click="showImportDocumentModal()"> 导入文件</a>
+                        </div>
+
+                        <br />
+                        <br />
+
+                        <table class="table table-hover" id="adminManagementTable">
+                            <thead>
+                                <tr>
+                                    <th>单位名称</th>
+                                    <th>单位简称</th>
+                                    <th>联系人</th>
+                                    <th>联系人邮箱</th>
+                                    <th>联系人电话</th>
+                                    <th class="table-middle" style="width: 120px">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="division in divisionList">
+                                <tr>
+                                    <td><a ng-click="showInstInfoModal(division.InstituteId)">{{division.Name}}</a></td>
+                                    <td>{{division.ShortName}}</td>
+                                    <td><a ng-click="showContactPersonInfoModal(division.InstituteId)">{{division.ContactName}}</a></td>
+                                    <td>{{division.ContactEmail}}</td>
+                                    <td>{{division.ContactPhone}}</td>
+                                    <td class="table-middle" style="width: 120px">
+                                        <a class="manage-icon" ng-click="showAddDivisionAdminModal(division.InstituteId)" data-toggle="tooltip" data-placement="top" title="" data-original-title="添加单位管理员"><i class="fa fa-user-plus"></i></a>
+                                        <a class="manage-icon" ng-click="showModifyDivisionModal($index)" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改"><i class="fa fa-edit"></i></a>
+                                        <a class="manage-icon" ng-click="showDeleteDivisionModal(division)" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-remove"></i></a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--AddDivisionAdminModal-->
+    <div class="modal fade" id="AddDivisionAdminModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">添加单位管理员</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 text-center" for="selectPerson">选择人员</label>
+                                    <div class="col-lg-9">
+                                        <angucomplete-alt id="selectPerson" pause="150" selected-object="selectedInstPerson" local-data="instPersonList" search-fields="Name" title-field="Name" minlength="1" input-class="form-control form-control-small" match-class="highlight"></angucomplete-alt>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2"><a class="btn btn-primary" ng-click="AddDivisionAdmin(selectedInstPerson)">添加</a></div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                        <div class="col-lg-12">
+                            <table class="table table-hover" id="adminManagementTable">
+                                <thead>
+                                    <tr>
+                                        <th>姓名</th>
+                                        <th>英文名</th>
+                                        <th>身份证号</th>
+                                        <th>邮箱</th>
+                                        <th>电话</th>
+                                        <th class="table-middle" style="width: 120px">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="instAdmin in instAdminList">
+                                    <tr>
+                                        <td>{{instAdmin.Name}}</td>
+                                        <td>{{instAdmin.EnglishName}}</td>
+                                        <td>{{instAdmin.IDCard}}</td>
+                                        <td>{{instAdmin.Email}}</td>
+                                        <td>{{instAdmin.Phone}}</td>
+                                        <td class="table-middle" style="width: 120px">
+                                            <a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除" ng-click="dismissDivisionAdmin(instAdmin)"><i class="fa fa-remove"></i></a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addAdminContactSure()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--修改单位管理页面的模态框-->
+    <div class="modal fade" id="modifyDivisionModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">修改</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="Code_edit" class="col-sm-3 control-label">机构代码</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="Code_edit" ng-model="EditDivision.Code">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="instIype_edit" class="col-sm-3 control-label">单位类型</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="instIype_edit" ng-model="EditDivision.Type" ng-options="selectInstType.instTypeId as selectInstType.instType for selectInstType in selectInstTypeList">
+                                                <option value="" disabled>-------请选择单位类型--------</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="Name_edit" class="col-sm-3 control-label">名称</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="Name_edit" ng-model="EditDivision.Name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="ParentInst" class="col-sm-3 control-label">上级单位</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="ParentInst" ng-model="EditDivision.ParentId" ng-options="instType.InstituteId as instType.Name for instType in instTypes">
+                                                <option value="" disabled>-------请选择上级单位-------</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="ShortName_edit" class="col-sm-3 control-label">简称</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="ShortName_edit" ng-model="EditDivision.ShortName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    
+                                </div>
+                            </div>  
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info pull-right" style="background-color:cadetblue;" data-dismiss="modal" ng-click="eidtDivisionSure()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--添加单位页面的模态框-->
+    <div class="modal fade" id="addInstModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">添加单位</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div>
+                        <div class="box box-primary">
+                            <div class="box-body">
+                                <form class="form-horizontal row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="Code" class="col-sm-3 control-label">机构代码</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="Code" ng-model="addDivisionInfo.Code">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Name" class="col-sm-3 control-label">单位名称</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="Name" ng-model="addDivisionInfo.Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ShortName" class="col-sm-3 control-label">单位简称</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="ShortName" ng-model="addDivisionInfo.ShortName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="higherInst" class="col-sm-3 control-label">上级单位</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="higherInst" ng-model="addDivisionInfo.ParentId" ng-options="instType.InstituteId as instType.Name for instType in instTypes">
+                                                    <option value="" disabled>-------请选择上级单位-------</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="instIype" class="col-sm-3 control-label">单位类型</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="instIype" ng-model="addDivisionInfo.Type" ng-options="selectInstType.instTypeId as selectInstType.instType for selectInstType in selectInstTypeList">
+                                                    <option value="" disabled>-------请选择单位类型-------</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addDivision()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--删除单位页面的模态框-->
+    <div class="modal fade" id="deleteDivisionModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">删除</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <p style="font-size: 20px;">您确定要删除该单位吗？<br />一旦删除将无法恢复，请谨慎操作！</p>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" style="background-color:cadetblue;" data-dismiss="modal" ng-click="deleteDivision()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--导入文件的模态框-->
+    <div class="modal fade" id="importDocumentModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">导入文件</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal row">
+                        <div class="col-lg-2">
+                            <label for="InstituteId" class=" control-label">上传文件</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="col-sm-10 col-md-10">
+                                <input class="form-control" type="text" readonly="readonly" ng-model="file.name" />
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-primary" ngf-select="uploadFiles($file, $invalidFile)" ngf-max-size="20MB">选择文件</a>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>文件名</th>
+                                <th>进度</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{file.name}}</td>
+                                <td>
+                                    <span class="progress" ng-show="file.progress >= 0">
+                                        <div style="width:{{file.progress}}%" ng-bind="file.progress + '%'"></div>
+                                    </span>
+                                </td>
+                                <td>
+                                    {{file.$error}}
+                                    <br />
+                                    {{showErrorMsg}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="submitDivisionFile()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--查看单位信息-->
+    <div class="modal fade" id="viewDivisionInfo">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">详细信息</h3>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <div class="col-lg-12 row">
+                                <div class="form-group col-lg-6">
+                                    <label class="control-label col-lg-3">机构代码</label>
+                                    <div class="col-lg-9">
+                                        <p class="form-control-static">{{instInfo.Code}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label class="control-label col-lg-4">单位类型</label>
+                                    <div class="col-lg-8">
+                                        <p class="form-control-static">{{instInfo.instTypeName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 row">
+                                <div class="form-group col-lg-6">
+                                    <label class="control-label col-lg-3">单位名</label>
+                                    <div class="col-lg-9">
+                                        <p class="form-control-static">{{instInfo.Name}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label class="control-label col-lg-4">联系人姓名</label>
+                                    <div class="col-lg-8">
+                                        <p class="form-control-static">{{instInfo.ContactName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 row">
+                                <div class="form-group col-lg-6">
+                                    <label class="control-label col-lg-3">单位简称</label>
+                                    <div class="col-lg-9">
+                                        <p class="form-control-static">{{instInfo.ShortName}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label class="control-label col-lg-4">联系人邮箱</label>
+                                    <div class="col-lg-8">
+                                        <p class="form-control-static">{{instInfo.ContactEmail}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 row">
+                                <div class="form-group col-lg-6">
+                                    <label class="control-label col-lg-3">上级单位</label>
+                                    <div class="col-lg-9">
+                                        <p class="form-control-static">{{instInfo.ParentName}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label class="control-label col-lg-4">联系人手机</label>
+                                    <div class="col-lg-8">
+                                        <p class="form-control-static">{{instInfo.ContactPhone}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-warning" data-dismiss="modal">确定</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--查看联系人页面的模态框-->
+    <div class="modal fade" id="viewAdminInfo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">详细信息</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div>
+                        <div class="box box-primary">
+                            <!--  <div class="box-header">
+                                  <div class="box-tools pull-right">&lt;!&ndash;折叠&ndash;&gt;
+                                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                  </div>
+                              </div>-->
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <h4>联系人姓名</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{contactPersonInfo.ContactName}}</strong></h5>
+                                        <h4>联系人邮箱</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{contactPersonInfo.ContactEmail}}</strong></h5>
+                                        <h4>联系人手机</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{contactPersonInfo.ContactPhone}}</strong></h5>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

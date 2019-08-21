@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngApplicationSubmit">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<link rel="stylesheet" href="css/Views/proposer/application_submited.css" />
+		
+	</head>
+
+	<body ng-controller="ngApplicationSubmitCtrl">
+		
+
+		<section class="content container">
+			
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 项目申请</a>
+				</li>
+				<li>
+					<a>我的申请书</a>
+				</li>
+				<li class="active">已提交申请书</li>
+			</ol>
+
+
+            <div class="callout callout-info" ng-show="proposeInfos.length == 0">
+                <h4>注意!</h4>
+
+                <p>当前还没有已经提交的申请书！<br />请在【申请书草稿】中进行提交！</p>
+            </div>
+
+			<div class="box box-solid" ng-repeat="proposeInfo in proposeInfos">
+				<div class="box-header ui-sortable-handle bg-green">
+					<i class="fa fa-sticky-note"></i>
+
+					<h3 class="box-title">{{proposeInfo.ProjectName}}</h3>
+					<!-- tools box -->
+					<div class="pull-right box-tools">
+						<!-- button with a dropdown -->
+						<!--<button type="button" class="btn btn-success btn-sm" ng-click="replyApplication()" data-toggle="tooltip" data-placement="top" title="" data-original-title="撤回申请书"><i class="fa fa-reply"></i></button>-->
+						<button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div>
+					<!-- /. tools -->
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body" style="display: block;">
+                    
+                    <table class="table table-hover saved-table" ng-hide="noSubmitPropose">
+                        <thead>
+                            <tr>
+
+                                <th class="table-left">名称</th>
+                                <th class="table-left">类别</th>
+                                <th class="table-middle" style="width:144px">委托</th>
+                                <th class="table-middle" style="width: 114px;" ng-init="status = 1">状态</th>
+                                <th class="table-middle" style="width: 128px;">修改时间</th>
+                                <th class="table-middle" style="width: 142px;">PDF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table-left">
+                                    {{proposeInfo.ProjectName}}
+                                </td>
+                                <td class="table-left">{{proposeInfo.ProjectTypeName}}</td>
+                                <td class="table-middle">
+                                    <span class="label label-default" ng-if="proposeInfo.DeleageType == 0"> 非委托</span>
+                                    <span class="label label-primary" ng-if="proposeInfo.DeleageType == 1"> 委托</span>
+                                </td>
+                                <td class="table-middle">
+                                    <span class="label label-primary" ng-if="proposeInfo.Status == 5;">待单位审核</span>
+                                    <span class="label label-danger" ng-if="proposeInfo.Status == 6;">被驳回</span>
+                                    <span class="label label-danger" ng-if="proposeInfo.Status == 7;">被撤回</span>
+                                    <span class="label label-primary" ng-if="proposeInfo.Status == 8;">待院受理</span>
+                                    <span class="label label-danger" ng-if="proposeInfo.Status == 9;" ng-click="showNotPassReason(proposeInfo.ApplicationId)">不受理</span>
+                                    <span class="label label-primary" ng-if="proposeInfo.Status > 9 && proposeInfo.Status <= 13; ">评审中</span>
+                                    <span class="label label-success" ng-if="proposeInfo.Status == 14;">评审完毕</span>
+                                    <span class="label label-danger" ng-if="proposeInfo.Status == 15;">不资助</span>
+                                    <span class="label label-success" ng-if="proposeInfo.Status == 16;">在库</span>
+                                </td>
+                                <td class="table-middle">{{proposeInfo.CurrentYear}}</td>
+                                <td class="table-middle"><a class="pdfDownload" ng-click="showPDFpage(proposeInfo.PDF)">预览</a><strong> /</strong><a class="pdfDownload" href="{{proposeInfo.PDF}}" download> 下载</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+					<br />
+					<br />
+					<br />
+                    <div class="progress-body" ng-hide="noSubmitPropose">
+                        <h4 class="text-blue"><strong>总体进度</strong></h4>
+                        <div class="label-content">
+                            <span class="label status-lable label-success">已提交</span>
+
+                            <span class="label status-lable" ng-class="{'label-default': proposeInfo.Status < 5, 'label-primary': proposeInfo.Status == 5}" ng-show="proposeInfo.Status <= 5">待单位审核</span>
+                            <span class="label status-lable label-danger" ng-show="proposeInfo.Status == 6">被驳回</span>
+                            <span class="label status-lable label-danger" ng-show="proposeInfo.Status == 7">被撤回</span>
+                            <span class="label status-lable label-success" ng-show="proposeInfo.Status > 7">通过审核</span>
+
+                            <span class="label status-lable" ng-class="{'label-default': proposeInfo.Status < 8, 'label-primary': proposeInfo.Status == 8}" ng-show="proposeInfo.Status <= 8">待院受理</span>
+                            <span class="label status-lable label-danger" ng-show="proposeInfo.Status == 9">不受理</span>
+                            <span class="label status-lable label-success" ng-show="proposeInfo.Status > 9">已受理</span>
+
+                            <span class="label status-lable" ng-class="{'label-default': proposeInfo.Status < 10, 'label-primary': proposeInfo.Status >= 10 && proposeInfo.Status <= 13}" ng-hide="proposeInfo.Status > 13">评审中</span>
+                            <span class="label status-lable label-success" ng-show="proposeInfo.Status == 14">评审完毕</span>
+                            <span class="label status-lable label-danger" ng-show="proposeInfo.Status == 15">不资助</span>
+
+                            <span class="label status-lable" ng-class="{'label-default': proposeInfo.Status < 16, 'label-primary': proposeInfo.Status == 16, 'label-success':proposeInfo.Status >16}">在库</span>
+                        </div>
+                        <div style="height: 3px;"></div>
+                        <div class="application-progress" ng-init="proposeInfo.progressWidth = 0">
+                            <div class="progress progress-striped sm active">
+                                <div class="progress-bar" ng-init="proposeInfo.progressWidth = checkProgressWidth(proposeInfo.Status)" style="width:{{proposeInfo.progressWidth}}%"></div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    
+
+				</div>
+				<!-- /.box-body -->
+
+                <div class="overlay" ng-hide="listAlready">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+			</div>
+			
+
+		</section>
+		
+		
+
+		<!--backApplicationModal-->
+		<div class="modal fade" id="backApplication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">撤回申请书</h3>
+					</div>
+					<div class="modal-body">
+						<h4>确认要撤回此申请书？<br /><br />撤回后您仍可以对申请书进行修改，但请务必于截止时间前再次提交！</h4>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal -->
+
+        <!--noPassReasonModal-->
+        <div class="modal fade" id="noPassReasonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">不受理理由</h3>
+                    </div>
+                    <div class="modal-body">
+                        {{noPassReason}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		
+
+	</body>
+
+</html>

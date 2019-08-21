@@ -1,0 +1,29 @@
+[
+    {
+        "ID": 1,
+        "Name": "农业部农业基因组学重点实验室",
+        "isQiantou": "是",
+        "Zongyusuan": 30,
+        "First": 10,
+        "Second": 10,
+        "Third": 10
+    },
+    {
+        "ID": 1,
+        "Name": "农业部油料作物生物学与遗传育种重点实验室",
+        "isQiantou": "否",
+        "Zongyusuan": 12,
+        "First": 7,
+        "Second": 4,
+        "Third": 1
+    },
+    {
+        "ID": 1,
+        "Name": "中国海洋大学",
+        "isQiantou": "否",
+        "Zongyusuan": 10,
+        "First": 5,
+        "Second": 3,
+        "Third": 2
+    }
+]

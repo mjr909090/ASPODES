@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngAddProposeApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <title></title>
+    <link rel="stylesheet" href="../../../css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../../css/ionicons.min.css" />
+    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../css/bootstrap-form-wizard.css" />
+    <link rel="stylesheet" href="../../../css/bootstrap-table.css" />
+    <link rel="stylesheet" href="../../../css/bootstrap-editable.css" />
+    <link href="../../../plugins/angucomplete-alt/angucomplete-alt.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../plugins/notifIt/css/notifIt.css" />
+    <link rel="stylesheet" href="../../../css/bootstrap-editable.css" />
+    <link rel="stylesheet" href="../../../css/Views/proposer/addPropose.css" />
+
+    <link href="../../../plugins/ngVerify-master/css/ngVerify.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="../../../js/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="../../../bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../../js/bootstrap-form-wizard.js"></script>
+    <script type="text/javascript" src="../../../js/angular.js"></script>
+    <script type="text/javascript" src="../../../plugins/angucomplete-alt/angucomplete-alt.js"></script>
+    <script type="text/javascript" src="../../../plugins/notifIt/js/notifIt.js"></script>
+    <script type="text/javascript" src="../../../js/angular-messages.js"></script>
+    <script type="text/javascript" src="../../../plugins/ng-file-upload-bower-12.2.13/ng-file-upload-shim.min.js"></script>
+    <script type="text/javascript" src="../../../plugins/ng-file-upload-bower-12.2.13/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="../../../js/angular-cookies.js"></script>
+    <script type="text/javascript" src="../../../plugins/ngVerify-master/js/ngVerify.js"></script>
+    <script type="text/javascript" src="../../../js/Views/proposer/myApplications/addPropose.js"></script>
+
+
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/getFieldListServices.js"></script>
+
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/BasicInfo/basicInfo.js"></script>
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/BasicInfo/projectInfo.js"></script>
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/BasicInfo/field.js"></script>
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/BasicInfo/basicLeaderInfo.js"></script>
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/MemberManage/memberManage.js"></script>
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/MemberManage/leaderInfo.js"></script>
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/MemberManage/leaderDivisionList.js"></script>
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/MemberManage/assistDivisionList.js"></script>
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/BudgetManage/budgetManage.js"></script>
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/BudgetManage/yearBudgetList.js"></script>
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/BudgetManage/divisionBudgetList.js"></script>
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/FileUpload/mainFileUpload.js"></script>
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/FileUpload/otherFileUpload.js"></script>
+    <script src="../../../js/Views/proposer/myApplications/addProposeComponents/Complete/Complete.js"></script>
+
+
+    <script src="../../../js/Service/interceptorFactory.js"></script>
+
+</head>
+
+<body ng-controller="ngAddProposeCtrl as mainCtrl">
+    <div class="container">
+
+        <h2>农科院项目申请填报</h2>
+
+        <div class="row">
+            <section>
+                <div class="wizard">
+                    <div class="wizard-inner">
+                        <!--<div class="connecting-line"></div>-->
+                        <ul class="nav nav-tabs" role="tablist">
+
+                            <li role="presentation" class="active">
+                                <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="基本信息">
+                                    <span class="round-tab">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="人员信息">
+                                    <span class="round-tab">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="经费预算">
+                                    <span class="round-tab">
+                                        <i class="glyphicon glyphicon-yen"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="正文上传">
+                                    <span class="round-tab">
+                                        <i class="fa fa-file-text"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a href="#step5" data-toggle="tab" aria-controls="step5" role="tab" title="附件上传">
+                                    <span class="round-tab">
+                                        <i class="glyphicon glyphicon-file"></i>
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li role="presentation" class="disabled">
+                                <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="完成">
+                                    <span class="round-tab">
+                                        <i class="glyphicon glyphicon-ok"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!--<div class="connecting-line"></div>-->
+
+                    </div>
+
+                    <div role="form">
+                        <div class="tab-content">
+                            <!--Step 1-->
+                            <div class="tab-pane active" role="tabpanel" id="step1">
+                                <!--基本信息-->
+                                
+                                <basicinfo></basicinfo>
+                            
+                            </div>
+                            <!--Step 2-->
+                            <div class="tab-pane" role="tabpane2" id="step2">
+                                <!--人员信息-->
+                                
+                                <membermanage></membermanage>
+
+                            </div>
+                            <!--Step 3-->
+                            <div class="tab-pane" role="tabpanel3" id="step3">
+                                <!--经费预算-->
+                                
+                                <budgetmanage></budgetmanage>
+
+                            </div>
+                            <!--Step 4-->
+                            <div class="tab-pane" role="tabpanel4" id="step4">
+                                <!--Step 4-->
+                                
+                                <mainfileupload></mainfileupload>
+
+                            </div>
+                            <!--Step 5-->
+                            <div class="tab-pane" role="tabpanel5" id="step5">
+                                <!--Step 5-->
+                                
+                                <otherfileupload></otherfileupload>
+
+                            </div>
+                            <!--complete-->
+                            <div class="tab-pane" role="tabpanel" id="complete">
+                                <!--Complete-->
+                                
+                                <complete></complete>
+
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <!--submitModal-->
+    <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">提交申请书</h4>
+                </div>
+                <div class="modal-body">
+                    <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>确认要提交申请书？一旦提交后将不可修改！</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="centerSubmit">确定</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+</body>
+
+</html>

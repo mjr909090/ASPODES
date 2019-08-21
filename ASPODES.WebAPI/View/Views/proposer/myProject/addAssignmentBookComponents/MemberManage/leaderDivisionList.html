@@ -1,0 +1,21 @@
+﻿
+<h5>项目主持单位</h5>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>姓名</th>
+            <th>单位</th>
+            <th>邮箱</th>
+            <th>责任分工</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="leaderPerson in $ctrl.hostDepartMember">
+            <td>{{leaderPerson.PersonName}}</td>
+            <td>{{leaderPerson.InstituteName}}</td>
+            <td>{{leaderPerson.UserName}}</td>
+            <td>{{leaderPerson.Task}}</td>
+        </tr>
+    </tbody>
+</table>

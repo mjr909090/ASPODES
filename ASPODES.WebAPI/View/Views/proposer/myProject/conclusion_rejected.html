@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="ngConclusionRejectedApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<link rel="stylesheet" href="css/Views/proposer/conclusion_rejected.css" />
+		
+	</head>
+
+	<body ng-controller="ngConslusionRejectedCtrl">
+
+		<div class="container">
+
+			<br />
+
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 项目申请</a>
+				</li>
+				<li>
+					<a>我的项目</a>
+				</li>
+				<li class="active">被驳回的结题申请</li>
+			</ol>
+
+			<div class="box box-solid">
+				<div class="box-header ui-sortable-handle bg-green">
+					<i class="ion ion-clipboard"></i>
+					<h3 class="box-title">当前主持的项目</h3>
+
+					<div class="box-tools pull-right">
+			            <button type="button" class="btn bg-green btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		            </div>
+					
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					
+					<table class="table table-hover saved-table">
+						<thead>
+							<tr>
+								<th class="table-middle">编号</th>
+								<th class="table-left">文档名称</th>
+								<th class="table-left">项目名称</th>
+								<th class="table-middle" style="width: 90px">执行周期</th>
+								<th class="table-middle" style="width: 108px;">创建日期</th>
+								<th class="table-middle" style="width: 150px"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="table-middle">492020170756</td>
+								<td class="table-left">
+									基于基因组学的农业生物重要性状的功能位点挖掘与鉴定.pdf
+								</td>
+								<td class="table-left">基于基因组学的农业生物重要性状的功能位点挖掘与鉴定</td>
+								<td class="table-middle">3年</td>
+								<td class="table-middle">2017-03-14</td>
+								<td class="table-middle">
+									<a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改意见" ng-click="showSuggestionModal()"><i class="fa fa-search"></i></a>
+									<a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"><i class="fa fa-download"></i></a>
+									<a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="重新上传"><i class="fa fa-upload"></i></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+				</div>
+				<!-- /.box-body -->
+			</div>
+
+
+		</div>
+		
+		
+		
+		<!--showSuggestionModal-->
+		<div class="modal fade" id="showSuggestionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">修改意见</h3>
+					</div>
+					<div class="modal-body">
+						<p>研究成果不详实，应继续补充说明。</p>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+		
+		
+
+	</body>
+
+</html>

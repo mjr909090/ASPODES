@@ -1,0 +1,65 @@
+a:hover{
+	cursor: pointer;
+}
+
+/* common */
+.form-control {
+    resize: none
+}
+
+.panel {
+    box-shadow: 0px 2px 2px #D5D5D5;
+}
+
+.noticeBody {
+    padding: 10px 15px 10px 15px;
+}
+
+#allNoticeRead {
+    float: left;
+    margin-right: 6%;
+}
+
+.noticeTitle {
+    float: left;
+}
+
+.noticeTitle label {
+        padding: 1px 3px;
+        margin-left: 15px;
+}
+
+.noticeTitle span a {
+        font-size: 13px;
+        font-family: Microsoft YaHei;
+        color: #444444;
+}
+
+.noticeTime {
+    float: left;
+    padding-left: 3%;
+}
+
+.noticeTime span {
+        font-size: 12px;
+        color: #A2A2A2;
+}
+
+.noticeIcon {
+    float: right;
+}
+
+#unreadLabel {
+    color: #fff;
+}
+/* ./common */
+#noticePanelBody {
+    padding: 50px 12px 10px 15px;
+}
+
+.readAnnouncement {
+    background-color: #F7F7F7;
+}
+.unreadAnnouncement {
+    background-color: #fff;
+}

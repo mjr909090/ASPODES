@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html ng-app="ngProfessorInfoApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body ng-controller="ngProfessorInfoCtrl">
+
+		<div class="container">
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 信息与设置</a>
+				</li>
+				<li>
+					<a> 信息</a>
+				</li>
+				<li class="active"> 专家信息</li>
+			</ol>
+
+			<br />
+			<br />
+
+			<!--
+            	作者：923470791@qq.com
+            	时间：2017-04-16
+            	描述：个人信息
+            -->
+			<div class="box box-info">
+				<div class="box-header with-border">
+					<h3 class="box-title">专家信息</h3>
+
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div>
+				</div>
+				<!-- /.box-header -->
+				<!-- form start -->
+
+				<div class="box-body">
+					<form class="form-horizontal row">
+						<div class="col-lg-7">
+							<div class="form-group">
+								<label for="userName" class="col-sm-2 control-label">姓名</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="userName" value="刘振虎" disabled="">
+								</div>
+							</div>
+							<br />
+							<div class="form-group">
+								<label for="UserSex" class="col-sm-2 control-label">性别</label>
+								<div class="radio col-sm-3">
+									<label>
+				                      	<input type="radio" name="sexSelect" id="UserSex" value="male" checked="" disabled="">
+				                      	男
+				                    </label>
+								</div>
+								<div class="radio col-sm-3">
+									<label>
+				                      	<input type="radio" name="sexSelect" id="UserSex" value="famale" disabled="">
+				                      	女
+				                    </label>
+								</div>
+							</div>
+							<br />
+							<div class="form-group">
+								<label for="userIdCard" class="col-sm-2 control-label">身份证号</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="userIdCard" value="150102197508202053" disabled="">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-5" style="border-left: dotted; border-left-color: #000000;">
+							<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#addFieldModal">添加领域</button>
+							<br />
+							<ul class="todo-list ui-sortable col-lg-12">
+								<li>
+									<!-- todo text -->
+									<small class="label label-success"><i class="fa fa-mortar-board"></i> 农业生物技术</small>
+									<!-- General tools such as edit or delete-->
+									<div class="tools pull-right">
+										<i class="fa fa-remove"></i>
+									</div>
+								</li>
+								<li>
+									<!-- todo text -->
+									<small class="label label-success"><i class="fa fa-mortar-board"></i> 信息技术在农业上的应用</small>
+									<!-- General tools such as edit or delete-->
+									<div class="tools pull-right">
+										<i class="fa fa-remove"></i>
+									</div>
+								</li>
+								<li>
+									<!-- todo text -->
+									<small class="label label-success"><i class="fa fa-mortar-board"></i> 核农业技术</small>
+									<!-- General tools such as edit or delete-->
+									<div class="tools pull-right">
+										<i class="fa fa-remove"></i>
+									</div>
+								</li>
+								<li>
+									<!-- todo text -->
+									<small class="label label-success"><i class="fa fa-mortar-board"></i> 设施农业技术</small>
+									<!-- General tools such as edit or delete-->
+									<div class="tools pull-right">
+										<i class="fa fa-remove"></i>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+				<div class="box-footer">
+					<button class="btn btn-info pull-right">修改</button>
+				</div>
+			</div>
+			
+			<br />
+
+			<div class="box box-info">
+				<div class="box-header with-border">
+					<h3 class="box-title">教育经历</h3>
+
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div>
+				</div>
+				<!-- /.box-header -->
+				<!-- form start -->
+
+				<div class="box-body">
+					<div class="btn-group" id="toolbar">
+						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#addEducationModal"><i class="fa fa-plus"></i> 新建</button>
+						<button type="button" class="btn btn-info"><i class="fa fa-edit"></i> 修改</button>
+						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#deleteApplication"><i class="fa fa-remove"></i> 删除</button>
+					</div>
+
+					<br />
+
+					<table class="table table-hover saved-table">
+						<tbody>
+							<tr>
+								<th></th>
+								<th>时间</th>
+								<th>毕业学校</th>
+								<th>所学专业</th>
+								<th>获得学位</th>
+								<th>导师</th>
+							</tr>
+							<tr>
+								<td><input type="radio" name="selectSaved" /></td>
+								<td>2011.9-2015.6</td>
+								<td> 中国海洋大学</td>
+								<td> 计算机科学与技术</td>
+								<td> 学士</td>
+								<td> 无</td>
+							</tr>
+							<tr>
+								<td><input type="radio" name="selectSaved" /></td>
+								<td>2018.9-2011.6</td>
+								<td>临朐一中</td>
+								<td>无</td>
+								<td>高中</td>
+								<td>无</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<br />
+			
+			<div class="box box-info">
+				<div class="box-header with-border">
+					<h3 class="box-title">工作经历</h3>
+
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div>
+				</div>
+				<!-- /.box-header -->
+				<!-- form start -->
+
+				<div class="box-body">
+					<div class="btn-group" id="toolbar">
+						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#addWorkModal"><i class="fa fa-plus"></i> 新建</button>
+						<button type="button" class="btn btn-info"><i class="fa fa-edit"></i> 修改</button>
+						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#deleteApplication"><i class="fa fa-remove"></i> 删除</button>
+					</div>
+
+					<br />
+
+					<table class="table table-hover saved-table">
+						<tbody>
+							<tr>
+								<th></th>
+								<th>时间</th>
+								<th>工作单位</th>
+								<th>职位</th>
+							</tr>
+							<tr>
+								<td><input type="radio" name="selectSaved" /></td>
+								<td> 2016.3-2016.8</td>
+								<td> 网易</td>
+								<td> 系统工程师</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+
+		<!--addFieldModal-->
+		<div class="modal fade" id="addFieldModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">添加领域</h3>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="firstField" class="col-lg-2 control-label">一级领域</label>
+								<div class="col-lg-10">
+									<select class="form-control" id="firstField">
+										<option>农业信息化</option>
+										<option>作物学</option>
+										<option>农药学</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="firstField" class="col-lg-2 control-label">二级领域</label>
+								<div class="col-lg-10">
+									<select class="form-control" id="firstField">
+										<option>信息技术在农业上的应用</option>
+										<option>农业生物技术</option>
+										<option>核农业技术</option>
+									</select>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary">确定</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+
+		<!--addEducationModal-->
+		<div class="modal fade" id="addEducationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">修改教育经历</h3>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="eductionTime" class="control-label col-sm-2">时间</label>
+								<div class="col-sm-10">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-calendar"></i>
+										</div>
+										<input type="text" class="form-control pull-right" id="eductionTime">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="eductionSchool" class="col-sm-2 control-label">毕业学校</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="eductionSchool">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="eductionMajor" class="col-sm-2 control-label">所学专业</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="eductionMajor">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="eductionGreed" class="col-sm-2 control-label">获得学位</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="eductionGreed">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="eductionProfessor" class="col-sm-2 control-label">导师</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="eductionProfessor">
+								</div>
+							</div>
+
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary">确定</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+		
+		
+		<!--addWorkModal-->
+		<div class="modal fade" id="addWorkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">修改工作经历</h3>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="eductionTime" class="control-label col-sm-2">时间</label>
+								<div class="col-sm-10">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-calendar"></i>
+										</div>
+										<input type="text" class="form-control pull-right" id="eductionTime">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="eductionSchool" class="col-sm-2 control-label">工作单位</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="eductionSchool">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="eductionMajor" class="col-sm-2 control-label">职位</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="eductionMajor">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary">确定</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+
+	</body>
+
+</html>

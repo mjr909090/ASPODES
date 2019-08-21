@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html ng-app="ngProOnlineReviewApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!-- 引入 css -->
+		<link rel="stylesheet" href="../../../bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="../../../css/bootstrap-editable.css" />
+		<link rel="stylesheet" href="../../../css/bootstrap-table.css" />
+		
+		<!-- 引入 js -->
+		<script type="text/javascript" src="../../../js/jquery-2.2.3.js" ></script>
+		<script type="text/javascript" src="../../../bootstrap/js/bootstrap.js" ></script>
+		<script type="text/javascript" src="../../../js/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../../js/angular.js"></script>
+		
+	</head>
+
+	<body ng-controller="ngProOnlineReviewCtrl">
+		<!-- 顶部导航条 -->
+		<nav class="navbar navbar-static-top">
+			<div class="container-fluid">
+				<div class="navbar-header bg-blue-gradient">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				    </button>
+					<a class="navbar-brand" href="#">ASDOPES 评议项目</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="#">注销</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container">
+			<form class="form-01 form-horizontal">
+				<fieldset>
+					<legend class="text-center">项目评议意见表</legend>
+					<div class="form-group">
+						<table class="table table-striped table-hover" id="headTable">
+							<tbody>
+								<tr class="info">
+									<td class="text-right">项目编号：</td>
+									<td>612111006</td>
+									<td class="text-right">申请人：</td>
+									<td>申请人</td>
+									<td class="text-right">项目名称：</td>
+									<td>测试</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group">
+						<table class="table table-bordered table-striped table-hover" id="headTable">
+							<thead>
+								<tr>
+									<td class="text-center">评议指标</td>
+									<td class="text-center">评议指标选项</td>
+									<td>必填</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="text-center">您对申请内容：</td>
+									<td class="text-left">
+										<div class="radio checkbox-inline">
+											<label>
+            									<input name="familiar" id="familar1" value="option1" checked="" type="radio">
+            										A、熟悉
+         								 	</label>
+										</div>
+										<div class="radio checkbox-inline">
+											<label>
+            									<input name="familiar" id="familiar2" value="option2" type="radio">
+            										B、较熟悉
+          									</label>
+										</div>
+										<div class="radio checkbox-inline">
+											<label>
+            									<input name="familiar" id="familiar3" value="option3" type="radio">
+            										C、部分熟悉
+          									</label>
+										</div>
+									</td>
+									<td>
+										<font style="color: red;">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-center">综合评价</td>
+									<td class="text-left">
+										<div class="radio checkbox-inline">
+											<label>
+            									<input name="evaluate" id="evaluate1" value="option1" checked="" type="radio">
+            										A、优
+         								 	</label>
+										</div>
+										<div class="radio checkbox-inline">
+											<label>
+            									<input name="evaluate" id="evaluate2" value="option2" type="radio">
+            										B、良
+          									</label>
+										</div>
+										<div class="radio checkbox-inline">
+											<label>
+            									<input name="evaluate" id="evaluate3" value="option3" type="radio">
+            										C、中
+          									</label>
+										</div>
+										<div class="radio checkbox-inline">
+											<label>
+            									<input name="evaluate" id="evaluate4" value="option4" type="radio">
+            										D、差
+          									</label>
+										</div>
+									</td>
+									<td>
+										<font style="color: red;">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-center">资助意见：</td>
+									<td class="text-left">
+										<div class="radio checkbox-inline">
+											<label>
+            									<input name="sponse" id="sponse1" value="option1" checked="" type="radio">
+            										A、优先资助
+         								 	</label>
+										</div>
+										<div class="radio checkbox-inline">
+											<label>
+            									<input name="sponse" id="sponse2" value="option2" type="radio">
+            										B、可资助
+          									</label>
+										</div>
+										<div class="radio checkbox-inline">
+											<label>
+            									<input name="sponse" id="sponse3" value="option3" type="radio">
+            										C、不予资助
+          									</label>
+										</div>
+									</td>
+									<td>
+										<font style="color: red;">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-center">如同意，建议资助</td>
+									<td class="text-left">
+										<input id="inputDefault" type="text" style="width: 160px; height: 24px; margin-left: 16px;" /> 万元
+									</td>
+									<td>
+										<font style="color: red;">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-center">
+										具体评价意见：
+									</td>
+									<td class="text-center">
+										<div class="col-lg-10">
+											<span class="help-block">按所评议项目的相关评议要点提纲填写，对同意资助的项目，要着重指出其创新点和研究价值；对不同意自不同意资助的项目，要说明具体理由</span>
+											<textarea class="form-control" rows="3" id="textArea"></textarea>
+										</div>
+									</td>
+									<td>
+										<font style="color: red;">*</font>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="form-group">
+							<div class="col-lg-10 col-lg-offset-5 col-sm-7 col-sm-offset-4 col-xs-10 col-xs-offset-3">
+								<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#submitModal">提交</button>
+								<button type="submit" class="btn btn-primary" style="margin-left: 8px;" data-toggle="modal" data-target="#submitModal">暂存</button>
+								<a href="professorMain.html" class="btn btn-primary" style="margin-left: 8px;">返回</a>
+							</div>
+						</div>
+						<!-- 模态框 提示保存成功-->
+						<div class="modal fade" id="submitModal">
+							<div class="modal-dialog modal-sm">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="submitBtn()">&times;</button>
+										<h4 class="modal-title">提示</h4>
+									</div>
+									<div class="modal-body">
+										<p>保存成功！</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal"  ng-click="submitBtn()">关闭</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 模态框居中 -->
+						<script type="text/javascript">
+							$(function() {
+								// dom加载完毕
+								var $m_btn = $('#modalBtn');
+								var $modal = $('#submitModal');
+								$m_btn.on('click', function() {
+									$modal.modal({
+										backdrop: 'static'
+									});
+								});
+
+								// 测试 bootstrap 居中
+								$modal.on('show.bs.modal', function() {
+									var $this = $(this);
+									var $modal_dialog = $this.find('.modal-dialog');
+									// 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
+									$this.css('display', 'block');
+									$modal_dialog.css({
+										'margin-top': Math.max(0, ($(window).height() - $modal_dialog.height()) / 2)
+									});
+								});
+
+							});
+						</script>
+					</div>
+				</fieldset>
+			</form>
+
+		</div>
+
+
+	</body>
+
+</html>

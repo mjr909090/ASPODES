@@ -1,0 +1,27 @@
+tbody a:hover{
+	cursor: pointer;
+}
+
+#toolbar{
+	margin-top: 16px;
+}
+
+.pdfDownload{
+	color: #F39C12;
+	font-weight: 600;
+}
+
+.load-icon {
+	font-size: large;
+	margin-left: 8px;
+	color: #0F0F0F;
+}
+.manage-icon{
+	font-size: large;
+	margin-left: 8px;
+	color: #00C0EF;
+}
+
+#jwpyTable{
+	margin-top: 16px;
+}

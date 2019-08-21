@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html ng-app="ngDocumentRejectedApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<link rel="stylesheet" href="css/Views/proposer/document_rejected.css" />
+		
+	</head>
+	<body ng-controller="ngDocumentRejectedCtrl">
+		
+		<div class="container">
+
+			<br />
+
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 项目申请</a>
+				</li>
+				<li>
+					<a>我的项目</a>
+				</li>
+				<li class="active">被驳回的文档</li>
+			</ol>
+
+			<div class="box box-solid">
+				<div class="box-header ui-sortable-handle bg-green">
+					<i class="ion ion-clipboard"></i>
+					<h3 class="box-title">当前主持的项目</h3>
+
+					<div class="box-tools pull-right">
+			            <button type="button" class="btn bg-green btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		            </div>
+					
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					
+					<table class="table table-hover saved-table">
+						<thead>
+							<tr>
+								<th class="table-middle">编号</th>
+								<th class="table-left">文档名称</th>
+								<th class="table-left">项目名称</th>
+								<th class="table-middle" style="width: 90px">执行周期</th>
+								<th class="table-middle" style="width: 80px;">类型</th>
+								<th class="table-middle" style="width: 108px;">创建日期</th>
+								<th class="table-middle" style="width: 120px"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="table-middle">492020170756</td>
+								<td class="table-left">
+									基于基因组学的农业生物重要性状的功能位点挖掘与鉴定.pdf
+								</td>
+								<td class="table-left">基于基因组学的农业生物重要性状的功能位点挖掘与鉴定</td>
+								<td class="table-middle">3年</td>
+								<td class="table-middle">任务书</td>
+								<td class="table-middle">2017-03-14</td>
+								<td class="table-middle">
+									<a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改意见" ng-click="showSuggestionModal()"><i class="fa fa-search"></i></a>
+									<a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"><i class="fa fa-download"></i></a>
+									<a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="重新上传"><i class="fa fa-upload"></i></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+				</div>
+				<!-- /.box-body -->
+			</div>
+
+
+			<br />
+			<br />
+			
+			<div class="box box-solid">
+				<div class="box-header ui-sortable-handle bg-primary">
+					<i class="ion ion-clipboard" style="color: white;"></i>
+					<h3 class="box-title" style="color: white;">既往主持的项目</h3>
+
+					<div class="box-tools pull-right">
+			            <button type="button" class="btn bg-primary btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		            </div>
+					
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					
+					<table class="table table-hover saved-table">
+						<thead>
+							<tr>
+								<th class="table-middle">编号</th>
+								<th class="table-left">文档名称</th>
+								<th class="table-left">项目名称</th>
+								<th class="table-middle" style="width: 90px">执行周期</th>
+								<th class="table-middle" style="width: 80px;">类型</th>
+								<th class="table-middle" style="width: 108px;">创建日期</th>
+								<th class="table-middle" style="width: 60px;"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="table-middle">492020170424</td>
+								<td class="table-left">
+									主要农作物重要农艺性状的变异组学研究.pdf
+								</td>
+								<td class="table-left">主要农作物重要农艺性状的变异组学研究</td>
+								<td class="table-middle">1年</td>
+								<td class="table-middle">任务书</td>
+								<td class="table-middle">2017-02-28</td>
+								<td class="table-middle">
+									<a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"><i class="fa fa-download"></i></a>
+								</td>
+							</tr>
+							<tr>
+								<td class="table-middle">492020170348</td>
+								<td class="table-left">
+									蔬菜生产灾害性天气应对技术研究.pdf
+								</td>
+								<td class="table-left">蔬菜生产灾害性天气应对技术研究</td>
+								<td class="table-middle">1年</td>
+								<td class="table-middle">年度报告</td>
+								<td class="table-middle">2017-01-04</td>
+								<td class="table-middle">
+									<a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"><i class="fa fa-download"></i></a>
+								</td>
+							</tr>
+							<tr>
+								<td class="table-middle">492020170415</td>
+								<td class="table-left">
+									生猪肉牛等畜禽基因组选择育种技术研发与集成.pdf
+								</td>
+								<td class="table-left">生猪肉牛等畜禽基因组选择育种技术研发与集成</td>
+								<td class="table-middle">1年</td>
+								<td class="table-middle">结题报告</td>
+								<td class="table-middle">2017-03-07</td>
+								<td class="table-middle">
+									<a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"><i class="fa fa-download"></i></a>
+								</td>
+							</tr>
+							<tr>
+								<td class="table-middle">492020179564</td>
+								<td class="table-left">
+									家禽常见病防控技术的应急储备研究.pdf
+								</td>
+								<td class="table-left">家禽常见病防控技术的应急储备研究</td>
+								<td class="table-middle">3年</td>
+								<td class="table-middle">任务书</td>
+								<td class="table-middle">2017-03-14</td>
+								<td class="table-middle">
+									<a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"><i class="fa fa-download"></i></a>
+								</td>
+							</tr>
+							<tr>
+								<td class="table-middle">492020174253</td>
+								<td class="table-left">
+									病原微生物及生物毒素识别评估技术研究.pdf
+								</td>
+								<td class="table-left">病原微生物及生物毒素识别评估技术研究</td>
+								<td class="table-middle">1年</td>
+								<td class="table-middle">任务书</td>
+								<td class="table-middle">2017-03-07</td>
+								<td class="table-middle">
+									<a class="manage-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="下载"><i class="fa fa-download"></i></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+				</div>
+				<!-- /.box-body -->
+			</div>
+			
+
+		</div>
+		
+		
+		
+		<!--showSuggestionModal-->
+		<div class="modal fade" id="showSuggestionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">修改意见</h3>
+					</div>
+					<div class="modal-body">
+						<p>经费应不超过25万元。参与人员应不少于3个。</p>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+		
+		
+	</body>
+</html>

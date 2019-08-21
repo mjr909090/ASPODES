@@ -1,0 +1,488 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngApplication_UnhandledApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap-table.css" />
+		<link rel="stylesheet" href="css/bootstrap-editable.css" />
+		<script type="text/javascript" src="js/bootstrap-table.js"></script>
+		<script type="text/javascript" src="js/Views/superAdmin/applicationManagement/application_unhandled.js"></script>
+	</head>
+
+	<body ng-controller="ngApplication_UnhandledCtrl">
+		<div class="container">
+			<br />
+			<ol class="breadcrumb">
+				<li>
+					<a><i class="fa fa-dashboard"></i> 全院管理</a>
+				</li>
+				<li>
+					<a> 申请书管理</a>
+				</li>
+				<li class="active"> 待受理申请书</li>
+			</ol>
+			<div class="box box-solid" style="margin-top: 40px">
+				<div class="box-header" style="cursor: move; background-color:#30bbbb;">
+					<div class="pull-right box-tools">
+						<button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px; background-color:#30bbbb;" data-original-title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+					</div>
+					<!--<i class="fa fa-map-marker"></i>-->
+					<!--位置的图标-->
+					<h3 class="box-title"> 待受理申请书列表 </h3>
+				</div>
+				<div class="box-body" style="display: block;">                  
+					<div>
+						<div class="jvectormap-container" style="width: 100%; height: 100%; position: relative; overflow: hidden; background-color: transparent;">							
+                            <div class="row">
+                                <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                                    <label for="applyType_searchcobobox" class="col-lg-5 control-label">类型</label>
+                                    <div class="col-lg-7">
+                                        <select class="form-control" ng-model="selectedProject" ng-options="x.Name for x in projectTypes" ng-change="getProjectTypeIdForPage(selectedProject.ProjectTypeId)">
+                                            <option value="">请选择类型</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                                    <label for="instTypes" class="col-lg-5 control-label">单位</label>
+                                    <div class="col-lg-7">
+                                        <select class="form-control" ng-model="selectedInst" ng-options="x.Name for x in instTypes" ng-change="getInstIdForPage(selectedInst.InstituteId)">
+                                            <option value="">请选择单位</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="float:right;margin-right:3vw;">
+                                    <button class="btn btn-primary" style="margin-right:1vw;" ng-click="packageDownloadApplications(selectedProject.ProjectTypeId,selectedInst.InstituteId)">批量下载</button>
+                                    <button class="btn btn-primary" ng-click="exportDeptUnhandledList(selectedProject.ProjectTypeId,selectedInst.InstituteId)">导出列表</button>
+                                </div>
+                                <div class="form-group col-lg-1 col-md-1 col-sm-1"></div>
+                                <div class="form-group col-lg-5 col-md-5 col-sm-5"></div>
+
+                            </div>
+                           
+                            <table class="table table-striped table-hover" id="unhandledTable" ng-hide="divisionAppliesIsNull">
+                                <thead>
+                                    <tr>
+                                        <th>申请书名称</th>
+                                        <th class="table-middle" style="width:144px">委托</th>
+                                        <th style ="min-width: 104px;">类型</th>
+                                        <th>单位</th>
+                                        <th style="min-width: 64px;">牵头负责人</th>
+                                        <th style="min-width: 48px;">PDF文件</th>
+
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-show='isShow1' ng-repeat="unhandledApplication in unhandledApplications | filter:selectedProject.Name | filter:selectedInst.Name">
+                                        <!--<td><a class='refuse' ng-click="unhandledApplicationId(unhandledApplication.ApplicationId);viewApplicationModal()">{{unhandledApplication.ProjectName}}</a></td> -->
+                                        <td><a class='refuse' ng-click="showPDFpage(unhandledApplication.PDF)">{{unhandledApplication.ProjectName}}</a></td>
+                                        <td class="table-middle">
+                                            <span class="label label-default" ng-if="unhandledApplication.DeleageType == 0"> 非委托</span>
+                                            <span class="label label-primary" ng-if="unhandledApplication.DeleageType == 1"> 委托</span>
+                                        </td>
+                                        <td>{{unhandledApplication.ProjectTypeName}}</td>
+                                        <td>{{unhandledApplication.InstituteName}}</td>
+                                        <td> <a class='refuse' ng-click="unhandledLeaderId(unhandledApplication.LeaderId);responserLeaderModal()">{{unhandledApplication.LeaderName}}</a></td>
+                                        <td>
+                                            <a class="pdfDownload" ng-click="downloadPDF(unhandledApplication.ApplicationId,unhandledApplication.ProjectName)">下载</a>
+                                            <!--<a class="pdfDownload" href="/api/applicationdoc/download/pdf/{{unhandledApplication.ApplicationId}}" download="">下载</a>-->
+<td>
+                                            <a class="manage-icon" ng-click="showRejectApplicationModal(unhandledApplication.ApplicationId);reloadRejectModal(unhandledApplication)" data-toggle="tooltip" data-placement="top" title="" data-original-title="不受理"><i class="fa fa-remove"></i></a>
+                                            <a class="manage-icon" ng-click="showHandleModal(unhandledApplication.ApplicationId)" data-toggle="tooltip" data-placement="top" title="" data-original-title="受理"><i class="fa fa-check"></i></a>
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                            <div class="callout callout-info" ng-hide="!divisionAppliesIsNull">
+                                <h4>注意!</h4>
+
+                                <p>当前没有任何待受理的申请书！</p>
+                            </div>
+						</div>
+					</div>
+				</div>
+                <!-- box footer -->
+                <div class="box-footer" ng-hide="divisionAppliesIsNull">
+                    <!-- paging -->
+                    <div class="col-lg-8 col-md-7 col-sm-6 col-xs-12">
+                        <span style="font-size: 24px;" ng-cloak>共： {{pageItem}}页，{{count}} 条，当前第{{p_current}}页，显示&nbsp;{{p_count}}&nbsp;条</span>
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+                        <ul class="pagination" style="margin: 0px;">
+                            <li ng-class="{true:'disabled'}[p_current  == 1]"><a ng-click="nextPage(p_current-1)">&laquo;</a></li>
+                            <li ng-show="p_current  > 3"><a ng-click="nextPage(1)">1</a></li>
+                            <li ng-show=" p_current > 4">
+                                <a href="javascript:void(0)">...</a>
+                            </li>
+                            <li ng-repeat="page in pages" ng-if="judgeAbs(p_current,page)" ng-class="{true:'active'}[page == p_current ]">
+                                <a ng-click="nextPage(page)">{{page}}</a>
+                            </li>
+                            <li ng-show=" p_current  < pageItem - 3">
+                                <a href="javascript:void(0)">...</a>
+                            </li>
+                            <li ng-show="p_current  < pageItem - 2"><a ng-click="nextPage(pageItem)">{{pageItem}}</a></li>
+                            <li ng-class="{true:'disabled'}[p_current == pageItem || pageItem == 0]"><a ng-click="nextPage(p_current+1)">&raquo;</a></li>
+                        </ul>
+                    </div>
+                    <!--
+                         <div class="col-lg-8 col-md-7 col-sm-6 col-xs-12">
+                        <span style="font-size: 24px;">共： {{pageItem}}页，{{count}} 条；当前第{{p_current}}页，显示&nbsp;{{p_count}}&nbsp;条</span>
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+                        <ul class="pagination" style="margin: 0px;">
+                            <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == 1" ng-click="p_index()">首页</button></li>
+                            <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == 1" ng-click="p_prev()">&lt;&lt;Prev</button></li>
+                            <li ng-repeat="page in pages" ng-class="{active: p_current == page}" class="waves-effect">
+                                <button class="btn btn-default btn-sm" ng-disabled="pageItem == 0" ng-click="load_page(page)">{{page}}</button>
+                            </li>
+                            <li>
+                                <button class="btn btn-default btn-sm" ng-disabled=" p_current == pageItem || pageItem == 0" ng-click="p_next()">Next&gt;&gt;</button>
+                            </li>
+                            <li><button class="btn btn-default btn-sm" ng-disabled=" p_current == pageItem || pageItem == 0" ng-click="p_last()">尾页</button></li>
+                        </ul>
+                    </div>
+                    -->
+                   
+                    <!-- /.box-footer -->
+                </div>
+			</div>
+		</div>
+
+        <!--受理的模态框-->
+        <div class="modal fade" id="handleApplication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title">受理</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <p style="font-size: 20px;">您确定要受理该申请书吗？</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" style="background-color:#30bbbb;" ng-click="handleApplicationSure()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--不受理的模态框-->
+        <div class="modal fade" id="rejectApplication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <!--<div class="modal">-->
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title">不受理</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <h3 class="box-title">您确定要对该申请书进行不受理操作吗</h3>
+                            </div>
+                            <div class="box-body">
+                                <form class="form-horizontal row" role="form" name="rejectForm" novalidate>
+                                    <div class="form-group">
+                                       <!--
+                                          <input type="text" placeholder="请输入关键字" ng-model="test" />
+                                        <ul>
+                                            <li ng-repeat="x in array | filter:test">{{x}}</li>
+                                        </ul>*
+                                       --> 
+                                        <label for="unhandledReason_searchcobobox" class="col-lg-3 control-label">请选择原因</label>
+                                        <div class="col-lg-7">                                           
+                                            <select ng-select-search class="form-control" id="unhandledReason_searchcobobox" ng-model="selectOne" ng-change="unhandledReasonChange()">
+                                                <option></option>
+                                                <option>不受理原因1</option>
+                                                <option>不受理原因2</option>
+                                                <option>不受理原因3</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <label for="unhandledReason" class="col-lg-3 control-label">请填写不受理原因<label style="color:red;">*</label></label>
+                                        <div class="col-lg-7">
+                                            <textarea class="form-control required" name="unhandledReason" rows="3" ng-model="unhandledReason" id="unhandledReasonId" placeholder="不受理原因：..." required></textarea>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                      
+                        <button type="button" class="btn btn-primary" ng-disabled="rejectForm.unhandledReason.$error.required" data-dismiss="modal"
+                                ng-click="handleApplicationNotSure()">
+                            确定
+                        </button>
+                      
+                        <!--
+                            <button type="button" class="btn btn-primary" ng-disabled="rejectForm.rejectReason.$error.required" ng-click="handleApplicationNotSure()" >确认</button>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+
+		<!--查看的模态框  2017.04.25-->
+		<div class="modal fade" id="viewApplication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!--右上角叉号-->
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">申请书</h3>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="progress xs col-lg-12">
+								<div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+
+							</div>
+							<h3>&nbsp;&nbsp;&nbsp;基本信息</h3>
+						</div>
+                       
+                        <div class="row" >
+                     
+                            <div class="col-lg-6">
+                                <h4>工作任务名称</h4>
+                                <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{applicationInfo.ProjectName}}</strong></h5>
+                                <h4>委托部门（甲方）</h4>
+                                <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中国农业科学院</strong></h5>
+                                <h4>承担部门（乙方）</h4>
+                                <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主持单位：{{applicationInfo.InstituteName}}</strong></h5>
+                                <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目负责人：{{applicationInfo.LeaderName}}</strong></h5>
+                    
+                            </div>
+                            <div class="col-lg-6">
+                                <h4>单位名称：</h4>
+                                <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{applicationInfo.InstituteName}}</strong></h5>                              
+                                <h4>类别：</h4>
+                                <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{applicationInfo.ProjectTypeName}}</strong></h5>
+                            </div>
+
+                        </div>
+                        <!--
+                            	<div class="row">
+
+							<div class="col-lg-6">
+									<h4>工作任务名称</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;申请书01</strong></h5>
+									<h4>委托部门（甲方）</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中国农业科学院</strong></h5>
+									<h4>承担部门（乙方）</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主持单位：科技管理局</strong></h5>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目负责人：项目负责人01</strong></h5>
+									<h4>经费预算：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20万</strong></h5>
+									<h4>2017年度经费：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15万</strong></h5>
+								</div>
+							<div class="col-lg-6">
+									<h4>单位名称：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;科技管理局</strong></h5>
+									<h4>编号：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;123456789</strong></h5>
+									<h4>实施起止年限：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2017年1月&nbsp;&nbsp;至&nbsp;&nbsp;2017年12月</strong></h5>
+									<h4>类别：</h4>
+									<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类别01</strong></h5>
+								</div>
+									
+						</div>
+                        -->
+					
+						<br />
+						<div class="row">
+							<div class="progress xs col-lg-12">
+								<div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+							</div>
+						</div>
+								
+					</div>
+					<div class="modal-footer">
+						<!-- <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+					</div>
+				</div>
+					
+			</div>
+					
+		</div>
+		<!--牵头负责人信息的模态框-->
+		<div class="modal fade" id="responserLeader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<!--<div class="modal">-->
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<!--右上角的关闭按钮-->
+								<h3 class="modal-title">负责人信息</h3>
+							</div>
+							<div class="modal-body">
+
+								<div class="row">
+									<div class="progress xs col-lg-12">
+										<div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+									</div>
+								</div>
+								<div class="row">
+                                  
+									<div class="col-lg-6">
+										<h4>负责人姓名：</h4>
+										<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Name}}</strong></h5>
+                                        <h4>身份证号：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.IDCard}}</strong></h5>
+										<h4>性别：</h4>
+										<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Male}}</strong></h5>
+										<h4>英文名：</h4>
+										<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.EnglishName}}</strong></h5>
+										<h4>电子邮箱：</h4>
+										<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Email}}</strong></h5>
+										<h4>手机：</h4>
+										<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Phone}}</strong></h5>
+									</div>
+									<div class="col-lg-6">
+										<h4>职务：</h4>
+										<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Duty}}</strong></h5>
+										<h4>职称：</h4>
+										<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Title}}</strong></h5>
+										<h4>办公室电话：</h4>
+										<h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.OfficePhone}}</strong></h5>
+                                        <h4>地址：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Address}}</strong></h5>
+                                        <h4>邮编：</h4>
+                                        <h5><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{personInfo.Zip}}</strong></h5>
+									</div>
+								</div>
+								<div class="row">
+									<div class="progress xs col-lg-12">
+										<div class="progress-bar progress-bar-light-blue" style="width: 100%; margin-left: auto; margin-right: auto;"></div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<!-- <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>-->
+							</div>
+						</div>
+					</div>
+				</div>
+
+		<!--添加参与人员的模态框-->
+		<div class="modal" id="AddParticipate">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">添加参与人员</h3>
+					</div>
+					<div class="modal-body">
+
+						<form class="form-horizontal">
+							<fieldset>
+								<!-- <legend>添加管理员</legend>-->
+								<div class="form-group">
+									<label class="col-lg-2 control-label"><font style="color: red;">*</font>姓名</label>
+									<div class="col-lg-3">
+										<input class="form-control" id="expertName" type="text">
+									</div>
+
+									<label class="col-lg-2 control-label">性别</label>
+									<div class="col-lg-5">
+										<div class="radio">
+											<label>
+	                                         <input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio"> 男
+	                                      	</label>
+											<label style="margin-left: 40px;">
+	                                            <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio">女
+	                                            
+	                                        </label>
+										</div>
+									</div>
+
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label"><font style="color: red;">*</font>邮箱</label>
+									<div class="col-lg-3">
+										<input class="form-control" id="email" type="text">
+									</div>
+
+									<label class="col-lg-2 control-label"><font style="color: red;">*</font>身份证号</label>
+									<div class="col-lg-3">
+										<input class="form-control" id="workNum" type="text">
+									</div>
+
+								</div>
+								<div class="form-group">
+
+									<label for="adminTitle_Add" class="col-lg-2 control-label">职称</label>
+									<div class="col-lg-3">
+										<select class="form-control" id="adminTitle_Add">
+											<option> </option>
+											<option>教授</option>
+											<option>副教授</option>
+											<option>研究员</option>
+										</select>
+									</div>
+									<label class="col-lg-2 control-label">手机号</label>
+								    <div class="col-lg-3">
+										<input class="form-control" id="iphoneNum" type="text">
+									</div>
+
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">所在单位</label>
+									<div class="col-lg-3">
+										<input class="form-control" id="workUnit" type="text">
+									</div>
+
+									<label class="col-lg-2 control-label">担任职务</label>
+									<div class="col-lg-3">
+										<input class="form-control" id="jobType" type="text">
+									</div>
+
+								</div>
+							</fieldset>
+						</form>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--删除参与人员的模态框-->
+		<div class="modal" id="deleteParticipate">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">删除</h3>
+					</div>
+					<div class="modal-body">
+					<div class="container">
+							<p style="font-size: 20px;">删除成功</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+
+</html>

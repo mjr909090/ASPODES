@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngApplyUnitApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/Views/divisionAdmin/applicationManagement/division_application.css" />
+
+   
+</head>
+
+<body ng-controller="ngApplyUnitCtrl">
+
+    <div class="container">
+        <!-- 面包屑导航 -->
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="fa fa-dashboard"></i> 单位管理</a>
+            </li>
+            <li>
+                <a> 申请书管理</a>
+            </li>
+            <li> <span>待审核申请书</span></li>
+        </ol>
+
+        <!-- 待审核申请书列表 -->
+        <div class="box box-solid">
+            <!-- box header -->
+            <div class="box-header bg-light-blue-gradient">
+                <div class="pull-right box-tools">
+                    <a class="btn btn-primary bg-light-blue-gradient" data-widget="collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="折叠" style="margin-right: 8px"><i class="fa fa-minus"></i></a>
+                </div>
+                <i class="fa fa-sticky-note"></i>
+                <h3 class="box-title">待审核申请书列表</h3>
+            </div>
+            <!-- box body -->
+            <div class="box-body">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                    <br />
+
+                    <!-- toolbar-->
+                    <div class="row">
+                        <div class="form-group col-lg-6 col-md-6 col-sm-12" style="margin-left: 8px;">
+                            <!-- 搜索分类 -->
+                            <label for="select" class="control-label">分类</label>
+                            <select class="form-control"
+                                    id="select"
+                                    style="margin-left: 16px;"
+                                    ng-model="selectValue"
+                                    ng-options="projectType.ProjectTypeId as projectType.Name for projectType in projectTypeList"
+                                    ng-change="load_page(1)">
+                                <option value="">全部</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="float:right;margin-right:3vw;">
+                            <button class="btn btn-primary" style="margin-right:1vw;" ng-click="packageDownloadApplications(selectValue)">批量下载</button>
+                            <button class="btn btn-primary" ng-click="exportDivisionUnhandledList(selectValue)">导出列表</button>
+                        </div>
+                    </div>
+
+                    <br />
+                    <table id="divisionApplyTable" class="table" ng-hide="divisionAppliesIsNull">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" ng-model="select_all" ng-change="selectAll()" /></th>
+                                <th style="min-width: 48px;">序号</th>
+                                <th>名称</th>
+                                <th class="table-middle" style="width:144px">委托</th>
+                                <th style="min-width: 104px;">类别</th>
+                                <th style="min-width: 64px;">负责人</th>
+                                <th style="min-width: 48px;">全文</th>
+                                <th style="min-width: 16px;">状态</th>
+                                <th class="table-middle" style="min-width: 96px;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="divisionApply in divisionApplies track by divisionApply.ApplicationId" ng-cloak>
+                                <td><input type="checkbox" ng-model="divisionApply.checked" ng-change="selectSingle()" /></td>
+                                <td>{{$index + 1}}</td>
+                                <td>
+                                    <span class="text">{{divisionApply.ProjectName}}</span>
+                                </td>
+                                <td class="table-middle">
+                                    <span class="label label-default" ng-if="divisionApply.DeleageType == 0"> 非委托</span>
+                                    <span class="label label-primary" ng-if="divisionApply.DeleageType == 1"> 委托</span>
+                                </td>
+                                <td>{{divisionApply.ProjectTypeName}}</td>
+                                <td>
+                                    <a ng-click="principalDetail(divisionApply.LeaderId)" data-target="#fzrInfo" data-toggle="modal">{{divisionApply.LeaderName}}</a>
+                                </td>
+                                <td>
+                                    <a class="pdfDownload" ng-click="downloadPDF(divisionApply.ApplicationId,divisionApply.ProjectName)">下载</a>
+                                </td>
+                                <td>
+                                    <span class="label label-primary">待审核</span>
+                                </td>
+                                <td style="text-align: center;">
+                                    <a class="manage-icon" ng-click="showRejectApplicationModal(divisionApply);" data-toggle="tooltip" data-placement="top" title="" data-original-title="驳回"><i class="fa fa-remove"></i></a>
+                                    <a class="manage-icon" ng-click="showSubmitApplicationModal(divisionApply)" data-toggle="tooltip" data-placement="top" title="" data-original-title="提交"><i class="fa fa-check"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="callout callout-info" ng-hide="!divisionAppliesIsNull">
+                        <h4>注意!</h4>
+
+                        <p>当前没有任何待审核的申请书！</p>
+                    </div>
+
+                </div>
+            </div>
+            <!-- box footer -->
+            <div class="box-footer" ng-hide="divisionAppliesIsNull">
+                <!-- paging -->
+
+                <self-pagination></self-pagination>
+                               
+                <!-- /.box-footer -->
+            </div>
+
+            <div class="overlay" ng-hide="listAlready">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+
+            <!-- /.box -->
+        </div>
+
+        <!-- 负责人fzrInfolModal-->
+        <principal-detail></principal-detail>
+
+        <!-- 驳回 Modal -->
+        <div class="modal" id="rejectApplication">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-red">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>确认驳回吗？&nbsp;&nbsp;驳回请填写驳回理由</h4>
+                        <strong>一经提交不可撤回，请谨慎操作！</strong>
+                        <br />
+                        <hr />
+                        <form role="form" name="rejectForm" novalidate>
+                            <div class="form-group">
+                                <select class="form-control" id="selectReject" ng-model="selectRejectValue" ng-change="rejectValue()">
+                                    <option value="">请选择</option>
+                                    <option value="内容不合格">内容不合格</option>
+                                    <option value="类别不符合">类别不符合</option>
+                                    <option value="信息不完全">信息不完全</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>请填写驳回原因（<label style="color:red;">必填</label>）</label>
+                                <textarea class="form-control required" name="rejectReason" ng-model="rejectReason" rows="4" required></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" ng-disabled="rejectForm.rejectReason.$error.required" ng-click="reject(modalData.ApplicationId)">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 提交submitApplicationModal-->
+        <div class="modal fade" id="submitApplication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title">提交申请书</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>确认要提交此申请书？</h4>
+                        <h4>请注意：提交后您只能在院管理员未受理之前撤回该申请书！</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="submit(modalData.ApplicationId)">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <!-- /.container -->
+    </div>
+
+</body>
+
+</html>

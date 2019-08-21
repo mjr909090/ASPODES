@@ -1,0 +1,52 @@
+.line{
+	display: ;
+	height: 3px;
+	width: 96%;
+	background-color: rgba(0,0,0,0.3);
+	margin-top: 24px;
+	margin-bottom: 24px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.title-head{
+	margin-left: 16px;
+}
+
+.products-list .product-info {
+  margin-left: 10px;
+}
+
+.manageLable{
+    margin-right:5px;
+}
+
+.projectInfoBody{
+    border-top:1px solid rgba(0,0,0,0.6);
+    border-bottom:1px solid rgba(0,0,0,0.6);
+    margin-bottom:28px
+}
+
+.todo-list > li .tools {
+  display: inline-block;
+  float: right;
+  color: #dd4b39;
+}
+
+.projectInfoBody .btn-group{
+    margin-left:12px;
+}
+
+.changeItemBtn {
+    border-radius: 0;
+}
+
+.btn-group .active {
+    color: #ffffff;
+    background-color: #3c8dbc;
+    border-color: #3c8dbc;
+}
+
+.product-title > i:hover{
+    cursor:pointer;
+}
